@@ -142,3 +142,48 @@ export interface JobOpportunity {
   type: 'remote' | 'hybrid' | 'onsite';
   logo?: string;
 }
+
+export type GoalCategory = 'career' | 'learning' | 'wellbeing' | 'networking' | 'other';
+export type GoalPriority = 'alta' | 'media' | 'baja';
+export type GoalStatus = 'pending' | 'in_progress' | 'paused' | 'completed' | 'abandoned';
+export type GoalVisibility = 'private' | 'circle' | 'public';
+
+export interface Microaction {
+  id: string;
+  title: string;
+  description?: string;
+  dueDate?: string;
+  priority?: GoalPriority;
+  xp?: number;
+  completed: boolean;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface HistoryEntry {
+  action: string;
+  by: string;
+  at: string;
+  payload?: any;
+}
+
+export interface Goal {
+  id: string;
+  title: string;
+  description?: string;
+  category: GoalCategory;
+  priority: GoalPriority;
+  createdAt: string;
+  dueDate?: string;
+  visibility: GoalVisibility;
+  status: GoalStatus;
+  progress: number;
+  progressTarget?: number;
+  microactions: Microaction[];
+  tags?: string[];
+  relatedSkills?: string[];
+  repeat?: 'none' | 'daily' | 'weekly' | 'monthly';
+  ownerId: string;
+  assignedByAdmin?: boolean;
+  history: HistoryEntry[];
+}

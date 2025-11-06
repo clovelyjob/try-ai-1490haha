@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard', active: true },
-    { icon: Target, label: 'Objetivos', path: '/objetivos', badge: 3 },
+    { icon: Target, label: 'Objetivos', path: '/dashboard/goals', badge: 3 },
     { icon: FileText, label: 'CV', path: '/cv-builder', badge: '80%' },
     { icon: Briefcase, label: 'Oportunidades', path: '/oportunidades', badge: 12 },
     { icon: Mic, label: 'Entrevistas', path: '/interview-practice' },
