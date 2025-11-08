@@ -9,7 +9,11 @@ import { Progress } from '@/components/ui/progress';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
+import { useGoalsStore } from '@/store/useGoalsStore';
+import { useActionPlanStore } from '@/store/useActionPlanStore';
 import { QUOTES } from '@/lib/constants';
+import WeeklyPlanWidget from '@/components/WeeklyPlanWidget';
+import CareerCopilot from '@/components/CareerCopilot';
 import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
   Bot, Gift, Settings, Bell, Search, TrendingUp, Flame,
