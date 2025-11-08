@@ -43,7 +43,7 @@ const Dashboard = () => {
     { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
     { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
     { icon: BarChart3, label: 'Progreso', path: '/progress' },
-    { icon: Bot, label: 'Coach', path: '/coach', glow: true },
+    { icon: Bot, label: 'Coach', path: '/dashboard/coach', glow: true },
     { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
     { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];

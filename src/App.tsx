@@ -21,6 +21,7 @@ import InterviewHistory from "./pages/InterviewHistory";
 import CircleDiscover from "./pages/CircleDiscover";
 import CircleDetail from "./pages/CircleDetail";
 import Rewards from "./pages/Rewards";
+import Coach from "./pages/Coach";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/dashboard/circles" element={<CircleDiscover />} />
           <Route path="/dashboard/circles/:id" element={<CircleDetail />} />
           <Route path="/dashboard/rewards" element={<Rewards />} />
+          <Route path="/dashboard/coach" element={<Coach />} />
           <Route path="/dashboard/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
