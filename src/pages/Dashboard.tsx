@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -39,7 +39,7 @@ const Dashboard = () => {
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard', active: true },
     { icon: Target, label: 'Objetivos', path: '/dashboard/goals', badge: 3 },
-    { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs', badge: '80%' },
+    { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
     { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities', badge: 12 },
     { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
     { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
@@ -159,12 +159,23 @@ const Dashboard = () => {
           {!sidebarCollapsed && (
             <div className="space-y-1">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-muted-foreground">XP</span>
+                <span className="text-muted-foreground">Próximo nivel</span>
                 <span className="font-medium">
-                  {progress.currentXP}/{progress.nextLevelXP}
+                  {progress.currentXP}/{progress.nextLevelXP} XP
                 </span>
               </div>
-              <Progress value={xpPercentage} className="h-1.5" />
+              <div className="flex gap-1">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 flex-1 rounded-full ${
+                      i < Math.floor((progress.currentXP / progress.nextLevelXP) * 10)
+                        ? 'bg-primary'
+                        : 'bg-muted'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -277,11 +288,10 @@ const Dashboard = () => {
                 <TrendingUp className="h-4 w-4 text-success" />
               </div>
               <div className="space-y-2">
-                <div className="flex items-end gap-2">
-                  <span className="text-3xl font-heading font-bold">73%</span>
-                  <span className="text-sm text-success mb-1">+23%</span>
+                <div className="flex items-center gap-2">
+                  <Badge className="gradient-orange text-white">En marcha</Badge>
                 </div>
-                <div className="text-xs text-muted-foreground">15/20 tareas completadas</div>
+                <div className="text-xs text-muted-foreground">15 de 20 tareas completadas</div>
               </div>
             </Card>
 
@@ -309,11 +319,14 @@ const Dashboard = () => {
                 <Zap className="h-4 w-4 text-secondary" />
               </div>
               <div className="space-y-2">
-                <div className="flex items-end gap-2">
+                <div className="flex items-center gap-2">
                   <span className="text-3xl font-heading font-bold">{progress.level}</span>
+                  <Badge variant="secondary" className="text-xs">
+                    {progress.level < 5 ? 'Novato' : progress.level < 10 ? 'En crecimiento' : 'Experto'}
+                  </Badge>
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {progress.currentXP}/{progress.nextLevelXP} XP
+                  {progress.currentXP} de {progress.nextLevelXP} XP para subir
                 </div>
               </div>
             </Card>

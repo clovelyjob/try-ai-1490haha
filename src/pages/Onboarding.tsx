@@ -29,7 +29,7 @@ const Onboarding = () => {
       companySize: '',
     },
     skills: {
-      technical: [] as { name: string; level: number }[],
+      technical: [] as { name: string; level: 'Por explorar' | 'En desarrollo' | 'Fortaleza' | 'Experto' }[],
       soft: [] as string[],
       languages: [] as { name: string; level: string }[],
       tools: [] as string[],

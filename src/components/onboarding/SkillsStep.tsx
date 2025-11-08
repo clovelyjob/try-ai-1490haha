@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Slider } from '@/components/ui/slider';
+
 import { Search, Plus, X } from 'lucide-react';
+
+type SkillLevel = 'Por explorar' | 'En desarrollo' | 'Fortaleza' | 'Experto';
 
 interface SkillsStepProps {
   skills: {
-    technical: { name: string; level: number }[];
+    technical: { name: string; level: SkillLevel }[];
     soft: string[];
     languages: { name: string; level: string }[];
     tools: string[];
@@ -42,7 +44,7 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
     if (!skills.technical.find(s => s.name === name)) {
       onChange({
         ...skills,
-        technical: [...skills.technical, { name, level: 50 }]
+        technical: [...skills.technical, { name, level: 'En desarrollo' as SkillLevel }]
       });
     }
     setSearchTech('');
@@ -55,7 +57,7 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
     });
   };
 
-  const updateTechnicalLevel = (name: string, level: number) => {
+  const updateTechnicalLevel = (name: string, level: SkillLevel) => {
     onChange({
       ...skills,
       technical: skills.technical.map(s =>
@@ -63,6 +65,18 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
       )
     });
   };
+
+  const getSkillLevelColor = (level: SkillLevel) => {
+    const colors = {
+      'Por explorar': 'bg-muted/50 text-muted-foreground border-muted',
+      'En desarrollo': 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+      'Fortaleza': 'bg-primary/10 text-primary border-primary/20',
+      'Experto': 'bg-success/10 text-success border-success/20'
+    };
+    return colors[level];
+  };
+
+  const SKILL_LEVELS: SkillLevel[] = ['Por explorar', 'En desarrollo', 'Fortaleza', 'Experto'];
 
   const toggleSoftSkill = (name: string) => {
     if (skills.soft.includes(name)) {
@@ -160,7 +174,7 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
 
           <div className="space-y-3">
             {skills.technical.map((skill) => (
-              <div key={skill.name} className="p-4 border rounded-lg space-y-2">
+              <div key={skill.name} className="p-4 border rounded-lg space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{skill.name}</span>
                   <button
@@ -170,18 +184,23 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
                     <X className="h-4 w-4" />
                   </button>
                 </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Nivel</span>
-                    <span>{skill.level}%</span>
+                <div className="space-y-2">
+                  <p className="text-xs text-muted-foreground">¿Cómo te sientes con esta habilidad?</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {SKILL_LEVELS.map((level) => (
+                      <button
+                        key={level}
+                        onClick={() => updateTechnicalLevel(skill.name, level)}
+                        className={`px-3 py-2 rounded-lg border-2 text-xs font-medium transition-all ${
+                          skill.level === level
+                            ? getSkillLevelColor(level)
+                            : 'border-border hover:border-primary/30'
+                        }`}
+                      >
+                        {level}
+                      </button>
+                    ))}
                   </div>
-                  <Slider
-                    value={[skill.level]}
-                    onValueChange={([value]) => updateTechnicalLevel(skill.name, value)}
-                    min={0}
-                    max={100}
-                    step={10}
-                  />
                 </div>
               </div>
             ))}

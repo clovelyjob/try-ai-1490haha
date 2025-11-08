@@ -19,7 +19,7 @@ export interface Profile {
     companySize: string;
   };
   skills: {
-    technical: { name: string; level: number }[];
+    technical: { name: string; level: 'Por explorar' | 'En desarrollo' | 'Fortaleza' | 'Experto' }[];
     soft: string[];
     languages: { name: string; level: string }[];
     tools: string[];
