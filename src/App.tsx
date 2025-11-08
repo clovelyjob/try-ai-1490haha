@@ -10,6 +10,8 @@ import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import Goals from "./pages/Goals";
 import GoalDetail from "./pages/GoalDetail";
+import CVList from "./pages/CVList";
+import CVBuilder from "./pages/CVBuilder";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/goals" element={<Goals />} />
           <Route path="/dashboard/goals/:id" element={<GoalDetail />} />
+          <Route path="/dashboard/cvs" element={<CVList />} />
+          <Route path="/dashboard/cvs/:id" element={<CVBuilder />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

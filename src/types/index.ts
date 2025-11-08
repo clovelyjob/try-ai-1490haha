@@ -187,3 +187,151 @@ export interface Goal {
   assignedByAdmin?: boolean;
   history: HistoryEntry[];
 }
+
+export type CVTemplate = 'harvard' | 'modern' | 'minimal' | 'creative';
+
+export interface CVPersonalInfo {
+  fullName: string;
+  title?: string;
+  email: string;
+  phone?: string;
+  location?: string;
+  linkedin?: string;
+  github?: string;
+  website?: string;
+  avatarUrl?: string;
+}
+
+export interface CVEducation {
+  id: string;
+  institution: string;
+  degree: string;
+  field: string;
+  startDate: string;
+  endDate?: string;
+  gpa?: string;
+  description?: string;
+  thesis?: string;
+}
+
+export interface CVExperienceBullet {
+  text: string;
+  metric?: string;
+}
+
+export interface CVExperience {
+  id: string;
+  company: string;
+  role: string;
+  startDate: string;
+  endDate?: string;
+  current?: boolean;
+  location?: string;
+  bullets: CVExperienceBullet[];
+  technologies?: string[];
+}
+
+export interface CVResearch {
+  id: string;
+  title: string;
+  venue: string;
+  year: string;
+  link?: string;
+  summary?: string;
+  coauthors?: string;
+}
+
+export interface CVProject {
+  id: string;
+  title: string;
+  role?: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+}
+
+export interface CVTeaching {
+  id: string;
+  course: string;
+  institution: string;
+  role: string;
+  startDate: string;
+  endDate?: string;
+  description?: string;
+}
+
+export interface CVSkill {
+  name: string;
+  level: 'básico' | 'intermedio' | 'avanzado';
+  category?: 'técnica' | 'blanda';
+}
+
+export interface CVCertification {
+  id: string;
+  name: string;
+  institution: string;
+  date: string;
+  link?: string;
+}
+
+export interface CVLanguage {
+  name: string;
+  level: string; // A1-C2
+}
+
+export interface CVAward {
+  id: string;
+  title: string;
+  institution: string;
+  date: string;
+  description?: string;
+}
+
+export interface CVReference {
+  id: string;
+  name: string;
+  position: string;
+  contact?: string;
+}
+
+export interface CVScore {
+  overall: number;
+  clarity: number;
+  impact: number;
+  keywords: number;
+  format: number;
+}
+
+export interface CVVersion {
+  versionId: string;
+  snapshot: Partial<CVData>;
+  createdAt: string;
+  note?: string;
+}
+
+export interface CVData {
+  id: string;
+  userId: string;
+  title: string;
+  template: CVTemplate;
+  personal: CVPersonalInfo;
+  summary: string;
+  education: CVEducation[];
+  experience: CVExperience[];
+  research: CVResearch[];
+  projects: CVProject[];
+  teaching: CVTeaching[];
+  skills: CVSkill[];
+  certifications: CVCertification[];
+  languages: CVLanguage[];
+  awards: CVAward[];
+  references: CVReference[];
+  createdAt: string;
+  updatedAt: string;
+  versions: CVVersion[];
+  score: CVScore;
+  metadata: {
+    industryTags: string[];
+    targetKeywords: string[];
+  };
+}
