@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useRewardsStore } from './useRewardsStore';
 
 export type ActionStatus = 'pending' | 'in_progress' | 'completed' | 'skipped';
 export type ActionPriority = 'low' | 'medium' | 'high';
@@ -97,6 +98,8 @@ export const useActionPlanStore = create<ActionPlanState>()(
       },
 
       completeAction: (id) => {
+        const action = get().actions.find(a => a.id === id);
+        
         set((state) => ({
           actions: state.actions.map((action) =>
             action.id === id
@@ -108,6 +111,18 @@ export const useActionPlanStore = create<ActionPlanState>()(
               : action
           ),
         }));
+
+        // Award coins for completing action
+        if (action) {
+          const coinsReward = 10; // Base coins per microaction
+          useRewardsStore.getState().addCoins(coinsReward, `Microacción completada: ${action.title}`);
+          
+          // Update achievement progress
+          const completedCount = get().actions.filter(a => a.status === 'completed').length;
+          useRewardsStore.getState().updateAchievementProgress('microactions_10', completedCount);
+          useRewardsStore.getState().updateAchievementProgress('microactions_50', completedCount);
+          useRewardsStore.getState().updateAchievementProgress('microactions_100', completedCount);
+        }
       },
 
       skipAction: (id) => {

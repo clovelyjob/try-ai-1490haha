@@ -20,6 +20,7 @@ import InterviewSession from "./pages/InterviewSession";
 import InterviewHistory from "./pages/InterviewHistory";
 import CircleDiscover from "./pages/CircleDiscover";
 import CircleDetail from "./pages/CircleDetail";
+import Rewards from "./pages/Rewards";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/dashboard/interviews/history" element={<InterviewHistory />} />
           <Route path="/dashboard/circles" element={<CircleDiscover />} />
           <Route path="/dashboard/circles/:id" element={<CircleDetail />} />
+          <Route path="/dashboard/rewards" element={<Rewards />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

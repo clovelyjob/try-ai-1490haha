@@ -18,7 +18,7 @@ import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
   Bot, Gift, Settings, Bell, Search, TrendingUp, Flame,
   Sparkles, ArrowRight, CheckCircle2, Circle, Clock,
-  ChevronLeft, ChevronRight, RefreshCw, Zap,
+  ChevronLeft, ChevronRight, RefreshCw, Zap, Trophy,
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -44,7 +44,7 @@ const Dashboard = () => {
     { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
     { icon: BarChart3, label: 'Progreso', path: '/progress' },
     { icon: Bot, label: 'Coach', path: '/coach', glow: true },
-    { icon: Gift, label: 'Recompensas', path: '/rewards' },
+    { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
     { icon: Settings, label: 'Configuración', path: '/settings' },
   ];
 
