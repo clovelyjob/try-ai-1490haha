@@ -9,6 +9,11 @@ import { ProfileSection } from '@/components/settings/ProfileSection';
 import { SecuritySection } from '@/components/settings/SecuritySection';
 import { NotificationsSection } from '@/components/settings/NotificationsSection';
 import { AppearanceSection } from '@/components/settings/AppearanceSection';
+import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
+import { PrivacySection } from '@/components/settings/PrivacySection';
+import { IntegrationsSection } from '@/components/settings/IntegrationsSection';
+import { CoachSection } from '@/components/settings/CoachSection';
+import { AccountSection } from '@/components/settings/AccountSection';
 
 type SettingSection = 
   | 'profile' 
@@ -18,7 +23,8 @@ type SettingSection =
   | 'subscription' 
   | 'privacy' 
   | 'integrations' 
-  | 'coach';
+  | 'coach'
+  | 'account';
 
 const navigation = [
   { id: 'profile', label: 'Perfil', icon: User },
@@ -45,37 +51,15 @@ export default function Settings() {
       case 'appearance':
         return <AppearanceSection />;
       case 'subscription':
-        return (
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground">Sección de suscripción en desarrollo...</p>
-            </CardContent>
-          </Card>
-        );
+        return <SubscriptionSection />;
       case 'privacy':
-        return (
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground">Sección de privacidad en desarrollo...</p>
-            </CardContent>
-          </Card>
-        );
+        return <PrivacySection />;
       case 'integrations':
-        return (
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground">Sección de integraciones en desarrollo...</p>
-            </CardContent>
-          </Card>
-        );
+        return <IntegrationsSection />;
       case 'coach':
-        return (
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground">Preferencias del coach en desarrollo...</p>
-            </CardContent>
-          </Card>
-        );
+        return <CoachSection />;
+      case 'account':
+        return <AccountSection />;
       default:
         return null;
     }
@@ -118,17 +102,15 @@ export default function Settings() {
             <Separator className="my-4" />
 
             <button
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors hover:bg-accent text-muted-foreground hover:text-foreground"
+              onClick={() => setActiveSection('account' as SettingSection)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                activeSection === 'account'
+                  ? 'bg-accent text-foreground'
+                  : 'hover:bg-accent text-muted-foreground hover:text-foreground'
+              }`}
             >
               <Download className="h-5 w-5" />
-              <span className="font-medium">Exportar datos</span>
-            </button>
-
-            <button
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors hover:bg-destructive/10 text-destructive"
-            >
-              <Trash2 className="h-5 w-5" />
-              <span className="font-medium">Eliminar cuenta</span>
+              <span className="font-medium">Cuenta</span>
             </button>
           </nav>
         </aside>
