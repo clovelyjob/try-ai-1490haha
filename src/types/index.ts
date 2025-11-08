@@ -336,6 +336,78 @@ export interface CVData {
   };
 }
 
+// Interview types
+export type InterviewLevel = 'junior' | 'mid' | 'senior';
+export type InterviewTone = 'empatico' | 'directo' | 'exigente';
+export type InterviewType = 'screening' | 'tecnica' | 'cultural' | 'caso' | 'roleplay';
+export type QuestionType = 'apertura' | 'comportamiento' | 'tecnica' | 'caso' | 'cultura' | 'cierre';
+export type QuestionDifficulty = 'facil' | 'medio' | 'dificil';
+
+export interface InterviewQuestion {
+  id: string;
+  text: string;
+  type: QuestionType;
+  difficulty: QuestionDifficulty;
+  roles: string[];
+  tags: string[];
+  sampleAnswer?: string;
+}
+
+export interface ResponseScore {
+  clarity: number; // 0-20
+  structure: number; // 0-30
+  evidence: number; // 0-25
+  language: number; // 0-15
+  culture: number; // 0-10
+}
+
+export interface InterviewResponse {
+  id: string;
+  questionId: string;
+  questionText: string;
+  answerText: string;
+  answerAudioUrl?: string;
+  timestamp: string;
+  scores: ResponseScore;
+  feedbackText: string;
+}
+
+export interface InterviewRecommendation {
+  type: 'cv' | 'microaction' | 'course' | 'practice';
+  text: string;
+  payload?: any;
+}
+
+export interface InterviewSession {
+  id: string;
+  userId: string;
+  role: string;
+  level: InterviewLevel;
+  interviewType: InterviewType;
+  jobDescription?: string;
+  cvVersionId?: string;
+  tone: InterviewTone;
+  startedAt: string;
+  endedAt?: string;
+  responses: InterviewResponse[];
+  finalScore: number;
+  breakdown: ResponseScore;
+  recommendations: InterviewRecommendation[];
+  saved: boolean;
+  privacy: {
+    saveTranscription: boolean;
+    anonymize: boolean;
+  };
+}
+
+export interface InterviewMetrics {
+  interviewCount: number;
+  bestScore: number;
+  averageScore: number;
+  streaks: number;
+  xpAwarded: number;
+}
+
 export type OpportunityModality = 'remote' | 'hybrid' | 'onsite';
 export type OpportunityContractType = 'internship' | 'part-time' | 'full-time' | 'contract';
 export type OpportunityCategory = 'technology' | 'marketing' | 'design' | 'business' | 'education' | 'health' | 'other';

@@ -14,6 +14,10 @@ import CVList from "./pages/CVList";
 import CVBuilder from "./pages/CVBuilder";
 import Opportunities from "./pages/Opportunities";
 import OpportunityDetail from "./pages/OpportunityDetail";
+import InterviewLanding from "./pages/InterviewLanding";
+import InterviewSetup from "./pages/InterviewSetup";
+import InterviewSession from "./pages/InterviewSession";
+import InterviewHistory from "./pages/InterviewHistory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +40,10 @@ const App = () => (
           <Route path="/dashboard/cvs/:id" element={<CVBuilder />} />
           <Route path="/dashboard/opportunities" element={<Opportunities />} />
           <Route path="/dashboard/opportunities/:id" element={<OpportunityDetail />} />
+          <Route path="/dashboard/interviews" element={<InterviewLanding />} />
+          <Route path="/dashboard/interviews/setup" element={<InterviewSetup />} />
+          <Route path="/dashboard/interviews/session" element={<InterviewSession />} />
+          <Route path="/dashboard/interviews/history" element={<InterviewHistory />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
