@@ -109,29 +109,6 @@ export interface Progress {
   interviews: number;
 }
 
-export interface Circle {
-  id: string;
-  name: string;
-  description: string;
-  code: string;
-  members: {
-    userId: string;
-    name: string;
-    avatar?: string;
-    level: number;
-    progress: number;
-    streak: number;
-  }[];
-  maxMembers: number;
-  weeklyChallenge?: {
-    goal: string;
-    reward: number;
-    progress: number;
-    contributions: { userId: string; amount: number }[];
-  };
-  isAdmin: boolean;
-}
-
 export interface JobOpportunity {
   id: string;
   company: string;
@@ -406,6 +383,113 @@ export interface InterviewMetrics {
   averageScore: number;
   streaks: number;
   xpAwarded: number;
+}
+
+// Circle types
+export type CircleMemberRole = 'admin' | 'mentor' | 'member';
+export type PostReactionType = 'like' | 'clap' | 'insight';
+export type EventType = 'workshop' | 'mentoria' | 'charla' | 'networking';
+export type ConnectionStatus = 'pending' | 'connected' | 'declined';
+
+export interface Circle {
+  id: string;
+  name: string;
+  description: string;
+  coverImage?: string;
+  tags: string[];
+  category: string;
+  memberCount: number;
+  activityLevel: 'low' | 'medium' | 'high';
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface CircleMember {
+  userId: string;
+  circleId: string;
+  role: CircleMemberRole;
+  joinedAt: string;
+  reputation: number;
+}
+
+export interface Post {
+  id: string;
+  circleId: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar?: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  reactions: Record<PostReactionType, number>;
+  commentCount: number;
+  saved: boolean;
+}
+
+export interface Comment {
+  id: string;
+  postId: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar?: string;
+  content: string;
+  createdAt: string;
+  reactions: Record<PostReactionType, number>;
+}
+
+export interface UserConnection {
+  id: string;
+  userId: string;
+  connectedUserId: string;
+  status: ConnectionStatus;
+  requestedAt: string;
+  connectedAt?: string;
+  message?: string;
+}
+
+export interface CircleEvent {
+  id: string;
+  circleId: string;
+  title: string;
+  description: string;
+  type: EventType;
+  date: string;
+  duration: number; // minutes
+  hostId: string;
+  hostName: string;
+  attendees: string[];
+  maxAttendees?: number;
+  link?: string;
+  location?: string;
+}
+
+export interface Message {
+  id: string;
+  senderId: string;
+  receiverId?: string;
+  groupId?: string;
+  content: string;
+  timestamp: string;
+  read: boolean;
+  attachments?: string[];
+}
+
+export interface Conversation {
+  id: string;
+  participants: string[];
+  lastMessage?: Message;
+  unreadCount: number;
+  updatedAt: string;
+}
+
+export interface NetworkSuggestion {
+  userId: string;
+  name: string;
+  headline: string;
+  avatar?: string;
+  commonInterests: string[];
+  mutualConnections: number;
+  score: number;
 }
 
 export type OpportunityModality = 'remote' | 'hybrid' | 'onsite';

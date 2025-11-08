@@ -18,6 +18,8 @@ import InterviewLanding from "./pages/InterviewLanding";
 import InterviewSetup from "./pages/InterviewSetup";
 import InterviewSession from "./pages/InterviewSession";
 import InterviewHistory from "./pages/InterviewHistory";
+import CircleDiscover from "./pages/CircleDiscover";
+import CircleDetail from "./pages/CircleDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="/dashboard/interviews/setup" element={<InterviewSetup />} />
           <Route path="/dashboard/interviews/session" element={<InterviewSession />} />
           <Route path="/dashboard/interviews/history" element={<InterviewHistory />} />
+          <Route path="/dashboard/circles" element={<CircleDiscover />} />
+          <Route path="/dashboard/circles/:id" element={<CircleDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

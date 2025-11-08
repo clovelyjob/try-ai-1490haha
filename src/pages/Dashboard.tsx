@@ -37,7 +37,7 @@ const Dashboard = () => {
     { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs', badge: '80%' },
     { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities', badge: 12 },
     { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
-    { icon: Users, label: 'Círculo', path: '/circles', badge: 5 },
+    { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
     { icon: BarChart3, label: 'Progreso', path: '/progress' },
     { icon: Bot, label: 'Coach', path: '/coach', glow: true },
     { icon: Gift, label: 'Recompensas', path: '/rewards' },
