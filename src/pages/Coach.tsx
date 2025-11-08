@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { GuestBanner } from '@/components/GuestBanner';
 import { CoachChat } from '@/components/coach/CoachChat';
 import { CoachActionPlanner } from '@/components/coach/CoachActionPlanner';
 import { CoachInterviewSimulator } from '@/components/coach/CoachInterviewSimulator';
@@ -24,6 +25,9 @@ export default function Coach() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Guest Banner */}
+      <GuestBanner />
+      
       {/* Header */}
       <div className="border-b bg-gradient-to-r from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4 py-6">

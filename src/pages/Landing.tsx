@@ -144,6 +144,11 @@ const Landing = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/guest-start">
+              <Button size="lg" variant="outline" className="text-lg px-8">
+                Probar sin registrarse
+              </Button>
+            </Link>
             <Link to="/registro">
               <Button size="lg" className="gradient-orange text-white text-lg px-8">
                 Descubre tu camino ideal <ArrowRight className="ml-2 h-5 w-5" />
@@ -152,7 +157,7 @@ const Landing = () => {
           </div>
           
           <p className="text-sm text-muted-foreground">
-            ✓ Sin tarjeta ✓ Resultados en 5 min ✓ Cancela cuando quieras
+            ✓ Sin tarjeta ✓ Sin compromiso ✓ Explora antes de decidir
           </p>
 
           <div className="mt-12 glass rounded-2xl p-8 animate-float">

@@ -23,6 +23,7 @@ import CircleDetail from "./pages/CircleDetail";
 import Rewards from "./pages/Rewards";
 import Coach from "./pages/Coach";
 import Settings from "./pages/Settings";
+import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/registro" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/guest-start" element={<GuestStart />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/goals" element={<Goals />} />

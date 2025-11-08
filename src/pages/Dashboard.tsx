@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useGoalsStore } from '@/store/useGoalsStore';
@@ -212,6 +213,9 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
+        {/* Guest Banner */}
+        <GuestBanner />
+        
         {/* Header */}
         <header className="h-16 border-b bg-background/95 backdrop-blur sticky top-0 z-10">
           <div className="h-full px-6 flex items-center justify-between gap-4">
