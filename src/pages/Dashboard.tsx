@@ -45,7 +45,7 @@ const Dashboard = () => {
     { icon: BarChart3, label: 'Progreso', path: '/progress' },
     { icon: Bot, label: 'Coach', path: '/coach', glow: true },
     { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
-    { icon: Settings, label: 'Configuración', path: '/settings' },
+    { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];
 
   const todayTasks = [
