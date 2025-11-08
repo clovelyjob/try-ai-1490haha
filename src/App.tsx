@@ -12,6 +12,8 @@ import Goals from "./pages/Goals";
 import GoalDetail from "./pages/GoalDetail";
 import CVList from "./pages/CVList";
 import CVBuilder from "./pages/CVBuilder";
+import Opportunities from "./pages/Opportunities";
+import OpportunityDetail from "./pages/OpportunityDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,8 @@ const App = () => (
           <Route path="/dashboard/goals/:id" element={<GoalDetail />} />
           <Route path="/dashboard/cvs" element={<CVList />} />
           <Route path="/dashboard/cvs/:id" element={<CVBuilder />} />
+          <Route path="/dashboard/opportunities" element={<Opportunities />} />
+          <Route path="/dashboard/opportunities/:id" element={<OpportunityDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
