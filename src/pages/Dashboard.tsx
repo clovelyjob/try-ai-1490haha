@@ -15,6 +15,7 @@ import { QUOTES } from '@/lib/constants';
 import WeeklyPlanWidget from '@/components/WeeklyPlanWidget';
 import CareerCopilot from '@/components/CareerCopilot';
 import { getDashboardConfig } from '@/lib/dashboardContent';
+import { toast } from 'sonner';
 import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
   Bot, Gift, Settings, Bell, Search, TrendingUp, Flame,
@@ -105,6 +106,9 @@ const Dashboard = () => {
   const handleTaskComplete = (taskId: number, xp: number) => {
     addXP(xp);
     completeTask();
+    toast.success(`¡Tarea completada! +${xp} XP ganados`, {
+      description: `Tu racha continúa: ${progress.streak} días`,
+    });
   };
 
   if (!progress) return null;
@@ -367,12 +371,15 @@ const Dashboard = () => {
                       <div className="flex items-start gap-3">
                         <button
                           onClick={() => !task.completed && handleTaskComplete(task.id, task.xp)}
-                          className={`mt-0.5 ${task.completed ? 'text-success' : 'text-muted-foreground'}`}
+                          disabled={task.completed}
+                          className={`mt-0.5 transition-all duration-300 hover:scale-110 active:scale-95 ${
+                            task.completed ? 'text-success cursor-default' : 'text-muted-foreground hover:text-primary cursor-pointer'
+                          }`}
                         >
                           {task.completed ? (
-                            <CheckCircle2 className="h-5 w-5" />
+                            <CheckCircle2 className="h-5 w-5 animate-scale-in" />
                           ) : (
-                            <Circle className="h-5 w-5" />
+                            <Circle className="h-5 w-5 hover:fill-primary/20" />
                           )}
                         </button>
                         <div className="flex-1 min-w-0">
