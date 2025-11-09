@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { GuestBanner } from '@/components/GuestBanner';
@@ -29,8 +30,39 @@ const Dashboard = () => {
   const { profile } = useProfileStore();
   const [quote, setQuote] = useState(QUOTES[0]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   
   const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
+
+  const notifications = [
+    {
+      id: 1,
+      type: 'match',
+      title: 'Nueva oportunidad perfecta',
+      message: 'Product Designer en Mercado Libre - 94% match',
+      time: 'Hace 2h',
+      read: false,
+      icon: '🎯',
+    },
+    {
+      id: 2,
+      type: 'achievement',
+      title: '¡Nuevo logro desbloqueado!',
+      message: 'Completaste 5 días seguidos - Racha de fuego 🔥',
+      time: 'Hace 5h',
+      read: false,
+      icon: '🏆',
+    },
+    {
+      id: 3,
+      type: 'reminder',
+      title: 'Recordatorio de entrevista',
+      message: 'Practica para tu entrevista de mañana',
+      time: 'Ayer',
+      read: true,
+      icon: '📅',
+    },
+  ];
 
   useEffect(() => {
     setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
@@ -257,12 +289,81 @@ const Dashboard = () => {
                   className="pl-10 pr-4 py-2 border rounded-lg bg-background w-64 text-sm"
                 />
               </div>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-white text-xs rounded-full flex items-center justify-center">
-                  3
-                </span>
-              </Button>
+              <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
+                <PopoverTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="relative hover-lift"
+                  >
+                    <Bell className="h-5 w-5" />
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                      {notifications.filter(n => !n.read).length}
+                    </span>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-0" align="end">
+                  <div className="border-b p-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-heading font-bold">Notificaciones</h3>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-xs"
+                        onClick={() => toast.success('Todas las notificaciones marcadas como leídas')}
+                      >
+                        Marcar todo como leído
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="max-h-[400px] overflow-y-auto">
+                    {notifications.map((notification) => (
+                      <motion.div
+                        key={notification.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className={`p-4 border-b hover:bg-accent cursor-pointer transition-colors ${
+                          !notification.read ? 'bg-primary/5' : ''
+                        }`}
+                        onClick={() => {
+                          toast.info('Notificación abierta');
+                          setNotificationsOpen(false);
+                        }}
+                      >
+                        <div className="flex gap-3">
+                          <div className="text-2xl">{notification.icon}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-2 mb-1">
+                              <p className="font-semibold text-sm">{notification.title}</p>
+                              {!notification.read && (
+                                <div className="w-2 h-2 rounded-full bg-primary shrink-0 mt-1" />
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
+                              {notification.message}
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {notification.time}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="p-3 border-t">
+                    <Button 
+                      variant="ghost" 
+                      className="w-full text-sm hover-lift"
+                      onClick={() => {
+                        toast.info('Ver todas las notificaciones');
+                        setNotificationsOpen(false);
+                      }}
+                    >
+                      Ver todas las notificaciones
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </header>
