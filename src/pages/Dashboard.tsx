@@ -457,7 +457,7 @@ const Dashboard = () => {
           </div>
 
           {/* Main Grid */}
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-3 gap-6 max-w-full overflow-hidden">
             {/* Left Column - Tasks & Coach */}
             <div className="lg:col-span-2 space-y-6">
               {/* Tu día */}
@@ -555,41 +555,44 @@ const Dashboard = () => {
             </div>
 
             {/* Right Column - Opportunities, Circle, Resources */}
-            <div className="space-y-6">
+            <div className="space-y-6 min-w-0 overflow-hidden">
               {/* Oportunidades */}
-              <Card className="p-6">
+              <Card className="p-6 overflow-hidden">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-heading font-bold">Oportunidades</h2>
-                  <Button variant="ghost" size="sm">
-                    Ver todas <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
+                  <Link to="/dashboard/opportunities">
+                    <Button variant="ghost" size="sm" className="hover-lift">
+                      Ver todas <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
                 <div className="space-y-3">
                   {opportunities.map((opp) => (
-                    <div
-                      key={opp.id}
-                      className="p-4 rounded-lg border hover:shadow-md transition-shadow cursor-pointer"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                          {opp.logo}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="secondary" className="text-xs">
-                              {opp.match}% match
-                            </Badge>
+                    <Link key={opp.id} to="/dashboard/opportunities">
+                      <div
+                        className="p-4 rounded-lg border hover:shadow-md hover:border-primary/50 transition-all cursor-pointer hover-lift overflow-hidden"
+                      >
+                        <div className="flex items-start gap-3 min-w-0">
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary shrink-0">
+                            {opp.logo}
                           </div>
-                          <p className="font-semibold text-sm mb-1">{opp.position}</p>
-                          <p className="text-xs text-muted-foreground mb-1">{opp.company}</p>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <span>{opp.salary}</span>
-                            <span>•</span>
-                            <span>{opp.location}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Badge variant="secondary" className="text-xs shrink-0">
+                                {opp.match}% match
+                              </Badge>
+                            </div>
+                            <p className="font-semibold text-sm mb-1 truncate">{opp.position}</p>
+                            <p className="text-xs text-muted-foreground mb-1 truncate">{opp.company}</p>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground overflow-hidden">
+                              <span className="truncate">{opp.salary}</span>
+                              <span className="shrink-0">•</span>
+                              <span className="truncate">{opp.location}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </Card>
