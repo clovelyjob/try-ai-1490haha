@@ -300,50 +300,68 @@ const Landing = () => {
             Cómo funciona
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-            <div className="relative space-y-8">
-              {/* Connecting line */}
-              <div className="absolute left-6 top-12 bottom-12 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary hidden md:block" />
-              
+          <div className="relative">
+            {/* Horizontal steps */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
               {steps.map((step, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
+                  transition={{ delay: i * 0.1 }}
                   className="relative"
                 >
-                  <Card className="p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-l-4 border-l-primary/20">
-                    <div className="flex items-start gap-4">
+                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      {/* Icon with number badge */}
                       <div className="relative">
-                        <div className="w-12 h-12 rounded-full gradient-orange text-white font-bold flex items-center justify-center text-xl shrink-0 shadow-lg">
+                        <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <step.icon className="h-8 w-8 text-white" />
+                        </div>
+                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm shadow-md">
                           {i + 1}
                         </div>
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-                          <step.icon className="h-3 w-3 text-primary" />
-                        </div>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-heading font-bold text-lg mb-1">{step.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-2">{step.description}</p>
-                        <Badge variant="secondary" className="text-xs">
+                      
+                      {/* Content */}
+                      <div className="space-y-2">
+                        <h3 className="font-heading font-bold text-lg">{step.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {step.description}
+                        </p>
+                        <Badge variant="secondary" className="text-xs mt-2">
                           <Clock className="h-3 w-3 mr-1" />
                           {step.time}
                         </Badge>
                       </div>
                     </div>
                   </Card>
+                  
+                  {/* Connecting arrow - hidden on last item and mobile */}
+                  {i < steps.length - 1 && (
+                    <div className="hidden md:block absolute top-1/2 -right-3 z-10 -translate-y-1/2">
+                      <ArrowRight className="h-6 w-6 text-primary animate-pulse" />
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>
-            <div className="glass rounded-2xl overflow-hidden animate-float">
+
+            {/* Image below */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="glass rounded-2xl overflow-hidden animate-float max-w-3xl mx-auto"
+            >
               <img 
                 src={careerDiscoveryImage} 
                 alt="Momento de descubrimiento profesional con análisis de carrera"
                 className="w-full h-auto object-cover"
               />
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </section>
