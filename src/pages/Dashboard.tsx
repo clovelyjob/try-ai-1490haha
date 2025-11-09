@@ -278,101 +278,126 @@ const Dashboard = () => {
             </div>
           </Card>
 
-          {/* Role-Specific Metrics Grid */}
+          {/* Metrics Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {roleConfig.metrics.map((metric, index) => {
-              const MetricIcon = metric.icon;
-              const isNew = progress.level === 1 && progress.currentXP === 0;
-              
-              return (
-                <motion.div
-                  key={metric.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-muted-foreground">{metric.label}</span>
-                      <MetricIcon className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-end gap-2">
-                        <span className="text-3xl font-heading font-bold">
-                          {isNew ? '0' : Math.floor(Math.random() * 20)}
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {isNew 
-                          ? '¡Comienza tu viaje profesional!' 
-                          : metric.description
-                        }
-                      </p>
-                    </div>
-                  </Card>
-                </motion.div>
-              );
-            })}
+            <Card className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-muted-foreground">Progreso semanal</span>
+                <TrendingUp className="h-4 w-4 text-success" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Badge className="gradient-orange text-white">En marcha</Badge>
+                </div>
+                <div className="text-xs text-muted-foreground">15 de 20 tareas completadas</div>
+              </div>
+            </Card>
+
+            <Card className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-muted-foreground">Racha</span>
+                <Flame className="h-4 w-4 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-end gap-2">
+                  <span className="text-3xl font-heading font-bold flex items-center gap-1">
+                    🔥 {progress.streak}
+                  </span>
+                  <span className="text-sm text-muted-foreground mb-1">días</span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Mejor racha: {progress.longestStreak} días
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-muted-foreground">Nivel</span>
+                <Zap className="h-4 w-4 text-secondary" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-heading font-bold">{progress.level}</span>
+                  <Badge variant="secondary" className="text-xs">
+                    {progress.level < 5 ? 'Novato' : progress.level < 10 ? 'En crecimiento' : 'Experto'}
+                  </Badge>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {progress.currentXP} de {progress.nextLevelXP} XP para subir
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-muted-foreground">Aplicaciones</span>
+                <Briefcase className="h-4 w-4 text-accent" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-end gap-2">
+                  <span className="text-3xl font-heading font-bold">8</span>
+                  <span className="text-sm text-muted-foreground mb-1">esta semana</span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {progress.applications} totales
+                </div>
+              </div>
+            </Card>
           </div>
 
           {/* Main Grid */}
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Left Column - Tasks & Coach */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Tareas Recomendadas según Rol */}
+              {/* Tu día */}
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h2 className="text-lg font-heading font-bold">Tus primeros pasos</h2>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Tareas personalizadas para {profile?.rolActual ? roleConfig.metrics[0].label.toLowerCase() : 'ti'}
-                    </p>
-                  </div>
-                  <Badge variant="secondary">{roleConfig.suggestedTasks.length} tareas</Badge>
+                  <h2 className="text-lg font-heading font-bold">Tu día</h2>
+                  <Badge variant="secondary">{todayTasks.filter(t => !t.completed).length} pendientes</Badge>
                 </div>
-                
-                {progress.level === 1 && progress.currentXP === 0 ? (
-                  <div className="text-center py-8 space-y-3">
-                    <div className="w-16 h-16 rounded-full gradient-orange/10 flex items-center justify-center mx-auto">
-                      <Sparkles className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">¡Bienvenido a tu viaje profesional!</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Aún no tienes tareas, pero ya puedes comenzar a construir tu experiencia
-                      </p>
-                    </div>
-                  </div>
-                ) : null}
-                
                 <div className="space-y-2">
-                  {roleConfig.suggestedTasks.slice(0, 4).map((task, index) => (
+                  {todayTasks.map((task) => (
                     <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="p-4 rounded-lg border hover:shadow-md transition-all hover:border-primary/50"
+                      key={task.id}
+                      className={`p-4 rounded-lg border transition-all ${
+                        task.completed ? 'bg-muted/50 opacity-60' : 'hover:shadow-md'
+                      } ${task.featured ? 'border-primary bg-primary/5' : ''}`}
                     >
                       <div className="flex items-start gap-3">
-                        <button className="mt-0.5 text-muted-foreground hover:text-primary">
-                          <Circle className="h-5 w-5" />
+                        <button
+                          onClick={() => !task.completed && handleTaskComplete(task.id, task.xp)}
+                          className={`mt-0.5 ${task.completed ? 'text-success' : 'text-muted-foreground'}`}
+                        >
+                          {task.completed ? (
+                            <CheckCircle2 className="h-5 w-5" />
+                          ) : (
+                            <Circle className="h-5 w-5" />
+                          )}
                         </button>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="outline" className="text-xs">
-                              {task.category}
-                            </Badge>
+                            <Clock className="h-3 w-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground">{task.time}</span>
+                            {task.match && (
+                              <Badge variant="secondary" className="text-xs">
+                                ⭐ {task.match}% match
+                              </Badge>
+                            )}
                           </div>
-                          <p className="font-medium">{task.title}</p>
+                          <p className={`font-medium ${task.completed ? 'line-through' : ''}`}>
+                            {task.title}
+                          </p>
                         </div>
                         <div className="text-right">
                           <Badge className="gradient-orange text-white">
                             +{task.xp} XP
                           </Badge>
-                          <Button size="sm" variant="outline" className="mt-2">
-                            Empezar
-                          </Button>
+                          {!task.completed && (
+                            <Button size="sm" variant="outline" className="mt-2">
+                              Empezar
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -475,40 +500,28 @@ const Dashboard = () => {
                 </div>
               </Card>
 
-              {/* Recursos Personalizados */}
+              {/* Recursos */}
               <Card className="p-6">
-                <div className="mb-4">
-                  <h2 className="text-lg font-heading font-bold">Recursos recomendados</h2>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Contenido curado para tu crecimiento profesional
-                  </p>
-                </div>
+                <h2 className="text-lg font-heading font-bold mb-4">Recursos recomendados</h2>
                 <div className="space-y-3">
-                  {roleConfig.resources.map((resource, i) => (
-                    <motion.div
+                  {resources.map((resource, i) => (
+                    <div
                       key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent transition-colors cursor-pointer group"
+                      className="p-3 rounded-lg border hover:shadow-md transition-shadow cursor-pointer"
                     >
-                      <span className="text-2xl">{resource.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Badge variant="secondary" className="text-xs">{resource.type}</Badge>
-                          <span className="text-xs text-muted-foreground">{resource.duration}</span>
+                      <div className="flex items-start gap-3">
+                        <div className="text-2xl">{resource.icon}</div>
+                        <div className="flex-1 min-w-0">
+                          <Badge variant="secondary" className="text-xs mb-1">
+                            {resource.type}
+                          </Badge>
+                          <p className="text-sm font-medium mb-1">{resource.title}</p>
+                          <p className="text-xs text-muted-foreground">{resource.duration}</p>
                         </div>
-                        <p className="text-sm font-medium group-hover:text-primary transition-colors">
-                          {resource.title}
-                        </p>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0 group-hover:translate-x-1 transition-transform" />
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
-                <Button variant="outline" className="w-full mt-4">
-                  Explorar más recursos
-                </Button>
               </Card>
             </div>
           </div>
