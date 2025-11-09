@@ -112,7 +112,7 @@ const Dashboard = () => {
   const xpPercentage = (progress.currentXP / progress.nextLevelXP) * 100;
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex max-w-full overflow-x-hidden">
       {/* Sidebar */}
       <aside
         className={`${
@@ -226,7 +226,7 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden max-w-full">
         {/* Guest Banner */}
         <GuestBanner />
         
@@ -264,7 +264,7 @@ const Dashboard = () => {
         </header>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 max-w-full overflow-x-hidden">
           {/* Quote */}
           <Card className="p-4 bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
             <div className="flex items-start justify-between gap-3">
