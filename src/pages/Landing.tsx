@@ -114,11 +114,18 @@ const Landing = () => {
     },
   ];
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen max-w-full overflow-x-hidden">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-7xl">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg gradient-orange flex items-center justify-center">
               <Sparkles className="h-5 w-5 text-white" />
@@ -127,10 +134,18 @@ const Landing = () => {
           </Link>
           
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#features" className="hover:text-primary transition-colors">Funcionalidades</a>
-            <a href="#how" className="hover:text-primary transition-colors">Cómo funciona</a>
-            <a href="#testimonials" className="hover:text-primary transition-colors">Testimonios</a>
-            <a href="#pricing" className="hover:text-primary transition-colors">Precios</a>
+            <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">
+              Funcionalidades
+            </button>
+            <button onClick={() => scrollToSection('how')} className="hover:text-primary transition-colors">
+              Cómo funciona
+            </button>
+            <button onClick={() => scrollToSection('testimonials')} className="hover:text-primary transition-colors">
+              Testimonios
+            </button>
+            <button onClick={() => scrollToSection('pricing')} className="hover:text-primary transition-colors">
+              Precios
+            </button>
           </div>
 
           <div className="flex items-center gap-3">
@@ -148,10 +163,11 @@ const Landing = () => {
       </nav>
 
       {/* Hero */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4 py-20 md:py-32 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center space-y-8"
         >
           <Badge variant="secondary" className="mb-4">
@@ -170,12 +186,12 @@ const Landing = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/guest-start">
-              <Button size="lg" variant="outline" className="text-lg px-8">
+              <Button size="lg" variant="outline" className="text-lg px-8 hover-lift">
                 Probar sin registrarse
               </Button>
             </Link>
             <Link to="/registro">
-              <Button size="lg" className="gradient-orange text-white text-lg px-8">
+              <Button size="lg" className="gradient-orange text-white text-lg px-8 hover-glow hover:scale-105 transition-all duration-300">
                 Descubre tu camino ideal <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
@@ -185,19 +201,24 @@ const Landing = () => {
             ✓ Sin tarjeta ✓ Sin compromiso ✓ Explora antes de decidir
           </p>
 
-          <div className="mt-12 glass rounded-2xl overflow-hidden animate-float">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="mt-12 glass rounded-2xl overflow-hidden animate-float"
+          >
             <img 
               src={heroImage} 
               alt="Profesional joven trabajando con confianza en su desarrollo de carrera"
-              className="w-full h-auto object-cover"
+              className="w-full max-w-full h-auto object-cover"
             />
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* Social Proof */}
       <section className="border-y bg-muted/30 py-12 overflow-hidden">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           <p className="text-center text-sm text-muted-foreground mb-8">
             Profesionales trabajan en empresas como:
           </p>
@@ -210,11 +231,12 @@ const Landing = () => {
       </section>
 
       {/* Problems */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4 py-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="max-w-5xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
@@ -222,11 +244,19 @@ const Landing = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {problems.map((problem, i) => (
-              <Card key={i} className="p-6 hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">{problem.icon}</div>
-                <h3 className="font-heading font-bold text-lg mb-2">{problem.title}</h3>
-                <p className="text-muted-foreground">{problem.description}</p>
-              </Card>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card className="p-6 hover-lift h-full">
+                  <div className="text-4xl mb-4">{problem.icon}</div>
+                  <h3 className="font-heading font-bold text-lg mb-2">{problem.title}</h3>
+                  <p className="text-muted-foreground">{problem.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -234,11 +264,12 @@ const Landing = () => {
 
       {/* Features */}
       <section id="features" className="bg-muted/30 py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             className="max-w-6xl mx-auto"
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -249,13 +280,19 @@ const Landing = () => {
                 <p className="text-muted-foreground mb-8 text-lg">
                   Todas las herramientas que necesitas para transformar tu carrera, con el apoyo de una comunidad que crece contigo.
                 </p>
-                <div className="glass rounded-2xl overflow-hidden">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="glass rounded-2xl overflow-hidden"
+                >
                   <img 
                     src={collaborationImage} 
                     alt="Equipo colaborando en desarrollo profesional"
-                    className="w-full h-auto object-cover"
+                    className="w-full max-w-full h-auto object-cover"
                   />
-                </div>
+                </motion.div>
               </div>
               
               <div className="grid gap-6">
@@ -267,11 +304,15 @@ const Landing = () => {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Card className="p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+                    <Card className="p-6 hover-lift cursor-pointer group">
                       <div className="flex gap-4">
-                        <feature.icon className="h-10 w-10 text-primary shrink-0" />
+                        <div className="shrink-0">
+                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <feature.icon className="h-6 w-6 text-primary" />
+                          </div>
+                        </div>
                         <div>
-                          <h3 className="font-heading font-bold text-lg mb-2">
+                          <h3 className="font-heading font-bold text-lg mb-2 group-hover:text-primary transition-colors">
                             {feature.title}
                           </h3>
                           <p className="text-muted-foreground text-sm">
@@ -289,11 +330,12 @@ const Landing = () => {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container mx-auto px-4 py-20">
+      <section id="how" className="container mx-auto px-4 py-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
@@ -312,14 +354,14 @@ const Landing = () => {
                   transition={{ delay: i * 0.1 }}
                   className="relative"
                 >
-                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                  <Card className="p-6 h-full hover-lift hover:border-primary/50 transition-all duration-300 group cursor-pointer">
                     <div className="flex flex-col items-center text-center space-y-4">
                       {/* Icon with number badge */}
                       <div className="relative">
-                        <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
                           <step.icon className="h-8 w-8 text-white" />
                         </div>
-                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm shadow-md">
+                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm shadow-md group-hover:scale-110 transition-transform">
                           {i + 1}
                         </div>
                       </div>
@@ -359,7 +401,7 @@ const Landing = () => {
               <img 
                 src={careerDiscoveryImage} 
                 alt="Momento de descubrimiento profesional con análisis de carrera"
-                className="w-full h-auto object-cover"
+                className="w-full max-w-full h-auto object-cover"
               />
             </motion.div>
           </div>
@@ -368,11 +410,12 @@ const Landing = () => {
 
       {/* Testimonials */}
       <section id="testimonials" className="bg-muted/30 py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             className="max-w-5xl mx-auto"
           >
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
@@ -381,18 +424,26 @@ const Landing = () => {
             
             <div className="grid md:grid-cols-3 gap-6">
               {testimonials.map((testimonial, i) => (
-                <Card key={i} className="p-6">
-                  <div className="flex gap-1 mb-3">
-                    {Array.from({ length: testimonial.rating }).map((_, j) => (
-                      <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-sm mb-4">&ldquo;{testimonial.text}&rdquo;</p>
-                  <div>
-                    <p className="font-semibold text-sm">{testimonial.name}</p>
-                    <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </Card>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Card className="p-6 h-full hover-lift">
+                    <div className="flex gap-1 mb-3">
+                      {Array.from({ length: testimonial.rating }).map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-sm mb-4">&ldquo;{testimonial.text}&rdquo;</p>
+                    <div>
+                      <p className="font-semibold text-sm">{testimonial.name}</p>
+                      <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                    </div>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -400,11 +451,12 @@ const Landing = () => {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="container mx-auto px-4 py-20">
+      <section id="pricing" className="container mx-auto px-4 py-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="max-w-5xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
@@ -413,7 +465,13 @@ const Landing = () => {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Free */}
-            <Card className="p-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card className="p-8 h-full hover-lift">
               <h3 className="font-heading font-bold text-2xl mb-2">Free</h3>
               <p className="text-4xl font-heading font-bold mb-6">
                 $0<span className="text-lg text-muted-foreground">/mes</span>
@@ -436,15 +494,22 @@ const Landing = () => {
                   <span>5 mensajes IA/mes</span>
                 </li>
               </ul>
-              <Link to="/registro">
-                <Button variant="outline" className="w-full">
-                  Empezar gratis
-                </Button>
-              </Link>
-            </Card>
+                <Link to="/registro">
+                  <Button variant="outline" className="w-full hover-lift">
+                    Empezar gratis
+                  </Button>
+                </Link>
+              </Card>
+            </motion.div>
 
             {/* Premium */}
-            <Card className="p-8 border-2 border-primary relative">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="p-8 border-2 border-primary relative h-full hover-lift hover:border-primary hover:shadow-2xl transition-all">
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-premium text-white">
                 Más popular
               </Badge>
@@ -482,41 +547,61 @@ const Landing = () => {
                   <span>2 mentorías/mes</span>
                 </li>
               </ul>
-              <Button className="w-full gradient-orange text-white">
-                Prueba 7 días gratis
-              </Button>
-            </Card>
+                <Link to="/registro">
+                  <Button className="w-full gradient-orange text-white hover-glow hover:scale-105 transition-all duration-300">
+                    Prueba 7 días gratis
+                  </Button>
+                </Link>
+              </Card>
+            </motion.div>
           </div>
         </motion.div>
       </section>
 
       {/* Final CTA */}
       <section className="gradient-orange text-white py-20">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center max-w-7xl">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
             ¿Listo para dejar de buscar y empezar a encontrar?
           </h2>
           <p className="text-lg mb-8 opacity-90">
             🎯 87% consigue empleo en 3 meses | ⭐ 4.9/5 | 🚀 10,243 carreras transformadas
           </p>
-          <Link to="/registro">
-            <Button size="lg" variant="secondary" className="text-lg px-8">
-              Comienza gratis ahora <Zap className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/registro">
+              <Button size="lg" variant="secondary" className="text-lg px-8 hover:shadow-2xl transition-all duration-300">
+                Comienza gratis ahora <Zap className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t py-12 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>
               <h4 className="font-heading font-bold mb-4">Producto</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground">Funcionalidades</a></li>
-                <li><a href="#" className="hover:text-foreground">Precios</a></li>
-                <li><a href="#" className="hover:text-foreground">Testimonios</a></li>
+                <li>
+                  <button onClick={() => scrollToSection('features')} className="hover:text-foreground transition-colors">
+                    Funcionalidades
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollToSection('pricing')} className="hover:text-foreground transition-colors">
+                    Precios
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollToSection('testimonials')} className="hover:text-foreground transition-colors">
+                    Testimonios
+                  </button>
+                </li>
               </ul>
             </div>
             <div>

@@ -34,15 +34,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid md:grid-cols-2">
+    <div className="min-h-screen grid md:grid-cols-2 overflow-x-hidden max-w-full">
       {/* Form Column */}
-      <div className="flex items-center justify-center p-8">
+      <div className="flex items-center justify-center p-8 max-w-full">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="w-full max-w-md"
         >
-          <Link to="/" className="inline-flex items-center gap-2 mb-8 text-sm hover:text-primary">
+          <Link to="/" className="inline-flex items-center gap-2 mb-8 text-sm hover:text-primary transition-all duration-300 hover-lift">
             <ArrowLeft className="h-4 w-4" />
             Volver al inicio
           </Link>
@@ -107,7 +107,7 @@ const Login = () => {
 
             <Button
               type="submit"
-              className="w-full gradient-orange text-white"
+              className="w-full gradient-orange text-white hover-glow hover:scale-105 transition-all duration-300"
               disabled={loading}
             >
               {loading ? 'Iniciando sesión...' : 'Iniciar sesión →'}
@@ -125,11 +125,11 @@ const Login = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button type="button" variant="outline">
+              <Button type="button" variant="outline" className="hover-lift">
                 <Chrome className="mr-2 h-4 w-4" />
                 Google
               </Button>
-              <Button type="button" variant="outline">
+              <Button type="button" variant="outline" className="hover-lift">
                 <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn
               </Button>
