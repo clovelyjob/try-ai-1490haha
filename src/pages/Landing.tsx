@@ -8,6 +8,10 @@ import {
   Sparkles, Target, FileText, MessageSquare, Users, Trophy,
   Brain, Map, CheckCircle2, ArrowRight, Star, Zap,
 } from 'lucide-react';
+import heroImage from '@/assets/hero-professional-growth.jpg';
+import collaborationImage from '@/assets/collaboration-story.jpg';
+import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
+import planningImage from '@/assets/planning-workspace.jpg';
 
 const Landing = () => {
   const features = [
@@ -160,10 +164,12 @@ const Landing = () => {
             ✓ Sin tarjeta ✓ Sin compromiso ✓ Explora antes de decidir
           </p>
 
-          <div className="mt-12 glass rounded-2xl p-8 animate-float">
-            <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
-              <Sparkles className="h-20 w-20 text-primary opacity-50" />
-            </div>
+          <div className="mt-12 glass rounded-2xl overflow-hidden animate-float">
+            <img 
+              src={heroImage} 
+              alt="Profesional joven trabajando con confianza en su desarrollo de carrera"
+              className="w-full h-auto object-cover"
+            />
           </div>
         </motion.div>
       </section>
@@ -212,35 +218,50 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
+            className="max-w-6xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4">
-              Tu coach personal 24/7
-            </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Todas las herramientas que necesitas para transformar tu carrera
-            </p>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Card className="p-6 h-full hover:shadow-lg transition-shadow">
-                    <feature.icon className="h-10 w-10 text-primary mb-4" />
-                    <h3 className="font-heading font-bold text-lg mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      {feature.description}
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                  Tu coach personal 24/7
+                </h2>
+                <p className="text-muted-foreground mb-8 text-lg">
+                  Todas las herramientas que necesitas para transformar tu carrera, con el apoyo de una comunidad que crece contigo.
+                </p>
+                <div className="glass rounded-2xl overflow-hidden">
+                  <img 
+                    src={collaborationImage} 
+                    alt="Equipo colaborando en desarrollo profesional"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid gap-6">
+                {features.map((feature, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Card className="p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+                      <div className="flex gap-4">
+                        <feature.icon className="h-10 w-10 text-primary shrink-0" />
+                        <div>
+                          <h3 className="font-heading font-bold text-lg mb-2">
+                            {feature.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {feature.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -252,22 +273,33 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
             Cómo funciona
           </h2>
           
-          <div className="grid md:grid-cols-4 gap-8">
-            {steps.map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="w-12 h-12 rounded-full gradient-orange text-white font-bold flex items-center justify-center text-xl mx-auto mb-4">
-                  {i + 1}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+            <div className="space-y-6">
+              {steps.map((step, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full gradient-orange text-white font-bold flex items-center justify-center text-xl shrink-0">
+                    {i + 1}
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold mb-1">{step.title}</h3>
+                    <Badge variant="secondary">{step.time}</Badge>
+                  </div>
                 </div>
-                <h3 className="font-heading font-semibold mb-2">{step.title}</h3>
-                <Badge variant="secondary">{step.time}</Badge>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="glass rounded-2xl overflow-hidden">
+              <img 
+                src={careerDiscoveryImage} 
+                alt="Momento de descubrimiento profesional con análisis de carrera"
+                className="w-full h-auto object-cover"
+              />
+            </div>
           </div>
         </motion.div>
       </section>
