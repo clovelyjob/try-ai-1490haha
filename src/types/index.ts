@@ -9,6 +9,40 @@ export interface User {
   onboardingCompleted: boolean;
 }
 
+export type ProfessionalRole = 
+  | 'ux_designer'
+  | 'ui_designer'
+  | 'product_designer'
+  | 'developer_frontend'
+  | 'developer_backend'
+  | 'developer_fullstack'
+  | 'project_manager'
+  | 'product_manager'
+  | 'data_analyst'
+  | 'data_scientist'
+  | 'investor'
+  | 'hedge_fund'
+  | 'marketing_manager'
+  | 'content_creator'
+  | 'business_analyst'
+  | 'scrum_master'
+  | 'devops'
+  | 'qa_engineer'
+  | 'other';
+
+export interface RoleHistory {
+  rol: ProfessionalRole;
+  fecha: string;
+  confidence: number;
+}
+
+export interface RolePreferences {
+  intereses: string[];
+  objetivos: string[];
+  herramientas: string[];
+  nivelExperiencia: 'junior' | 'mid' | 'senior';
+}
+
 export interface Profile {
   userId: string;
   interests: string[];
@@ -33,6 +67,10 @@ export interface Profile {
     insights: string[];
     radarData: { skill: string; value: number }[];
   };
+  rolActual: ProfessionalRole;
+  rolesSugeridos: { role: ProfessionalRole; confidence: number; reasons: string[] }[];
+  preferencias: RolePreferences;
+  historialRol: RoleHistory[];
 }
 
 export interface CV {

@@ -10,16 +10,20 @@ import { ValuesStep } from '@/components/onboarding/ValuesStep';
 import { StyleStep } from '@/components/onboarding/StyleStep';
 import { SkillsStep } from '@/components/onboarding/SkillsStep';
 import { ExperienceStep } from '@/components/onboarding/ExperienceStep';
+import { RoleDetectionStep } from '@/components/onboarding/RoleDetectionStep';
 import { ResultsStep } from '@/components/onboarding/ResultsStep';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { toast } from 'sonner';
+import { ProfessionalRole, RolePreferences } from '@/types';
 
 const Onboarding = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useAuthStore();
   const { setProfile } = useProfileStore();
   const [currentStep, setCurrentStep] = useState(0);
+  const [detectedRole, setDetectedRole] = useState<ProfessionalRole>('other');
+  const [roleConfidence, setRoleConfidence] = useState(0);
   const [onboardingData, setOnboardingData] = useState({
     interests: [] as string[],
     values: [] as string[],
@@ -37,9 +41,15 @@ const Onboarding = () => {
     experience: '' as string,
     situation: '',
     challenge: '',
+    rolePreferences: {
+      intereses: [] as string[],
+      objetivos: [] as string[],
+      herramientas: [] as string[],
+      nivelExperiencia: 'junior' as 'junior' | 'mid' | 'senior'
+    } as RolePreferences
   });
 
-  const totalSteps = 7;
+  const totalSteps = 8;
   const progress = (currentStep / (totalSteps - 1)) * 100;
 
   const updateData = (key: string, value: any) => {
@@ -64,6 +74,12 @@ const Onboarding = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
     }
+  };
+
+  const handleRoleConfirmed = (role: ProfessionalRole, confidence: number) => {
+    setDetectedRole(role);
+    setRoleConfidence(confidence);
+    handleNext();
   };
 
   const handleComplete = () => {
@@ -97,6 +113,14 @@ const Onboarding = () => {
           { skill: 'Estrategia', value: 78 },
         ],
       },
+      rolActual: detectedRole,
+      rolesSugeridos: [],
+      preferencias: onboardingData.rolePreferences,
+      historialRol: [{
+        rol: detectedRole,
+        fecha: new Date().toISOString(),
+        confidence: roleConfidence
+      }]
     };
 
     setProfile(profileData);
@@ -125,7 +149,16 @@ const Onboarding = () => {
     <SkillsStep
       key="skills"
       skills={onboardingData.skills}
-      onChange={(skills) => updateData('skills', skills)}
+      onChange={(skills) => {
+        updateData('skills', skills);
+        // Actualizar herramientas en rolePreferences
+        updateData('rolePreferences', {
+          ...onboardingData.rolePreferences,
+          herramientas: skills.tools,
+          nivelExperiencia: onboardingData.experience === 'senior' ? 'senior' : 
+                          onboardingData.experience === 'mid' ? 'mid' : 'junior'
+        });
+      }}
     />,
     <ExperienceStep
       key="experience"
@@ -138,7 +171,23 @@ const Onboarding = () => {
         updateData('experience', data.experience);
         updateData('situation', data.situation);
         updateData('challenge', data.challenge);
+        // Actualizar nivel de experiencia en rolePreferences
+        updateData('rolePreferences', {
+          ...onboardingData.rolePreferences,
+          nivelExperiencia: data.experience === 'senior' ? 'senior' : 
+                          data.experience === 'mid' ? 'mid' : 'junior'
+        });
       }}
+    />,
+    <RoleDetectionStep
+      key="role-detection"
+      preferences={{
+        ...onboardingData.rolePreferences,
+        intereses: onboardingData.interests,
+        objetivos: [onboardingData.challenge || ''],
+      }}
+      onChange={(prefs) => updateData('rolePreferences', prefs)}
+      onRoleConfirmed={handleRoleConfirmed}
     />,
     <ResultsStep key="results" onComplete={handleComplete} />,
   ];

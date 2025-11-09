@@ -10,11 +10,11 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
-import { useGoalsStore } from '@/store/useGoalsStore';
-import { useActionPlanStore } from '@/store/useActionPlanStore';
+import { useProfileStore } from '@/store/useProfileStore';
 import { QUOTES } from '@/lib/constants';
 import WeeklyPlanWidget from '@/components/WeeklyPlanWidget';
 import CareerCopilot from '@/components/CareerCopilot';
+import { getDashboardConfig } from '@/lib/dashboardContent';
 import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
   Bot, Gift, Settings, Bell, Search, TrendingUp, Flame,
@@ -25,8 +25,11 @@ import {
 const Dashboard = () => {
   const { user } = useAuthStore();
   const { progress, addXP, completeTask } = useProgressStore();
+  const { profile } = useProfileStore();
   const [quote, setQuote] = useState(QUOTES[0]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  
+  const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
   useEffect(() => {
     setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
@@ -236,12 +239,7 @@ const Dashboard = () => {
                   Buenos días, {user?.name?.split(' ')[0]} ✨
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  {new Date().toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                  {roleConfig.welcomeMessage}
                 </p>
               </div>
             </div>

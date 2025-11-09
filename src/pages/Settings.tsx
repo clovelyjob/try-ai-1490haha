@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   User, Lock, Bell, Palette, CreditCard, Shield, 
-  Link as LinkIcon, Bot, Download, Trash2 
+  Link as LinkIcon, Bot, Download, Trash2, Briefcase 
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -14,9 +14,11 @@ import { PrivacySection } from '@/components/settings/PrivacySection';
 import { IntegrationsSection } from '@/components/settings/IntegrationsSection';
 import { CoachSection } from '@/components/settings/CoachSection';
 import { AccountSection } from '@/components/settings/AccountSection';
+import { RoleSection } from '@/components/settings/RoleSection';
 
 type SettingSection = 
   | 'profile' 
+  | 'role'
   | 'security' 
   | 'notifications' 
   | 'appearance' 
@@ -28,6 +30,7 @@ type SettingSection =
 
 const navigation = [
   { id: 'profile', label: 'Perfil', icon: User },
+  { id: 'role', label: 'Rol Profesional', icon: Briefcase },
   { id: 'security', label: 'Seguridad', icon: Lock },
   { id: 'notifications', label: 'Notificaciones', icon: Bell },
   { id: 'appearance', label: 'Apariencia', icon: Palette },
@@ -44,6 +47,8 @@ export default function Settings() {
     switch (activeSection) {
       case 'profile':
         return <ProfileSection />;
+      case 'role':
+        return <RoleSection />;
       case 'security':
         return <SecuritySection />;
       case 'notifications':
