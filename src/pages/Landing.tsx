@@ -12,6 +12,11 @@ import heroImage from '@/assets/hero-professional-growth.jpg';
 import collaborationImage from '@/assets/collaboration-story.jpg';
 import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
+import googleLogo from '@/assets/logos/google-logo.png';
+import metaLogo from '@/assets/logos/meta-logo.png';
+import spotifyLogo from '@/assets/logos/spotify-logo.png';
+import mercadolibreLogo from '@/assets/logos/mercadolibre-logo.png';
+import rappiLogo from '@/assets/logos/rappi-logo.png';
 
 const Landing = () => {
   const features = [
@@ -180,10 +185,12 @@ const Landing = () => {
           <p className="text-center text-sm text-muted-foreground mb-8">
             Profesionales trabajan en empresas como:
           </p>
-          <div className="flex gap-12 items-center justify-center flex-wrap opacity-60">
-            {['Google', 'Meta', 'Spotify', 'Mercado Libre', 'Rappi'].map((company) => (
-              <span key={company} className="text-2xl font-bold">{company}</span>
-            ))}
+          <div className="flex gap-8 md:gap-12 items-center justify-center flex-wrap">
+            <img src={googleLogo} alt="Google" className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
+            <img src={metaLogo} alt="Meta" className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
+            <img src={spotifyLogo} alt="Spotify" className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
+            <img src={mercadolibreLogo} alt="Mercado Libre" className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
+            <img src={rappiLogo} alt="Rappi" className="h-8 md:h-10 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </section>
