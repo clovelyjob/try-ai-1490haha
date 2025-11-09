@@ -6,7 +6,8 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
 import {
   Sparkles, Target, FileText, MessageSquare, Users, Trophy,
-  Brain, Map, CheckCircle2, ArrowRight, Star, Zap,
+  Brain, Map, CheckCircle2, ArrowRight, Star, Zap, Clock,
+  Wand2, ListChecks, Briefcase,
 } from 'lucide-react';
 import heroImage from '@/assets/hero-professional-growth.jpg';
 import collaborationImage from '@/assets/collaboration-story.jpg';
@@ -48,10 +49,30 @@ const Landing = () => {
   ];
 
   const steps = [
-    { title: 'Diagnóstico 10 min', time: 'Instantáneo' },
-    { title: 'IA diseña tu ruta', time: 'Instantáneo' },
-    { title: 'Microacciones diarias', time: '30 min/día' },
-    { title: 'Match con empleos', time: '2-4 semanas' },
+    { 
+      icon: Clock,
+      title: 'Diagnóstico 10 min', 
+      description: 'Descubre tus fortalezas únicas',
+      time: 'Instantáneo' 
+    },
+    { 
+      icon: Wand2,
+      title: 'IA diseña tu ruta', 
+      description: 'Plan personalizado a tu medida',
+      time: 'Instantáneo' 
+    },
+    { 
+      icon: ListChecks,
+      title: 'Microacciones diarias', 
+      description: 'Progreso constante y medible',
+      time: '30 min/día' 
+    },
+    { 
+      icon: Briefcase,
+      title: 'Match con empleos', 
+      description: 'Oportunidades alineadas a ti',
+      time: '2-4 semanas' 
+    },
   ];
 
   const testimonials = [
@@ -280,20 +301,43 @@ const Landing = () => {
           </h2>
           
           <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-            <div className="space-y-6">
+            <div className="relative space-y-8">
+              {/* Connecting line */}
+              <div className="absolute left-6 top-12 bottom-12 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary hidden md:block" />
+              
               {steps.map((step, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full gradient-orange text-white font-bold flex items-center justify-center text-xl shrink-0">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold mb-1">{step.title}</h3>
-                    <Badge variant="secondary">{step.time}</Badge>
-                  </div>
-                </div>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15 }}
+                  className="relative"
+                >
+                  <Card className="p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-l-4 border-l-primary/20">
+                    <div className="flex items-start gap-4">
+                      <div className="relative">
+                        <div className="w-12 h-12 rounded-full gradient-orange text-white font-bold flex items-center justify-center text-xl shrink-0 shadow-lg">
+                          {i + 1}
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                          <step.icon className="h-3 w-3 text-primary" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-heading font-bold text-lg mb-1">{step.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-2">{step.description}</p>
+                        <Badge variant="secondary" className="text-xs">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {step.time}
+                        </Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
               ))}
             </div>
-            <div className="glass rounded-2xl overflow-hidden">
+            <div className="glass rounded-2xl overflow-hidden animate-float">
               <img 
                 src={careerDiscoveryImage} 
                 alt="Momento de descubrimiento profesional con análisis de carrera"
