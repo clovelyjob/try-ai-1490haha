@@ -53,11 +53,11 @@ const Dashboard = () => {
   ];
 
   const todayTasks = [
-    { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true },
-    { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false },
-    { id: 3, time: '2:00 PM', title: 'Leer artículo sobre tendencias UX', xp: 25, completed: false },
-    { id: 4, time: '4:00 PM', title: 'Conectar con 3 profesionales en LinkedIn', xp: 30, completed: false },
-    { id: 5, time: '6:00 PM', title: 'Aplicar a Product Designer en Rappi', xp: 100, completed: false, featured: true, match: 89 },
+    { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
+    { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
+    { id: 3, time: '2:00 PM', title: 'Leer artículo sobre tendencias UX', xp: 25, completed: false, action: '/dashboard/coach' },
+    { id: 4, time: '4:00 PM', title: 'Conectar con 3 profesionales en LinkedIn', xp: 30, completed: false, action: '/dashboard/circles' },
+    { id: 5, time: '6:00 PM', title: 'Aplicar a Product Designer en Rappi', xp: 100, completed: false, featured: true, match: 89, action: '/dashboard/opportunities' },
   ];
 
   const opportunities = [
@@ -394,9 +394,11 @@ const Dashboard = () => {
                             +{task.xp} XP
                           </Badge>
                           {!task.completed && (
-                            <Button size="sm" variant="outline" className="mt-2">
-                              Empezar
-                            </Button>
+                            <Link to={task.action || '#'}>
+                              <Button size="sm" variant="outline" className="mt-2 hover-lift">
+                                Empezar
+                              </Button>
+                            </Link>
                           )}
                         </div>
                       </div>
