@@ -33,6 +33,13 @@ const Dashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([
+    { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
+    { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
+    { id: 3, time: '2:00 PM', title: 'Leer artículo sobre tendencias UX', xp: 25, completed: false, action: '/dashboard/coach' },
+    { id: 4, time: '4:00 PM', title: 'Conectar con 3 profesionales en LinkedIn', xp: 30, completed: false, action: '/dashboard/circles' },
+    { id: 5, time: '6:00 PM', title: 'Aplicar a Product Designer en Rappi', xp: 100, completed: false, featured: true, match: 89, action: '/dashboard/opportunities' },
+  ]);
   
   const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
@@ -138,6 +145,9 @@ const Dashboard = () => {
   ];
 
   const handleTaskComplete = (taskId: number, xp: number) => {
+    setTasks(tasks.map(task => 
+      task.id === taskId ? { ...task, completed: true } : task
+    ));
     addXP(xp);
     completeTask();
     toast.success(`¡Tarea completada! +${xp} XP ganados`, {
@@ -464,10 +474,10 @@ const Dashboard = () => {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-heading font-bold">Tu día</h2>
-                  <Badge variant="secondary">{todayTasks.filter(t => !t.completed).length} pendientes</Badge>
+                  <Badge variant="secondary">{tasks.filter(t => !t.completed).length} pendientes</Badge>
                 </div>
                 <div className="space-y-2">
-                  {todayTasks.map((task) => (
+                  {tasks.map((task) => (
                     <motion.div
                       key={task.id}
                       className={`p-4 rounded-lg border transition-all ${
