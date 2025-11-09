@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { UpgradeModal } from '@/components/UpgradeModal';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { GuestBanner } from '@/components/GuestBanner';
@@ -31,6 +32,7 @@ const Dashboard = () => {
   const [quote, setQuote] = useState(QUOTES[0]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   
   const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
@@ -253,7 +255,10 @@ const Dashboard = () => {
         <div className={`p-4 border-t space-y-2 ${sidebarCollapsed ? 'px-2' : ''}`}>
           <ThemeToggle />
           {!sidebarCollapsed && (
-            <Button className="w-full gradient-premium text-white text-sm">
+            <Button 
+              className="w-full gradient-premium text-white text-sm hover-glow hover:scale-105 transition-all duration-300"
+              onClick={() => setUpgradeModalOpen(true)}
+            >
               <Sparkles className="mr-2 h-4 w-4" />
               Upgrade
             </Button>
@@ -637,6 +642,13 @@ const Dashboard = () => {
           </div>
         </div>
       </main>
+
+      {/* Upgrade Modal */}
+      <UpgradeModal 
+        open={upgradeModalOpen} 
+        onClose={() => setUpgradeModalOpen(false)}
+        feature="acceso completo"
+      />
     </div>
   );
 };
