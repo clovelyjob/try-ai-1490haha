@@ -40,10 +40,8 @@ const Dashboard = () => {
     { id: 4, time: '4:00 PM', title: 'Conectar con 3 profesionales en LinkedIn', xp: 30, completed: false, action: '/dashboard/circles' },
     { id: 5, time: '6:00 PM', title: 'Aplicar a Product Designer en Rappi', xp: 100, completed: false, featured: true, match: 89, action: '/dashboard/opportunities' },
   ]);
-  
-  const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
-  const notifications = [
+  const [notifications, setNotifications] = useState([
     {
       id: 1,
       type: 'match',
@@ -71,7 +69,9 @@ const Dashboard = () => {
       read: true,
       icon: '📅',
     },
-  ];
+  ]);
+  
+  const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
   useEffect(() => {
     setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
@@ -153,6 +153,11 @@ const Dashboard = () => {
     toast.success(`¡Tarea completada! +${xp} XP ganados`, {
       description: `Tu racha continúa: ${progress.streak} días`,
     });
+  };
+
+  const handleMarkAllAsRead = () => {
+    setNotifications(notifications.map(notification => ({ ...notification, read: true })));
+    toast.success('Todas las notificaciones marcadas como leídas');
   };
 
   if (!progress) return null;
@@ -325,7 +330,7 @@ const Dashboard = () => {
                         variant="ghost" 
                         size="sm" 
                         className="text-xs"
-                        onClick={() => toast.success('Todas las notificaciones marcadas como leídas')}
+                        onClick={handleMarkAllAsRead}
                       >
                         Marcar todo como leído
                       </Button>
