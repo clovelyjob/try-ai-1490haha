@@ -6,15 +6,15 @@
 
 @layer base {
   :root {
-    /* Main colors */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 9%;
+    /* Main colors - Clovely warm tones */
+    --background: 30 40% 98%; /* Soft warm white */
+    --foreground: 0 0% 20%; /* #333333 */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 0 0% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 0 0% 20%;
 
     /* Clovely Brand Colors */
     --primary: 25 100% 50%; /* #FF7A00 Orange */
@@ -41,14 +41,15 @@
 
     --radius: 0.75rem;
 
-    /* Gradients */
-    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(25 95% 53%));
-    --gradient-premium: linear-gradient(135deg, hsl(258 90% 66%), hsl(239 84% 67%));
-    --gradient-blue: linear-gradient(135deg, hsl(217 91% 60%), hsl(221 83% 53%));
+    /* Clovely Gradients - warm and emotional */
+    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 95% 60%));
+    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(15 90% 55%));
+    --gradient-soft: linear-gradient(135deg, hsl(30 50% 95%), hsl(25 40% 90%));
+    --gradient-premium: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 60%));
     
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
+    /* Glassmorphism - Clovely style */
+    --glass-bg: rgba(255, 250, 245, 0.8);
+    --glass-border: rgba(255, 122, 0, 0.1);
     
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
@@ -142,8 +143,12 @@
     background: var(--gradient-premium);
   }
 
-  .gradient-blue {
-    background: var(--gradient-blue);
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .gradient-soft {
+    background: var(--gradient-soft);
   }
 
   .animate-float {
