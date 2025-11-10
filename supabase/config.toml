@@ -1,0 +1,4 @@
+project_id = "ntpjdilwbpicngildgvk"
+
+[functions.career-coach-chat]
+verify_jwt = false

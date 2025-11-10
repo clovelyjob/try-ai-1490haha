@@ -333,47 +333,74 @@ export const useCoachStore = create<CoachState>()(
           isProcessing: true,
         }));
 
-        // Mock AI response
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+          // Get conversation history
+          const conversationHistory = (get().messages[userId] || [])
+            .slice(-10) // Last 10 messages for context
+            .map(msg => ({
+              role: msg.role === 'assistant' ? 'assistant' : 'user',
+              content: msg.content
+            }));
 
-        const responses = {
-          cv: 'Para optimizar tu CV, necesito que selecciones cuál versión quieres analizar. Usa el botón "Analizar CV" arriba y te daré un análisis completo con sugerencias específicas.',
-          interview: 'Excelente decisión practicar entrevistas. Ve a la sección de Entrevistas para iniciar una simulación. Puedo ayudarte a prepararte para roles específicos y darte feedback detallado.',
-          courses: 'Basado en tu perfil, te recomiendo enfocarte en SQL y Python. ¿Quieres que te sugiera cursos específicos? Presiona el botón "Ver Cursos" arriba.',
-          job: 'Para ayudarte mejor con oportunidades, ve a la sección de Oportunidades. Ahí puedo analizar tu compatibilidad con cada oferta y sugerirte cómo optimizar tu CV para cada una.',
-          default: 'Entiendo. ¿Podrías ser más específico? Puedo ayudarte con: 1) Optimizar tu CV, 2) Practicar entrevistas, 3) Recomendar cursos, 4) Planificar tu semana.',
-        };
+          // Call AI edge function
+          const response = await fetch(
+            `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/career-coach-chat`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              },
+              body: JSON.stringify({
+                messages: conversationHistory,
+              }),
+            }
+          );
 
-        let responseContent = responses.default;
-        const lowerContent = content.toLowerCase();
-        
-        if (lowerContent.includes('cv') || lowerContent.includes('curriculum')) {
-          responseContent = responses.cv;
-        } else if (lowerContent.includes('entrevista') || lowerContent.includes('interview')) {
-          responseContent = responses.interview;
-        } else if (lowerContent.includes('curso') || lowerContent.includes('aprender') || lowerContent.includes('estudiar')) {
-          responseContent = responses.courses;
-        } else if (lowerContent.includes('trabajo') || lowerContent.includes('empleo') || lowerContent.includes('oferta')) {
-          responseContent = responses.job;
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener respuesta');
+          }
+
+          const data = await response.json();
+          const assistantMessage: CoachMessage = {
+            id: `msg_${Date.now()}_assistant`,
+            role: 'assistant',
+            content: data.message,
+            type: 'chat',
+            timestamp: new Date().toISOString(),
+          };
+
+          set((state) => ({
+            messages: {
+              ...state.messages,
+              [userId]: [...state.messages[userId], assistantMessage],
+            },
+            isProcessing: false,
+          }));
+
+          get().addInteraction(userId, type, content.substring(0, 50));
+        } catch (error) {
+          console.error('Error sending message:', error);
+          
+          const errorMessage: CoachMessage = {
+            id: `msg_${Date.now()}_error`,
+            role: 'assistant',
+            content: 'Lo siento, hubo un error al procesar tu mensaje. Por favor intenta de nuevo.',
+            type: 'chat',
+            timestamp: new Date().toISOString(),
+          };
+
+          set((state) => ({
+            messages: {
+              ...state.messages,
+              [userId]: [...state.messages[userId], errorMessage],
+            },
+            isProcessing: false,
+          }));
+          
+          throw error;
         }
-
-        const assistantMessage: CoachMessage = {
-          id: `msg_${Date.now()}_assistant`,
-          role: 'assistant',
-          content: responseContent,
-          type: 'chat',
-          timestamp: new Date().toISOString(),
-        };
-
-        set((state) => ({
-          messages: {
-            ...state.messages,
-            [userId]: [...state.messages[userId], assistantMessage],
-          },
-          isProcessing: false,
-        }));
-
-        get().addInteraction(userId, type, content.substring(0, 50));
       },
 
       clearChat: (userId) => {
