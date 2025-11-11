@@ -8,10 +8,11 @@ export interface RoleDefinition {
   keywords: string[];
   toolKeywords: string[];
   skillKeywords: string[];
-  category: 'design' | 'development' | 'management' | 'business' | 'data' | 'finance' | 'marketing' | 'other';
+  category: 'design' | 'development' | 'management' | 'business' | 'data' | 'finance' | 'marketing' | 'people' | 'legal' | 'engineering' | 'healthcare' | 'creative' | 'education' | 'hospitality' | 'general' | 'other';
 }
 
 export const PROFESSIONAL_ROLES: RoleDefinition[] = [
+  // Design
   {
     id: 'ux_designer',
     label: 'Diseñador UX',
@@ -43,6 +44,38 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     category: 'design'
   },
   {
+    id: 'graphic_designer',
+    label: 'Diseñador Gráfico',
+    icon: '🖼️',
+    description: 'Crea diseños visuales para branding, publicidad y medios',
+    keywords: ['gráfico', 'branding', 'identidad', 'publicidad', 'ilustración', 'composición'],
+    toolKeywords: ['adobe illustrator', 'photoshop', 'indesign', 'canva', 'coreldraw'],
+    skillKeywords: ['branding', 'typography', 'layout design', 'print design', 'visual identity'],
+    category: 'design'
+  },
+  {
+    id: 'industrial_designer',
+    label: 'Diseñador Industrial',
+    icon: '🏭',
+    description: 'Diseña productos físicos y objetos manufacturados',
+    keywords: ['industrial', 'producto físico', 'manufactura', 'prototipado', '3d', 'ergonomía'],
+    toolKeywords: ['solidworks', 'rhino', 'autocad', 'fusion 360', 'keyshot'],
+    skillKeywords: ['3d modeling', 'prototyping', 'ergonomics', 'manufacturing', 'materials'],
+    category: 'design'
+  },
+  {
+    id: 'fashion_designer',
+    label: 'Diseñador de Moda',
+    icon: '👗',
+    description: 'Crea diseños de vestuario y tendencias de moda',
+    keywords: ['moda', 'vestuario', 'textil', 'tendencias', 'colecciones', 'patronaje'],
+    toolKeywords: ['adobe illustrator', 'clo3d', 'photoshop', 'marvelous designer'],
+    skillKeywords: ['fashion illustration', 'pattern making', 'textile design', 'trend forecasting'],
+    category: 'design'
+  },
+
+  // Development
+  {
     id: 'developer_frontend',
     label: 'Desarrollador Frontend',
     icon: '💻',
@@ -73,6 +106,58 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     category: 'development'
   },
   {
+    id: 'software_engineer',
+    label: 'Ingeniero de Software',
+    icon: '👨‍💻',
+    description: 'Desarrolla sistemas de software complejos y escalables',
+    keywords: ['software', 'ingeniería', 'arquitectura', 'sistemas', 'código', 'desarrollo'],
+    toolKeywords: ['java', 'python', 'c++', 'git', 'kubernetes', 'aws', 'microservices'],
+    skillKeywords: ['system design', 'algorithms', 'software architecture', 'clean code', 'testing'],
+    category: 'development'
+  },
+  {
+    id: 'mobile_developer',
+    label: 'Desarrollador Mobile',
+    icon: '📱',
+    description: 'Especializado en aplicaciones móviles iOS y Android',
+    keywords: ['mobile', 'móvil', 'ios', 'android', 'app', 'nativo', 'híbrido'],
+    toolKeywords: ['react native', 'flutter', 'swift', 'kotlin', 'xcode', 'android studio'],
+    skillKeywords: ['mobile development', 'ios', 'android', 'app architecture', 'mobile ui'],
+    category: 'development'
+  },
+  {
+    id: 'devops',
+    label: 'DevOps Engineer',
+    icon: '🔄',
+    description: 'Gestiona infraestructura, CI/CD y automatización',
+    keywords: ['devops', 'infraestructura', 'deployment', 'automatización', 'cloud', 'containers'],
+    toolKeywords: ['docker', 'kubernetes', 'jenkins', 'terraform', 'aws', 'azure', 'github actions'],
+    skillKeywords: ['ci/cd', 'docker', 'kubernetes', 'cloud platforms', 'infrastructure as code'],
+    category: 'development'
+  },
+  {
+    id: 'qa_engineer',
+    label: 'QA Engineer',
+    icon: '🔍',
+    description: 'Asegura la calidad mediante testing y automatización',
+    keywords: ['qa', 'testing', 'calidad', 'automatización', 'bugs', 'pruebas'],
+    toolKeywords: ['selenium', 'cypress', 'jira', 'postman', 'jest', 'pytest'],
+    skillKeywords: ['test automation', 'manual testing', 'bug tracking', 'test planning', 'qa methodologies'],
+    category: 'development'
+  },
+  {
+    id: 'ml_engineer',
+    label: 'Ingeniero de Machine Learning',
+    icon: '🤖',
+    description: 'Implementa y despliega modelos de ML en producción',
+    keywords: ['machine learning', 'ml', 'ai', 'modelos', 'deep learning', 'mlops'],
+    toolKeywords: ['tensorflow', 'pytorch', 'python', 'kubernetes', 'mlflow', 'sagemaker'],
+    skillKeywords: ['machine learning', 'deep learning', 'model deployment', 'mlops', 'python'],
+    category: 'development'
+  },
+
+  // Management
+  {
     id: 'project_manager',
     label: 'Project Manager',
     icon: '📊',
@@ -92,6 +177,28 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     skillKeywords: ['product strategy', 'roadmap', 'prioritization', 'analytics', 'user stories'],
     category: 'management'
   },
+  {
+    id: 'scrum_master',
+    label: 'Scrum Master',
+    icon: '🏃',
+    description: 'Facilita procesos ágiles y mejora continua del equipo',
+    keywords: ['scrum', 'agile', 'facilitación', 'retrospectivas', 'sprints', 'ceremonies'],
+    toolKeywords: ['jira', 'miro', 'confluence', 'slack', 'zoom'],
+    skillKeywords: ['scrum', 'agile methodologies', 'facilitation', 'team coaching', 'impediment removal'],
+    category: 'management'
+  },
+  {
+    id: 'business_analyst',
+    label: 'Business Analyst',
+    icon: '📋',
+    description: 'Analiza procesos y requisitos de negocio',
+    keywords: ['análisis', 'negocio', 'procesos', 'requisitos', 'optimización', 'stakeholders'],
+    toolKeywords: ['excel', 'visio', 'jira', 'confluence', 'tableau', 'sql'],
+    skillKeywords: ['business analysis', 'requirements gathering', 'process mapping', 'stakeholder management'],
+    category: 'management'
+  },
+
+  // Data & Analytics
   {
     id: 'data_analyst',
     label: 'Analista de Datos',
@@ -113,6 +220,28 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     category: 'data'
   },
   {
+    id: 'data_engineer',
+    label: 'Ingeniero de Datos',
+    icon: '🔧',
+    description: 'Construye pipelines y arquitecturas de datos',
+    keywords: ['datos', 'pipelines', 'etl', 'data warehouse', 'big data', 'arquitectura'],
+    toolKeywords: ['spark', 'kafka', 'airflow', 'sql', 'python', 'aws', 'snowflake'],
+    skillKeywords: ['data pipelines', 'etl', 'sql', 'big data', 'data architecture'],
+    category: 'data'
+  },
+  {
+    id: 'business_intelligence',
+    label: 'Especialista BI',
+    icon: '💡',
+    description: 'Transforma datos en insights de negocio mediante dashboards',
+    keywords: ['bi', 'business intelligence', 'dashboards', 'reportes', 'kpis', 'métricas'],
+    toolKeywords: ['tableau', 'power bi', 'looker', 'sql', 'excel'],
+    skillKeywords: ['data visualization', 'sql', 'dashboard design', 'business analysis', 'kpi tracking'],
+    category: 'data'
+  },
+
+  // Finance & Investment
+  {
     id: 'investor',
     label: 'Inversionista',
     icon: '💰',
@@ -133,6 +262,48 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     category: 'finance'
   },
   {
+    id: 'trader',
+    label: 'Trader',
+    icon: '💹',
+    description: 'Ejecuta operaciones de compra y venta en mercados financieros',
+    keywords: ['trading', 'mercados', 'acciones', 'forex', 'criptomonedas', 'análisis técnico'],
+    toolKeywords: ['metatrader', 'thinkorswim', 'tradingview', 'bloomberg', 'python'],
+    skillKeywords: ['technical analysis', 'risk management', 'market timing', 'trading psychology'],
+    category: 'finance'
+  },
+  {
+    id: 'financial_analyst',
+    label: 'Analista Financiero',
+    icon: '📊',
+    description: 'Analiza estados financieros y evalúa inversiones',
+    keywords: ['análisis', 'finanzas', 'estados financieros', 'valuación', 'presupuesto'],
+    toolKeywords: ['excel', 'bloomberg', 'capital iq', 'python', 'tableau'],
+    skillKeywords: ['financial modeling', 'valuation', 'financial statements', 'forecasting'],
+    category: 'finance'
+  },
+  {
+    id: 'economist',
+    label: 'Economista',
+    icon: '📉',
+    description: 'Analiza fenómenos económicos y genera pronósticos',
+    keywords: ['economía', 'macroeconomía', 'política económica', 'pronósticos', 'investigación'],
+    toolKeywords: ['stata', 'r', 'python', 'excel', 'eviews'],
+    skillKeywords: ['economic analysis', 'econometrics', 'forecasting', 'policy analysis'],
+    category: 'finance'
+  },
+  {
+    id: 'financial_consultant',
+    label: 'Consultor Financiero',
+    icon: '💼',
+    description: 'Asesora en planificación financiera y estrategias de inversión',
+    keywords: ['consultoría', 'finanzas', 'asesoría', 'planificación', 'patrimonial'],
+    toolKeywords: ['excel', 'powerpoint', 'financial planning software'],
+    skillKeywords: ['financial planning', 'client advisory', 'investment strategies', 'wealth management'],
+    category: 'finance'
+  },
+
+  // Marketing & Content
+  {
     id: 'marketing_manager',
     label: 'Marketing Manager',
     icon: '📣',
@@ -140,6 +311,36 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     keywords: ['marketing', 'campañas', 'branding', 'digital', 'contenido', 'redes sociales', 'seo'],
     toolKeywords: ['google analytics', 'hubspot', 'mailchimp', 'canva', 'hootsuite', 'semrush'],
     skillKeywords: ['digital marketing', 'content strategy', 'seo', 'social media', 'analytics'],
+    category: 'marketing'
+  },
+  {
+    id: 'growth_marketer',
+    label: 'Growth Marketer',
+    icon: '🚀',
+    description: 'Optimiza el crecimiento mediante experimentos y métricas',
+    keywords: ['growth', 'crecimiento', 'hacking', 'experimentos', 'optimización', 'conversión'],
+    toolKeywords: ['google analytics', 'mixpanel', 'optimizely', 'sql', 'python'],
+    skillKeywords: ['growth hacking', 'a/b testing', 'analytics', 'conversion optimization', 'experimentation'],
+    category: 'marketing'
+  },
+  {
+    id: 'digital_strategist',
+    label: 'Estratega Digital',
+    icon: '🎯',
+    description: 'Define estrategias digitales y de transformación',
+    keywords: ['estrategia', 'digital', 'transformación', 'innovación', 'omnicanal'],
+    toolKeywords: ['google analytics', 'semrush', 'ahrefs', 'tableau', 'miro'],
+    skillKeywords: ['digital strategy', 'transformation', 'innovation', 'analytics', 'market research'],
+    category: 'marketing'
+  },
+  {
+    id: 'community_manager',
+    label: 'Community Manager',
+    icon: '👥',
+    description: 'Gestiona comunidades y presencia en redes sociales',
+    keywords: ['comunidad', 'redes sociales', 'engagement', 'contenido', 'moderación'],
+    toolKeywords: ['hootsuite', 'buffer', 'sprout social', 'canva', 'meta business suite'],
+    skillKeywords: ['social media management', 'community building', 'content creation', 'engagement'],
     category: 'marketing'
   },
   {
@@ -153,44 +354,452 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
     category: 'marketing'
   },
   {
-    id: 'business_analyst',
-    label: 'Business Analyst',
-    icon: '📋',
-    description: 'Analiza procesos y requisitos de negocio',
-    keywords: ['análisis', 'negocio', 'procesos', 'requisitos', 'optimización', 'stakeholders'],
-    toolKeywords: ['excel', 'visio', 'jira', 'confluence', 'tableau', 'sql'],
-    skillKeywords: ['business analysis', 'requirements gathering', 'process mapping', 'stakeholder management'],
+    id: 'copywriter',
+    label: 'Copywriter',
+    icon: '✏️',
+    description: 'Redacta textos persuasivos para marketing y publicidad',
+    keywords: ['copywriting', 'redacción', 'persuasión', 'publicidad', 'contenido'],
+    toolKeywords: ['google docs', 'grammarly', 'hemingway', 'wordpress'],
+    skillKeywords: ['copywriting', 'persuasive writing', 'storytelling', 'seo writing', 'content strategy'],
+    category: 'marketing'
+  },
+  {
+    id: 'seo_specialist',
+    label: 'Especialista SEO',
+    icon: '🔍',
+    description: 'Optimiza sitios web para motores de búsqueda',
+    keywords: ['seo', 'posicionamiento', 'búsqueda', 'keywords', 'optimización', 'google'],
+    toolKeywords: ['semrush', 'ahrefs', 'google analytics', 'google search console', 'screaming frog'],
+    skillKeywords: ['seo', 'keyword research', 'technical seo', 'link building', 'analytics'],
+    category: 'marketing'
+  },
+  {
+    id: 'social_media_manager',
+    label: 'Social Media Manager',
+    icon: '📱',
+    description: 'Gestiona estrategia y contenido en redes sociales',
+    keywords: ['social media', 'redes sociales', 'contenido', 'campañas', 'ads', 'influencers'],
+    toolKeywords: ['meta business suite', 'hootsuite', 'canva', 'capcut', 'later'],
+    skillKeywords: ['social media strategy', 'content planning', 'paid social', 'analytics', 'community management'],
+    category: 'marketing'
+  },
+
+  // Business & Strategy
+  {
+    id: 'entrepreneur',
+    label: 'Emprendedor',
+    icon: '🌟',
+    description: 'Crea y gestiona negocios propios',
+    keywords: ['emprendimiento', 'startup', 'negocio', 'innovación', 'pitch', 'mvp'],
+    toolKeywords: ['notion', 'figma', 'canva', 'stripe', 'google workspace'],
+    skillKeywords: ['business development', 'innovation', 'pitch', 'lean startup', 'networking'],
     category: 'business'
   },
   {
-    id: 'scrum_master',
-    label: 'Scrum Master',
-    icon: '🏃',
-    description: 'Facilita procesos ágiles y mejora continua del equipo',
-    keywords: ['scrum', 'agile', 'facilitación', 'retrospectivas', 'sprints', 'ceremonies'],
-    toolKeywords: ['jira', 'miro', 'confluence', 'slack', 'zoom'],
-    skillKeywords: ['scrum', 'agile methodologies', 'facilitation', 'team coaching', 'impediment removal'],
-    category: 'management'
+    id: 'business_consultant',
+    label: 'Consultor de Negocios',
+    icon: '💼',
+    description: 'Asesora en estrategia y optimización de negocios',
+    keywords: ['consultoría', 'estrategia', 'negocios', 'optimización', 'transformación'],
+    toolKeywords: ['powerpoint', 'excel', 'miro', 'tableau'],
+    skillKeywords: ['business strategy', 'consulting', 'problem solving', 'presentation', 'analysis'],
+    category: 'business'
   },
   {
-    id: 'devops',
-    label: 'DevOps Engineer',
-    icon: '🔄',
-    description: 'Gestiona infraestructura, CI/CD y automatización',
-    keywords: ['devops', 'infraestructura', 'deployment', 'automatización', 'cloud', 'containers'],
-    toolKeywords: ['docker', 'kubernetes', 'jenkins', 'terraform', 'aws', 'azure', 'github actions'],
-    skillKeywords: ['ci/cd', 'docker', 'kubernetes', 'cloud platforms', 'infrastructure as code'],
-    category: 'development'
+    id: 'sales_specialist',
+    label: 'Especialista en Ventas',
+    icon: '💼',
+    description: 'Gestiona procesos de ventas y relaciones con clientes',
+    keywords: ['ventas', 'sales', 'negociación', 'cierre', 'pipeline', 'clientes'],
+    toolKeywords: ['salesforce', 'hubspot', 'pipedrive', 'linkedin sales navigator'],
+    skillKeywords: ['sales', 'negotiation', 'crm', 'prospecting', 'closing'],
+    category: 'business'
   },
   {
-    id: 'qa_engineer',
-    label: 'QA Engineer',
+    id: 'account_executive',
+    label: 'Account Executive',
+    icon: '🤝',
+    description: 'Gestiona cuentas clave y relaciones comerciales',
+    keywords: ['cuentas', 'clientes', 'ventas', 'relaciones', 'b2b', 'enterprise'],
+    toolKeywords: ['salesforce', 'hubspot', 'linkedin', 'zoom'],
+    skillKeywords: ['account management', 'sales', 'client relations', 'negotiation', 'upselling'],
+    category: 'business'
+  },
+
+  // People & HR
+  {
+    id: 'hr_specialist',
+    label: 'Especialista en RRHH',
+    icon: '👔',
+    description: 'Gestiona recursos humanos y desarrollo del talento',
+    keywords: ['recursos humanos', 'rrhh', 'talento', 'cultura', 'compensación', 'beneficios'],
+    toolKeywords: ['workday', 'bamboohr', 'excel', 'linkedin'],
+    skillKeywords: ['hr management', 'talent development', 'compensation', 'employee relations'],
+    category: 'people'
+  },
+  {
+    id: 'talent_acquisition',
+    label: 'Talent Acquisition',
+    icon: '🎯',
+    description: 'Atrae y selecciona talento estratégico',
+    keywords: ['reclutamiento', 'talento', 'selección', 'sourcing', 'headhunting'],
+    toolKeywords: ['linkedin recruiter', 'greenhouse', 'lever', 'workable'],
+    skillKeywords: ['recruiting', 'sourcing', 'interviewing', 'employer branding', 'ats'],
+    category: 'people'
+  },
+  {
+    id: 'recruiter',
+    label: 'Reclutador',
     icon: '🔍',
-    description: 'Asegura la calidad mediante testing y automatización',
-    keywords: ['qa', 'testing', 'calidad', 'automatización', 'bugs', 'pruebas'],
-    toolKeywords: ['selenium', 'cypress', 'jira', 'postman', 'jest', 'pytest'],
-    skillKeywords: ['test automation', 'manual testing', 'bug tracking', 'test planning', 'qa methodologies'],
-    category: 'development'
+    description: 'Busca y selecciona candidatos para vacantes',
+    keywords: ['reclutamiento', 'selección', 'entrevistas', 'vacantes', 'candidatos'],
+    toolKeywords: ['linkedin', 'indeed', 'ats', 'zoom'],
+    skillKeywords: ['recruiting', 'interviewing', 'candidate screening', 'job posting', 'sourcing'],
+    category: 'people'
+  },
+  {
+    id: 'leadership_coach',
+    label: 'Coach de Liderazgo',
+    icon: '🌱',
+    description: 'Desarrolla líderes y equipos de alto rendimiento',
+    keywords: ['coaching', 'liderazgo', 'desarrollo', 'equipos', 'mentoring'],
+    toolKeywords: ['zoom', 'miro', 'notion', 'assessment tools'],
+    skillKeywords: ['leadership coaching', 'team development', 'feedback', 'goal setting', 'mentoring'],
+    category: 'people'
+  },
+  {
+    id: 'organizational_psychologist',
+    label: 'Psicólogo Organizacional',
+    icon: '🧠',
+    description: 'Aplica psicología al desarrollo organizacional',
+    keywords: ['psicología', 'organizacional', 'cultura', 'bienestar', 'evaluación'],
+    toolKeywords: ['assessment tools', 'spss', 'r', 'qualtrics'],
+    skillKeywords: ['organizational psychology', 'assessment', 'workplace wellbeing', 'change management'],
+    category: 'people'
+  },
+  {
+    id: 'mentor',
+    label: 'Mentor',
+    icon: '🎓',
+    description: 'Guía y desarrolla profesionales en sus carreras',
+    keywords: ['mentoría', 'guía', 'desarrollo', 'carrera', 'consejos'],
+    toolKeywords: ['zoom', 'notion', 'calendly'],
+    skillKeywords: ['mentoring', 'career guidance', 'knowledge sharing', 'feedback', 'coaching'],
+    category: 'people'
+  },
+
+  // Legal & Compliance
+  {
+    id: 'lawyer',
+    label: 'Abogado',
+    icon: '⚖️',
+    description: 'Provee asesoría legal y representación',
+    keywords: ['derecho', 'legal', 'litigio', 'contratos', 'asesoría jurídica'],
+    toolKeywords: ['lexisnexis', 'westlaw', 'case management software'],
+    skillKeywords: ['legal research', 'contract law', 'litigation', 'legal writing', 'advisory'],
+    category: 'legal'
+  },
+  {
+    id: 'legal_advisor',
+    label: 'Asesor Legal',
+    icon: '📜',
+    description: 'Asesora en temas legales corporativos y contratos',
+    keywords: ['asesoría', 'legal', 'contratos', 'corporativo', 'compliance'],
+    toolKeywords: ['docusign', 'legal templates', 'document management'],
+    skillKeywords: ['legal advisory', 'contract review', 'corporate law', 'compliance', 'risk assessment'],
+    category: 'legal'
+  },
+  {
+    id: 'compliance_officer',
+    label: 'Oficial de Cumplimiento',
+    icon: '🛡️',
+    description: 'Asegura el cumplimiento de normativas y regulaciones',
+    keywords: ['compliance', 'cumplimiento', 'regulación', 'auditoría', 'riesgos'],
+    toolKeywords: ['compliance software', 'risk management tools', 'audit software'],
+    skillKeywords: ['compliance', 'risk management', 'regulatory knowledge', 'audit', 'policy development'],
+    category: 'legal'
+  },
+
+  // Engineering (Other)
+  {
+    id: 'civil_engineer',
+    label: 'Ingeniero Civil',
+    icon: '🏗️',
+    description: 'Diseña y supervisa proyectos de infraestructura',
+    keywords: ['civil', 'construcción', 'infraestructura', 'estructuras', 'obras'],
+    toolKeywords: ['autocad', 'civil 3d', 'revit', 'sap2000', 'etabs'],
+    skillKeywords: ['structural design', 'construction management', 'cad', 'project planning'],
+    category: 'engineering'
+  },
+  {
+    id: 'mechanical_engineer',
+    label: 'Ingeniero Mecánico',
+    icon: '⚙️',
+    description: 'Diseña sistemas mecánicos y maquinaria',
+    keywords: ['mecánico', 'maquinaria', 'sistemas', 'manufactura', 'diseño mecánico'],
+    toolKeywords: ['solidworks', 'autocad', 'ansys', 'matlab', 'catia'],
+    skillKeywords: ['mechanical design', 'cad', 'thermodynamics', 'manufacturing', 'analysis'],
+    category: 'engineering'
+  },
+  {
+    id: 'electrical_engineer',
+    label: 'Ingeniero Eléctrico',
+    icon: '⚡',
+    description: 'Diseña sistemas eléctricos y electrónicos',
+    keywords: ['eléctrico', 'electrónico', 'circuitos', 'energía', 'automatización'],
+    toolKeywords: ['matlab', 'pspice', 'autocad electrical', 'labview'],
+    skillKeywords: ['electrical design', 'circuit analysis', 'power systems', 'automation', 'control systems'],
+    category: 'engineering'
+  },
+  {
+    id: 'architect',
+    label: 'Arquitecto',
+    icon: '🏛️',
+    description: 'Diseña espacios arquitectónicos y edificaciones',
+    keywords: ['arquitectura', 'diseño', 'espacios', 'edificios', 'construcción'],
+    toolKeywords: ['revit', 'autocad', 'sketchup', 'rhino', 'lumion'],
+    skillKeywords: ['architectural design', 'bim', 'spatial planning', 'rendering', 'construction documents'],
+    category: 'engineering'
+  },
+  {
+    id: 'sustainability_consultant',
+    label: 'Consultor de Sostenibilidad',
+    icon: '🌱',
+    description: 'Asesora en prácticas sostenibles y medio ambiente',
+    keywords: ['sostenibilidad', 'medio ambiente', 'esg', 'carbono', 'energía renovable'],
+    toolKeywords: ['gis', 'lca software', 'energy modeling tools'],
+    skillKeywords: ['sustainability', 'environmental assessment', 'carbon accounting', 'esg', 'renewable energy'],
+    category: 'engineering'
+  },
+
+  // Healthcare & Research
+  {
+    id: 'healthcare_professional',
+    label: 'Profesional de la Salud',
+    icon: '🏥',
+    description: 'Provee atención y servicios de salud',
+    keywords: ['salud', 'atención', 'pacientes', 'clínica', 'tratamiento'],
+    toolKeywords: ['emr systems', 'medical software'],
+    skillKeywords: ['patient care', 'clinical skills', 'healthcare', 'diagnosis', 'treatment'],
+    category: 'healthcare'
+  },
+  {
+    id: 'medical_doctor',
+    label: 'Médico',
+    icon: '👨‍⚕️',
+    description: 'Diagnostica y trata enfermedades',
+    keywords: ['medicina', 'diagnóstico', 'tratamiento', 'pacientes', 'clínica'],
+    toolKeywords: ['emr', 'medical imaging', 'diagnostic tools'],
+    skillKeywords: ['clinical diagnosis', 'patient care', 'medical knowledge', 'treatment planning'],
+    category: 'healthcare'
+  },
+  {
+    id: 'academic_researcher',
+    label: 'Investigador Académico',
+    icon: '🔬',
+    description: 'Realiza investigación científica y publica hallazgos',
+    keywords: ['investigación', 'ciencia', 'academia', 'publicaciones', 'papers'],
+    toolKeywords: ['latex', 'r', 'python', 'spss', 'mendeley', 'zotero'],
+    skillKeywords: ['research', 'data analysis', 'academic writing', 'methodology', 'publishing'],
+    category: 'healthcare'
+  },
+  {
+    id: 'laboratory_scientist',
+    label: 'Científico de Laboratorio',
+    icon: '🧪',
+    description: 'Realiza experimentos y análisis de laboratorio',
+    keywords: ['laboratorio', 'experimentos', 'análisis', 'investigación', 'ciencia'],
+    toolKeywords: ['lab equipment', 'data analysis software', 'lims'],
+    skillKeywords: ['laboratory techniques', 'data analysis', 'experimentation', 'quality control'],
+    category: 'healthcare'
+  },
+
+  // Creative & Media
+  {
+    id: 'photographer',
+    label: 'Fotógrafo',
+    icon: '📷',
+    description: 'Captura y edita imágenes profesionales',
+    keywords: ['fotografía', 'imágenes', 'retrato', 'edición', 'producto'],
+    toolKeywords: ['lightroom', 'photoshop', 'capture one', 'camera equipment'],
+    skillKeywords: ['photography', 'photo editing', 'composition', 'lighting', 'retouching'],
+    category: 'creative'
+  },
+  {
+    id: 'videographer',
+    label: 'Videógrafo',
+    icon: '🎥',
+    description: 'Graba y edita videos profesionales',
+    keywords: ['video', 'filmación', 'edición', 'producción', 'cinematografía'],
+    toolKeywords: ['premiere pro', 'final cut', 'davinci resolve', 'after effects'],
+    skillKeywords: ['videography', 'video editing', 'cinematography', 'storytelling', 'color grading'],
+    category: 'creative'
+  },
+  {
+    id: 'audiovisual_producer',
+    label: 'Productor Audiovisual',
+    icon: '🎬',
+    description: 'Produce contenido audiovisual completo',
+    keywords: ['producción', 'audiovisual', 'multimedia', 'dirección', 'post-producción'],
+    toolKeywords: ['premiere pro', 'after effects', 'audition', 'pro tools'],
+    skillKeywords: ['production', 'post-production', 'project management', 'creative direction'],
+    category: 'creative'
+  },
+  {
+    id: 'artist',
+    label: 'Artista',
+    icon: '🎨',
+    description: 'Crea obras de arte y expresión creativa',
+    keywords: ['arte', 'creación', 'expresión', 'obras', 'exposición'],
+    toolKeywords: ['procreate', 'photoshop', 'illustrator', 'traditional media'],
+    skillKeywords: ['artistic creation', 'creative expression', 'composition', 'color theory', 'technique'],
+    category: 'creative'
+  },
+  {
+    id: 'illustrator',
+    label: 'Ilustrador',
+    icon: '✏️',
+    description: 'Crea ilustraciones digitales y tradicionales',
+    keywords: ['ilustración', 'dibujo', 'arte digital', 'concepto', 'narrativa visual'],
+    toolKeywords: ['procreate', 'adobe illustrator', 'photoshop', 'clip studio paint'],
+    skillKeywords: ['illustration', 'digital art', 'drawing', 'concept art', 'visual storytelling'],
+    category: 'creative'
+  },
+  {
+    id: 'animator',
+    label: 'Animador',
+    icon: '🎞️',
+    description: 'Crea animaciones 2D y 3D',
+    keywords: ['animación', '2d', '3d', 'motion graphics', 'efectos'],
+    toolKeywords: ['after effects', 'blender', 'maya', 'cinema 4d', 'toon boom'],
+    skillKeywords: ['animation', '3d modeling', 'motion graphics', 'rigging', 'storytelling'],
+    category: 'creative'
+  },
+
+  // Education & Training
+  {
+    id: 'educator',
+    label: 'Educador',
+    icon: '👨‍🏫',
+    description: 'Enseña y facilita el aprendizaje',
+    keywords: ['educación', 'enseñanza', 'docente', 'profesor', 'aprendizaje'],
+    toolKeywords: ['google classroom', 'zoom', 'canvas', 'moodle'],
+    skillKeywords: ['teaching', 'curriculum development', 'classroom management', 'assessment', 'pedagogy'],
+    category: 'education'
+  },
+  {
+    id: 'edtech_specialist',
+    label: 'Especialista en EdTech',
+    icon: '💻',
+    description: 'Implementa tecnología educativa',
+    keywords: ['tecnología educativa', 'edtech', 'e-learning', 'plataformas', 'innovación'],
+    toolKeywords: ['lms', 'articulate', 'canvas', 'moodle', 'zoom'],
+    skillKeywords: ['educational technology', 'lms', 'instructional design', 'e-learning', 'digital pedagogy'],
+    category: 'education'
+  },
+  {
+    id: 'corporate_trainer',
+    label: 'Capacitador Corporativo',
+    icon: '📊',
+    description: 'Diseña y facilita entrenamientos empresariales',
+    keywords: ['capacitación', 'training', 'desarrollo', 'empresarial', 'talleres'],
+    toolKeywords: ['powerpoint', 'articulate', 'zoom', 'miro'],
+    skillKeywords: ['corporate training', 'facilitation', 'presentation', 'training development', 'coaching'],
+    category: 'education'
+  },
+  {
+    id: 'instructional_designer',
+    label: 'Diseñador Instruccional',
+    icon: '📚',
+    description: 'Diseña experiencias de aprendizaje efectivas',
+    keywords: ['diseño instruccional', 'e-learning', 'cursos', 'aprendizaje', 'pedagogía'],
+    toolKeywords: ['articulate', 'rise', 'camtasia', 'captivate', 'lms'],
+    skillKeywords: ['instructional design', 'e-learning development', 'learning theory', 'assessment design'],
+    category: 'education'
+  },
+
+  // Hospitality & Culinary
+  {
+    id: 'chef',
+    label: 'Chef',
+    icon: '👨‍🍳',
+    description: 'Crea y dirige operaciones culinarias',
+    keywords: ['cocina', 'gastronomía', 'chef', 'menú', 'culinario'],
+    toolKeywords: ['kitchen equipment', 'pos systems', 'menu planning software'],
+    skillKeywords: ['culinary arts', 'menu development', 'kitchen management', 'food safety', 'creativity'],
+    category: 'hospitality'
+  },
+  {
+    id: 'culinary_specialist',
+    label: 'Especialista Gastronómico',
+    icon: '🍽️',
+    description: 'Especializado en técnicas culinarias avanzadas',
+    keywords: ['gastronomía', 'cocina', 'técnicas', 'innovación', 'alta cocina'],
+    toolKeywords: ['professional kitchen equipment', 'food lab tools'],
+    skillKeywords: ['culinary techniques', 'food innovation', 'molecular gastronomy', 'flavor pairing'],
+    category: 'hospitality'
+  },
+  {
+    id: 'hospitality_manager',
+    label: 'Gerente de Hospitalidad',
+    icon: '🏨',
+    description: 'Gestiona operaciones de hoteles y servicios',
+    keywords: ['hospitalidad', 'hotel', 'servicios', 'gestión', 'experiencia del cliente'],
+    toolKeywords: ['pms', 'booking systems', 'crm', 'excel'],
+    skillKeywords: ['hospitality management', 'customer service', 'operations', 'team leadership'],
+    category: 'hospitality'
+  },
+
+  // General
+  {
+    id: 'student',
+    label: 'Estudiante',
+    icon: '🎓',
+    description: 'En formación académica y desarrollo profesional',
+    keywords: ['estudiante', 'aprendizaje', 'universidad', 'carrera', 'formación'],
+    toolKeywords: ['notion', 'google workspace', 'zoom'],
+    skillKeywords: ['learning', 'time management', 'research', 'collaboration'],
+    category: 'general'
+  },
+  {
+    id: 'freelancer',
+    label: 'Freelancer',
+    icon: '💼',
+    description: 'Trabaja de forma independiente en proyectos diversos',
+    keywords: ['freelance', 'independiente', 'proyectos', 'remoto', 'autónomo'],
+    toolKeywords: ['notion', 'figma', 'slack', 'zoom', 'invoicing software'],
+    skillKeywords: ['project management', 'client communication', 'time management', 'self-motivation'],
+    category: 'general'
+  },
+  {
+    id: 'corporate_executive',
+    label: 'Ejecutivo Corporativo',
+    icon: '👔',
+    description: 'Lidera estrategia y operaciones a nivel ejecutivo',
+    keywords: ['ejecutivo', 'liderazgo', 'estrategia', 'corporativo', 'dirección'],
+    toolKeywords: ['powerpoint', 'excel', 'tableau', 'salesforce'],
+    skillKeywords: ['strategic leadership', 'business strategy', 'decision making', 'stakeholder management'],
+    category: 'general'
+  },
+  {
+    id: 'independent_consultant',
+    label: 'Consultor Independiente',
+    icon: '🎯',
+    description: 'Provee consultoría especializada de forma independiente',
+    keywords: ['consultor', 'independiente', 'asesoría', 'especialista', 'freelance'],
+    toolKeywords: ['powerpoint', 'excel', 'miro', 'zoom'],
+    skillKeywords: ['consulting', 'expertise', 'client management', 'problem solving', 'presentation'],
+    category: 'general'
+  },
+  {
+    id: 'career_changer',
+    label: 'En Transición de Carrera',
+    icon: '🔄',
+    description: 'Explorando nuevas oportunidades profesionales',
+    keywords: ['transición', 'cambio', 'carrera', 'reinvención', 'pivot'],
+    toolKeywords: ['linkedin', 'notion', 'coursera', 'udemy'],
+    skillKeywords: ['adaptability', 'learning agility', 'transferable skills', 'networking'],
+    category: 'general'
   },
   {
     id: 'other',

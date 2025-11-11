@@ -10,24 +10,97 @@ export interface User {
 }
 
 export type ProfessionalRole = 
+  // Design
   | 'ux_designer'
   | 'ui_designer'
   | 'product_designer'
+  | 'graphic_designer'
+  | 'industrial_designer'
+  | 'fashion_designer'
+  // Development
   | 'developer_frontend'
   | 'developer_backend'
   | 'developer_fullstack'
-  | 'project_manager'
-  | 'product_manager'
-  | 'data_analyst'
-  | 'data_scientist'
-  | 'investor'
-  | 'hedge_fund'
-  | 'marketing_manager'
-  | 'content_creator'
-  | 'business_analyst'
-  | 'scrum_master'
+  | 'software_engineer'
+  | 'mobile_developer'
   | 'devops'
   | 'qa_engineer'
+  | 'ml_engineer'
+  // Management
+  | 'project_manager'
+  | 'product_manager'
+  | 'scrum_master'
+  | 'business_analyst'
+  // Data & Analytics
+  | 'data_analyst'
+  | 'data_scientist'
+  | 'data_engineer'
+  | 'business_intelligence'
+  // Finance & Investment
+  | 'investor'
+  | 'hedge_fund'
+  | 'trader'
+  | 'financial_analyst'
+  | 'economist'
+  | 'financial_consultant'
+  // Marketing & Content
+  | 'marketing_manager'
+  | 'growth_marketer'
+  | 'digital_strategist'
+  | 'community_manager'
+  | 'content_creator'
+  | 'copywriter'
+  | 'seo_specialist'
+  | 'social_media_manager'
+  // Business & Strategy
+  | 'entrepreneur'
+  | 'business_consultant'
+  | 'sales_specialist'
+  | 'account_executive'
+  // People & HR
+  | 'hr_specialist'
+  | 'talent_acquisition'
+  | 'recruiter'
+  | 'leadership_coach'
+  | 'organizational_psychologist'
+  | 'mentor'
+  // Legal & Compliance
+  | 'lawyer'
+  | 'legal_advisor'
+  | 'compliance_officer'
+  // Engineering (Other)
+  | 'civil_engineer'
+  | 'mechanical_engineer'
+  | 'electrical_engineer'
+  | 'architect'
+  | 'sustainability_consultant'
+  // Healthcare & Research
+  | 'healthcare_professional'
+  | 'medical_doctor'
+  | 'academic_researcher'
+  | 'laboratory_scientist'
+  // Creative & Media
+  | 'photographer'
+  | 'videographer'
+  | 'audiovisual_producer'
+  | 'artist'
+  | 'illustrator'
+  | 'animator'
+  // Education & Training
+  | 'educator'
+  | 'edtech_specialist'
+  | 'corporate_trainer'
+  | 'instructional_designer'
+  // Hospitality & Culinary
+  | 'chef'
+  | 'culinary_specialist'
+  | 'hospitality_manager'
+  // General
+  | 'student'
+  | 'freelancer'
+  | 'corporate_executive'
+  | 'independent_consultant'
+  | 'career_changer'
   | 'other';
 
 export interface RoleHistory {
