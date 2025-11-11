@@ -15,6 +15,7 @@ import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
 import clovelyLogo from '@/assets/clovely-logo.jpg';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
+import { CVLYLogo } from '@/components/CVLYLogo';
 
 const Landing = () => {
   const { isDark } = useThemeLogo();
@@ -131,14 +132,13 @@ const Landing = () => {
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-7xl">
           <Link to="/" className="flex items-center gap-2">
-            <motion.img 
-              src={clovelyLogo} 
-              alt="Clovely" 
-              className={`h-10 w-auto ${isDark ? 'rounded-xl border-2 border-primary p-1' : ''}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
-            />
+            >
+              <CVLYLogo size="md" animated />
+            </motion.div>
           </Link>
           
           <div className="hidden md:flex items-center gap-6 text-sm">
@@ -613,16 +613,16 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8">
-            <motion.img 
-              src={clovelyLogo} 
-              alt="Clovely" 
-              className={`h-12 w-auto ${isDark ? 'rounded-xl border-2 border-primary p-1' : ''}`}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+          <div className="mb-8 pt-8 flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
-            />
+              whileHover={{ opacity: 0.8 }}
+            >
+              <CVLYLogo size="lg" animated={false} />
+            </motion.div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>
