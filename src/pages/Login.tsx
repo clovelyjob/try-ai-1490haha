@@ -49,9 +49,14 @@ const Login = () => {
           </Link>
 
           <div className="mb-8">
-            <div className="flex items-center mb-4">
+            <motion.div 
+              className="flex items-center mb-4"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               <img src={clovelyLogo} alt="Clovely" className="h-12 w-auto" />
-            </div>
+            </motion.div>
             <h1 className="text-3xl font-heading font-bold mb-2">
               ¡Bienvenido de vuelta!
             </h1>

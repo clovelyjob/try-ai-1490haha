@@ -128,7 +128,14 @@ const Landing = () => {
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-7xl">
           <Link to="/" className="flex items-center gap-2">
-            <img src={clovelyLogo} alt="Clovely" className="h-10 w-auto" />
+            <motion.img 
+              src={clovelyLogo} 
+              alt="Clovely" 
+              className="h-10 w-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
           </Link>
           
           <div className="hidden md:flex items-center gap-6 text-sm">
@@ -582,6 +589,17 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-7xl">
+          <div className="mb-8">
+            <motion.img 
+              src={clovelyLogo} 
+              alt="Clovely" 
+              className="h-10 w-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>
               <h4 className="font-heading font-bold mb-4">Producto</h4>
