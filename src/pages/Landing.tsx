@@ -13,6 +13,7 @@ import heroImage from '@/assets/hero-professional-growth.jpg';
 import collaborationImage from '@/assets/collaboration-story.jpg';
 import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
+import clovelyLogo from '@/assets/clovely-logo.jpg';
 
 const Landing = () => {
   const features = [
@@ -127,10 +128,7 @@ const Landing = () => {
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-7xl">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-orange flex items-center justify-center">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-heading font-bold text-xl">Clovely</span>
+            <img src={clovelyLogo} alt="Clovely" className="h-10 w-auto" />
           </Link>
           
           <div className="hidden md:flex items-center gap-6 text-sm">
@@ -197,9 +195,10 @@ const Landing = () => {
             </Link>
           </div>
           
-          <p className="text-sm text-muted-foreground">
-            ✓ Sin tarjeta ✓ Sin compromiso ✓ Explora antes de decidir
-          </p>
+          <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 max-w-md mx-auto">
+            <p className="text-primary font-semibold text-center">✨ 7 días de prueba gratuita</p>
+            <p className="text-sm text-muted-foreground text-center">Sin compromiso. Cancela cuando quieras.</p>
+          </div>
 
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}

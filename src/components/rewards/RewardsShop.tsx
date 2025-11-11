@@ -15,7 +15,7 @@ const ICON_MAP = {
 };
 
 const CATEGORY_LABELS: Record<RewardCategory, string> = {
-  gift_card: 'Gift Cards',
+  gift_card: 'Beneficios',
   mentorship: 'Mentorías',
   template: 'Plantillas',
   course: 'Cursos',
@@ -50,7 +50,7 @@ export function RewardsShop() {
         <Tabs value={selectedCategory} onValueChange={(v) => setSelectedCategory(v as any)}>
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="all">Todas</TabsTrigger>
-            <TabsTrigger value="gift_card">Gift Cards</TabsTrigger>
+            <TabsTrigger value="gift_card">Beneficios</TabsTrigger>
             <TabsTrigger value="mentorship">Mentorías</TabsTrigger>
             <TabsTrigger value="template">Plantillas</TabsTrigger>
             <TabsTrigger value="course">Cursos</TabsTrigger>

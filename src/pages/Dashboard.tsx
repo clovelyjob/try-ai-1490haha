@@ -20,7 +20,7 @@ import { getDashboardConfig } from '@/lib/dashboardContent';
 import { toast } from 'sonner';
 import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
-  Bot, Gift, Settings, Bell, Search, TrendingUp, Flame,
+  Bot, Gift, Settings, Bell, TrendingUp, Flame,
   Sparkles, ArrowRight, CheckCircle2, Circle, Clock,
   ChevronLeft, ChevronRight, RefreshCw, Zap, Trophy,
 } from 'lucide-react';
@@ -263,14 +263,6 @@ const Dashboard = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="relative hidden md:block">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Buscar..."
-                  className="pl-10 pr-4 py-2 border rounded-lg bg-background w-64 text-sm"
-                />
-              </div>
               <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
                 <PopoverTrigger asChild>
                   <Button 

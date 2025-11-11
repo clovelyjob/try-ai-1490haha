@@ -134,10 +134,14 @@ export function SubscriptionSection() {
           {/* Upgrade CTA */}
           {!isPremium && (
             <div className="pt-4 border-t">
+              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
+                <p className="text-primary font-semibold">✨ 7 días de prueba gratuita</p>
+                <p className="text-xs text-muted-foreground">Sin compromiso. Cancela cuando quieras.</p>
+              </div>
               <div className="flex items-center justify-between mb-2">
                 <div>
-                  <p className="text-lg font-bold">$29.99/mes</p>
-                  <p className="text-xs text-muted-foreground">O $299/año (ahorra 17%)</p>
+                  <p className="text-lg font-bold">$20/mes</p>
+                  <p className="text-xs text-muted-foreground">O $200/año (ahorra 17%)</p>
                 </div>
               </div>
               <Button 

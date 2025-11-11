@@ -6,10 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card } from '@/components/ui/card';
-import { Sparkles, Chrome, Linkedin, ArrowLeft } from 'lucide-react';
+import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { VALIDATIONS } from '@/lib/constants';
+import clovelyLogo from '@/assets/clovely-logo.jpg';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -98,15 +99,16 @@ const Register = () => {
           </Link>
 
           <div className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg gradient-orange flex items-center justify-center">
-                <Sparkles className="h-6 w-6 text-white" />
-              </div>
-              <span className="font-heading font-bold text-2xl">Clovely</span>
+            <div className="flex items-center mb-4">
+              <img src={clovelyLogo} alt="Clovely" className="h-12 w-auto" />
             </div>
             <h1 className="text-3xl font-heading font-bold mb-2">
               Crea tu cuenta gratis
             </h1>
+            <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
+              <p className="text-primary font-semibold text-lg">✨ 7 días de prueba gratuita</p>
+              <p className="text-sm text-muted-foreground">Sin compromiso. Cancela cuando quieras.</p>
+            </div>
             <p className="text-muted-foreground">
               Comienza tu transformación profesional hoy
             </p>

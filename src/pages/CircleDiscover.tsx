@@ -1,247 +1,158 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useCircleStore } from '@/store/useCircleStore';
-import { useAuthStore } from '@/store/useAuthStore';
-import { Search, Users, TrendingUp, Calendar, ArrowRight, Sparkles } from 'lucide-react';
+import { Users, Search, Plus, TrendingUp, MessageSquare, Bot } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function CircleDiscover() {
   const navigate = useNavigate();
-  const user = useAuthStore((state) => state.user);
-  const circles = useCircleStore((state) => state.circles);
-  const userCircles = useCircleStore((state) => state.userCircles);
-  const events = useCircleStore((state) => state.events);
-  const getRecommendedCircles = useCircleStore((state) => state.getRecommendedCircles);
-  const seedData = useCircleStore((state) => state.seedData);
+  const { circles, joinCircle } = useCircleStore();
+  const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    if (user) {
-      seedData(user.id);
-    }
-  }, [user, seedData]);
+  const filteredCircles = circles.filter(circle =>
+    circle.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    circle.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const myCircles = circles.filter((c) => userCircles.includes(c.id));
-  const recommendedCircles = user ? getRecommendedCircles(user.id) : [];
-  const upcomingEvents = events
-    .filter((e) => new Date(e.date) > new Date())
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 3);
-
-  const getActivityColor = (level: string) => {
-    switch (level) {
-      case 'high':
-        return 'text-green-600 bg-green-50';
-      case 'medium':
-        return 'text-yellow-600 bg-yellow-50';
-      case 'low':
-        return 'text-gray-600 bg-gray-50';
-      default:
-        return 'text-gray-600 bg-gray-50';
-    }
-  };
-
-  const getActivityLabel = (level: string) => {
-    switch (level) {
-      case 'high':
-        return 'Muy activo';
-      case 'medium':
-        return 'Activo';
-      case 'low':
-        return 'Poco activo';
-      default:
-        return 'Activo';
-    }
+  const handleJoinCircle = (circleId: string) => {
+    joinCircle(circleId);
+    toast.success('¡Te has unido al círculo!');
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="mb-12 text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <Sparkles className="w-4 h-4" />
-            Círculos de Talento
-          </div>
-          <h1 className="text-4xl font-bold text-foreground mb-3">
-            Conecta, aprende y crece con tu comunidad
-          </h1>
-          <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Únete a círculos de profesionales que comparten tus intereses y objetivos
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="Buscar círculos por nombre, categoría o tema..."
-              className="pl-12 h-12"
-            />
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-heading font-bold mb-2">Círculos Sociales</h1>
+            <p className="text-muted-foreground">
+              Conecta con profesionales y empresas que comparten tus intereses
+            </p>
           </div>
         </div>
 
-        {/* My Circles */}
-        {myCircles.length > 0 && (
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-foreground">
-                Mis círculos
-              </h2>
-              <Button variant="ghost" size="sm">
-                Ver todos
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {myCircles.map((circle) => (
-                <Card
-                  key={circle.id}
-                  className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => navigate(`/dashboard/circles/${circle.id}`)}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-foreground mb-2">
-                          {circle.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                          {circle.description}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {circle.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-3 border-t">
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span>{circle.memberCount}</span>
-                      </div>
-                      <Badge className={`text-xs ${getActivityColor(circle.activityLevel)}`}>
-                        {getActivityLabel(circle.activityLevel)}
-                      </Badge>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Recommended Circles */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-foreground">
-              Recomendados para ti
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recommendedCircles.map((circle) => (
-              <Card
-                key={circle.id}
-                className="p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {circle.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
-                      {circle.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {circle.tags.slice(0, 4).map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-3 border-t">
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                      <Users className="w-4 h-4" />
-                      <span>{circle.memberCount} miembros</span>
-                    </div>
-                    <Badge className={`text-xs ${getActivityColor(circle.activityLevel)}`}>
-                      {getActivityLabel(circle.activityLevel)}
-                    </Badge>
-                  </div>
-
-                  <Button
-                    className="w-full"
-                    onClick={() => navigate(`/dashboard/circles/${circle.id}`)}
-                  >
-                    Ver círculo
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Upcoming Events */}
-        {upcomingEvents.length > 0 && (
-          <section>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-foreground">
-                Próximos eventos
-              </h2>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/circles/events')}>
-                Ver todos
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {upcomingEvents.map((event) => (
-                <Card key={event.id} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="w-4 h-4" />
-                      <span>
-                        {new Date(event.date).toLocaleDateString('es', {
-                          day: 'numeric',
-                          month: 'short',
-                        })}
-                      </span>
-                      <span>•</span>
-                      <span>{event.duration} min</span>
-                    </div>
-                    
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {event.title}
-                    </h3>
-                    
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {event.description}
-                    </p>
-
-                    <div className="flex items-center justify-between pt-3 border-t">
-                      <div className="text-sm text-muted-foreground">
-                        Por {event.hostName}
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        <span>{event.attendees.length}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
+        <div className="relative max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Buscar círculos..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-primary/10 rounded-lg">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{circles.length}</p>
+                <p className="text-sm text-muted-foreground">Círculos Activos</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-secondary/10 rounded-lg">
+                <TrendingUp className="h-6 w-6 text-secondary" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">142</p>
+                <p className="text-sm text-muted-foreground">Miembros Totales</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-accent/10 rounded-lg">
+                <MessageSquare className="h-6 w-6 text-accent" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">28</p>
+                <p className="text-sm text-muted-foreground">Conversaciones Hoy</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Circles Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredCircles.map((circle) => (
+          <Card key={circle.id} className="hover-lift">
+            <CardHeader>
+              <div className="flex items-start gap-3 mb-2">
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src={circle.logo} alt={circle.name} />
+                  <AvatarFallback>{circle.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <CardTitle className="text-lg">{circle.name}</CardTitle>
+                  <Badge variant="secondary" className="mt-1">
+                    {circle.category}
+                  </Badge>
+                </div>
+              </div>
+              <CardDescription>{circle.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Users className="h-4 w-4" />
+                  <span>{circle.memberCount} miembros</span>
+                </div>
+                {circle.hasBot && (
+                  <div className="flex items-center gap-1 text-primary">
+                    <Bot className="h-4 w-4" />
+                    <span>IA Bot</span>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+            <CardFooter className="flex gap-2">
+              <Button
+                variant="default"
+                className="flex-1"
+                onClick={() => handleJoinCircle(circle.id)}
+              >
+                Unirme
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate(`/dashboard/circles/${circle.id}`)}
+              >
+                Ver más
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+
+      {filteredCircles.length === 0 && (
+        <Card className="p-12">
+          <div className="text-center">
+            <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <h3 className="text-xl font-bold mb-2">No se encontraron círculos</h3>
+            <p className="text-muted-foreground mb-6">
+              Intenta con otros términos de búsqueda
+            </p>
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
