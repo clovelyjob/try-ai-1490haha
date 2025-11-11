@@ -9,6 +9,13 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } fro
 
 interface ResultsStepProps {
   onComplete: () => void;
+  diagnosticData?: {
+    interests: string[];
+    values: string[];
+    skills: any;
+    experience: string;
+    detectedRole: string;
+  };
 }
 
 const LOADING_MESSAGES = [
@@ -18,10 +25,78 @@ const LOADING_MESSAGES = [
   'Diseñando tu ruta personalizada...',
 ];
 
-export const ResultsStep = ({ onComplete }: ResultsStepProps) => {
+export const ResultsStep = ({ onComplete, diagnosticData }: ResultsStepProps) => {
   const [loading, setLoading] = useState(true);
   const [messageIndex, setMessageIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+
+  // Calculate dynamic radar data based on user responses
+  const calculateRadarData = () => {
+    if (!diagnosticData) {
+      return [
+        { skill: 'Creatividad', value: 85 },
+        { skill: 'Análisis', value: 72 },
+        { skill: 'Liderazgo', value: 68 },
+        { skill: 'Comunicación', value: 90 },
+        { skill: 'Técnica', value: 65 },
+        { skill: 'Estrategia', value: 78 },
+      ];
+    }
+
+    const { interests, values, skills } = diagnosticData;
+    
+    // Calculate creativity based on interests
+    const creativeInterests = ['diseño', 'arte', 'creatividad', 'innovación'];
+    const creativityScore = 60 + (interests.filter(i => 
+      creativeInterests.some(ci => i.toLowerCase().includes(ci))
+    ).length * 10);
+    
+    // Calculate analysis based on interests and skills
+    const analyticalInterests = ['datos', 'análisis', 'investigación', 'ciencia'];
+    const analysisScore = 60 + (interests.filter(i => 
+      analyticalInterests.some(ai => i.toLowerCase().includes(ai))
+    ).length * 10);
+    
+    // Calculate communication based on values
+    const communicationValues = ['colaboración', 'comunicación', 'trabajo en equipo'];
+    const communicationScore = 70 + (values.filter(v => 
+      communicationValues.some(cv => v.toLowerCase().includes(cv))
+    ).length * 8);
+    
+    // Calculate technical based on skills
+    const technicalScore = 65 + (skills.technical?.length || 0) * 5;
+    
+    return [
+      { skill: 'Creatividad', value: Math.min(creativityScore, 95) },
+      { skill: 'Análisis', value: Math.min(analysisScore, 95) },
+      { skill: 'Liderazgo', value: 65 + (values.includes('Liderazgo') ? 20 : 0) },
+      { skill: 'Comunicación', value: Math.min(communicationScore, 95) },
+      { skill: 'Técnica', value: Math.min(technicalScore, 95) },
+      { skill: 'Estrategia', value: 70 + (interests.includes('Estrategia') ? 15 : 0) },
+    ];
+  };
+
+  const radarData = calculateRadarData();
+
+  const topCareers = diagnosticData ? [
+    { title: diagnosticData.detectedRole || 'Product Designer', match: 92, icon: '🎯' },
+    { title: 'Roles relacionados', match: 85, icon: '📊' },
+    { title: 'Alternativas', match: 78, icon: '💡' },
+  ] : [
+    { title: 'Product Designer', match: 92, icon: '🎨' },
+    { title: 'Product Manager', match: 87, icon: '📊' },
+    { title: 'Marketing Manager', match: 83, icon: '📱' },
+  ];
+
+  const insights = diagnosticData ? [
+    `Tienes ${diagnosticData.interests.length} áreas de interés bien definidas`,
+    `Tus valores de ${diagnosticData.values.slice(0, 2).join(' y ')} guían tu carrera`,
+    `Nivel de experiencia: ${diagnosticData.experience}`,
+  ] : [
+    'Tienes un perfil equilibrado entre creatividad y análisis',
+    'Tu capacidad de comunicación es una fortaleza clave',
+    'Valoras el impacto y la autonomía en tu trabajo',
+  ];
 
   useEffect(() => {
     const messageInterval = setInterval(() => {
@@ -45,27 +120,6 @@ export const ResultsStep = ({ onComplete }: ResultsStepProps) => {
       clearInterval(progressInterval);
     };
   }, []);
-
-  const radarData = [
-    { skill: 'Creatividad', value: 85 },
-    { skill: 'Análisis', value: 72 },
-    { skill: 'Liderazgo', value: 68 },
-    { skill: 'Comunicación', value: 90 },
-    { skill: 'Técnica', value: 65 },
-    { skill: 'Estrategia', value: 78 },
-  ];
-
-  const topCareers = [
-    { title: 'Product Designer', match: 92, icon: '🎨' },
-    { title: 'Product Manager', match: 87, icon: '📊' },
-    { title: 'Marketing Manager', match: 83, icon: '📱' },
-  ];
-
-  const insights = [
-    'Tienes un perfil equilibrado entre creatividad y análisis',
-    'Tu capacidad de comunicación es una fortaleza clave',
-    'Valoras el impacto y la autonomía en tu trabajo',
-  ];
 
   if (loading) {
     return (

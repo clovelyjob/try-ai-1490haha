@@ -1,17 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { RefreshCw, History, Sparkles, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, History, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
 import { useProfileStore } from '@/store/useProfileStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import { PROFESSIONAL_ROLES, getRoleDefinition, detectRole } from '@/lib/roleDetection';
 import { ProfessionalRole } from '@/types';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 
 export const RoleSection = () => {
+  const navigate = useNavigate();
+  const { updateUser } = useAuthStore();
   const { profile, updateRole } = useProfileStore();
   const [isReanalyzing, setIsReanalyzing] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
@@ -37,6 +41,14 @@ export const RoleSection = () => {
   const handleSelectRole = (role: ProfessionalRole) => {
     updateRole(role, 100);
     toast.success('Rol actualizado correctamente');
+  };
+
+  const handleRecalibrate = () => {
+    updateUser({ onboardingCompleted: false });
+    toast.info('Redirigiendo al diagnóstico completo...');
+    setTimeout(() => {
+      navigate('/onboarding');
+    }, 1000);
   };
 
   return (
@@ -69,24 +81,34 @@ export const RoleSection = () => {
             </Badge>
           </div>
 
-          <Button
-            variant="outline"
-            onClick={handleReanalyze}
-            disabled={isReanalyzing}
-            className="w-full"
-          >
-            {isReanalyzing ? (
-              <>
-                <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                Revaluando tu perfil...
-              </>
-            ) : (
-              <>
-                <Sparkles className="mr-2 h-4 w-4" />
-                Reevaluar mi perfil
-              </>
-            )}
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={handleReanalyze}
+              disabled={isReanalyzing}
+              className="flex-1"
+            >
+              {isReanalyzing ? (
+                <>
+                  <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                  Revaluando...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Reevaluar perfil
+                </>
+              )}
+            </Button>
+            <Button
+              variant="default"
+              onClick={handleRecalibrate}
+              className="flex-1 gradient-orange text-white"
+            >
+              <RotateCcw className="mr-2 h-4 w-4" />
+              Diagnóstico completo
+            </Button>
+          </div>
         </div>
       </Card>
 

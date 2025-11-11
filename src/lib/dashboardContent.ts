@@ -18,12 +18,21 @@ export interface RoleDashboardConfig {
     title: string;
     xp: number;
     category: string;
+    action?: string;
   }[];
   resources: {
     type: string;
     title: string;
     duration: string;
     icon: string;
+  }[];
+  opportunities?: {
+    company: string;
+    position: string;
+    match: number;
+    salary: string;
+    location: string;
+    logo: string;
   }[];
 }
 
@@ -38,15 +47,20 @@ function getDefaultConfig(roleName: string): RoleDashboardConfig {
       { id: 'growth', label: 'Crecimiento', icon: TrendingUp, description: 'Progreso profesional' },
     ],
     suggestedTasks: [
-      { title: 'Completar proyecto clave', xp: 120, category: 'work' },
-      { title: 'Desarrollar nueva habilidad', xp: 100, category: 'learning' },
-      { title: 'Conectar con profesionales', xp: 80, category: 'networking' },
-      { title: 'Actualizar portafolio', xp: 90, category: 'career' },
+      { title: 'Completar proyecto clave', xp: 120, category: 'work', action: '/dashboard/goals' },
+      { title: 'Desarrollar nueva habilidad', xp: 100, category: 'learning', action: '/dashboard/coach' },
+      { title: 'Conectar con profesionales', xp: 80, category: 'networking', action: '/dashboard/circles' },
+      { title: 'Actualizar portafolio', xp: 90, category: 'career', action: '/dashboard/cvs' },
     ],
     resources: [
       { type: 'Curso', title: 'Desarrollo profesional avanzado', duration: '4h', icon: '📚' },
       { type: 'Artículo', title: 'Mejores prácticas en la industria', duration: '20min', icon: '📰' },
       { type: 'Video', title: 'Tendencias y futuro del sector', duration: '30min', icon: '🎥' },
+    ],
+    opportunities: [
+      { company: 'Empresas Top', position: roleName, match: 85, salary: 'Competitivo', location: 'Remoto', logo: 'ET' },
+      { company: 'Tech Leaders', position: `${roleName} Senior`, match: 82, salary: 'A negociar', location: 'Híbrido', logo: 'TL' },
+      { company: 'Innovadores', position: `${roleName} Jr/Mid`, match: 78, salary: '$2.5-4K', location: 'Flexible', logo: 'IN' },
     ]
   };
 }
@@ -63,13 +77,18 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { id: 'portfolio', label: 'Portfolio', icon: Briefcase, description: 'Proyectos documentados' },
       ],
       suggestedTasks: [
-        { title: 'Realizar entrevista de usuario', xp: 100, category: 'research' },
-        { title: 'Crear wireframes de nueva funcionalidad', xp: 80, category: 'design' },
-        { title: 'Test de usabilidad con 5 usuarios', xp: 150, category: 'testing' },
+        { title: 'Realizar entrevista de usuario', xp: 100, category: 'research', action: '/dashboard/coach' },
+        { title: 'Crear wireframes de nueva funcionalidad', xp: 80, category: 'design', action: '/dashboard/goals' },
+        { title: 'Test de usabilidad con 5 usuarios', xp: 150, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
         { type: 'Curso', title: 'Advanced User Research Methods', duration: '3h', icon: '🔍' },
         { type: 'Artículo', title: 'Mejores prácticas en diseño', duration: '15min', icon: '📚' },
+      ],
+      opportunities: [
+        { company: 'Mercado Libre', position: 'UX Designer', match: 94, salary: '$3-4.5K', location: 'Remoto', logo: 'ML' },
+        { company: 'Globant', position: 'UX Designer Sr', match: 91, salary: '$3.5-5K', location: 'Híbrido', logo: 'GL' },
+        { company: 'Rappi', position: 'Product Designer', match: 87, salary: 'Competitivo', location: 'Presencial', logo: 'RP' },
       ]
     },
     ui_designer: {
@@ -139,13 +158,18 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { id: 'tests', label: 'Tests', icon: Bug, description: 'Cobertura de testing' },
       ],
       suggestedTasks: [
-        { title: 'Implementar componente reutilizable', xp: 100, category: 'development' },
-        { title: 'Optimizar rendimiento', xp: 120, category: 'performance' },
-        { title: 'Agregar tests unitarios', xp: 80, category: 'testing' },
+        { title: 'Implementar componente reutilizable', xp: 100, category: 'development', action: '/dashboard/goals' },
+        { title: 'Optimizar rendimiento', xp: 120, category: 'performance', action: '/dashboard/coach' },
+        { title: 'Agregar tests unitarios', xp: 80, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
         { type: 'Curso', title: 'React Performance', duration: '4h', icon: '⚡' },
         { type: 'Artículo', title: 'Clean Code en JavaScript', duration: '18min', icon: '💻' },
+      ],
+      opportunities: [
+        { company: 'Google', position: 'Frontend Engineer', match: 95, salary: '$5-7K', location: 'Remoto', logo: 'GO' },
+        { company: 'Meta', position: 'React Developer', match: 92, salary: '$4.5-6K', location: 'Híbrido', logo: 'MT' },
+        { company: 'Vercel', position: 'Senior Frontend', match: 88, salary: '$6-8K', location: 'Remoto', logo: 'VR' },
       ]
     },
     developer_backend: {
@@ -540,9 +564,9 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { id: 'progress', label: 'Progreso', icon: TrendingUp, description: 'Avance general' },
       ],
       suggestedTasks: [
-        { title: 'Explorar nueva área de interés', xp: 100, category: 'exploration' },
-        { title: 'Desarrollar habilidad transferible', xp: 120, category: 'skills' },
-        { title: 'Conectar con mentores', xp: 90, category: 'networking' },
+        { title: 'Explorar nueva área de interés', xp: 100, category: 'exploration', action: '/dashboard/coach' },
+        { title: 'Desarrollar habilidad transferible', xp: 120, category: 'skills', action: '/dashboard/goals' },
+        { title: 'Conectar con mentores', xp: 90, category: 'networking', action: '/dashboard/circles' },
       ],
       resources: [
         { type: 'Guía', title: 'Guía de Transición de Carrera', duration: '40min', icon: '🔄' },
@@ -569,5 +593,11 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
     }
   };
 
-  return configs[role] || configs.other;
+  const config = configs[role] || configs.other;
+  
+  // Ensure opportunities are always present
+  return {
+    ...config,
+    opportunities: config.opportunities || getDefaultConfig(role).opportunities
+  };
 }

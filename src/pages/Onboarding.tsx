@@ -189,7 +189,17 @@ const Onboarding = () => {
       onChange={(prefs) => updateData('rolePreferences', prefs)}
       onRoleConfirmed={handleRoleConfirmed}
     />,
-    <ResultsStep key="results" onComplete={handleComplete} />,
+    <ResultsStep 
+      key="results" 
+      onComplete={handleComplete}
+      diagnosticData={{
+        interests: onboardingData.interests,
+        values: onboardingData.values,
+        skills: onboardingData.skills,
+        experience: onboardingData.experience,
+        detectedRole: detectedRole
+      }}
+    />,
   ];
 
   return (

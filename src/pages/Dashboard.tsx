@@ -94,43 +94,9 @@ const Dashboard = () => {
     { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];
 
-  const todayTasks = [
-    { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
-    { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
-    { id: 3, time: '2:00 PM', title: 'Leer artículo sobre tendencias UX', xp: 25, completed: false, action: '/dashboard/coach' },
-    { id: 4, time: '4:00 PM', title: 'Conectar con 3 profesionales en LinkedIn', xp: 30, completed: false, action: '/dashboard/circles' },
-    { id: 5, time: '6:00 PM', title: 'Aplicar a Product Designer en Rappi', xp: 100, completed: false, featured: true, match: 89, action: '/dashboard/opportunities' },
-  ];
+  const todayTasks = tasks;
 
-  const opportunities = [
-    {
-      id: 1,
-      company: 'Mercado Libre',
-      position: 'Product Designer',
-      match: 94,
-      salary: '$3-4.5K',
-      location: 'Remoto',
-      logo: 'ML',
-    },
-    {
-      id: 2,
-      company: 'Globant',
-      position: 'UX Designer Jr',
-      match: 89,
-      salary: '$2.5-3.5K',
-      location: 'Híbrido - Bogotá',
-      logo: 'GL',
-    },
-    {
-      id: 3,
-      company: 'Rappi',
-      position: 'Product Designer',
-      match: 87,
-      salary: 'Competitivo',
-      location: 'Presencial',
-      logo: 'RP',
-    },
-  ];
+  const opportunities = roleConfig.opportunities || [];
 
   const circleFeed = [
     { user: 'Carlos R.', action: 'Completó React Advanced', time: '2h', icon: '🎉' },
@@ -138,11 +104,7 @@ const Dashboard = () => {
     { user: 'Grupo', action: 'Completó reto semanal +200 XP', time: 'ayer', icon: '✅' },
   ];
 
-  const resources = [
-    { type: 'Curso', title: 'Fundamentos de UX Design', duration: '2h', icon: '📚' },
-    { type: 'Artículo', title: 'Cómo crear portfolio sin experiencia', duration: '10min', icon: '📄' },
-    { type: 'Video', title: 'Mock interview: Product Designer', duration: '15min', icon: '🎥' },
-  ];
+  const resources = roleConfig.resources;
 
   const handleTaskComplete = (taskId: number, xp: number) => {
     setTasks(tasks.map(task => 
@@ -582,8 +544,8 @@ const Dashboard = () => {
                   </Link>
                 </div>
                 <div className="space-y-3">
-                  {opportunities.map((opp) => (
-                    <Link key={opp.id} to="/dashboard/opportunities">
+                  {opportunities.map((opp, index) => (
+                    <Link key={index} to="/dashboard/opportunities">
                       <div
                         className="p-4 rounded-lg border hover:shadow-md hover:border-primary/50 transition-all cursor-pointer hover-lift overflow-hidden"
                       >
