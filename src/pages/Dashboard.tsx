@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useThemeLogo } from '@/hooks/useThemeLogo';
+import clovelyLogo from '@/assets/clovely-logo.jpg';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -33,6 +35,7 @@ const Dashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const { isDark } = useThemeLogo();
   const [tasks, setTasks] = useState([
     { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
     { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
@@ -136,17 +139,36 @@ const Dashboard = () => {
       >
         {/* Logo & Collapse */}
         <div className="h-16 border-b flex items-center justify-between px-4">
-          {!sidebarCollapsed && (
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg gradient-orange flex items-center justify-center">
-                <Sparkles className="h-5 w-5 text-white" />
-              </div>
-              <span className="font-heading font-bold">Clovely</span>
-            </div>
+          {!sidebarCollapsed ? (
+            <motion.img
+              src={clovelyLogo}
+              alt="Clovely"
+              className={`h-10 w-auto transition-all duration-300 ${
+                isDark 
+                  ? 'rounded-lg border-2 border-primary p-1' 
+                  : 'rounded-lg'
+              }`}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          ) : (
+            <motion.img
+              src={clovelyLogo}
+              alt="Clovely"
+              className={`h-8 w-8 object-cover transition-all duration-300 ${
+                isDark 
+                  ? 'rounded-lg border-2 border-primary p-0.5' 
+                  : 'rounded-lg'
+              }`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            />
           )}
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="p-2 hover:bg-accent rounded-lg"
+            className="p-2 hover:bg-accent rounded-lg transition-colors"
           >
             {sidebarCollapsed ? (
               <ChevronRight className="h-4 w-4" />

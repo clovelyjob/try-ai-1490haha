@@ -14,8 +14,11 @@ import collaborationImage from '@/assets/collaboration-story.jpg';
 import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
 import clovelyLogo from '@/assets/clovely-logo.jpg';
+import { useThemeLogo } from '@/hooks/useThemeLogo';
 
 const Landing = () => {
+  const { isDark } = useThemeLogo();
+  
   const features = [
     {
       icon: Brain,
@@ -131,7 +134,7 @@ const Landing = () => {
             <motion.img 
               src={clovelyLogo} 
               alt="Clovely" 
-              className="h-10 w-auto"
+              className={`h-10 w-auto ${isDark ? 'rounded-xl border-2 border-primary p-1' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -175,6 +178,27 @@ const Landing = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center space-y-8"
         >
+          {/* Logo Hero */}
+          <motion.div 
+            className="flex justify-center mb-6 pt-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            <img 
+              src={clovelyLogo} 
+              alt="Clovely" 
+              className={`h-[100px] md:h-[140px] w-auto transition-all duration-300 ${
+                isDark 
+                  ? 'rounded-2xl border-2 border-primary p-2 shadow-lg shadow-primary/20' 
+                  : 'rounded-2xl shadow-lg shadow-black/5'
+              }`}
+              style={{
+                filter: isDark ? 'drop-shadow(0 4px 12px rgba(255, 122, 0, 0.15))' : 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05))'
+              }}
+            />
+          </motion.div>
+
           <Badge variant="secondary" className="mb-4">
             🚀 +10,000 profesionales transformaron su carrera
           </Badge>
@@ -593,7 +617,7 @@ const Landing = () => {
             <motion.img 
               src={clovelyLogo} 
               alt="Clovely" 
-              className="h-10 w-auto"
+              className={`h-12 w-auto ${isDark ? 'rounded-xl border-2 border-primary p-1' : ''}`}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
