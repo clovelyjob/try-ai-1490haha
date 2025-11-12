@@ -21,6 +21,7 @@ import mercadolibreLogo from '@/assets/logos/mercadolibre-logo.png';
 import rappiLogo from '@/assets/logos/rappi-logo.png';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
 import { ClovelyTextLogo } from '@/components/ClovelyTextLogo';
+import { DecoratedLogo } from '@/components/DecoratedLogo';
 
 const Landing = () => {
   const { isDark } = useThemeLogo();
@@ -645,7 +646,7 @@ const Landing = () => {
       <footer className="border-t py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="mb-8 pt-6 flex justify-center">
-            <ClovelyTextLogo size="lg" animated={false} />
+            <DecoratedLogo size="lg" animated={false} />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>

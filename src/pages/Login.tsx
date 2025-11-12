@@ -8,14 +8,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
-import clovelyLogo from '@/assets/clovely-logo.jpg';
-import { useThemeLogo } from '@/hooks/useThemeLogo';
+import { DecoratedLogo } from '@/components/DecoratedLogo';
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
   const [loading, setLoading] = useState(false);
-  const { isDark } = useThemeLogo();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -51,22 +49,9 @@ const Login = () => {
           </Link>
 
           <div className="mb-8">
-            <motion.div 
-              className="flex justify-center mb-4"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <img 
-                src={clovelyLogo} 
-                alt="Clovely" 
-                className={`h-[140px] w-auto ${
-                  isDark 
-                    ? 'rounded-2xl border-2 border-primary p-2 shadow-lg shadow-primary/20' 
-                    : 'rounded-2xl shadow-lg'
-                }`}
-              />
-            </motion.div>
+            <div className="flex justify-center mb-6">
+              <DecoratedLogo size="md" animated={true} />
+            </div>
             <h1 className="text-3xl font-heading font-bold mb-2">
               ¡Bienvenido de vuelta!
             </h1>
