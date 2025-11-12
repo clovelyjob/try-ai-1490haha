@@ -164,51 +164,57 @@ const Login = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-md space-y-8"
+          className="max-w-md"
         >
-          <div className="space-y-4">
-            <div className="text-6xl">🚀</div>
-            <h2 className="text-[22px] font-semibold leading-tight text-[#1E293B] dark:text-white">
-              <span className="text-[#FF7A00] dark:text-[#F97316]">Tu siguiente oportunidad</span> te está esperando
-            </h2>
-            <p className="text-[#475569] dark:text-[#CBD5E1] text-[15px]">
-              Miles de profesionales ya transformaron sus carreras con Clovely.
-              Es tu turno.
-            </p>
-          </div>
+          <div className="
+            rounded-xl border-2 border-slate-900 bg-[#FFF5EB] p-8 shadow-[0_4px_12px_rgba(0,0,0,0.06)]
+            dark:border-[#FF7A00] dark:bg-[#0F1115] dark:shadow-[0_4px_12px_rgba(255,122,0,0.08)]
+            transition-colors duration-300 space-y-8
+          ">
+            <div className="space-y-4">
+              <div className="text-6xl">🚀</div>
+              <h2 className="text-[22px] font-semibold leading-tight text-[#1E293B] dark:text-white">
+                <span className="text-[#FF7A00] dark:text-[#F97316]">Tu siguiente oportunidad</span> te está esperando
+              </h2>
+              <p className="text-[#475569] dark:text-[#CBD5E1] text-[15px]">
+                Miles de profesionales ya transformaron sus carreras con Clovely.
+                Es tu turno.
+              </p>
+            </div>
 
-          <div className="space-y-4 pt-8">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
+            <div className="space-y-4 pt-8">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Ruta personalizada con IA</p>
+                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
+                    Plan adaptado a tus objetivos y estilo
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Ruta personalizada con IA</p>
-                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                  Plan adaptado a tus objetivos y estilo
-                </p>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Coach disponible 24/7</p>
+                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
+                    Respuestas y guía cuando las necesites
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
-              </div>
-              <div>
-                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Coach disponible 24/7</p>
-                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                  Respuestas y guía cuando las necesites
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
-              </div>
-              <div>
-                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Progreso medible en tiempo real</p>
-                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                  Ve tu evolución en tiempo real
-                </p>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Progreso medible en tiempo real</p>
+                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
+                    Ve tu evolución en tiempo real
+                  </p>
+                </div>
               </div>
             </div>
           </div>
