@@ -246,12 +246,12 @@ const Landing = () => {
       </section>
 
       {/* Social Proof */}
-      <section className="border-y bg-muted/30 py-12 overflow-hidden">
+      <section className="border-y bg-muted/30 py-16 overflow-hidden">
         <div className="container mx-auto px-4 max-w-7xl">
-          <p className="text-center text-sm text-muted-foreground mb-8">
+          <p className="text-center text-base text-muted-foreground mb-12">
             Profesionales trabajan en empresas como:
           </p>
-          <div className="flex gap-12 items-center justify-center flex-wrap">
+          <div className="flex gap-16 items-center justify-center flex-wrap">
             {[
               { name: 'Google', logo: googleLogo },
               { name: 'Meta', logo: metaLogo },
@@ -268,7 +268,7 @@ const Landing = () => {
                 <img 
                   src={company.logo} 
                   alt={`${company.name} logo`}
-                  className="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200 grayscale hover:grayscale-0"
+                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200 grayscale hover:grayscale-0"
                 />
               </motion.div>
             ))}
