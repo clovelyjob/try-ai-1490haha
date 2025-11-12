@@ -159,18 +159,19 @@ const Login = () => {
       </div>
 
       {/* Illustration Column */}
-      <div className="hidden md:flex gradient-blue text-white p-12 items-center justify-center">
+      <div className="hidden md:flex bg-background border-l p-12 items-center justify-center transition-colors duration-300">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
           className="max-w-md space-y-8"
         >
           <div className="space-y-4">
             <div className="text-6xl">🚀</div>
-            <h2 className="text-3xl font-heading font-bold leading-tight">
-              Tu siguiente oportunidad te está esperando
+            <h2 className="text-[22px] font-semibold leading-tight text-[#1E293B] dark:text-white">
+              <span className="text-[#FF7A00] dark:text-[#F97316]">Tu siguiente oportunidad</span> te está esperando
             </h2>
-            <p className="text-white/90 text-lg">
+            <p className="text-[#475569] dark:text-[#CBD5E1] text-[15px]">
               Miles de profesionales ya transformaron sus carreras con Clovely.
               Es tu turno.
             </p>
@@ -178,34 +179,34 @@ const Login = () => {
 
           <div className="space-y-4 pt-8">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                ✓
+              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
               </div>
               <div>
-                <p className="font-semibold">Ruta personalizada con IA</p>
-                <p className="text-sm text-white/80">
+                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Ruta personalizada con IA</p>
+                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
                   Plan adaptado a tus objetivos y estilo
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                ✓
+              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
               </div>
               <div>
-                <p className="font-semibold">Coach disponible 24/7</p>
-                <p className="text-sm text-white/80">
+                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Coach disponible 24/7</p>
+                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
                   Respuestas y guía cuando las necesites
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                ✓
+              <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
+                <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
               </div>
               <div>
-                <p className="font-semibold">Progreso medible</p>
-                <p className="text-sm text-white/80">
+                <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Progreso medible en tiempo real</p>
+                <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
                   Ve tu evolución en tiempo real
                 </p>
               </div>
