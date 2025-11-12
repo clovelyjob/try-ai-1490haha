@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useThemeLogo } from '@/hooks/useThemeLogo';
-import clovelyLogo from '@/assets/clovely-logo.jpg';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { UpgradeModal } from '@/components/UpgradeModal';
-
-import { ThemeToggle } from '@/components/ThemeToggle';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
@@ -21,10 +16,9 @@ import CareerCopilot from '@/components/CareerCopilot';
 import { getDashboardConfig } from '@/lib/dashboardContent';
 import { toast } from 'sonner';
 import {
-  Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
-  Bot, Gift, Settings, Bell, TrendingUp, Flame,
-  Sparkles, ArrowRight, CheckCircle2, Circle, Clock,
-  ChevronLeft, ChevronRight, RefreshCw, Zap, Trophy,
+  Briefcase, Bell, TrendingUp, Flame,
+  ArrowRight, CheckCircle2, Circle, Clock,
+  RefreshCw, Zap, Bot,
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -32,10 +26,8 @@ const Dashboard = () => {
   const { progress, addXP, completeTask } = useProgressStore();
   const { profile } = useProfileStore();
   const [quote, setQuote] = useState(QUOTES[0]);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
-  const { isDark } = useThemeLogo();
   const [tasks, setTasks] = useState([
     { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
     { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
@@ -84,19 +76,6 @@ const Dashboard = () => {
     setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
   };
 
-  const navItems = [
-    { icon: Home, label: 'Inicio', path: '/dashboard', active: true },
-    { icon: Target, label: 'Objetivos', path: '/dashboard/goals', badge: 3 },
-    { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
-    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities', badge: 12 },
-    { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
-    { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
-    { icon: BarChart3, label: 'Progreso', path: '/progress' },
-    { icon: Bot, label: 'Coach', path: '/dashboard/coach', glow: true },
-    { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
-    { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
-  ];
-
   const todayTasks = tasks;
 
   const opportunities = roleConfig.opportunities || [];
@@ -130,143 +109,7 @@ const Dashboard = () => {
   const xpPercentage = (progress.currentXP / progress.nextLevelXP) * 100;
 
   return (
-    <div className="min-h-screen flex max-w-full overflow-x-hidden">
-      {/* Sidebar */}
-      <aside
-        className={`${
-          sidebarCollapsed ? 'w-20' : 'w-64'
-        } border-r bg-card transition-all duration-300 flex flex-col`}
-      >
-        {/* Logo & Collapse */}
-        <div className="h-16 border-b flex items-center justify-between px-4">
-          {!sidebarCollapsed ? (
-            <motion.img
-              src={clovelyLogo}
-              alt="Clovely"
-              className={`h-10 w-auto transition-all duration-300 ${
-                isDark 
-                  ? 'rounded-lg border-2 border-primary p-1' 
-                  : 'rounded-lg'
-              }`}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          ) : (
-            <motion.img
-              src={clovelyLogo}
-              alt="Clovely"
-              className={`h-8 w-8 object-cover transition-all duration-300 ${
-                isDark 
-                  ? 'rounded-lg border-2 border-primary p-0.5' 
-                  : 'rounded-lg'
-              }`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          )}
-          <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="p-2 hover:bg-accent rounded-lg transition-colors"
-          >
-            {sidebarCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-
-        {/* User Profile */}
-        <div className={`p-4 border-b ${sidebarCollapsed ? 'px-2' : ''}`}>
-          <div className="flex items-center gap-3 mb-3">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={user?.avatar} />
-              <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
-            </Avatar>
-            {!sidebarCollapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm truncate">{user?.name}</p>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Badge variant="secondary" className="text-xs">
-                    🥉 Nivel {progress.level}
-                  </Badge>
-                </div>
-              </div>
-            )}
-          </div>
-          {!sidebarCollapsed && (
-            <div className="space-y-1">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-muted-foreground">Próximo nivel</span>
-                <span className="font-medium">
-                  {progress.currentXP}/{progress.nextLevelXP} XP
-                </span>
-              </div>
-              <div className="flex gap-1">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`h-1.5 flex-1 rounded-full ${
-                      i < Math.floor((progress.currentXP / progress.nextLevelXP) * 10)
-                        ? 'bg-primary'
-                        : 'bg-muted'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.path}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                item.active
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-accent'
-              } ${item.glow ? 'relative' : ''}`}
-            >
-              {item.glow && (
-                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-lg" />
-              )}
-              <item.icon className={`h-5 w-5 ${sidebarCollapsed ? 'mx-auto' : ''}`} />
-              {!sidebarCollapsed && (
-                <>
-                  <span className="flex-1 text-sm font-medium">{item.label}</span>
-                  {item.badge && (
-                    <Badge variant="secondary" className="text-xs">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </>
-              )}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Theme Toggle & Upgrade */}
-        <div className={`p-4 border-t space-y-2 ${sidebarCollapsed ? 'px-2' : ''}`}>
-          <ThemeToggle />
-          {!sidebarCollapsed && (
-            <Button 
-              className="w-full gradient-premium text-white text-sm hover-glow hover:scale-105 transition-all duration-300"
-              onClick={() => setUpgradeModalOpen(true)}
-            >
-              <Sparkles className="mr-2 h-4 w-4" />
-              Upgrade
-            </Button>
-          )}
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden max-w-full">
+    <div className="min-h-screen bg-background max-w-full overflow-x-hidden">
         {/* Guest Banner */}
         <GuestBanner />
         
@@ -635,16 +478,15 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </main>
 
-      {/* Upgrade Modal */}
-      <UpgradeModal 
-        open={upgradeModalOpen} 
-        onClose={() => setUpgradeModalOpen(false)}
-        feature="acceso completo"
-      />
-    </div>
-  );
-};
+        {/* Upgrade Modal */}
+        <UpgradeModal 
+          open={upgradeModalOpen} 
+          onClose={() => setUpgradeModalOpen(false)}
+          feature="acceso completo"
+        />
+      </div>
+    );
+  };
 
-export default Dashboard;
+  export default Dashboard;

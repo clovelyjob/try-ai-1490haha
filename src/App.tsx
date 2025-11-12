@@ -25,6 +25,7 @@ import Coach from "./pages/Coach";
 import Settings from "./pages/Settings";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 const queryClient = new QueryClient();
 
@@ -40,22 +41,27 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/guest-start" element={<GuestStart />} />
           <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/goals" element={<Goals />} />
-          <Route path="/dashboard/goals/:id" element={<GoalDetail />} />
-          <Route path="/dashboard/cvs" element={<CVList />} />
-          <Route path="/dashboard/cvs/:id" element={<CVBuilder />} />
-          <Route path="/dashboard/opportunities" element={<Opportunities />} />
-          <Route path="/dashboard/opportunities/:id" element={<OpportunityDetail />} />
-          <Route path="/dashboard/interviews" element={<InterviewLanding />} />
-          <Route path="/dashboard/interviews/setup" element={<InterviewSetup />} />
-          <Route path="/dashboard/interviews/session" element={<InterviewSession />} />
-          <Route path="/dashboard/interviews/history" element={<InterviewHistory />} />
-          <Route path="/dashboard/circles" element={<CircleDiscover />} />
-          <Route path="/dashboard/circles/:id" element={<CircleDetail />} />
-          <Route path="/dashboard/rewards" element={<Rewards />} />
-          <Route path="/dashboard/coach" element={<Coach />} />
-          <Route path="/dashboard/settings" element={<Settings />} />
+          
+          {/* Dashboard routes with shared sidebar layout */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="goals/:id" element={<GoalDetail />} />
+            <Route path="cvs" element={<CVList />} />
+            <Route path="cvs/:id" element={<CVBuilder />} />
+            <Route path="opportunities" element={<Opportunities />} />
+            <Route path="opportunities/:id" element={<OpportunityDetail />} />
+            <Route path="interviews" element={<InterviewLanding />} />
+            <Route path="interviews/setup" element={<InterviewSetup />} />
+            <Route path="interviews/session" element={<InterviewSession />} />
+            <Route path="interviews/history" element={<InterviewHistory />} />
+            <Route path="circles" element={<CircleDiscover />} />
+            <Route path="circles/:id" element={<CircleDetail />} />
+            <Route path="rewards" element={<Rewards />} />
+            <Route path="coach" element={<Coach />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
