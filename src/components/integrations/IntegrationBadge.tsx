@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Integration } from '@/data/integrations';
 
 interface IntegrationBadgeProps {
@@ -5,16 +6,25 @@ interface IntegrationBadgeProps {
 }
 
 export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
+  const [error, setError] = useState(false);
+
   return (
     <div
-      className="inline-flex items-center gap-3 pr-3 md:pr-4
-                 opacity-80 hover:opacity-100
-                 transition-all duration-300 ease-out
+      className="relative inline-flex items-center gap-3 pr-3 md:pr-4
+                 transition-transform duration-200 ease-out
                  hover:-translate-y-[1px]
-                 hover:drop-shadow-[0_0_10px_rgba(255,122,0,0.35)]
                  group cursor-pointer flex-shrink-0"
       aria-label={integration.name}
     >
+      {/* Halo naranja solo en hover, detrás del badge */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-2 rounded-2xl -z-10
+                   bg-[#FF7A00]/0 blur-[22px]
+                   transition-colors duration-200
+                   group-hover:bg-[#FF7A00]/30 hidden md:block"
+      />
+
       {/* Marco blanco para el icono */}
       <div
         className="grid place-items-center
@@ -29,16 +39,18 @@ export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
                    group-hover:border-[#FF7A00]/40"
       >
         <img
-          src={integration.src}
+          src={error ? '/integrations/_fallback.svg' : integration.src}
           alt={`${integration.name} logo`}
-          className="h-6 md:h-7 w-auto object-contain"
+          className="h-6 md:h-7 w-auto object-contain
+                     opacity-95 drop-shadow-[0_0_8px_rgba(255,255,255,0.12)]"
           loading="lazy"
+          onError={() => setError(true)}
         />
       </div>
 
       {/* Nombre a la derecha */}
       <span className="whitespace-nowrap font-semibold text-sm md:text-base
-                       text-slate-800 dark:text-slate-200">
+                       text-slate-800 dark:text-white/92">
         {integration.name}
       </span>
     </div>
