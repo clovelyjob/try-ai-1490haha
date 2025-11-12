@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { UpgradeBanner } from '@/components/UpgradeBanner';
 import { GuestBanner } from '@/components/GuestBanner';
+import { CoachQuickPanel } from '@/components/CoachQuickPanel';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useProfileStore } from '@/store/useProfileStore';
@@ -29,6 +30,13 @@ const Dashboard = () => {
   const [quote, setQuote] = useState(QUOTES[0]);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [coachPanelOpen, setCoachPanelOpen] = useState(false);
+  const [coachTopic, setCoachTopic] = useState<'entrevista' | 'consejo' | 'progreso' | 'general' | null>(null);
+
+  const openCoachPanel = (topic: 'entrevista' | 'consejo' | 'progreso' | 'general') => {
+    setCoachTopic(topic);
+    setCoachPanelOpen(true);
+  };
   const [tasks, setTasks] = useState([
     { id: 1, time: '9:00', title: 'Check-in diario', xp: 10, completed: true, action: '/dashboard/coach' },
     { id: 2, time: '10:00', title: 'Actualizar sección de experiencia en CV', xp: 50, completed: false, action: '/dashboard/cvs' },
@@ -398,6 +406,7 @@ const Dashboard = () => {
                         size="sm" 
                         className="bg-[#3B82F6] hover:bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
                         aria-label="Practicar entrevista con IA"
+                        onClick={() => openCoachPanel('entrevista')}
                       >
                         🎤 Practicar entrevista
                       </Button>
@@ -406,6 +415,7 @@ const Dashboard = () => {
                         variant="ghost"
                         className="text-slate-900 bg-slate-100 hover:bg-slate-200 dark:text-slate-100 dark:bg-[#111827] dark:hover:bg-[#1F2937]"
                         aria-label="Pedir un consejo al coach"
+                        onClick={() => openCoachPanel('consejo')}
                       >
                         💡 Dame un consejo
                       </Button>
@@ -413,6 +423,7 @@ const Dashboard = () => {
                         size="sm" 
                         className="bg-[#3B82F6] hover:bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
                         aria-label="Analizar mi progreso semanal"
+                        onClick={() => openCoachPanel('progreso')}
                       >
                         📊 Analizar progreso
                       </Button>
@@ -421,6 +432,7 @@ const Dashboard = () => {
                         variant="ghost"
                         className="text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-white/5"
                         aria-label="Abrir chat del coach"
+                        onClick={() => openCoachPanel('general')}
                       >
                         💬 Chat abierto
                       </Button>
@@ -520,6 +532,13 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* Coach Quick Panel */}
+        <CoachQuickPanel 
+          open={coachPanelOpen}
+          onClose={() => setCoachPanelOpen(false)}
+          topic={coachTopic}
+        />
 
         {/* Upgrade Modal */}
         <UpgradeModal 
