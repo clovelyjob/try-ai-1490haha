@@ -6,23 +6,19 @@ interface LogoStripProps {
   logos: Integration[];
   direction?: 'normal' | 'reverse';
   speed?: number;
-  scale?: number;
-  offset?: string;
 }
 
 export const LogoStrip = ({ 
   logos, 
   direction = 'normal', 
-  speed = 40,
-  scale = 1,
-  offset = '0%'
+  speed = 40
 }: LogoStripProps) => {
-  // Triple track for seamless infinite loop
-  const tripleTrack = [...logos, ...logos, ...logos];
+  // Double track for seamless infinite loop
+  const doubleTrack = [...logos, ...logos];
   
   const animation = direction === 'normal' 
-    ? { x: [offset, '-66.66%'] } 
-    : { x: [offset, '0%'] };
+    ? { x: ['0%', '-50%'] } 
+    : { x: ['-50%', '0%'] };
 
   return (
     <div 
@@ -33,11 +29,6 @@ export const LogoStrip = ({
       }}
     >
       <motion.div
-        style={{ 
-          transformOrigin: 'center left',
-          scale 
-        }}
-        initial={{ x: offset }}
         animate={animation}
         transition={{
           duration: speed,
@@ -46,7 +37,7 @@ export const LogoStrip = ({
         }}
         className="flex gap-8 md:gap-10 items-center will-change-transform"
       >
-        {tripleTrack.map((logo, index) => (
+        {doubleTrack.map((logo, index) => (
           <IntegrationBadge
             key={`${logo.name}-${index}`}
             integration={logo}
