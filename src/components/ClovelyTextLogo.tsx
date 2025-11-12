@@ -13,12 +13,20 @@ export const ClovelyTextLogo = ({ size = 'md', className = '', animated = true }
     lg: 'text-4xl'
   };
   
+  const logoSizes = {
+    sm: 'w-6 h-6',
+    md: 'w-7 h-7',
+    lg: 'w-9 h-9'
+  };
+
   const LogoElement = (
-    <div className={`inline-flex items-baseline font-poppins tracking-tight ${sizes[size]} ${className}`}>
-      <span className="text-[1.3em] bg-gradient-to-r from-[#FF7A00] to-[#F97316] bg-clip-text text-transparent font-semibold">
-        C
-      </span>
-      <span className="text-foreground font-semibold">
+    <div className={`inline-flex items-center gap-1 ${className}`}>
+      <img
+        src="/clovely-logo.png"
+        alt="Clovely"
+        className={`${logoSizes[size]} object-contain drop-shadow-sm`}
+      />
+      <span className={`${sizes[size]} font-poppins font-semibold tracking-tight text-foreground`}>
         lovely
       </span>
     </div>
