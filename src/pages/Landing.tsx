@@ -14,15 +14,11 @@ import collaborationImage from '@/assets/collaboration-story.jpg';
 import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
 import clovelyLogo from '@/assets/clovely-logo.jpg';
-import googleLogo from '@/assets/logos/google-logo.svg';
-import metaLogo from '@/assets/logos/meta-logo.svg';
-import spotifyLogo from '@/assets/logos/spotify-logo.svg';
-import mercadolibreLogo from '@/assets/logos/mercadolibre-logo.png';
-import rappiLogo from '@/assets/logos/rappi-logo.png';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
 import { ClovelyTextLogo } from '@/components/ClovelyTextLogo';
 import { DecoratedLogo } from '@/components/DecoratedLogo';
 import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
+import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
 
 const Landing = () => {
   const { isDark } = useThemeLogo();
@@ -250,36 +246,8 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Social Proof */}
-      <section className="border-y bg-muted/30 py-16 overflow-hidden">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <p className="text-center text-base text-muted-foreground mb-12">
-            Profesionales trabajan en empresas como:
-          </p>
-          <div className="flex gap-16 items-center justify-center flex-wrap">
-            {[
-              { name: 'Google', logo: googleLogo },
-              { name: 'Meta', logo: metaLogo },
-              { name: 'Spotify', logo: spotifyLogo },
-              { name: 'Mercado Libre', logo: mercadolibreLogo },
-              { name: 'Rappi', logo: rappiLogo }
-            ].map((company) => (
-              <motion.div
-                key={company.name}
-                whileHover={{ scale: 1.1, y: -4 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="cursor-pointer"
-              >
-                <img 
-                  src={company.logo} 
-                  alt={`${company.name} logo`}
-                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-200 grayscale hover:grayscale-0"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Integrations */}
+      <IntegrationsSection />
 
       {/* Problems */}
       <section className="container mx-auto px-4 py-20 max-w-7xl">
