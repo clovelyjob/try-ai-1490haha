@@ -355,31 +355,57 @@ const Dashboard = () => {
               </Card>
 
               {/* Coach IA */}
-              <Card className="p-6 gradient-blue text-white">
+              <Card className="p-5 md:p-6 bg-white dark:bg-[#0F1115] border border-black/10 dark:border-white/10 shadow-sm transition-colors">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                    <Bot className="h-6 w-6" />
+                  <div className="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 dark:ring-2 dark:ring-[#FF7A00]/60 flex items-center justify-center shrink-0 transition-all">
+                    <Bot className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1 space-y-3">
                     <div>
-                      <h3 className="font-heading font-bold mb-1">Clovy - Tu Coach IA</h3>
-                      <p className="text-sm text-white/90">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-heading font-bold text-slate-900 dark:text-white">
+                          Clovy - Tu Coach IA
+                        </h3>
+                        <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-[#FFE7D6] text-[#C2410C] dark:bg-[#2A190F] dark:text-[#FBBF24]">
+                          En línea
+                        </span>
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                         ¡Hola {user?.name?.split(' ')[0]}! Llevas {progress.streak} días de racha increíble. 
                         Noté que mejoraste tu CV al 80%. ¿Practicamos una entrevista para la posición 
                         de Rappi? O podemos trabajar en tu portfolio.
                       </p>
                     </div>
+                    <div className="border-t border-black/5 dark:border-white/10 pt-3" />
                     <div className="flex flex-wrap gap-2">
-                      <Button size="sm" variant="secondary">
+                      <Button 
+                        size="sm" 
+                        className="bg-[#3B82F6] hover:bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
+                        aria-label="Practicar entrevista con IA"
+                      >
                         🎤 Practicar entrevista
                       </Button>
-                      <Button size="sm" variant="secondary">
+                      <Button 
+                        size="sm" 
+                        variant="ghost"
+                        className="text-slate-900 bg-slate-100 hover:bg-slate-200 dark:text-slate-100 dark:bg-[#111827] dark:hover:bg-[#1F2937]"
+                        aria-label="Pedir un consejo al coach"
+                      >
                         💡 Dame un consejo
                       </Button>
-                      <Button size="sm" variant="secondary">
+                      <Button 
+                        size="sm" 
+                        className="bg-[#3B82F6] hover:bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
+                        aria-label="Analizar mi progreso semanal"
+                      >
                         📊 Analizar progreso
                       </Button>
-                      <Button size="sm" variant="secondary">
+                      <Button 
+                        size="sm" 
+                        variant="ghost"
+                        className="text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-white/5"
+                        aria-label="Abrir chat del coach"
+                      >
                         💬 Chat abierto
                       </Button>
                     </div>
