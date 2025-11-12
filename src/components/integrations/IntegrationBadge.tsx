@@ -49,8 +49,7 @@ export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
       </div>
 
       {/* Nombre a la derecha */}
-      <span className="whitespace-nowrap font-semibold text-sm md:text-base
-                       text-slate-800 dark:text-white/92">
+      <span className="whitespace-nowrap font-semibold text-sm md:text-base text-black">
         {integration.name}
       </span>
     </div>
