@@ -73,7 +73,7 @@ export const UpgradeModal = ({ open, onClose, feature }: UpgradeModalProps) => {
               <div>
                 <h3 className="font-heading font-bold text-lg mb-1">Premium</h3>
                 <p className="text-3xl font-heading font-bold text-primary">
-                  $40<span className="text-sm text-muted-foreground">/mes</span>
+                  $20<span className="text-sm text-muted-foreground">/mes</span>
                 </p>
               </div>
               <ul className="space-y-2 text-sm">
@@ -111,10 +111,10 @@ export const UpgradeModal = ({ open, onClose, feature }: UpgradeModalProps) => {
                 </li>
               </ul>
               <Button className="w-full gradient-orange text-white font-semibold">
-                Prueba 7 días gratis
+                Iniciar prueba de 7 días gratis
               </Button>
               <p className="text-xs text-center text-muted-foreground">
-                Sin compromiso. Cancela cuando quieras.
+                Después de la prueba, $20/mes. Sin permanencia.
               </p>
             </div>
           </div>

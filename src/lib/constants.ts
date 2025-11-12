@@ -7,6 +7,15 @@ export const FREE_LIMITS = {
   circles: 1,
 };
 
+export const PRICING = {
+  premium: {
+    monthly: 20,
+    yearly: 200, // ahorra 17%
+    currency: 'USD',
+    trialDays: 7,
+  },
+};
+
 export const VALIDATIONS = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   password: /^(?=.*[A-Z])(?=.*\d).{8,}$/,

@@ -161,9 +161,14 @@ const Landing = () => {
               <Button variant="ghost">Iniciar sesión</Button>
             </Link>
             <Link to="/registro">
-              <Button className="gradient-orange text-white">
-                Empieza gratis
-              </Button>
+              <div className="relative">
+                <Button className="gradient-orange text-white">
+                  Empieza gratis
+                </Button>
+                <span className="absolute -top-2 -right-2 inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-full bg-[#FFE7D6] text-[#C2410C] dark:bg-[#2A190F] dark:text-[#FBBF24] whitespace-nowrap">
+                  7 días gratis
+                </span>
+              </div>
             </Link>
           </div>
         </div>
@@ -561,7 +566,7 @@ const Landing = () => {
               </Badge>
               <h3 className="font-heading font-bold text-2xl mb-2">Premium</h3>
               <p className="text-4xl font-heading font-bold mb-6 text-primary">
-                $40<span className="text-lg text-muted-foreground">/mes</span>
+                $20<span className="text-lg text-muted-foreground">/mes</span>
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2 text-sm">
@@ -607,6 +612,9 @@ const Landing = () => {
       {/* Final CTA */}
       <section className="gradient-orange text-white py-20">
         <div className="container mx-auto px-4 text-center max-w-7xl">
+          <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-white/30">
+            ✨ Prueba 7 días gratis
+          </Badge>
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
             ¿Listo para dejar de buscar y empezar a encontrar?
           </h2>
@@ -619,10 +627,13 @@ const Landing = () => {
           >
             <Link to="/registro">
               <Button size="lg" variant="secondary" className="text-lg px-8 hover:shadow-2xl transition-all duration-300">
-                Comienza gratis ahora <Zap className="ml-2 h-5 w-5" />
+                Empieza tu prueba gratuita ahora <Zap className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </motion.div>
+          <p className="text-sm mt-4 opacity-75">
+            Sin tarjeta requerida • Cancela cuando quieras
+          </p>
         </div>
       </section>
 
