@@ -22,6 +22,7 @@ import rappiLogo from '@/assets/logos/rappi-logo.png';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
 import { ClovelyTextLogo } from '@/components/ClovelyTextLogo';
 import { DecoratedLogo } from '@/components/DecoratedLogo';
+import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
 
 const Landing = () => {
   const { isDark } = useThemeLogo();
@@ -137,17 +138,7 @@ const Landing = () => {
       {/* Navbar */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between max-w-7xl">
-          <Link to="/" className="relative flex items-center justify-center transition-transform hover:scale-105 duration-200 group">
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 blur-[42px] rounded-full bg-[#FF7A00]/18 dark:bg-[#FF7A00]/28 -z-10 group-hover:bg-[#FF7A00]/23 dark:group-hover:bg-[#FF7A00]/33 transition-colors duration-300"
-            />
-            <img
-              src="/clovely-logo.png"
-              alt="Clovely"
-              className="relative w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain drop-shadow-[0_0_8px_rgba(255,122,0,0.25)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.35)]"
-            />
-          </Link>
+          <ClovelyHeaderLogo size="lg" />
           
           <div className="hidden md:flex items-center gap-6 text-sm">
             <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">

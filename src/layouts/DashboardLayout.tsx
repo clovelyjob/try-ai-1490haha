@@ -1,9 +1,8 @@
 import { useState, useMemo, useCallback } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useThemeLogo } from '@/hooks/useThemeLogo';
 import { useIsMobile } from '@/hooks/use-mobile';
-import clovelyLogo from '@/assets/clovely-logo.jpg';
+import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -34,7 +33,6 @@ export default function DashboardLayout() {
   const { progress } = useProgressStore();
   const { sidebarCollapsed, sidebarPinned, setSidebarCollapsed, toggleSidebarPinned } = useUIStore();
   const location = useLocation();
-  const { isDark } = useThemeLogo();
   const isMobile = useIsMobile();
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   
@@ -104,32 +102,13 @@ export default function DashboardLayout() {
           aria-label="Navegación principal"
         >
           {/* Logo & Collapse */}
-          <div className="h-16 border-b flex items-center justify-between px-4">
-            {!(sidebarCollapsed && !sidebarPinned) ? (
-              <motion.img
-                src={clovelyLogo}
-                alt="Clovely"
-                className={cn(
-                  'h-10 w-auto transition-all duration-200',
-                  isDark ? 'rounded-lg border-2 border-primary p-1' : 'rounded-lg'
-                )}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-            ) : (
-              <motion.img
-                src={clovelyLogo}
-                alt="Clovely"
-                className={cn(
-                  'h-8 w-8 object-cover transition-all duration-200',
-                  isDark ? 'rounded-lg border-2 border-primary p-0.5' : 'rounded-lg'
-                )}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
+          <div className="h-16 border-b flex items-center justify-center px-4">
+            <ClovelyHeaderLogo 
+              size={sidebarCollapsed && !sidebarPinned ? 'sm' : 'md'} 
+              to="/dashboard"
+              asMotion={true}
+              animated={true}
+            />
           </div>
 
           {/* User Profile */}
