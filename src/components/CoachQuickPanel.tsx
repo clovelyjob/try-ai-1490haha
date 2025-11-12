@@ -76,6 +76,7 @@ export function CoachQuickPanel({ open, onClose, topic }: CoachQuickPanelProps) 
       <SheetContent 
         side="right" 
         className="w-full sm:w-[540px] p-0 flex flex-col bg-[#FFF7ED] dark:bg-[#0F1115] border-l-2 border-slate-900 dark:border-[#F97316]"
+        showCloseButton={false}
       >
         {/* Header */}
         <SheetHeader className="p-6 border-b bg-gradient-to-r from-primary/5 to-secondary/5">
@@ -97,8 +98,14 @@ export function CoachQuickPanel({ open, onClose, topic }: CoachQuickPanelProps) 
                 <p className="text-xs text-muted-foreground">Disponible 24/7 para ayudarte</p>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={onClose}>
-              <X className="h-5 w-5" />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={onClose}
+              className="hover:bg-slate-100 dark:hover:bg-slate-800"
+              aria-label="Cerrar panel"
+            >
+              <X className="h-5 w-5 text-slate-500 dark:text-slate-300" />
             </Button>
           </div>
         </SheetHeader>
