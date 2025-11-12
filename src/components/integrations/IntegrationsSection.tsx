@@ -25,8 +25,8 @@ export const IntegrationsSection = () => {
 
         {/* Logo Strips */}
         <div className="space-y-8 mb-12">
-          <LogoStrip logos={firstRow} direction="normal" speed={38} />
-          <LogoStrip logos={secondRow} direction="reverse" speed={42} />
+          <LogoStrip logos={firstRow} direction="normal" speed={20} />
+          <LogoStrip logos={secondRow} direction="reverse" speed={22} />
         </div>
 
         {/* CTA */}

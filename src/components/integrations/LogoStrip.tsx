@@ -50,10 +50,13 @@ export const LogoStrip = ({ logos, direction = 'normal', speed = 40 }: LogoStrip
             <img
               src={logo.src}
               alt={`${logo.name} logo`}
-              className="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-all duration-300 
+              className="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 
+                         transition-all duration-300 ease-out
                          filter grayscale hover:grayscale-0
-                         group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+                         group-hover:scale-105 
+                         group-hover:drop-shadow-[0_0_12px_rgba(255,122,0,0.6)]"
               loading="lazy"
+              style={{ mixBlendMode: 'normal' }}
             />
           </div>
         ))}
