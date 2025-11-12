@@ -7,19 +7,35 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { UpgradeModal } from '@/components/UpgradeModal';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
+import { toast } from 'sonner';
 import {
   Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
   Bot, Gift, Settings, Trophy, ChevronLeft, ChevronRight, Zap,
 } from 'lucide-react';
 
 export default function DashboardLayout() {
-  const { user } = useAuthStore();
+  const { user, startPremiumTrial } = useAuthStore();
   const { progress } = useProgressStore();
   const location = useLocation();
   const { isDark } = useThemeLogo();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  
+  const handleStartTrial = async () => {
+    try {
+      await startPremiumTrial();
+      toast.success('¡Bienvenido a Premium! 🎉', {
+        description: 'Disfruta 7 días gratis. Cancela cuando quieras.',
+      });
+    } catch (error) {
+      toast.error('Error al iniciar prueba. Intenta de nuevo.');
+    }
+  };
+  
+  const isPremium = user?.plan === 'premium';
 
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard' },
@@ -158,23 +174,29 @@ export default function DashboardLayout() {
           {!sidebarCollapsed ? (
             <>
               <ThemeToggle />
-              <Button 
-                className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
-                size="sm"
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                Upgrade Premium
-              </Button>
+              {!isPremium && (
+                <Button 
+                  className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
+                  size="sm"
+                  onClick={() => setUpgradeModalOpen(true)}
+                >
+                  <Zap className="h-4 w-4 mr-2" />
+                  Upgrade Premium
+                </Button>
+              )}
             </>
           ) : (
             <>
               <ThemeToggle />
-              <Button 
-                size="icon"
-                className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
-              >
-                <Zap className="h-4 w-4" />
-              </Button>
+              {!isPremium && (
+                <Button 
+                  size="icon"
+                  className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
+                  onClick={() => setUpgradeModalOpen(true)}
+                >
+                  <Zap className="h-4 w-4" />
+                </Button>
+              )}
             </>
           )}
         </div>
@@ -184,6 +206,13 @@ export default function DashboardLayout() {
       <main className={`flex-1 transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
         <Outlet />
       </main>
+      
+      {/* Upgrade Modal */}
+      <UpgradeModal 
+        open={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+        onStartTrial={handleStartTrial}
+      />
     </div>
   );
 }

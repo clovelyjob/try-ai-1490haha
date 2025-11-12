@@ -13,6 +13,8 @@ interface AuthState {
   convertGuestToUser: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Partial<User>) => void;
+  startPremiumTrial: () => Promise<void>;
+  upgradeToPremium: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -116,6 +118,51 @@ export const useAuthStore = create<AuthState>()(
         set((state) => ({
           user: state.user ? { ...state.user, ...updates } : null,
         }));
+      },
+      
+      startPremiumTrial: async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const trialEndsAt = new Date();
+        trialEndsAt.setDate(trialEndsAt.getDate() + 7);
+        
+        set((state) => ({
+          user: state.user ? {
+            ...state.user,
+            plan: 'premium',
+            trialActive: true,
+            trialEndsAt,
+          } : null,
+        }));
+        
+        // Analytics event
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'trial_start_success', {
+            trial_days: 7,
+            plan: 'premium',
+            price: 20,
+          });
+        }
+      },
+      
+      upgradeToPremium: async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        set((state) => ({
+          user: state.user ? {
+            ...state.user,
+            plan: 'premium',
+            trialActive: false,
+            trialEndsAt: undefined,
+          } : null,
+        }));
+        
+        // Analytics event
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'upgrade_success', {
+            plan: 'premium',
+            price: 20,
+          });
+        }
       },
     }),
     {

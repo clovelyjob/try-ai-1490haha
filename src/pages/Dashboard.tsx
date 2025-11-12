@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { UpgradeModal } from '@/components/UpgradeModal';
+import { UpgradeBanner } from '@/components/UpgradeBanner';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
@@ -22,7 +23,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user } = useAuthStore();
+  const { user, startPremiumTrial } = useAuthStore();
   const { progress, addXP, completeTask } = useProgressStore();
   const { profile } = useProfileStore();
   const [quote, setQuote] = useState(QUOTES[0]);
@@ -102,6 +103,18 @@ const Dashboard = () => {
   const handleMarkAllAsRead = () => {
     setNotifications(notifications.map(notification => ({ ...notification, read: true })));
     toast.success('Todas las notificaciones marcadas como leídas');
+  };
+  
+  const handleStartTrial = async () => {
+    try {
+      await startPremiumTrial();
+      toast.success('¡Bienvenido a Premium! 🎉', {
+        description: 'Disfruta 7 días gratis. Cancela cuando quieras.',
+      });
+      setUpgradeModalOpen(false);
+    } catch (error) {
+      toast.error('Error al iniciar prueba. Intenta de nuevo.');
+    }
   };
 
   if (!progress) return null;
@@ -209,6 +222,9 @@ const Dashboard = () => {
 
         {/* Content */}
         <div className="p-6 space-y-6 max-w-full overflow-x-hidden">
+          {/* Upgrade Banner */}
+          <UpgradeBanner onUpgrade={() => setUpgradeModalOpen(true)} />
+          
           {/* Quote */}
           <Card className="p-4 bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
             <div className="flex items-start justify-between gap-3">
@@ -509,7 +525,7 @@ const Dashboard = () => {
         <UpgradeModal 
           open={upgradeModalOpen} 
           onClose={() => setUpgradeModalOpen(false)}
-          feature="acceso completo"
+          onStartTrial={handleStartTrial}
         />
       </div>
     );

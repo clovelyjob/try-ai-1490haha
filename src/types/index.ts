@@ -4,6 +4,8 @@ export interface User {
   email: string;
   avatar?: string;
   plan: 'free' | 'premium';
+  trialActive?: boolean;
+  trialEndsAt?: Date;
   createdAt: Date;
   lastLogin: Date;
   onboardingCompleted: boolean;
