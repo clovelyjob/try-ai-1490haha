@@ -26,7 +26,7 @@ export default function InterviewSetup() {
   const [interviewType, setInterviewType] = useState<InterviewType>('screening');
   const [tone, setTone] = useState<InterviewTone>('empatico');
   const [jobDescription, setJobDescription] = useState('');
-  const [selectedCVId, setSelectedCVId] = useState<string>('');
+  const [selectedCVId, setSelectedCVId] = useState<string>('none');
 
   const handleStart = () => {
     if (!role.trim()) {
@@ -57,7 +57,7 @@ export default function InterviewSetup() {
       interviewType,
       tone,
       jobDescription: jobDescription.trim() || undefined,
-      cvVersionId: selectedCVId || undefined,
+      cvVersionId: selectedCVId !== 'none' ? selectedCVId : undefined,
     });
 
     navigate('/dashboard/interviews/session');
@@ -152,7 +152,7 @@ export default function InterviewSetup() {
                   <SelectValue placeholder="Selecciona un CV" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Sin CV</SelectItem>
+                  <SelectItem value="none">Sin CV</SelectItem>
                   {cvs.map((cv) => (
                     <SelectItem key={cv.id} value={cv.id}>
                       {cv.title}
