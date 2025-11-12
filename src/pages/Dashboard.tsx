@@ -12,7 +12,8 @@ import { CoachQuickPanel } from '@/components/CoachQuickPanel';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useProfileStore } from '@/store/useProfileStore';
-import { QUOTES } from '@/lib/constants';
+import { useGoalsStore } from '@/store/useGoalsStore';
+import { getMotivationalQuote, clearQuoteCache } from '@/lib/motivationalQuote';
 import WeeklyPlanWidget from '@/components/WeeklyPlanWidget';
 import CareerCopilot from '@/components/CareerCopilot';
 import { getDashboardConfig } from '@/lib/dashboardContent';
@@ -20,14 +21,16 @@ import { toast } from 'sonner';
 import {
   Briefcase, Bell, TrendingUp, Flame,
   ArrowRight, CheckCircle2, Circle, Clock,
-  RefreshCw, Zap, Bot,
+  RefreshCw, Zap, Bot, Loader2,
 } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, startPremiumTrial } = useAuthStore();
   const { progress, addXP, completeTask } = useProgressStore();
   const { profile } = useProfileStore();
-  const [quote, setQuote] = useState(QUOTES[0]);
+  const { goals } = useGoalsStore();
+  const [quote, setQuote] = useState('Tu progreso comienza aquí');
+  const [isLoadingQuote, setIsLoadingQuote] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const [coachPanelOpen, setCoachPanelOpen] = useState(false);
@@ -77,12 +80,62 @@ const Dashboard = () => {
   
   const roleConfig = profile?.rolActual ? getDashboardConfig(profile.rolActual) : getDashboardConfig('other');
 
+  // Load motivational quote on mount
   useEffect(() => {
-    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
-  }, []);
+    const loadQuote = async () => {
+      if (!user) return;
+      
+      setIsLoadingQuote(true);
+      try {
+        const tasksCompletedCount = tasks.filter(t => t.completed).length;
+        const activeGoals = goals.filter(g => g.status === 'in_progress' || g.status === 'pending');
+        
+        const quote = await getMotivationalQuote({
+          name: user.name?.split(' ')[0] || 'Usuario',
+          level: progress?.level || 1,
+          streak: progress?.streak || 0,
+          tasksCompleted: tasksCompletedCount,
+          totalGoals: activeGoals.length,
+          role: profile?.rolActual,
+        });
+        
+        setQuote(quote);
+      } catch (error) {
+        console.error('Error loading quote:', error);
+      } finally {
+        setIsLoadingQuote(false);
+      }
+    };
 
-  const refreshQuote = () => {
-    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+    loadQuote();
+  }, [user]);
+
+  const refreshQuote = async () => {
+    if (!user || isLoadingQuote) return;
+    
+    setIsLoadingQuote(true);
+    clearQuoteCache(); // Force new quote
+    
+    try {
+      const tasksCompletedCount = tasks.filter(t => t.completed).length;
+      const activeGoals = goals.filter(g => g.status === 'in_progress' || g.status === 'pending');
+      
+      const newQuote = await getMotivationalQuote({
+        name: user.name?.split(' ')[0] || 'Usuario',
+        level: progress?.level || 1,
+        streak: progress?.streak || 0,
+        tasksCompleted: tasksCompletedCount,
+        totalGoals: activeGoals.length,
+        role: profile?.rolActual,
+      });
+      
+      setQuote(newQuote);
+      toast.success('Nueva frase generada');
+    } catch (error) {
+      toast.error('Error al generar nueva frase');
+    } finally {
+      setIsLoadingQuote(false);
+    }
   };
 
   const todayTasks = tasks;
@@ -236,12 +289,21 @@ const Dashboard = () => {
           {/* Quote */}
           <Card className="p-4 bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
             <div className="flex items-start justify-between gap-3">
-              <p className="text-sm italic">&ldquo;{quote}&rdquo;</p>
+              {isLoadingQuote ? (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Generando frase personalizada...</span>
+                </div>
+              ) : (
+                <p className="text-sm italic">&ldquo;{quote}&rdquo;</p>
+              )}
               <button
                 onClick={refreshQuote}
-                className="text-muted-foreground hover:text-foreground"
+                disabled={isLoadingQuote}
+                className="text-muted-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                aria-label="Generar nueva frase"
               >
-                <RefreshCw className="h-4 w-4" />
+                <RefreshCw className={`h-4 w-4 ${isLoadingQuote ? 'animate-spin' : ''}`} />
               </button>
             </div>
           </Card>
