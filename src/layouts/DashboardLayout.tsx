@@ -10,13 +10,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { useAuthStore } from '@/store/useAuthStore';
-import { useProgressStore } from '@/store/useProgressStore';
 import { useUIStore } from '@/store/useUIStore';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import {
-  Home, Target, FileText, Briefcase, Mic, Users, BarChart3,
-  Bot, Gift, Settings, Trophy, ChevronLeft, ChevronRight, Zap, Pin,
+  Home, FileText, Briefcase, Settings, ChevronLeft, ChevronRight, Pin,
 } from 'lucide-react';
 
 // Debounce utility
@@ -30,7 +28,6 @@ function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
 
 export default function DashboardLayout() {
   const { user, startPremiumTrial } = useAuthStore();
-  const { progress } = useProgressStore();
   const { sidebarCollapsed, sidebarPinned, setSidebarCollapsed, toggleSidebarPinned } = useUIStore();
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -51,17 +48,12 @@ export default function DashboardLayout() {
 
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard' },
-    { icon: Target, label: 'Objetivos', path: '/dashboard/goals', badge: 3 },
     { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
-    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities', badge: 12 },
-    { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
-    { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
-    { icon: Bot, label: 'Coach', path: '/dashboard/coach', glow: true },
-    { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
+    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
     { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];
 
-  const xpPercentage = progress ? (progress.currentXP / progress.nextLevelXP) * 100 : 0;
+  
 
   // Hover handlers with debounce (only for desktop)
   const handleMouseEnter = useCallback(
@@ -126,35 +118,10 @@ export default function DashboardLayout() {
                   transition={{ duration: 0.2 }}
                 >
                   <p className="font-semibold text-sm truncate">{user?.name}</p>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Badge variant="secondary" className="text-xs">
-                      🥉 Nivel {progress?.level || 1}
-                    </Badge>
-                  </div>
+                  <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                 </motion.div>
               )}
             </div>
-            {!(sidebarCollapsed && !sidebarPinned) && progress && (
-              <motion.div
-                className="space-y-1"
-                initial={{ opacity: 0, x: -4 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2, delay: 0.05 }}
-              >
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground">Progreso</span>
-                  <span className="font-medium">{progress.currentXP}/{progress.nextLevelXP} XP</span>
-                </div>
-                <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-primary to-orange-500"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${xpPercentage}%` }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </div>
-              </motion.div>
-            )}
           </div>
 
           {/* Navigation */}
@@ -175,11 +142,10 @@ export default function DashboardLayout() {
                     'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                     isActive
                       ? 'bg-primary text-primary-foreground font-medium'
-                      : 'hover:bg-accent text-muted-foreground hover:text-foreground',
-                    item.glow && !isActive && 'hover:shadow-[0_0_20px_rgba(255,122,0,0.3)]'
+                      : 'hover:bg-accent text-muted-foreground hover:text-foreground'
                   )}
                 >
-                  <Icon className={cn('h-5 w-5 flex-shrink-0', item.glow && !isActive && 'text-primary')} />
+                  <Icon className="h-5 w-5 flex-shrink-0" />
                   {!isCollapsed && (
                     <motion.div
                       className="flex items-center gap-2 flex-1 min-w-0"
@@ -188,11 +154,6 @@ export default function DashboardLayout() {
                       transition={{ duration: 0.2 }}
                     >
                       <span className="flex-1 truncate">{item.label}</span>
-                      {item.badge && (
-                        <Badge variant={isActive ? "secondary" : "outline"} className="text-xs shrink-0">
-                          {item.badge}
-                        </Badge>
-                      )}
                     </motion.div>
                   )}
                 </Link>
@@ -205,7 +166,6 @@ export default function DashboardLayout() {
                   </TooltipTrigger>
                   <TooltipContent side="right" className="flex items-center gap-2">
                     {item.label}
-                    {item.badge && <Badge variant="outline" className="text-xs">{item.badge}</Badge>}
                   </TooltipContent>
                 </Tooltip>
               ) : navLink;
@@ -250,7 +210,6 @@ export default function DashboardLayout() {
                     size="sm"
                     onClick={() => setUpgradeModalOpen(true)}
                   >
-                    <Zap className="h-4 w-4 mr-2" />
                     Upgrade Premium
                   </Button>
                 )}
@@ -267,22 +226,22 @@ export default function DashboardLayout() {
                     Cambiar tema
                   </TooltipContent>
                 </Tooltip>
-                {!isPremium && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button 
-                        size="icon"
-                        className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
-                        onClick={() => setUpgradeModalOpen(true)}
-                      >
-                        <Zap className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="right">
-                      Upgrade Premium
-                    </TooltipContent>
-                  </Tooltip>
-                )}
+                  {!isPremium && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          size="icon"
+                          className="w-full bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
+                          onClick={() => setUpgradeModalOpen(true)}
+                        >
+                          P
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        Upgrade Premium
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
               </>
             )}
           </div>
