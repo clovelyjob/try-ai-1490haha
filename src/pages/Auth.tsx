@@ -34,19 +34,41 @@ export default function Auth() {
     // Check if user is already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate('/dashboard');
+        // Check if user completed onboarding
+        checkOnboardingStatus(session.user.id);
       }
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session && event === 'SIGNED_IN') {
-        navigate('/dashboard');
+        // Check if user completed onboarding
+        checkOnboardingStatus(session.user.id);
       }
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const checkOnboardingStatus = async (userId: string) => {
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('rol_profesional')
+        .eq('id', userId)
+        .single();
+
+      // If user has a role, they completed onboarding
+      if (profile?.rol_profesional) {
+        navigate('/dashboard');
+      } else {
+        navigate('/onboarding');
+      }
+    } catch (error) {
+      // If profile doesn't exist yet, go to onboarding
+      navigate('/onboarding');
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -122,7 +144,7 @@ export default function Auth() {
     setIsLoading(true);
 
     try {
-      const redirectUrl = `${window.location.origin}/dashboard`;
+      const redirectUrl = `${window.location.origin}/onboarding`;
       
       const { error } = await supabase.auth.signUp({
         email: signupData.email,
@@ -152,7 +174,7 @@ export default function Auth() {
       } else {
         toast({
           title: '¡Cuenta creada!',
-          description: 'Tu cuenta ha sido creada exitosamente. Iniciando sesión...',
+          description: 'Iniciando tu diagnóstico profesional...',
         });
       }
     } catch (error) {
@@ -167,7 +189,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
+    <div className="min-h-screen gradient-soft flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -175,26 +197,26 @@ export default function Auth() {
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <ClovelyTextLogo className="h-12 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold gradient-text mb-2">
+          <ClovelyTextLogo className="h-12 mx-auto mb-6" />
+          <h1 className="text-4xl font-heading font-bold mb-3">
             Impulsa tu carrera
           </h1>
-          <p className="text-muted-foreground">
-            Crea tu CV, practica entrevistas y encuentra oportunidades
+          <p className="text-muted-foreground text-lg">
+            Descubre tu camino profesional ideal
           </p>
         </div>
 
-        <Card className="p-6 backdrop-blur-xl bg-card/90 shadow-clovely-lg border-border/50">
+        <Card className="p-8 backdrop-blur-xl bg-card/95 shadow-clovely-xl border-border/50">
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login">Iniciar Sesión</TabsTrigger>
-              <TabsTrigger value="signup">Registrarse</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="login" className="text-base">Iniciar Sesión</TabsTrigger>
+              <TabsTrigger value="signup" className="text-base">Registrarse</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
-              <form onSubmit={handleLogin} className="space-y-4">
+              <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="login-email">Email</Label>
+                  <Label htmlFor="login-email" className="text-base">Email</Label>
                   <Input
                     id="login-email"
                     type="email"
@@ -203,30 +225,32 @@ export default function Auth() {
                     onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                     disabled={isLoading}
                     required
+                    className="h-11"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="login-password">Contraseña</Label>
+                  <Label htmlFor="login-password" className="text-base">Contraseña</Label>
                   <Input
                     id="login-password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="Mínimo 6 caracteres"
                     value={loginData.password}
                     onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                     disabled={isLoading}
                     required
+                    className="h-11"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full gradient-orange text-white h-12 text-base font-semibold hover-glow"
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       Iniciando sesión...
                     </>
                   ) : (
@@ -237,9 +261,9 @@ export default function Auth() {
             </TabsContent>
 
             <TabsContent value="signup">
-              <form onSubmit={handleSignup} className="space-y-4">
+              <form onSubmit={handleSignup} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-nombre">Nombre completo</Label>
+                  <Label htmlFor="signup-nombre" className="text-base">Nombre completo</Label>
                   <Input
                     id="signup-nombre"
                     type="text"
@@ -248,11 +272,12 @@ export default function Auth() {
                     onChange={(e) => setSignupData({ ...signupData, nombre: e.target.value })}
                     disabled={isLoading}
                     required
+                    className="h-11"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email" className="text-base">Email</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -261,39 +286,41 @@ export default function Auth() {
                     onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
                     disabled={isLoading}
                     required
+                    className="h-11"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Contraseña</Label>
+                  <Label htmlFor="signup-password" className="text-base">Contraseña</Label>
                   <Input
                     id="signup-password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="Mínimo 6 caracteres"
                     value={signupData.password}
                     onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                     disabled={isLoading}
                     required
+                    className="h-11"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full gradient-blue text-white h-12 text-base font-semibold hover-glow"
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       Creando cuenta...
                     </>
                   ) : (
-                    'Crear Cuenta'
+                    'Crear Cuenta →'
                   )}
                 </Button>
 
-                <p className="text-xs text-center text-muted-foreground mt-4">
-                  Al registrarte, aceptas nuestros términos y condiciones
+                <p className="text-sm text-center text-muted-foreground mt-4">
+                  Al registrarte, comenzarás tu diagnóstico profesional personalizado
                 </p>
               </form>
             </TabsContent>
