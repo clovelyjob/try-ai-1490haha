@@ -10,6 +10,10 @@ import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import CVList from "./pages/CVList";
 import CVBuilder from "./pages/CVBuilder";
+import InterviewLanding from "./pages/InterviewLanding";
+import InterviewSetup from "./pages/InterviewSetup";
+import InterviewSession from "./pages/InterviewSession";
+import InterviewResults from "./pages/InterviewResults";
 import Opportunities from "./pages/Opportunities";
 import OpportunityDetail from "./pages/OpportunityDetail";
 import Settings from "./pages/Settings";
@@ -37,6 +41,10 @@ const App = () => (
             <Route index element={<Dashboard />} />
             <Route path="cvs" element={<CVList />} />
             <Route path="cvs/:id" element={<CVBuilder />} />
+            <Route path="interviews" element={<InterviewLanding />} />
+            <Route path="interviews/setup" element={<InterviewSetup />} />
+            <Route path="interviews/session" element={<InterviewSession />} />
+            <Route path="interviews/results" element={<InterviewResults />} />
             <Route path="opportunities" element={<Opportunities />} />
             <Route path="opportunities/:id" element={<OpportunityDetail />} />
             <Route path="settings" element={<Settings />} />

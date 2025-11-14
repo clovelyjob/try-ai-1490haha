@@ -13,7 +13,7 @@ import { useUIStore } from '@/store/useUIStore';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import {
-  Home, FileText, Briefcase, Settings, ChevronLeft, ChevronRight, Pin,
+  Home, FileText, Briefcase, Settings, ChevronLeft, ChevronRight, Pin, Mic,
 } from 'lucide-react';
 
 // Debounce utility
@@ -48,6 +48,7 @@ export default function DashboardLayout() {
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard' },
     { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
+    { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
     { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
     { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];

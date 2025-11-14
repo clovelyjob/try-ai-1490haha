@@ -1,0 +1,141 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { CheckCircle2, TrendingUp, Target, Lightbulb } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useInterviewStore } from "@/store/useInterviewStore";
+import { useEffect } from "react";
+
+export default function InterviewResults() {
+  const navigate = useNavigate();
+  const { currentSession, saveSession } = useInterviewStore();
+
+  useEffect(() => {
+    if (!currentSession) {
+      navigate('/dashboard/interviews');
+    }
+  }, [currentSession, navigate]);
+
+  if (!currentSession) return null;
+
+  const { finalScore, breakdown, recommendations, responses } = currentSession;
+
+  const getScoreColor = (score: number) => {
+    if (score >= 75) return "text-green-600";
+    if (score >= 50) return "text-yellow-600";
+    return "text-red-600";
+  };
+
+  const getScoreLabel = (score: number) => {
+    if (score >= 75) return "Excelente";
+    if (score >= 50) return "Bueno";
+    return "Necesitas mejorar";
+  };
+
+  const handleSave = () => {
+    saveSession();
+    navigate('/dashboard/interviews');
+  };
+
+  return (
+    <div className="container max-w-4xl py-8 space-y-6">
+      {/* Success header */}
+      <Card className="p-8 text-center space-y-4">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-2">
+          <CheckCircle2 className="w-8 h-8 text-green-600" />
+        </div>
+        <h1 className="text-3xl font-bold">¡Entrevista Completada!</h1>
+        <p className="text-muted-foreground">Has respondido {responses.length} preguntas</p>
+      </Card>
+
+      {/* Score */}
+      <Card className="p-8 space-y-6">
+        <div className="text-center space-y-3">
+          <p className="text-muted-foreground">Puntuación Final</p>
+          <p className={`text-6xl font-bold ${getScoreColor(finalScore)}`}>
+            {finalScore}
+          </p>
+          <p className="text-lg font-medium">{getScoreLabel(finalScore)}</p>
+        </div>
+
+        {/* Breakdown */}
+        <div className="space-y-4 pt-6 border-t">
+          <h3 className="font-semibold flex items-center gap-2">
+            <TrendingUp className="w-4 h-4" />
+            Desglose por Categoría
+          </h3>
+          
+          <div className="space-y-3">
+            <div className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>Claridad</span>
+                <span className="font-medium">{breakdown.clarity}/25</span>
+              </div>
+              <Progress value={(breakdown.clarity / 25) * 100} />
+            </div>
+            
+            <div className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>Estructura</span>
+                <span className="font-medium">{breakdown.structure}/25</span>
+              </div>
+              <Progress value={(breakdown.structure / 25) * 100} />
+            </div>
+            
+            <div className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>Evidencia</span>
+                <span className="font-medium">{breakdown.evidence}/25</span>
+              </div>
+              <Progress value={(breakdown.evidence / 25) * 100} />
+            </div>
+            
+            <div className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>Lenguaje</span>
+                <span className="font-medium">{breakdown.language}/15</span>
+              </div>
+              <Progress value={(breakdown.language / 15) * 100} />
+            </div>
+            
+            <div className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>Cultura</span>
+                <span className="font-medium">{breakdown.culture}/10</span>
+              </div>
+              <Progress value={(breakdown.culture / 10) * 100} />
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <Card className="p-6 space-y-4">
+          <h3 className="font-semibold flex items-center gap-2">
+            <Lightbulb className="w-4 h-4" />
+            Recomendaciones
+          </h3>
+          <div className="space-y-3">
+            {recommendations.map((rec, idx) => (
+              <div key={idx} className="flex gap-3 p-3 rounded-lg bg-muted/50">
+                <Target className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-sm">{rec.text}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* Actions */}
+      <div className="flex gap-3">
+        <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="flex-1">
+          Ver Historial
+        </Button>
+        <Button onClick={handleSave} className="flex-1">
+          Guardar y Continuar
+        </Button>
+      </div>
+    </div>
+  );
+}
