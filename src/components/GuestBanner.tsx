@@ -17,48 +17,15 @@ const registerSchema = z.object({
 });
 
 export function GuestBanner() {
-  const { isGuestMode, convertGuestToUser } = useAuthStore();
+  const { isGuestMode } = useAuthStore();
   const [showModal, setShowModal] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
 
   if (!isGuestMode || !showBanner) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-    
-    try {
-      const validated = registerSchema.parse(formData);
-      setIsLoading(true);
-      
-      await convertGuestToUser(validated.name, validated.email, validated.password);
-      
-      toast.success('¡Cuenta creada exitosamente!', {
-        description: 'Tu progreso de demostración se ha guardado',
-      });
-      
-      setShowModal(false);
-      setShowBanner(false);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            fieldErrors[err.path[0].toString()] = err.message;
-          }
-        });
-        setErrors(fieldErrors);
-      }
-    } finally {
-      setIsLoading(false);
-    }
+  const handleCreateAccount = () => {
+    // Redirect to auth page
+    window.location.href = '/auth';
   };
 
   return (
@@ -80,7 +47,7 @@ export function GuestBanner() {
                 <div className="flex items-center gap-2">
                   <Button
                     size="sm"
-                    onClick={() => setShowModal(true)}
+                    onClick={handleCreateAccount}
                     className="gradient-orange text-white shrink-0"
                   >
                     Crear mi cuenta
