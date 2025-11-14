@@ -27,6 +27,26 @@ const Login = () => {
     remember: false,
   });
 
+  const handleGoogleLogin = async () => {
+    try {
+      await useAuthStore.getState().signInWithGoogle();
+      toast.success('Redirigiendo a Google...');
+    } catch (error: any) {
+      console.error('Google login error:', error);
+      toast.error('Error al conectar con Google');
+    }
+  };
+
+  const handleLinkedInLogin = async () => {
+    try {
+      await useAuthStore.getState().signInWithLinkedIn();
+      toast.success('Redirigiendo a LinkedIn...');
+    } catch (error: any) {
+      console.error('LinkedIn login error:', error);
+      toast.error('Error al conectar con LinkedIn');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -155,11 +175,21 @@ const Login = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button type="button" variant="outline" className="hover-lift">
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="hover-lift"
+                onClick={handleGoogleLogin}
+              >
                 <Chrome className="mr-2 h-4 w-4" />
                 Google
               </Button>
-              <Button type="button" variant="outline" className="hover-lift">
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="hover-lift"
+                onClick={handleLinkedInLogin}
+              >
                 <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn
               </Button>
