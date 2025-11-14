@@ -578,7 +578,7 @@ const Landing = () => {
           scale: 0.95
         }}>
             <Link to="/registro">
-              <Button size="lg" variant="secondary" className="text-lg px-8 hover:shadow-2xl transition-all duration-300">
+              <Button size="lg" className="gradient-blue text-white text-lg px-8 hover:shadow-2xl transition-all duration-300">
                 Empieza tu prueba gratuita ahora <Zap className="ml-2 h-5 w-5" />
               </Button>
             </Link>
