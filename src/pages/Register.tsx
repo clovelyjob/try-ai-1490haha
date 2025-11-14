@@ -79,10 +79,11 @@ const Register = () => {
     try {
       await register(formData.name, formData.email, formData.password);
       toast.success('¡Cuenta creada exitosamente! Redirigiendo al diagnóstico...');
-      setTimeout(() => navigate('/onboarding'), 1000);
+      // Pequeño delay para que se complete el registro
+      setTimeout(() => navigate('/onboarding'), 1500);
     } catch (error: any) {
       console.error('Register error:', error);
-      if (error.message?.includes('already registered')) {
+      if (error.message?.includes('already registered') || error.message?.includes('User already registered')) {
         toast.error('Este email ya está registrado. Intenta iniciar sesión.');
       } else {
         toast.error(error.message || 'Error al crear la cuenta');
