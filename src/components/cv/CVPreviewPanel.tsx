@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { CVData } from '@/types';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,7 +8,7 @@ interface CVPreviewPanelProps {
   cv: CVData;
 }
 
-export default function CVPreviewPanel({ cv }: CVPreviewPanelProps) {
+const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, ref) => {
   const templateStyles = {
     harvard: 'bg-white text-gray-900',
     modern: 'bg-gradient-to-br from-blue-50 to-white text-gray-900',
@@ -16,7 +17,7 @@ export default function CVPreviewPanel({ cv }: CVPreviewPanelProps) {
   };
 
   return (
-    <Card className={`p-8 shadow-xl ${templateStyles[cv.template]} min-h-[297mm]`}>
+    <Card ref={ref} className={`p-8 shadow-xl ${templateStyles[cv.template]} min-h-[297mm]`}>
       {/* Header */}
       <div className="border-b-2 border-gray-800 pb-4 mb-6">
         <h1 className="text-3xl font-bold mb-1">{cv.personal.fullName || 'Tu Nombre'}</h1>
@@ -221,4 +222,8 @@ export default function CVPreviewPanel({ cv }: CVPreviewPanelProps) {
       </div>
     </Card>
   );
-}
+});
+
+CVPreviewPanel.displayName = 'CVPreviewPanel';
+
+export default CVPreviewPanel;
