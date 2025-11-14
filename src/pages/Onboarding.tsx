@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '@/integrations/supabase/client';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -82,51 +83,88 @@ const Onboarding = () => {
     handleNext();
   };
 
-  const handleComplete = () => {
-    const profileData = {
-      userId: user?.id || '1',
-      interests: onboardingData.interests,
-      values: onboardingData.values,
-      workStyle: onboardingData.workStyle,
-      skills: onboardingData.skills,
-      experience: (onboardingData.experience || 'student') as 'student' | 'graduate' | 'junior' | 'mid' | 'senior' | 'transition',
-      situation: onboardingData.situation,
-      challenge: onboardingData.challenge,
-      diagnosticResults: {
-        topCareers: [
-          { title: 'Product Designer', match: 92 },
-          { title: 'Product Manager', match: 87 },
-          { title: 'Marketing Manager', match: 83 },
-        ],
-        profileType: 'Innovador Creativo',
-        insights: [
-          'Tienes un perfil equilibrado entre creatividad y análisis',
-          'Tu capacidad de comunicación es una fortaleza clave',
-          'Valoras el impacto y la autonomía en tu trabajo',
-        ],
-        radarData: [
-          { skill: 'Creatividad', value: 85 },
-          { skill: 'Análisis', value: 72 },
-          { skill: 'Liderazgo', value: 68 },
-          { skill: 'Comunicación', value: 90 },
-          { skill: 'Técnica', value: 65 },
-          { skill: 'Estrategia', value: 78 },
-        ],
-      },
-      rolActual: detectedRole,
-      rolesSugeridos: [],
-      preferencias: onboardingData.rolePreferences,
-      historialRol: [{
-        rol: detectedRole,
-        fecha: new Date().toISOString(),
-        confidence: roleConfidence
-      }]
-    };
+  const handleComplete = async () => {
+    if (!user?.id) {
+      toast.error('No se pudo identificar al usuario');
+      return;
+    }
 
-    setProfile(profileData);
-    updateUser({ onboardingCompleted: true });
-    toast.success('¡Perfil completado!');
-    navigate('/dashboard');
+    try {
+      // Actualizar perfil en Supabase
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          rol_profesional: detectedRole,
+          preferencias_laborales: {
+            ...onboardingData.rolePreferences,
+            interests: onboardingData.interests,
+            values: onboardingData.values,
+            workStyle: onboardingData.workStyle,
+            skills: onboardingData.skills,
+            experience: onboardingData.experience,
+            situation: onboardingData.situation,
+            challenge: onboardingData.challenge,
+          },
+          progreso: {
+            cv_completado: false,
+            entrevistas_realizadas: 0,
+            oportunidades_guardadas: 0,
+            onboarding_completado: true,
+          }
+        })
+        .eq('id', user.id);
+
+      if (error) throw error;
+
+      // Actualizar stores locales
+      const profileData = {
+        userId: user.id,
+        interests: onboardingData.interests,
+        values: onboardingData.values,
+        workStyle: onboardingData.workStyle,
+        skills: onboardingData.skills,
+        experience: (onboardingData.experience || 'student') as 'student' | 'graduate' | 'junior' | 'mid' | 'senior' | 'transition',
+        situation: onboardingData.situation,
+        challenge: onboardingData.challenge,
+        diagnosticResults: {
+          topCareers: [
+            { title: 'Product Designer', match: 92 },
+            { title: 'Product Manager', match: 87 },
+            { title: 'Marketing Manager', match: 83 },
+          ],
+          profileType: 'Innovador Creativo',
+          insights: [
+            'Tienes un perfil equilibrado entre creatividad y análisis',
+            'Tu capacidad de comunicación es una fortaleza clave',
+            'Valoras el impacto y la autonomía en tu trabajo',
+          ],
+          radarData: [
+            { skill: 'Creatividad', value: 85 },
+            { skill: 'Análisis', value: 72 },
+            { skill: 'Liderazgo', value: 68 },
+            { skill: 'Comunicación', value: 90 },
+            { skill: 'Técnica', value: 65 },
+            { skill: 'Estrategia', value: 78 },
+          ],
+        },
+        rolActual: detectedRole,
+        rolesSugeridos: [],
+        preferencias: onboardingData.rolePreferences,
+        historialRol: [{
+          rol: detectedRole,
+          fecha: new Date().toISOString(),
+          confidence: roleConfidence
+        }]
+      };
+
+      setProfile(profileData);
+      updateUser({ onboardingCompleted: true });
+      toast.success('¡Perfil completado!');
+      navigate('/dashboard');
+    } catch (error: any) {
+      console.error('Error saving profile:', error);
+      toast.error('Error al guardar el perfil. Por favor, intenta de nuevo.');
+    }
   };
 
   const steps = [

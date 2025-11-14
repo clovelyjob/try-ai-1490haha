@@ -9,6 +9,8 @@ import { useSmartReminders } from "@/hooks/useSmartReminders";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import CVList from "./pages/CVList";
@@ -44,8 +46,10 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/auth" element={<Auth />} />
-          <Route path="/guest-start" element={<GuestStart />} />
-          <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+              <Route path="/guest-start" element={<GuestStart />} />
+              <Route path="/onboarding" element={<Onboarding />} />
           
           {/* Dashboard routes with shared sidebar layout */}
           <Route path="/dashboard" element={<DashboardLayout />}>
