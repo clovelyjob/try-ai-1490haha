@@ -126,11 +126,25 @@ export default function InterviewSession() {
 
       {/* Recent feedback */}
       {currentSession.responses.length > 0 && (
-        <Card className="p-6 space-y-3">
+        <Card className="p-6 space-y-4">
           <h3 className="font-semibold">Última retroalimentación</h3>
-          <p className="text-sm text-muted-foreground">
-            {currentSession.responses[currentSession.responses.length - 1].feedbackText}
-          </p>
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              {currentSession.responses[currentSession.responses.length - 1].feedbackText}
+            </p>
+            
+            {/* Mostrar puntuación detallada */}
+            {currentSession.responses[currentSession.responses.length - 1].scores && (
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t">
+                {Object.entries(currentSession.responses[currentSession.responses.length - 1].scores).map(([key, value]) => (
+                  <div key={key} className="text-center">
+                    <p className="text-xs text-muted-foreground capitalize">{key}</p>
+                    <p className="text-lg font-semibold text-primary">{value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </Card>
       )}
     </div>

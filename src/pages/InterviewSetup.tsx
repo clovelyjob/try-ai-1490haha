@@ -8,33 +8,52 @@ import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "@/store/useInterviewStore";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 import type { InterviewLevel, InterviewTone, InterviewType } from "@/types";
 
 export default function InterviewSetup() {
   const navigate = useNavigate();
   const { startSession, seedQuestions } = useInterviewStore();
   const { user } = useAuthStore();
+  const { toast } = useToast();
   
   const [role, setRole] = useState("");
   const [level, setLevel] = useState<InterviewLevel>("junior");
   const [interviewType, setInterviewType] = useState<InterviewType>("screening");
   const [tone, setTone] = useState<InterviewTone>("empatico");
   const [jobDescription, setJobDescription] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!role || !user) return;
     
-    seedQuestions();
-    startSession({
-      userId: user.id,
-      role,
-      level,
-      interviewType,
-      tone,
-      jobDescription: jobDescription || undefined,
-    });
+    setIsGenerating(true);
     
-    navigate('/dashboard/interviews/session');
+    try {
+      // Generar preguntas con IA basadas en el rol y nivel
+      await seedQuestions(role, level);
+      
+      startSession({
+        userId: user.id,
+        role,
+        level,
+        interviewType,
+        tone,
+        jobDescription: jobDescription || undefined,
+      });
+      
+      navigate('/dashboard/interviews/session');
+    } catch (error) {
+      console.error('Error starting interview:', error);
+      toast({
+        title: "Error",
+        description: "No se pudieron generar las preguntas. Intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -117,11 +136,27 @@ export default function InterviewSetup() {
         </div>
 
         <div className="flex gap-3">
-          <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="flex-1">
+          <Button 
+            variant="outline" 
+            onClick={() => navigate('/dashboard/interviews')} 
+            className="flex-1"
+            disabled={isGenerating}
+          >
             Cancelar
           </Button>
-          <Button onClick={handleStart} disabled={!role} className="flex-1">
-            Comenzar Entrevista
+          <Button 
+            onClick={handleStart} 
+            disabled={!role || isGenerating} 
+            className="flex-1"
+          >
+            {isGenerating ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Generando preguntas...
+              </>
+            ) : (
+              'Comenzar Entrevista'
+            )}
           </Button>
         </div>
       </Card>
