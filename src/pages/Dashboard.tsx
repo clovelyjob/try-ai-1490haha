@@ -11,7 +11,7 @@ import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
 import { UserStats } from '@/components/dashboard/UserStats';
 import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
 import {
-  Briefcase, FileText, ArrowRight, Target, Video,
+  Briefcase, FileText, ArrowRight, Target, Video, Sparkles, RotateCcw,
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -123,25 +123,51 @@ const Dashboard = () => {
         <RecommendedResources role={profile?.rolActual} />
 
         {/* Getting Started Card */}
-        <Card className="p-8 gradient-orange-gray text-white shadow-clovely-xl">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+        <Card className="p-8 gradient-orange-gray text-white shadow-clovely-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+          <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-white" />
-                <h2 className="text-xl font-bold">Comienza tu viaje profesional</h2>
+                <Target className="h-6 w-6" />
+                <h2 className="text-2xl font-heading font-bold">
+                  {profile?.rolActual ? 'Refina tu perfil profesional' : 'Descubre tu camino ideal'}
+                </h2>
               </div>
-              <p className="text-white/90">
-                Clovely te ayuda a conseguir oportunidades mediante un CV profesional optimizado 
-                y preparación efectiva para entrevistas.
+              <p className="text-white/90 text-lg">
+                {profile?.rolActual 
+                  ? 'Tu diagnóstico profesional puede evolucionar. Actualiza tu perfil para obtener recomendaciones más precisas.'
+                  : 'Completa tu diagnóstico profesional con IA para recibir oportunidades personalizadas.'
+                }
               </p>
+              <div className="flex items-center gap-2 text-sm text-white/75">
+                <Sparkles className="h-4 w-4" />
+                <span>Tiempo estimado: 10 minutos</span>
+              </div>
             </div>
-            <div className="flex gap-3">
-              <Link to="/dashboard/cvs">
-                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 shadow-clovely">
-                  Crear CV
-                  <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="flex flex-col gap-3 shrink-0">
+              <Link to="/onboarding">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-primary hover:bg-white/90 font-semibold shadow-lg hover:scale-105 transition-all"
+                >
+                  {profile?.rolActual ? (
+                    <>
+                      <RotateCcw className="mr-2 h-5 w-5" />
+                      Rehacer diagnóstico
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="mr-2 h-5 w-5" />
+                      Iniciar diagnóstico
+                    </>
+                  )}
                 </Button>
               </Link>
+              {profile?.rolActual && (
+                <p className="text-xs text-white/60 text-center">
+                  Rol actual: {getRoleDisplayName(profile.rolActual)}
+                </p>
+              )}
             </div>
           </div>
         </Card>
