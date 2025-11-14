@@ -40,9 +40,10 @@ interface InterviewState {
   // Questions and responses
   getNextQuestion: () => InterviewQuestion | null;
   submitResponse: (answerText: string) => Promise<void>;
-  analyzeResponse: (questionText: string, answerText: string) => Promise<{
+  analyzeResponse: (questionText: string, answerText: string, role?: string) => Promise<{
     scores: ResponseScore;
     feedbackText: string;
+    suggestions?: string[];
   }>;
 
   // Evaluation
@@ -50,7 +51,7 @@ interface InterviewState {
   generateRecommendations: () => InterviewRecommendation[];
 
   // Utilities
-  seedQuestions: () => void;
+  seedQuestions: (role?: string, level?: string) => Promise<void>;
 }
 
 // Mock question bank
@@ -229,78 +230,87 @@ export const useInterviewStore = create<InterviewState>()(
         
         set({ isAnalyzing: true });
 
-        // Mock AI analysis with delay
-        const analysis = await get().analyzeResponse(question.text, answerText);
+        try {
+          // Usar IA real para analizar la respuesta
+          const analysis = await get().analyzeResponse(
+            question.text, 
+            answerText, 
+            currentSession.role
+          );
 
-        const response: InterviewResponse = {
-          id: `resp_${Date.now()}`,
-          questionId: question.id,
-          questionText: question.text,
-          answerText,
-          timestamp: new Date().toISOString(),
-          scores: analysis.scores,
-          feedbackText: analysis.feedbackText,
-        };
+          const response: InterviewResponse = {
+            id: `resp_${Date.now()}`,
+            questionId: question.id,
+            questionText: question.text,
+            answerText,
+            timestamp: new Date().toISOString(),
+            scores: analysis.scores,
+            feedbackText: analysis.feedbackText,
+          };
 
-        set((state) => ({
-          currentSession: state.currentSession
-            ? {
-                ...state.currentSession,
-                responses: [...state.currentSession.responses, response],
-              }
-            : null,
-          currentQuestionIndex: state.currentQuestionIndex + 1,
-          isAnalyzing: false,
-        }));
+          set((state) => ({
+            currentSession: state.currentSession
+              ? {
+                  ...state.currentSession,
+                  responses: [...state.currentSession.responses, response],
+                }
+              : null,
+            currentQuestionIndex: state.currentQuestionIndex + 1,
+            isAnalyzing: false,
+          }));
+        } catch (error) {
+          console.error('Error analyzing response:', error);
+          toast.error('Error al analizar la respuesta. Intenta de nuevo.');
+          set({ isAnalyzing: false });
+        }
       },
 
-      analyzeResponse: async (questionText, answerText) => {
-        // Mock AI analysis with realistic delay
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+      analyzeResponse: async (questionText, answerText, role = '') => {
+        try {
+          // Llamar a la edge function de análisis de respuestas
+          const { data, error } = await supabase.functions.invoke('interview-analyze-response', {
+            body: { 
+              question: questionText, 
+              answer: answerText, 
+              role,
+              context: `Evaluando respuesta para rol: ${role}`
+            },
+          });
 
-        const wordCount = answerText.split(' ').length;
-        const hasNumbers = /\d/.test(answerText);
-        const hasSTAR = /situaci[oó]n|tarea|acci[oó]n|resultado/i.test(answerText);
+          if (error) {
+            console.error('Error calling analyze function:', error);
+            throw error;
+          }
 
-        // Calculate scores based on heuristics
-        const clarity = Math.min(20, Math.floor((wordCount / 50) * 15) + (answerText.length > 100 ? 5 : 0));
-        const structure = hasSTAR ? Math.floor(Math.random() * 10) + 20 : Math.floor(Math.random() * 15) + 10;
-        const evidence = hasNumbers ? Math.floor(Math.random() * 10) + 15 : Math.floor(Math.random() * 10) + 5;
-        const language = Math.min(15, Math.floor((wordCount / 100) * 12) + 3);
-        const culture = Math.floor(Math.random() * 5) + 5;
+          // Parsear la respuesta de la IA
+          const analysis = data.analysis;
+          
+          return {
+            scores: {
+              clarity: analysis.score.clarity || 0,
+              structure: analysis.score.structure || 0,
+              evidence: analysis.score.evidence || 0,
+              language: analysis.score.language || 0,
+              culture: analysis.score.culture || 0,
+            },
+            feedbackText: analysis.feedback,
+            suggestions: analysis.improvements || [],
+          };
+        } catch (error) {
+          console.error('Error analyzing response:', error);
+          // Fallback a análisis básico si la IA falla
+          const wordCount = answerText.split(' ').length;
+          const clarity = Math.min(20, Math.floor((wordCount / 50) * 15));
+          const structure = Math.floor(Math.random() * 15) + 10;
+          const evidence = Math.floor(Math.random() * 10) + 5;
+          const language = Math.min(15, Math.floor((wordCount / 100) * 12));
+          const culture = Math.floor(Math.random() * 5) + 5;
 
-        const scores: ResponseScore = {
-          clarity,
-          structure,
-          evidence,
-          language,
-          culture,
-        };
-
-        const total = clarity + structure + evidence + language + culture;
-
-        let feedbackText = '';
-        if (total >= 75) {
-          feedbackText = '¡Excelente respuesta! Muy clara y estructurada. ';
-        } else if (total >= 50) {
-          feedbackText = 'Buena respuesta. ';
-        } else {
-          feedbackText = 'Tu respuesta tiene potencial. ';
+          return {
+            scores: { clarity, structure, evidence, language, culture },
+            feedbackText: 'Hubo un error al analizar tu respuesta. Por favor intenta de nuevo.',
+          };
         }
-
-        if (!hasSTAR && questionText.includes('situación')) {
-          feedbackText += 'Intenta usar el método STAR (Situación, Tarea, Acción, Resultado). ';
-        }
-
-        if (!hasNumbers) {
-          feedbackText += 'Añade métricas cuantificables para mayor impacto. ';
-        }
-
-        if (wordCount < 30) {
-          feedbackText += 'Desarrolla más tu respuesta con ejemplos concretos. ';
-        }
-
-        return { scores, feedbackText };
       },
 
       calculateFinalScore: () => {
@@ -388,8 +398,40 @@ export const useInterviewStore = create<InterviewState>()(
         return recommendations;
       },
 
-      seedQuestions: () => {
-        set({ questionBank: MOCK_QUESTIONS });
+      seedQuestions: async (role = 'general', level = 'junior') => {
+        try {
+          // Intentar generar preguntas con IA
+          const { data, error } = await supabase.functions.invoke('interview-generate-questions', {
+            body: { 
+              role, 
+              level,
+              count: 7
+            },
+          });
+
+          if (error) {
+            console.error('Error generating questions:', error);
+            // Usar preguntas mock como fallback
+            set({ questionBank: MOCK_QUESTIONS });
+            return;
+          }
+
+          const aiQuestions: InterviewQuestion[] = data.questions.map((q: any, index: number) => ({
+            id: `q_ai_${index + 1}`,
+            text: q.question,
+            type: q.type || 'comportamiento',
+            difficulty: q.difficulty || 'medio',
+            roles: [role],
+            tags: q.tags || [],
+            sampleAnswer: q.sampleAnswer,
+          }));
+
+          set({ questionBank: aiQuestions.length > 0 ? aiQuestions : MOCK_QUESTIONS });
+        } catch (error) {
+          console.error('Error seeding questions:', error);
+          // Usar preguntas mock como fallback
+          set({ questionBank: MOCK_QUESTIONS });
+        }
       },
     }),
     {
