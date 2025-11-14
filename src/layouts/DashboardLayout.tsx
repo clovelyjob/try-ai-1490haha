@@ -5,7 +5,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UpgradeModal } from '@/components/UpgradeModal';
