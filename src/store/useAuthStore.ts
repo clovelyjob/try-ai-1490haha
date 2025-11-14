@@ -1,17 +1,19 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User } from '@/types';
+import { supabase } from '@/integrations/supabase/client';
+import type { Session } from '@supabase/supabase-js';
 
 interface AuthState {
   user: User | null;
+  session: Session | null;
   isAuthenticated: boolean;
   isGuestMode: boolean;
   guestData: any | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  setUser: (user: User | null) => void;
+  setSession: (session: Session | null) => void;
   startGuestMode: () => void;
-  convertGuestToUser: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
   startPremiumTrial: () => Promise<void>;
   upgradeToPremium: () => Promise<void>;
@@ -21,39 +23,17 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,
+      session: null,
       isAuthenticated: false,
       isGuestMode: false,
       guestData: null,
       
-      login: async (email: string, password: string) => {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const mockUser: User = {
-          id: '1',
-          name: 'Ana García',
-          email,
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ana',
-          plan: 'free',
-          createdAt: new Date(),
-          lastLogin: new Date(),
-          onboardingCompleted: true,
-        };
-        set({ user: mockUser, isAuthenticated: true, isGuestMode: false });
-      },
+      setUser: (user) => set({ 
+        user, 
+        isAuthenticated: !!user,
+      }),
       
-      register: async (name: string, email: string, password: string) => {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const mockUser: User = {
-          id: '1',
-          name,
-          email,
-          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`,
-          plan: 'free',
-          createdAt: new Date(),
-          lastLogin: new Date(),
-          onboardingCompleted: false,
-        };
-        set({ user: mockUser, isAuthenticated: true, isGuestMode: false });
-      },
+      setSession: (session) => set({ session }),
       
       startGuestMode: () => {
         const guestUser: User = {
@@ -85,33 +65,15 @@ export const useAuthStore = create<AuthState>()(
         });
       },
       
-      convertGuestToUser: async (name: string, email: string, password: string) => {
-        const state = get();
-        if (!state.isGuestMode) return;
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const newUser: User = {
-          id: Date.now().toString(),
-          name,
-          email,
-          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`,
-          plan: 'free',
-          createdAt: new Date(),
-          lastLogin: new Date(),
-          onboardingCompleted: true,
-        };
-        
+      logout: async () => {
+        await supabase.auth.signOut();
         set({ 
-          user: newUser, 
-          isAuthenticated: true, 
-          isGuestMode: false,
+          user: null, 
+          session: null,
+          isAuthenticated: false, 
+          isGuestMode: false, 
           guestData: null 
         });
-      },
-      
-      logout: () => {
-        set({ user: null, isAuthenticated: false, isGuestMode: false, guestData: null });
       },
       
       updateUser: (updates) => {
