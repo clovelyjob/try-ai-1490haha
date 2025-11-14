@@ -6,104 +6,102 @@
 
 @layer base {
   :root {
-    /* Main colors - Clovely warm tones */
-    --background: 30 40% 98%; /* Soft warm white */
-    --foreground: 0 0% 20%; /* #333333 */
+    /* Clovely Minimalist Palette */
+    --background: 0 0% 100%; /* Pure white #FFFFFF */
+    --foreground: 0 0% 10%; /* Dark gray #1A1A1A */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Clovely Brand Colors */
-    --primary: 25 100% 50%; /* #FF7A00 Orange */
+    /* Primary - Orange #FF7A00 */
+    --primary: 25 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 91% 60%; /* #3B82F6 Blue */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 80%; /* Light gray #CCCCCC */
+    --secondary-foreground: 0 0% 10%;
 
-    --success: 142 71% 45%; /* #10B981 */
+    --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 25 95% 53%;
+    --accent: 25 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
     --ring: 25 100% 50%;
 
     --radius: 0.75rem;
 
-    /* Clovely Gradients - warm and emotional */
-    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 95% 60%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(15 90% 55%));
-    --gradient-soft: linear-gradient(135deg, hsl(30 50% 95%), hsl(25 40% 90%));
-    --gradient-premium: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 60%));
+    /* Gradients */
+    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(30 100% 55%));
+    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(20 95% 52%));
     
-    /* Glassmorphism - Clovely style */
-    --glass-bg: rgba(255, 250, 245, 0.8);
-    --glass-border: rgba(255, 122, 0, 0.1);
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 122, 0, 0.15);
     
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 9%;
+    --sidebar-foreground: 0 0% 10%;
     --sidebar-primary: 25 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 100% 50%;
   }
 
   .dark {
-    --background: 0 0% 5.5%; /* #0E0E0E */
+    --background: 0 0% 7%; /* #121212 */
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 8%;
+    --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 8%;
+    --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 25 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 91% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 90%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 25 95% 53%;
+    --accent: 25 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
     --ring: 25 100% 50%;
 
-    --glass-bg: rgba(14, 14, 14, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(18, 18, 18, 0.8);
+    --glass-border: rgba(255, 122, 0, 0.2);
 
-    --sidebar-background: 0 0% 8%;
+    --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 25 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 15%;
+    --sidebar-border: 0 0% 18%;
     --sidebar-ring: 25 100% 50%;
   }
 }
