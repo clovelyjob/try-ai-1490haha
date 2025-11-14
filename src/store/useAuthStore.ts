@@ -14,6 +14,8 @@ interface AuthState {
   setSession: (session: Session | null) => void;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInWithLinkedIn: () => Promise<void>;
   startGuestMode: () => void;
   logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
@@ -64,6 +66,32 @@ export const useAuthStore = create<AuthState>()(
         
         if (error) throw error;
         if (!data.user) throw new Error('No user returned');
+      },
+      
+      signInWithGoogle: async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/onboarding`,
+            queryParams: {
+              access_type: 'offline',
+              prompt: 'consent',
+            }
+          }
+        });
+        
+        if (error) throw error;
+      },
+      
+      signInWithLinkedIn: async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'linkedin_oidc',
+          options: {
+            redirectTo: `${window.location.origin}/onboarding`,
+          }
+        });
+        
+        if (error) throw error;
       },
       
       startGuestMode: () => {

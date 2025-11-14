@@ -39,6 +39,26 @@ const Register = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const handleGoogleSignup = async () => {
+    try {
+      await useAuthStore.getState().signInWithGoogle();
+      toast.success('Redirigiendo a Google...');
+    } catch (error: any) {
+      console.error('Google signup error:', error);
+      toast.error('Error al conectar con Google');
+    }
+  };
+
+  const handleLinkedInSignup = async () => {
+    try {
+      await useAuthStore.getState().signInWithLinkedIn();
+      toast.success('Redirigiendo a LinkedIn...');
+    } catch (error: any) {
+      console.error('LinkedIn signup error:', error);
+      toast.error('Error al conectar con LinkedIn');
+    }
+  };
+
   const getPasswordStrength = () => {
     const password = formData.password;
     let strength = 0;
@@ -256,11 +276,21 @@ const Register = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button type="button" variant="outline" className="hover-lift">
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="hover-lift"
+                onClick={handleGoogleSignup}
+              >
                 <Chrome className="mr-2 h-4 w-4" />
                 Google
               </Button>
-              <Button type="button" variant="outline" className="hover-lift">
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="hover-lift"
+                onClick={handleLinkedInSignup}
+              >
                 <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn
               </Button>
