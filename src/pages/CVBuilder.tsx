@@ -1,17 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCVStore } from '@/store/useCVStore';
 import { useAuthStore } from '@/store/useAuthStore';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Save, Sparkles, Download, Eye, EyeOff } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ArrowLeft, Save, Sparkles, Download, Eye, EyeOff, History } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import CVEditorPanel from '@/components/cv/CVEditorPanel';
 import CVPreviewPanel from '@/components/cv/CVPreviewPanel';
 import TemplateSelector from '@/components/cv/TemplateSelector';
 import AIAnalysisModal from '@/components/cv/AIAnalysisModal';
+import VersionHistoryModal from '@/components/cv/VersionHistoryModal';
 import { cn } from '@/lib/utils';
 import { useAI } from '@/hooks/useAI';
+import html2pdf from 'html2pdf.js';
 
 export default function CVBuilder() {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +31,8 @@ export default function CVBuilder() {
   const [analysisData, setAnalysisData] = useState<any>(null);
   const [activeView, setActiveView] = useState<'editor' | 'preview'>('editor');
   const [isSaving, setIsSaving] = useState(false);
+  const [showVersionHistory, setShowVersionHistory] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (id === 'new') {
@@ -98,11 +108,47 @@ export default function CVBuilder() {
     }
   };
 
-  const handleExportPDF = () => {
+  const handleExportPDF = (format: 'A4' | 'Letter' = 'A4') => {
+    if (!previewRef.current || !currentCV) return;
+
+    const element = previewRef.current;
+    const fileName = `${currentCV.title || 'CV'}_${currentCV.personal.fullName || 'sin-nombre'}.pdf`;
+
+    const opt = {
+      margin: format === 'A4' ? [10, 10, 10, 10] as [number, number, number, number] : [12.7, 12.7, 12.7, 12.7] as [number, number, number, number],
+      filename: fileName,
+      image: { type: 'jpeg' as const, quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF: { 
+        unit: 'mm', 
+        format: format === 'A4' ? 'a4' : 'letter', 
+        orientation: 'portrait' as const
+      },
+    };
+
     toast({
-      title: '📄 Exportar PDF',
-      description: 'Esta funcionalidad estará disponible próximamente',
+      title: '📄 Generando PDF',
+      description: 'Por favor espera un momento...',
     });
+
+    html2pdf()
+      .set(opt)
+      .from(element)
+      .save()
+      .then(() => {
+        toast({
+          title: '✅ PDF exportado',
+          description: `Tu CV ha sido descargado como ${fileName}`,
+        });
+      })
+      .catch((error: any) => {
+        console.error('Error exporting PDF:', error);
+        toast({
+          title: '❌ Error al exportar',
+          description: 'Hubo un problema al generar el PDF',
+          variant: 'destructive',
+        });
+      });
   };
 
   if (!currentCV) {
@@ -141,6 +187,11 @@ export default function CVBuilder() {
               onChange={(template) => updateCV(currentCV.id, { template })}
             />
             
+            <Button variant="outline" onClick={() => setShowVersionHistory(true)}>
+              <History className="mr-2 h-4 w-4" />
+              Historial
+            </Button>
+            
             <Button variant="outline" onClick={handleSaveVersion}>
               Guardar versión
             </Button>
@@ -150,10 +201,22 @@ export default function CVBuilder() {
               {isAILoading ? 'Analizando...' : 'Analizar'}
             </Button>
             
-            <Button variant="outline" onClick={handleExportPDF}>
-              <Download className="mr-2 h-4 w-4" />
-              PDF
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <Download className="mr-2 h-4 w-4" />
+                  PDF
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => handleExportPDF('A4')}>
+                  Formato A4
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleExportPDF('Letter')}>
+                  Formato Carta
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             <Button onClick={handleSave} disabled={isSaving}>
               <Save className="mr-2 h-4 w-4" />
@@ -198,7 +261,7 @@ export default function CVBuilder() {
             "overflow-auto",
             activeView === 'editor' && "hidden md:block"
           )}>
-            <CVPreviewPanel cv={currentCV} />
+            <CVPreviewPanel ref={previewRef} cv={currentCV} />
           </div>
         </div>
       </div>
@@ -211,6 +274,33 @@ export default function CVBuilder() {
           analysisData={analysisData}
           onApplySuggestion={(suggestion) => {
             toast({ title: '💡 Sugerencia guardada', description: suggestion });
+          }}
+        />
+      )}
+
+      {/* Version History Modal */}
+      {showVersionHistory && currentCV && (
+        <VersionHistoryModal
+          open={showVersionHistory}
+          onClose={() => setShowVersionHistory(false)}
+          versions={currentCV.versions}
+          onRestore={(versionId) => {
+            // Auto-save before restore
+            saveVersion(currentCV.id, 'Backup antes de restaurar');
+            // Restore the version
+            useCVStore.getState().restoreVersion(currentCV.id, versionId);
+            toast({
+              title: '✅ Versión restaurada',
+              description: 'Se ha restaurado la versión seleccionada',
+            });
+          }}
+          onDelete={(versionId) => {
+            const updatedVersions = currentCV.versions.filter(v => v.versionId !== versionId);
+            updateCV(currentCV.id, { versions: updatedVersions });
+            toast({
+              title: '🗑️ Versión eliminada',
+              description: 'La versión ha sido eliminada',
+            });
           }}
         />
       )}
