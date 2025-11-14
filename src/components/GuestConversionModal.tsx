@@ -83,7 +83,10 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
           plan: 'free',
           createdAt: new Date(),
           lastLogin: new Date(),
+          lastActiveDate: new Date(),
           onboardingCompleted: false,
+          streak: 1,
+          applicationsSubmitted: 0,
         });
 
         // Migrar datos del invitado (opcional - guardar en backend)

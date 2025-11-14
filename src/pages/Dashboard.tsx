@@ -5,25 +5,41 @@ import { Card } from '@/components/ui/card';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useCVStore } from '@/store/useCVStore';
-import { DailyPractice } from '@/components/dashboard/DailyPractice';
 import { DailyJob } from '@/components/dashboard/DailyJob';
 import { ProgressBar } from '@/components/dashboard/ProgressBar';
 import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
+import { UserStats } from '@/components/dashboard/UserStats';
+import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
 import {
-  Briefcase, FileText, TrendingUp, ArrowRight, Target,
+  Briefcase, FileText, ArrowRight, Target, Video,
 } from 'lucide-react';
 
 const Dashboard = () => {
   const { user } = useAuthStore();
   const { profile } = useProfileStore();
   const { cvs } = useCVStore();
-  const [practiceCompleted, setPracticeCompleted] = useState(false);
 
   // Calculate progress metrics
   const userCV = cvs.find(cv => cv.userId === user?.id);
   const cvCompletionScore = userCV?.score?.overall || 0;
   const interviewsPracticed = 0; // Will be implemented later
   const opportunitiesSaved = 0; // Will be implemented later
+  
+  // Get role display name
+  const getRoleDisplayName = (role: string) => {
+    const roleNames: Record<string, string> = {
+      'ux_designer': 'UX Designer',
+      'ui_designer': 'UI Designer',
+      'product_designer': 'Product Designer',
+      'developer_frontend': 'Frontend Developer',
+      'developer_backend': 'Backend Developer',
+      'developer_fullstack': 'Fullstack Developer',
+      'product_manager': 'Product Manager',
+      'data_analyst': 'Data Analyst',
+      'other': 'Sin definir'
+    };
+    return roleNames[role] || role;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -41,14 +57,15 @@ const Dashboard = () => {
           <NotificationsBell />
         </div>
 
-        {/* Daily Actions Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <DailyPractice 
-            completed={practiceCompleted}
-            onComplete={() => setPracticeCompleted(true)}
-          />
-          <DailyJob />
-        </div>
+        {/* User Stats */}
+        <UserStats 
+          streak={user?.streak || 0}
+          applicationsSubmitted={user?.applicationsSubmitted || 0}
+          role={profile?.rolActual ? getRoleDisplayName(profile.rolActual) : undefined}
+        />
+
+        {/* Daily Job */}
+        <DailyJob />
 
         {/* Progress Section */}
         <ProgressBar 
@@ -102,12 +119,15 @@ const Dashboard = () => {
           </Card>
         </div>
 
+        {/* Recommended Resources */}
+        <RecommendedResources role={profile?.rolActual} />
+
         {/* Getting Started Card */}
         <Card className="p-8 gradient-orange-gray text-white shadow-clovely-xl">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-white" />
+                <Target className="h-5 w-5 text-white" />
                 <h2 className="text-xl font-bold">Comienza tu viaje profesional</h2>
               </div>
               <p className="text-white/90">

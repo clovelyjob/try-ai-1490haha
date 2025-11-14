@@ -62,7 +62,10 @@ export function useAuthSync() {
           plan: 'free', // TODO: Add plan logic
           createdAt: new Date(profile.created_at),
           lastLogin: new Date(),
+          lastActiveDate: new Date(),
           onboardingCompleted: !!profile.rol_profesional,
+          streak: 1, // TODO: Calculate streak based on lastActiveDate
+          applicationsSubmitted: 0, // TODO: Get from database
         };
 
         setUser(user);
