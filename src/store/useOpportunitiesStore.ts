@@ -8,6 +8,8 @@ import {
   Profile,
   CVData,
 } from '@/types';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface OpportunitiesState {
   opportunities: Opportunity[];
@@ -206,6 +208,18 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             (saved) => !(saved.userId === userId && saved.opportunityId === opportunityId)
           ),
         }));
+        
+        // Eliminar de Supabase - buscar por user_id y opportunity_id en el JSON
+        supabase
+          .from('saved_opportunities')
+          .delete()
+          .eq('user_id', userId)
+          .then(({ data, error }) => {
+            if (error) {
+              console.error('Error deleting saved opportunity from Supabase:', error);
+              toast.error('Error al eliminar la oportunidad guardada');
+            }
+          });
       },
 
       isSaved: (userId, opportunityId) => {

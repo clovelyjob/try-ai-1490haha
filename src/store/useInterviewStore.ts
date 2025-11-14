@@ -12,6 +12,8 @@ import type {
   QuestionType,
   InterviewMetrics,
 } from '@/types';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface InterviewState {
   sessions: InterviewSession[];
@@ -203,6 +205,14 @@ export const useInterviewStore = create<InterviewState>()(
         set((state) => ({
           sessions: state.sessions.filter((s) => s.id !== id),
         }));
+        
+        // Eliminar de Supabase
+        supabase.from('interview_sessions').delete().eq('id', id).then(({ error }) => {
+          if (error) {
+            console.error('Error deleting interview session from Supabase:', error);
+            toast.error('Error al eliminar la sesión de entrevista');
+          }
+        });
       },
 
       getNextQuestion: () => {
