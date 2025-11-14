@@ -12,6 +12,8 @@ interface AuthState {
   guestData: any | null;
   setUser: (user: User | null) => void;
   setSession: (session: Session | null) => void;
+  login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
   startGuestMode: () => void;
   logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
@@ -34,6 +36,35 @@ export const useAuthStore = create<AuthState>()(
       }),
       
       setSession: (session) => set({ session }),
+      
+      login: async (email: string, password: string) => {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        
+        if (error) throw error;
+        if (!data.session) throw new Error('No session returned');
+      },
+      
+      register: async (name: string, email: string, password: string) => {
+        const redirectUrl = `${window.location.origin}/onboarding`;
+        
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: redirectUrl,
+            data: {
+              nombre: name,
+              name: name,
+            }
+          }
+        });
+        
+        if (error) throw error;
+        if (!data.user) throw new Error('No user returned');
+      },
       
       startGuestMode: () => {
         const guestUser: User = {
