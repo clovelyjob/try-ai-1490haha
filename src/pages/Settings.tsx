@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { ProfileSection } from '@/components/settings/ProfileSection';
 import { SecuritySection } from '@/components/settings/SecuritySection';
 import { NotificationsSection } from '@/components/settings/NotificationsSection';
+import { NotificationsSettings } from '@/components/settings/NotificationsSettings';
 import { AppearanceSection } from '@/components/settings/AppearanceSection';
 import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
 import { PrivacySection } from '@/components/settings/PrivacySection';
@@ -52,7 +53,12 @@ export default function Settings() {
       case 'security':
         return <SecuritySection />;
       case 'notifications':
-        return <NotificationsSection />;
+        return (
+          <>
+            <NotificationsSettings />
+            <NotificationsSection />
+          </>
+        );
       case 'appearance':
         return <AppearanceSection />;
       case 'subscription':

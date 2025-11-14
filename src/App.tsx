@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { useAuthSync } from "@/hooks/useAuthSync";
+import { useSmartReminders } from "@/hooks/useSmartReminders";
+import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
@@ -26,6 +28,8 @@ const queryClient = new QueryClient();
 
 function AuthSyncWrapper({ children }: { children: React.ReactNode }) {
   useAuthSync();
+  useSmartReminders();
+  useNotificationTriggers();
   return <>{children}</>;
 }
 
