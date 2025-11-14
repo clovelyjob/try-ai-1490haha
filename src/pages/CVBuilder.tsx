@@ -11,13 +11,16 @@ import CVPreviewPanel from '@/components/cv/CVPreviewPanel';
 import TemplateSelector from '@/components/cv/TemplateSelector';
 import AIAnalysisModal from '@/components/cv/AIAnalysisModal';
 import { cn } from '@/lib/utils';
+import { useAI } from '@/hooks/useAI';
 
 export default function CVBuilder() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const { cvs, currentCV, loadCV, setCurrentCV, createCV, updateCV, saveVersion, analyzeCV, isAnalyzing } = useCVStore();
+  const { improveText, analyzeCV: analyzeCVintense, isLoading: isAILoading } = useAI();
   const [showAnalysis, setShowAnalysis] = useState(false);
+  const [analysisData, setAnalysisData] = useState<any>(null);
   const [activeView, setActiveView] = useState<'editor' | 'preview'>('editor');
   const [isSaving, setIsSaving] = useState(false);
 
@@ -67,8 +70,32 @@ export default function CVBuilder() {
   const handleAnalyze = async () => {
     if (!currentCV) return;
     
-    await analyzeCV(currentCV.id);
-    setShowAnalysis(true);
+    try {
+      const analysis = await analyzeCVintense(currentCV, currentCV.personal.title);
+      setAnalysisData(analysis);
+      setShowAnalysis(true);
+      
+      toast({
+        title: '✨ Análisis completado',
+        description: 'Revisa las sugerencias personalizadas para mejorar tu CV',
+      });
+    } catch (error) {
+      console.error('Error analyzing CV:', error);
+    }
+  };
+
+  const handleImproveText = async (
+    text: string,
+    type: 'summary' | 'experience' | 'education' | 'general',
+    context?: string
+  ) => {
+    try {
+      const improved = await improveText(text, type, context);
+      return improved;
+    } catch (error) {
+      console.error('Error improving text:', error);
+      throw error;
+    }
   };
 
   const handleExportPDF = () => {
@@ -118,9 +145,9 @@ export default function CVBuilder() {
               Guardar versión
             </Button>
             
-            <Button variant="outline" onClick={handleAnalyze} disabled={isAnalyzing}>
+            <Button variant="outline" onClick={handleAnalyze} disabled={isAILoading}>
               <Sparkles className="mr-2 h-4 w-4" />
-              {isAnalyzing ? 'Analizando...' : 'Analizar'}
+              {isAILoading ? 'Analizando...' : 'Analizar'}
             </Button>
             
             <Button variant="outline" onClick={handleExportPDF}>
@@ -158,7 +185,12 @@ export default function CVBuilder() {
             "overflow-auto",
             activeView === 'preview' && "hidden md:block"
           )}>
-            <CVEditorPanel cv={currentCV} onUpdate={(updates) => updateCV(currentCV.id, updates)} />
+            <CVEditorPanel 
+              cv={currentCV} 
+              onUpdate={(updates) => updateCV(currentCV.id, updates)}
+              onImproveText={handleImproveText}
+              isAILoading={isAILoading}
+            />
           </div>
 
           {/* Preview Panel */}
@@ -172,15 +204,16 @@ export default function CVBuilder() {
       </div>
 
       {/* AI Analysis Modal */}
-      <AIAnalysisModal
-        open={showAnalysis}
-        onClose={() => setShowAnalysis(false)}
-        cv={currentCV}
-        onApplySuggestion={(suggestion) => {
-          toast({ title: 'Sugerencia aplicada', description: suggestion });
-          setShowAnalysis(false);
-        }}
-      />
+      {showAnalysis && analysisData && (
+        <AIAnalysisModal
+          open={showAnalysis}
+          onClose={() => setShowAnalysis(false)}
+          analysisData={analysisData}
+          onApplySuggestion={(suggestion) => {
+            toast({ title: '💡 Sugerencia guardada', description: suggestion });
+          }}
+        />
+      )}
     </div>
   );
 }
