@@ -51,9 +51,13 @@ export default function DashboardLayout() {
 
   const navItems = [
     { icon: Home, label: 'Inicio', path: '/dashboard' },
+    { icon: Target, label: 'Objetivos', path: '/dashboard/goals', badge: 3 },
     { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
-    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
+    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities', badge: 12 },
     { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
+    { icon: Users, label: 'Círculo', path: '/dashboard/circles', badge: 5 },
+    { icon: Bot, label: 'Coach', path: '/dashboard/coach', glow: true },
+    { icon: Trophy, label: 'Recompensas', path: '/dashboard/rewards' },
     { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
   ];
 
@@ -171,10 +175,11 @@ export default function DashboardLayout() {
                     'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                     isActive
                       ? 'bg-primary text-primary-foreground font-medium'
-                      : 'hover:bg-accent text-muted-foreground hover:text-foreground'
+                      : 'hover:bg-accent text-muted-foreground hover:text-foreground',
+                    item.glow && !isActive && 'hover:shadow-[0_0_20px_rgba(255,122,0,0.3)]'
                   )}
                 >
-                  <Icon className="h-5 w-5 flex-shrink-0" />
+                  <Icon className={cn('h-5 w-5 flex-shrink-0', item.glow && !isActive && 'text-primary')} />
                   {!isCollapsed && (
                     <motion.div
                       className="flex items-center gap-2 flex-1 min-w-0"
@@ -183,6 +188,11 @@ export default function DashboardLayout() {
                       transition={{ duration: 0.2 }}
                     >
                       <span className="flex-1 truncate">{item.label}</span>
+                      {item.badge && (
+                        <Badge variant={isActive ? "secondary" : "outline"} className="text-xs shrink-0">
+                          {item.badge}
+                        </Badge>
+                      )}
                     </motion.div>
                   )}
                 </Link>
@@ -193,8 +203,9 @@ export default function DashboardLayout() {
                   <TooltipTrigger asChild>
                     {navLink}
                   </TooltipTrigger>
-                  <TooltipContent side="right">
+                  <TooltipContent side="right" className="flex items-center gap-2">
                     {item.label}
+                    {item.badge && <Badge variant="outline" className="text-xs">{item.badge}</Badge>}
                   </TooltipContent>
                 </Tooltip>
               ) : navLink;

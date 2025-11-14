@@ -8,6 +8,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
+import Goals from "./pages/Goals";
+import GoalDetail from "./pages/GoalDetail";
 import CVList from "./pages/CVList";
 import CVBuilder from "./pages/CVBuilder";
 import Opportunities from "./pages/Opportunities";
@@ -16,6 +18,10 @@ import InterviewLanding from "./pages/InterviewLanding";
 import InterviewSetup from "./pages/InterviewSetup";
 import InterviewSession from "./pages/InterviewSession";
 import InterviewHistory from "./pages/InterviewHistory";
+import CircleDiscover from "./pages/CircleDiscover";
+import CircleDetail from "./pages/CircleDetail";
+import Rewards from "./pages/Rewards";
+import Coach from "./pages/Coach";
 import Settings from "./pages/Settings";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
@@ -39,6 +45,8 @@ const App = () => (
           {/* Dashboard routes with shared sidebar layout */}
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="goals/:id" element={<GoalDetail />} />
             <Route path="cvs" element={<CVList />} />
             <Route path="cvs/:id" element={<CVBuilder />} />
             <Route path="opportunities" element={<Opportunities />} />
@@ -47,6 +55,10 @@ const App = () => (
             <Route path="interviews/setup" element={<InterviewSetup />} />
             <Route path="interviews/session" element={<InterviewSession />} />
             <Route path="interviews/history" element={<InterviewHistory />} />
+            <Route path="circles" element={<CircleDiscover />} />
+            <Route path="circles/:id" element={<CircleDetail />} />
+            <Route path="rewards" element={<Rewards />} />
+            <Route path="coach" element={<Coach />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           
