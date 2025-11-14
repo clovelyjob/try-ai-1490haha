@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -11,10 +11,11 @@ import { UpgradeModal } from '@/components/UpgradeModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUIStore } from '@/store/useUIStore';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import {
-  Home, FileText, Briefcase, Settings, ChevronLeft, ChevronRight, Pin, Mic,
+  Home, FileText, Briefcase, Settings, ChevronLeft, ChevronRight, Pin, Mic, Shield,
 } from 'lucide-react';
 
 // Debounce utility
@@ -32,6 +33,34 @@ export default function DashboardLayout() {
   const location = useLocation();
   const isMobile = useIsMobile();
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  
+  useEffect(() => {
+    checkAdminStatus();
+  }, [user]);
+
+  const checkAdminStatus = async () => {
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .single();
+
+      if (!error && data?.role === 'admin') {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    } catch (error) {
+      setIsAdmin(false);
+    }
+  };
   
   const handleStartTrial = async () => {
     try {
@@ -46,13 +75,25 @@ export default function DashboardLayout() {
   
   const isPremium = user?.plan === 'premium';
 
-  const navItems = [
-    { icon: Home, label: 'Inicio', path: '/dashboard' },
-    { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
-    { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
-    { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
-    { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
-  ];
+  const navItems = useMemo(() => {
+    const items = [
+      { icon: Home, label: 'Inicio', path: '/dashboard' },
+      { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
+      { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
+      { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
+      { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
+    ];
+
+    if (isAdmin) {
+      items.splice(4, 0, { 
+        icon: Shield, 
+        label: 'Admin', 
+        path: '/dashboard/admin' 
+      });
+    }
+
+    return items;
+  }, [isAdmin]);
 
   
 

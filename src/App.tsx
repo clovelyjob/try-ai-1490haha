@@ -24,6 +24,7 @@ import InterviewResults from "./pages/InterviewResults";
 import Opportunities from "./pages/Opportunities";
 import OpportunityDetail from "./pages/OpportunityDetail";
 import Settings from "./pages/Settings";
+import AdminDashboard from "./pages/AdminDashboard";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -67,6 +68,7 @@ const App = () => (
             </ProtectedRoute>
           }>
             <Route index element={<Dashboard />} />
+            <Route path="admin" element={<AdminDashboard />} />
             <Route path="cvs" element={<CVList />} />
             <Route path="cvs/:id" element={<CVBuilder />} />
             <Route path="interviews" element={<InterviewLanding />} />
