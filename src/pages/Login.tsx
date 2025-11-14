@@ -195,12 +195,19 @@ const Login = () => {
               </Button>
             </div>
 
-            <p className="text-center text-sm text-muted-foreground">
-              ¿No tienes cuenta?{' '}
-              <Link to="/registro" className="text-primary hover:underline font-medium">
-                Regístrate gratis
-              </Link>
-            </p>
+            <div className="text-center space-y-2">
+              <div>
+                <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                ¿No tienes cuenta?{' '}
+                <Link to="/registro" className="text-primary hover:underline font-medium">
+                  Regístrate gratis
+                </Link>
+              </p>
+            </div>
           </form>
         </motion.div>
       </div>

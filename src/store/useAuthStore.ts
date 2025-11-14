@@ -14,6 +14,7 @@ interface AuthState {
   setSession: (session: Session | null) => void;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signInWithLinkedIn: () => Promise<void>;
   startGuestMode: () => void;
@@ -66,6 +67,14 @@ export const useAuthStore = create<AuthState>()(
         
         if (error) throw error;
         if (!data.user) throw new Error('No user returned');
+      },
+      
+      resetPassword: async (email: string) => {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        
+        if (error) throw error;
       },
       
       signInWithGoogle: async () => {
