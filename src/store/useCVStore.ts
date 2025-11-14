@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { CVData, CVTemplate, CVScore } from '@/types';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface CVState {
   cvs: CVData[];
@@ -87,6 +89,27 @@ export const useCVStore = create<CVState>()(
           cvs: [...state.cvs, newCV],
           currentCV: newCV,
         }));
+        
+        // Guardar en Supabase
+        supabase.from('cvs').insert({
+          user_id: userId,
+          nombre_cv: title,
+          template: newCV.template,
+          info_personal: newCV.personal as any,
+          resumen: newCV.summary,
+          educacion: newCV.education as any,
+          experiencia: newCV.experience as any,
+          habilidades: newCV.skills as any,
+          certificaciones: newCV.certifications as any,
+          idiomas: newCV.languages as any,
+          proyectos: newCV.projects as any,
+        }).then(({ error }) => {
+          if (error) {
+            console.error('Error saving CV to Supabase:', error);
+            toast.error('Error al guardar el CV');
+          }
+        });
+        
         return newCV;
       },
 
@@ -98,6 +121,29 @@ export const useCVStore = create<CVState>()(
               : cv
           );
           const updatedCV = updatedCVs.find((cv) => cv.id === id);
+          
+          // Guardar en Supabase
+          if (updatedCV) {
+            supabase.from('cvs').update({
+              nombre_cv: updatedCV.title,
+              template: updatedCV.template,
+              info_personal: updatedCV.personal as any,
+              resumen: updatedCV.summary,
+              educacion: updatedCV.education as any,
+              experiencia: updatedCV.experience as any,
+              habilidades: updatedCV.skills as any,
+              certificaciones: updatedCV.certifications as any,
+              idiomas: updatedCV.languages as any,
+              proyectos: updatedCV.projects as any,
+              updated_at: new Date().toISOString(),
+            }).eq('id', id).then(({ error }) => {
+              if (error) {
+                console.error('Error updating CV in Supabase:', error);
+                toast.error('Error al actualizar el CV');
+              }
+            });
+          }
+          
           return {
             cvs: updatedCVs,
             currentCV: state.currentCV?.id === id ? updatedCV : state.currentCV,
@@ -110,6 +156,14 @@ export const useCVStore = create<CVState>()(
           cvs: state.cvs.filter((cv) => cv.id !== id),
           currentCV: state.currentCV?.id === id ? null : state.currentCV,
         }));
+        
+        // Eliminar de Supabase
+        supabase.from('cvs').delete().eq('id', id).then(({ error }) => {
+          if (error) {
+            console.error('Error deleting CV from Supabase:', error);
+            toast.error('Error al eliminar el CV');
+          }
+        });
       },
 
       duplicateCV: (id) => {
