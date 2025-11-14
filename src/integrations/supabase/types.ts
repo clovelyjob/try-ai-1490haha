@@ -14,16 +14,213 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cvs: {
+        Row: {
+          certificaciones: Json | null
+          created_at: string
+          educacion: Json | null
+          experiencia: Json | null
+          habilidades: Json | null
+          id: string
+          idiomas: Json | null
+          info_personal: Json | null
+          is_active: boolean | null
+          nombre_cv: string
+          proyectos: Json | null
+          resumen: string | null
+          template: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          certificaciones?: Json | null
+          created_at?: string
+          educacion?: Json | null
+          experiencia?: Json | null
+          habilidades?: Json | null
+          id?: string
+          idiomas?: Json | null
+          info_personal?: Json | null
+          is_active?: boolean | null
+          nombre_cv?: string
+          proyectos?: Json | null
+          resumen?: string | null
+          template?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          certificaciones?: Json | null
+          created_at?: string
+          educacion?: Json | null
+          experiencia?: Json | null
+          habilidades?: Json | null
+          id?: string
+          idiomas?: Json | null
+          info_personal?: Json | null
+          is_active?: boolean | null
+          nombre_cv?: string
+          proyectos?: Json | null
+          resumen?: string | null
+          template?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      interview_sessions: {
+        Row: {
+          completada: boolean | null
+          created_at: string
+          duracion_minutos: number | null
+          feedback: Json | null
+          id: string
+          industria: string | null
+          puntuacion: number | null
+          respuestas: Json | null
+          rol: string
+          user_id: string
+        }
+        Insert: {
+          completada?: boolean | null
+          created_at?: string
+          duracion_minutos?: number | null
+          feedback?: Json | null
+          id?: string
+          industria?: string | null
+          puntuacion?: number | null
+          respuestas?: Json | null
+          rol: string
+          user_id: string
+        }
+        Update: {
+          completada?: boolean | null
+          created_at?: string
+          duracion_minutos?: number | null
+          feedback?: Json | null
+          id?: string
+          industria?: string | null
+          puntuacion?: number | null
+          respuestas?: Json | null
+          rol?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          experiencia: Database["public"]["Enums"]["experience_level"] | null
+          id: string
+          industria: string | null
+          nombre: string
+          pais: string | null
+          preferencias_laborales: Json | null
+          progreso: Json | null
+          rol_profesional: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          experiencia?: Database["public"]["Enums"]["experience_level"] | null
+          id: string
+          industria?: string | null
+          nombre: string
+          pais?: string | null
+          preferencias_laborales?: Json | null
+          progreso?: Json | null
+          rol_profesional?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          experiencia?: Database["public"]["Enums"]["experience_level"] | null
+          id?: string
+          industria?: string | null
+          nombre?: string
+          pais?: string | null
+          preferencias_laborales?: Json | null
+          progreso?: Json | null
+          rol_profesional?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      saved_opportunities: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          opportunity_data: Json
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          opportunity_data: Json
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          opportunity_data?: Json
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      experience_level:
+        | "sin_experiencia"
+        | "junior"
+        | "semi_senior"
+        | "senior"
+        | "experto"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +347,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      experience_level: [
+        "sin_experiencia",
+        "junior",
+        "semi_senior",
+        "senior",
+        "experto",
+      ],
+    },
   },
 } as const
