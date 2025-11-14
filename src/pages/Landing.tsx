@@ -361,7 +361,7 @@ const Landing = () => {
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           {step.description}
                         </p>
-                        <Badge variant="secondary" className="text-xs mt-2">
+                        <Badge className="gradient-blue text-white text-xs mt-2">
                           <Clock className="h-3 w-3 mr-1" />
                           {step.time}
                         </Badge>
