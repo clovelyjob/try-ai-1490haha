@@ -1,1 +1,13 @@
 project_id = "otjnaalbstgxoodczqak"
+
+[functions.career-coach-chat]
+verify_jwt = false
+
+[functions.cv-improve-text]
+verify_jwt = false
+
+[functions.diagnostic-generate-questions]
+verify_jwt = false
+
+[functions.diagnostic-analyze-profile]
+verify_jwt = false
