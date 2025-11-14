@@ -6,85 +6,99 @@
 
 @layer base {
   :root {
-    /* Main colors - Clovely warm tones */
-    --background: 30 40% 98%; /* Soft warm white */
-    --foreground: 0 0% 20%; /* #333333 */
+    /* Main colors - Clovely premium palette */
+    --background: 0 0% 99%; /* Premium white */
+    --foreground: 0 0% 15%; /* Dark gray text */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Clovely Brand Colors */
+    /* Clovely Brand - Orange #FF7A00 */
     --primary: 25 100% 50%; /* #FF7A00 Orange */
+    --primary-light: 25 100% 65%; /* Lighter orange */
+    --primary-dark: 25 100% 40%; /* Darker orange */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 91% 60%; /* #3B82F6 Blue */
-    --secondary-foreground: 0 0% 100%;
-
-    --success: 142 71% 45%; /* #10B981 */
-    --success-foreground: 0 0% 100%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 25 95% 53%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 25 100% 50%;
-
-    --radius: 0.75rem;
-
-    /* Clovely Gradients - warm and emotional */
-    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 95% 60%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(15 90% 55%));
-    --gradient-soft: linear-gradient(135deg, hsl(30 50% 95%), hsl(25 40% 90%));
-    --gradient-premium: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 60%));
-    
-    /* Glassmorphism - Clovely style */
-    --glass-bg: rgba(255, 250, 245, 0.8);
-    --glass-border: rgba(255, 122, 0, 0.1);
-    
-    /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 25 100% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 25 100% 50%;
-  }
-
-  .dark {
-    --background: 0 0% 5.5%; /* #0E0E0E */
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 25 100% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217 91% 60%;
+    /* Secondary - Gray accents */
+    --secondary: 0 0% 45%; /* Medium gray */
+    --secondary-light: 0 0% 75%; /* Light gray */
     --secondary-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 96%; /* Subtle gray background */
+    --muted-foreground: 0 0% 40%; /* Muted text */
 
-    --accent: 25 95% 53%;
+    --accent: 25 100% 55%; /* Bright orange accent */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%; /* Light gray borders */
+    --input: 0 0% 90%;
+    --ring: 25 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Clovely Gradients - Orange to Gray */
+    --gradient-primary: linear-gradient(135deg, hsl(25 100% 50%), hsl(25 100% 65%));
+    --gradient-orange-gray: linear-gradient(135deg, hsl(25 100% 50%), hsl(0 0% 60%));
+    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 60%));
+    --gradient-soft: linear-gradient(180deg, hsl(0 0% 99%), hsl(0 0% 96%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(25 5% 98%));
+    
+    /* Shadows - Orange tinted */
+    --shadow-sm: 0 1px 2px 0 rgba(255, 122, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(255, 122, 0, 0.08), 0 2px 4px -2px rgba(255, 122, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(255, 122, 0, 0.1), 0 4px 6px -4px rgba(255, 122, 0, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(255, 122, 0, 0.1), 0 8px 10px -6px rgba(255, 122, 0, 0.08);
+    
+    /* Glassmorphism - Clovely style */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 122, 0, 0.15);
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 15%;
+    --sidebar-primary: 25 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 97%;
+    --sidebar-accent-foreground: 0 0% 15%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 25 100% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 6%; /* Deep dark */
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 25 100% 50%;
+    --primary-light: 25 100% 60%;
+    --primary-dark: 25 100% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 25%;
+    --secondary-light: 0 0% 35%;
+    --secondary-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 25 100% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -94,15 +108,26 @@
     --input: 0 0% 15%;
     --ring: 25 100% 50%;
 
-    --glass-bg: rgba(14, 14, 14, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --gradient-primary: linear-gradient(135deg, hsl(25 100% 50%), hsl(25 100% 60%));
+    --gradient-orange-gray: linear-gradient(135deg, hsl(25 100% 50%), hsl(0 0% 30%));
+    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 55%));
+    --gradient-soft: linear-gradient(180deg, hsl(0 0% 6%), hsl(0 0% 9%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 9%), hsl(25 5% 12%));
 
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 0 0% 98%;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+
+    --glass-bg: rgba(14, 14, 14, 0.75);
+    --glass-border: rgba(255, 122, 0, 0.2);
+
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 25 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 15%;
     --sidebar-ring: 25 100% 50%;
   }
@@ -135,12 +160,12 @@
     border: 1px solid var(--glass-border);
   }
 
-  .gradient-orange {
-    background: var(--gradient-orange);
+  .gradient-primary {
+    background: var(--gradient-primary);
   }
 
-  .gradient-premium {
-    background: var(--gradient-premium);
+  .gradient-orange-gray {
+    background: var(--gradient-orange-gray);
   }
 
   .gradient-warm {
@@ -149,6 +174,31 @@
 
   .gradient-soft {
     background: var(--gradient-soft);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-clovely {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-clovely-lg {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-clovely-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-200;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 
   .animate-float {
