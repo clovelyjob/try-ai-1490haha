@@ -31,7 +31,7 @@ const Dashboard = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 className="text-3xl md:text-4xl font-bold">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               Hola, {user?.name?.split(' ')[0] || 'Usuario'} 👋
             </h1>
             <p className="text-muted-foreground">
@@ -60,7 +60,7 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link to="/dashboard/cvs" className="block">
-            <Card className="p-6 hover:shadow-lg hover:border-primary/50 transition-all cursor-pointer group">
+            <Card className="p-6 hover-lift hover:border-primary/50 transition-all cursor-pointer group gradient-card">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
                   <FileText className="h-6 w-6 text-primary" />
@@ -75,7 +75,7 @@ const Dashboard = () => {
           </Link>
 
           <Link to="/dashboard/opportunities" className="block">
-            <Card className="p-6 hover:shadow-lg hover:border-primary/50 transition-all cursor-pointer group">
+            <Card className="p-6 hover-lift hover:border-primary/50 transition-all cursor-pointer group gradient-card">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
                   <Briefcase className="h-6 w-6 text-primary" />
@@ -89,7 +89,7 @@ const Dashboard = () => {
             </Card>
           </Link>
 
-          <Card className="p-6 border-dashed">
+          <Card className="p-6 border-dashed gradient-soft">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-muted rounded-lg">
                 <Target className="h-6 w-6 text-muted-foreground" />
@@ -103,21 +103,21 @@ const Dashboard = () => {
         </div>
 
         {/* Getting Started Card */}
-        <Card className="p-8 bg-gradient-to-br from-primary/5 to-background border-primary/20">
+        <Card className="p-8 gradient-orange-gray text-white shadow-clovely-xl">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
+                <TrendingUp className="h-5 w-5 text-white" />
                 <h2 className="text-xl font-bold">Comienza tu viaje profesional</h2>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/90">
                 Clovely te ayuda a conseguir oportunidades mediante un CV profesional optimizado 
                 y preparación efectiva para entrevistas.
               </p>
             </div>
             <div className="flex gap-3">
               <Link to="/dashboard/cvs">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 shadow-clovely">
                   Crear CV
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
