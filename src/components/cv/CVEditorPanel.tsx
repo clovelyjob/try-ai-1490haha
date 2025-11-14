@@ -4,20 +4,77 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Sparkles } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { useState } from 'react';
 
 interface CVEditorPanelProps {
   cv: CVData;
   onUpdate: (updates: Partial<CVData>) => void;
+  onImproveText: (text: string, type: 'summary' | 'experience' | 'education' | 'general', context?: string) => Promise<string>;
+  isAILoading: boolean;
 }
 
-export default function CVEditorPanel({ cv, onUpdate }: CVEditorPanelProps) {
+export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading }: CVEditorPanelProps) {
+  const [improvingField, setImprovingField] = useState<string | null>(null);
+
+  const handleImproveSummary = async () => {
+    if (!cv.summary || cv.summary.length < 10) {
+      toast.error('Escribe al menos 10 caracteres para mejorar el resumen');
+      return;
+    }
+
+    setImprovingField('summary');
+    try {
+      const improved = await onImproveText(cv.summary, 'summary', cv.personal.title);
+      onUpdate({ summary: improved });
+      toast.success('✨ Resumen mejorado con IA');
+    } catch (error) {
+      // Error already handled in useAI hook
+    } finally {
+      setImprovingField(null);
+    }
+  };
+
+  const handleImproveBullet = async (expId: string, bulletIndex: number, bulletText: string) => {
+    if (!bulletText || bulletText.length < 5) {
+      toast.error('Escribe al menos 5 caracteres para mejorar');
+      return;
+    }
+
+    const fieldKey = `exp-${expId}-${bulletIndex}`;
+    setImprovingField(fieldKey);
+    
+    try {
+      const exp = cv.experience.find(e => e.id === expId);
+      const context = exp ? `${exp.role} en ${exp.company}` : '';
+      const improved = await onImproveText(bulletText, 'experience', context);
+      
+      const updatedExp = cv.experience.map((ex) =>
+        ex.id === expId
+          ? {
+              ...ex,
+              bullets: ex.bullets.map((b, i) =>
+                i === bulletIndex ? { ...b, text: improved } : b
+              ),
+            }
+          : ex
+      );
+      onUpdate({ experience: updatedExp });
+      toast.success('✨ Texto mejorado con IA');
+    } catch (error) {
+      // Error already handled in useAI hook
+    } finally {
+      setImprovingField(null);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <Accordion type="multiple" defaultValue={['personal', 'summary']} className="space-y-4">
@@ -148,7 +205,19 @@ export default function CVEditorPanel({ cv, onUpdate }: CVEditorPanelProps) {
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="space-y-2">
-                <Label>Resumen (50-500 caracteres)</Label>
+                <div className="flex items-center justify-between">
+                  <Label>Resumen (50-500 caracteres)</Label>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleImproveSummary}
+                    disabled={isAILoading || improvingField === 'summary'}
+                    className="gap-2"
+                  >
+                    <Sparkles className="h-3 w-3" />
+                    {improvingField === 'summary' ? 'Mejorando...' : 'Mejorar con IA'}
+                  </Button>
+                </div>
                 <Textarea
                   value={cv.summary}
                   onChange={(e) => onUpdate({ summary: e.target.value })}
@@ -299,6 +368,15 @@ export default function CVEditorPanel({ cv, onUpdate }: CVEditorPanelProps) {
                               }}
                               placeholder="Logro o responsabilidad"
                             />
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleImproveBullet(exp.id, bIndex, bullet.text)}
+                              disabled={isAILoading || improvingField === `exp-${exp.id}-${bIndex}`}
+                              title="Mejorar con IA"
+                            >
+                              <Sparkles className="h-4 w-4" />
+                            </Button>
                             <Button
                               variant="ghost"
                               size="icon"
