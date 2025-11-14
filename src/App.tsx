@@ -25,6 +25,7 @@ import Settings from "./pages/Settings";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -49,10 +50,18 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
               <Route path="/guest-start" element={<GuestStart />} />
-              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/onboarding" element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              } />
           
           {/* Dashboard routes with shared sidebar layout */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="/dashboard" element={
+            <ProtectedRoute requireOnboarding={true}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }>
             <Route index element={<Dashboard />} />
             <Route path="cvs" element={<CVList />} />
             <Route path="cvs/:id" element={<CVBuilder />} />

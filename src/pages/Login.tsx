@@ -9,6 +9,7 @@ import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { DecoratedLogo } from '@/components/DecoratedLogo';
+import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -41,8 +42,22 @@ const Login = () => {
     setLoading(true);
     try {
       await login(formData.email, formData.password);
+      
+      // Verificar si completó onboarding
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('rol_profesional')
+        .eq('email', formData.email)
+        .single();
+      
       toast.success('¡Bienvenido de vuelta!');
-      navigate('/dashboard');
+      
+      // Redirigir según estado del onboarding
+      if (profile?.rol_profesional) {
+        navigate('/dashboard');
+      } else {
+        navigate('/onboarding');
+      }
     } catch (error: any) {
       console.error('Login error:', error);
       toast.error(error.message || 'Credenciales incorrectas');
