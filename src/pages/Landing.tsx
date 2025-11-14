@@ -157,7 +157,7 @@ const Landing = () => {
           {/* Logo Hero */}
           
 
-          <Badge variant="secondary" className="mb-4">
+          <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary border-primary/20">
             🚀 +10,000 profesionales transformaron su carrera
           </Badge>
           
