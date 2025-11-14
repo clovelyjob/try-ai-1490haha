@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
+import { useDataPersistence } from './useDataPersistence';
 import type { User } from '@/types';
 
 export function useAuthSync() {
   const { setUser, setSession } = useAuthStore();
   const { setProfile } = useProfileStore();
+  
+  // Initialize data persistence
+  useDataPersistence();
 
   useEffect(() => {
     // Set up auth state listener
