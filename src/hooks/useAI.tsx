@@ -127,11 +127,70 @@ export function useAI() {
     }
   };
 
+  const generateDiagnosticQuestion = async (
+    previousAnswers: any,
+    currentStep: number
+  ) => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('diagnostic-generate-questions', {
+        body: { previousAnswers, currentStep },
+      });
+
+      if (error) {
+        if (error.message.includes('429')) {
+          toast.error('Límite de solicitudes alcanzado. Intenta en unos minutos.');
+        } else if (error.message.includes('402')) {
+          toast.error('Créditos insuficientes.');
+        } else {
+          toast.error('Error al generar pregunta');
+        }
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error generating diagnostic question:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const analyzeDiagnosticProfile = async (preferences: any) => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('diagnostic-analyze-profile', {
+        body: { preferences },
+      });
+
+      if (error) {
+        if (error.message.includes('429')) {
+          toast.error('Límite de solicitudes alcanzado. Intenta en unos minutos.');
+        } else if (error.message.includes('402')) {
+          toast.error('Créditos insuficientes.');
+        } else {
+          toast.error('Error al analizar perfil');
+        }
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error analyzing diagnostic profile:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     isLoading,
     improveText,
     analyzeCV: analyzeCVintense,
     analyzeInterviewResponse,
     generateInterviewQuestions,
+    generateDiagnosticQuestion,
+    analyzeDiagnosticProfile,
   };
 }
