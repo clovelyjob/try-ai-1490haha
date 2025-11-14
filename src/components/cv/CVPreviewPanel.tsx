@@ -17,7 +17,10 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
   };
 
   return (
-    <Card ref={ref} className={`p-8 shadow-xl ${templateStyles[cv.template]} min-h-[297mm]`}>
+    <Card 
+      ref={ref} 
+      className={`p-8 shadow-xl ${templateStyles[cv.template]} min-h-[297mm] print:shadow-none print:min-h-0 print:break-inside-avoid`}
+    >
       {/* Header */}
       <div className="border-b-2 border-gray-800 pb-4 mb-6">
         <h1 className="text-3xl font-bold mb-1">{cv.personal.fullName || 'Tu Nombre'}</h1>
