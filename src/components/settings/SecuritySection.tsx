@@ -18,6 +18,7 @@ import {
 import { useSettingsStore, UserSession } from '@/store/useSettingsStore';
 import { toast } from '@/hooks/use-toast';
 import { z } from 'zod';
+import { supabase } from '@/integrations/supabase/client';
 
 const passwordSchema = z.object({
   current: z.string().min(1, 'Contraseña actual requerida'),
@@ -51,8 +52,19 @@ export function SecuritySection() {
       
       setIsSaving(true);
       
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      // Update password via Supabase
+      const { error } = await supabase.auth.updateUser({
+        password: passwordData.new
+      });
+      
+      if (error) {
+        toast({
+          title: 'Error',
+          description: error.message,
+          variant: 'destructive'
+        });
+        return;
+      }
       
       toast({
         title: 'Contraseña actualizada',

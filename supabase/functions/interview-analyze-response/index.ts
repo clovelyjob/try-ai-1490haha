@@ -11,14 +11,52 @@ serve(async (req) => {
   }
 
   try {
-    const { question, answer, role, context } = await req.json();
-
-    if (!question || !answer) {
+    const body = await req.json();
+    
+    // Input validation
+    if (!body.question || typeof body.question !== 'string') {
       return new Response(
-        JSON.stringify({ error: "Question and answer are required" }),
+        JSON.stringify({ error: "question (string) is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    if (!body.answer || typeof body.answer !== 'string') {
+      return new Response(
+        JSON.stringify({ error: "answer (string) is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.question.length > 1000) {
+      return new Response(
+        JSON.stringify({ error: "Question too long. Maximum 1000 characters allowed." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.answer.length > 5000) {
+      return new Response(
+        JSON.stringify({ error: "Answer too long. Maximum 5000 characters allowed." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.role && (typeof body.role !== 'string' || body.role.length > 100)) {
+      return new Response(
+        JSON.stringify({ error: "role must be a string with max 100 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.context && (typeof body.context !== 'string' || body.context.length > 500)) {
+      return new Response(
+        JSON.stringify({ error: "context must be a string with max 500 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const { question, answer, role, context } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {

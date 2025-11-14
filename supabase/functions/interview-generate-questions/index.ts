@@ -11,14 +11,46 @@ serve(async (req) => {
   }
 
   try {
-    const { role, industry, level, count = 5 } = await req.json();
-
-    if (!role) {
+    const body = await req.json();
+    
+    // Input validation
+    if (!body.role || typeof body.role !== 'string') {
       return new Response(
-        JSON.stringify({ error: "Role is required" }),
+        JSON.stringify({ error: "role (string) is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    if (body.role.length > 100) {
+      return new Response(
+        JSON.stringify({ error: "Role too long. Maximum 100 characters allowed." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.industry && (typeof body.industry !== 'string' || body.industry.length > 100)) {
+      return new Response(
+        JSON.stringify({ error: "industry must be a string with max 100 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (body.level && (typeof body.level !== 'string' || body.level.length > 50)) {
+      return new Response(
+        JSON.stringify({ error: "level must be a string with max 50 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const count = body.count || 5;
+    if (typeof count !== 'number' || count < 1 || count > 20) {
+      return new Response(
+        JSON.stringify({ error: "count must be a number between 1 and 20" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const { role, industry, level } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {

@@ -4,6 +4,8 @@ import type { CVData, CVTemplate, CVScore } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
+const generateId = () => crypto.randomUUID();
+
 interface CVState {
   cvs: CVData[];
   currentCV: CVData | null;
@@ -40,7 +42,7 @@ interface CVState {
 }
 
 const createEmptyCV = (userId: string, title: string): CVData => ({
-  id: `cv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+  id: generateId(),
   userId,
   title,
   template: 'harvard',

@@ -11,14 +11,38 @@ serve(async (req) => {
   }
 
   try {
-    const { text, type, context } = await req.json();
+    const body = await req.json();
     
-    if (!text) {
+    // Input validation
+    if (!body.text || typeof body.text !== 'string') {
       return new Response(
-        JSON.stringify({ error: "Text is required" }),
+        JSON.stringify({ error: "text (string) is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+    
+    if (body.text.length > 10000) {
+      return new Response(
+        JSON.stringify({ error: "Text too long. Maximum 10000 characters allowed." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
+    if (body.type && !['summary', 'experience', 'education', 'general'].includes(body.type)) {
+      return new Response(
+        JSON.stringify({ error: "type must be one of: summary, experience, education, general" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
+    if (body.context && (typeof body.context !== 'string' || body.context.length > 500)) {
+      return new Response(
+        JSON.stringify({ error: "context must be a string with max 500 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
+    const { text, type, context } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
