@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UpgradeModal } from '@/components/UpgradeModal';
+import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUIStore } from '@/store/useUIStore';
 import { toast } from 'sonner';
@@ -252,6 +253,7 @@ export default function DashboardLayout() {
           'flex-1 transition-[margin] duration-200 ease-out',
           sidebarCollapsed && !sidebarPinned ? 'ml-[72px]' : 'ml-[260px]'
         )}>
+          <GuestBanner />
           <Outlet />
         </main>
         

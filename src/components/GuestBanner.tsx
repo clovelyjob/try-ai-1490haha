@@ -1,20 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuthStore } from '@/store/useAuthStore';
-import { AlertCircle, Sparkles, X } from 'lucide-react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-
-const registerSchema = z.object({
-  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
-});
+import { Sparkles, X } from 'lucide-react';
+import { GuestConversionModal } from './GuestConversionModal';
 
 export function GuestBanner() {
   const { isGuestMode } = useAuthStore();
@@ -22,11 +12,6 @@ export function GuestBanner() {
   const [showBanner, setShowBanner] = useState(true);
 
   if (!isGuestMode || !showBanner) return null;
-
-  const handleCreateAccount = () => {
-    // Redirect to auth page
-    window.location.href = '/auth';
-  };
 
   return (
     <>
@@ -47,7 +32,7 @@ export function GuestBanner() {
                 <div className="flex items-center gap-2">
                   <Button
                     size="sm"
-                    onClick={handleCreateAccount}
+                    onClick={() => setShowModal(true)}
                     className="gradient-orange text-white shrink-0"
                   >
                     Crear mi cuenta
@@ -66,6 +51,11 @@ export function GuestBanner() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <GuestConversionModal 
+        open={showModal} 
+        onClose={() => setShowModal(false)} 
+      />
     </>
   );
 }
