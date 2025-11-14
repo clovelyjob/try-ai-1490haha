@@ -15,6 +15,7 @@ import { RoleDetectionStep } from '@/components/onboarding/RoleDetectionStep';
 import { ResultsStep } from '@/components/onboarding/ResultsStep';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import { toast } from 'sonner';
 import { ProfessionalRole, RolePreferences } from '@/types';
 
@@ -22,6 +23,7 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useAuthStore();
   const { setProfile } = useProfileStore();
+  const { trackEvent } = useAnalytics();
   const [currentStep, setCurrentStep] = useState(0);
   const [detectedRole, setDetectedRole] = useState<ProfessionalRole>('other');
   const [roleConfidence, setRoleConfidence] = useState(0);
@@ -77,9 +79,17 @@ const Onboarding = () => {
     }
   };
 
-  const handleRoleConfirmed = (role: ProfessionalRole, confidence: number) => {
+  const handleRoleConfirmed = async (role: ProfessionalRole, confidence: number) => {
     setDetectedRole(role);
     setRoleConfidence(confidence);
+    
+    // Track role detection
+    await trackEvent('role_detected', {
+      role,
+      confidence,
+      preferences: onboardingData.rolePreferences
+    });
+    
     handleNext();
   };
 
@@ -90,6 +100,12 @@ const Onboarding = () => {
     }
 
     try {
+      // Track onboarding completion
+      await trackEvent('onboarding_completed', {
+        role: detectedRole,
+        confidence: roleConfidence,
+        completedAt: new Date().toISOString()
+      });
       // Actualizar perfil en Supabase
       const { error } = await supabase
         .from('profiles')
