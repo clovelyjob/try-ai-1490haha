@@ -13,7 +13,7 @@ import { AppearanceSection } from '@/components/settings/AppearanceSection';
 import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
 import { PrivacySection } from '@/components/settings/PrivacySection';
 import { IntegrationsSection } from '@/components/settings/IntegrationsSection';
-import { CoachSection } from '@/components/settings/CoachSection';
+
 import { AccountSection } from '@/components/settings/AccountSection';
 import { RoleSection } from '@/components/settings/RoleSection';
 
@@ -26,7 +26,7 @@ type SettingSection =
   | 'subscription' 
   | 'privacy' 
   | 'integrations' 
-  | 'coach'
+  
   | 'account';
 
 const navigation = [
@@ -38,7 +38,7 @@ const navigation = [
   { id: 'subscription', label: 'Suscripción', icon: CreditCard },
   { id: 'privacy', label: 'Privacidad', icon: Shield },
   { id: 'integrations', label: 'Integraciones', icon: LinkIcon },
-  { id: 'coach', label: 'Coach IA', icon: Bot },
+  
 ] as const;
 
 export default function Settings() {
@@ -67,8 +67,6 @@ export default function Settings() {
         return <PrivacySection />;
       case 'integrations':
         return <IntegrationsSection />;
-      case 'coach':
-        return <CoachSection />;
       case 'account':
         return <AccountSection />;
       default:

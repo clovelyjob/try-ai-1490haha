@@ -8,7 +8,10 @@ export interface User {
   trialEndsAt?: Date;
   createdAt: Date;
   lastLogin: Date;
+  lastActiveDate: Date;
   onboardingCompleted: boolean;
+  streak: number;
+  applicationsSubmitted: number;
 }
 
 export type ProfessionalRole = 

@@ -44,7 +44,10 @@ export const useAuthStore = create<AuthState>()(
           plan: 'free',
           createdAt: new Date(),
           lastLogin: new Date(),
+          lastActiveDate: new Date(),
           onboardingCompleted: true,
+          streak: 1,
+          applicationsSubmitted: 0,
         };
         
         const guestData = {
