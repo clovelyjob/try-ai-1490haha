@@ -177,7 +177,7 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4 sm:px-0">
             <Link to="/guest-start" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 min-h-[48px] sm:min-h-[52px] hover-lift">
-                Sube tu CV y descubre tu camino profesional
+                Sube tu CV y accede a tus mejores oportunidades
               </Button>
             </Link>
             <Link to="/registro" className="w-full sm:w-auto">
