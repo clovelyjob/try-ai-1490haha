@@ -87,85 +87,93 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid md:grid-cols-2 overflow-x-hidden max-w-full">
-      {/* Form Column */}
-      <div className="flex items-center justify-center p-8 max-w-full">
+    <div className="min-h-screen grid lg:grid-cols-2 overflow-x-hidden max-w-full">
+      {/* Form Column - Mobile First */}
+      <div className="flex items-center justify-center p-4 sm:p-6 lg:p-8 max-w-full safe-padding-x">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="w-full max-w-md"
         >
-          <Link to="/" className="inline-flex items-center gap-2 mb-8 text-sm hover:text-primary transition-all duration-300 hover-lift">
+          <Link to="/" className="inline-flex items-center gap-2 mb-6 sm:mb-8 text-sm hover:text-primary transition-all duration-300 hover-lift min-h-[44px]">
             <ArrowLeft className="h-4 w-4" />
             Volver al inicio
           </Link>
 
-          <div className="mb-8">
-            <div className="flex justify-center mb-6">
+          <div className="mb-6 sm:mb-8">
+            <div className="flex justify-center mb-4 sm:mb-6">
               <DecoratedLogo size="md" animated={true} />
             </div>
-            <h1 className="text-3xl font-heading font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl font-heading font-bold mb-2">
               ¡Bienvenido de vuelta!
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground">
               Continúa tu camino hacia el éxito profesional
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
+                placeholder="tu@email.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="ana@ejemplo.com"
                 required
+                className="min-h-[44px] text-base"
               />
             </div>
 
             <div>
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password" className="text-sm">Contraseña</Label>
               <Input
                 id="password"
                 type="password"
+                placeholder="••••••••"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="••••••••"
                 required
+                className="min-h-[44px] text-base"
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-2">
+              <div className="flex items-center space-x-2">
                 <Checkbox
                   id="remember"
                   checked={formData.remember}
-                  onCheckedChange={(checked) =>
+                  onCheckedChange={(checked) => 
                     setFormData({ ...formData, remember: checked as boolean })
                   }
+                  className="min-w-[20px] min-h-[20px]"
                 />
-                <label htmlFor="remember" className="text-sm">
-                  Mantenerme conectado
+                <label htmlFor="remember" className="text-xs sm:text-sm cursor-pointer">
+                  Recordarme
                 </label>
               </div>
-              <a href="#" className="text-sm text-primary hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-xs sm:text-sm text-primary hover:underline min-h-[44px] flex items-center"
+              >
                 ¿Olvidaste tu contraseña?
-              </a>
+              </Link>
             </div>
 
             <Button
               type="submit"
-              className="w-full gradient-orange text-white hover-glow hover:scale-105 transition-all duration-300"
+              className="w-full gradient-orange text-white hover-glow min-h-[48px] text-base font-medium"
               disabled={loading}
             >
-              {loading ? 'Iniciando sesión...' : 'Iniciar sesión →'}
+              {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
             </Button>
+          </form>
 
-            <div className="relative my-6">
+          <div className="mt-6">
+            <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t"></div>
+                <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
@@ -174,106 +182,79 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="hover-lift"
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+              <Button
+                type="button"
+                variant="outline"
                 onClick={handleGoogleLogin}
+                className="min-h-[48px] text-sm sm:text-base"
               >
                 <Chrome className="mr-2 h-4 w-4" />
                 Google
               </Button>
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="hover-lift"
+              <Button
+                type="button"
+                variant="outline"
                 onClick={handleLinkedInLogin}
+                className="min-h-[48px] text-sm sm:text-base"
               >
                 <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn
               </Button>
             </div>
+          </div>
 
-            <div className="text-center space-y-2">
-              <div>
-                <Link to="/forgot-password" className="text-sm text-primary hover:underline">
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                ¿No tienes cuenta?{' '}
-                <Link to="/registro" className="text-primary hover:underline font-medium">
-                  Regístrate gratis
-                </Link>
-              </p>
-            </div>
-          </form>
+          <p className="mt-6 text-center text-xs sm:text-sm text-muted-foreground">
+            ¿No tienes cuenta?{' '}
+            <Link to="/registro" className="text-primary hover:underline font-medium">
+              Regístrate gratis
+            </Link>
+          </p>
         </motion.div>
       </div>
 
-      {/* Illustration Column */}
-      <div className="hidden md:flex bg-background border-l p-12 items-center justify-center transition-colors duration-300">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-md"
-        >
-          <div className="
-            rounded-xl border-2 border-slate-900 bg-[#FFF5EB] p-8 shadow-[0_4px_12px_rgba(0,0,0,0.06)]
-            dark:border-[#FF7A00] dark:bg-[#0F1115] dark:shadow-[0_4px_12px_rgba(255,122,0,0.08)]
-            transition-colors duration-300 space-y-8
-          ">
-            <div className="space-y-4">
-              <div className="text-6xl">🚀</div>
-              <h2 className="text-[22px] font-semibold leading-tight text-[#1E293B] dark:text-white">
-                <span className="text-[#FF7A00] dark:text-[#F97316]">Tu siguiente oportunidad</span> te está esperando
-              </h2>
-              <p className="text-[#475569] dark:text-[#CBD5E1] text-[15px]">
-                Miles de profesionales ya transformaron sus carreras con Clovely.
-                Es tu turno.
-              </p>
+      {/* Visual Column - Hidden on mobile */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="hidden lg:flex items-center justify-center p-8 bg-gradient-orange-gray relative overflow-hidden"
+      >
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+            backgroundSize: '40px 40px',
+          }} />
+        </div>
+        
+        <div className="relative z-10 max-w-md text-white space-y-6 px-4">
+          <h2 className="text-3xl xl:text-4xl font-heading font-bold leading-tight">
+            Tu éxito profesional comienza aquí
+          </h2>
+          <p className="text-base xl:text-lg text-white/90">
+            Únete a miles de profesionales que han transformado su carrera con Clovely
+          </p>
+          <div className="space-y-4 pt-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                ✓
+              </div>
+              <p className="text-sm xl:text-base">CV optimizado con IA en minutos</p>
             </div>
-
-            <div className="space-y-4 pt-8">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Ruta personalizada con IA</p>
-                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                    Plan adaptado a tus objetivos y estilo
-                  </p>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                ✓
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Coach disponible 24/7</p>
-                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                    Respuestas y guía cuando las necesites
-                  </p>
-                </div>
+              <p className="text-sm xl:text-base">Simulador de entrevistas inteligente</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                ✓
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FF7A00]/10 dark:bg-[#F97316]/10 flex items-center justify-center shrink-0">
-                  <span className="text-[#FF7A00] dark:text-[#F97316] font-bold">✓</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-[14px] text-[#0F172A] dark:text-[#E2E8F0]">Progreso medible en tiempo real</p>
-                  <p className="text-sm text-[#475569] dark:text-[#CBD5E1]">
-                    Ve tu evolución en tiempo real
-                  </p>
-                </div>
-              </div>
+              <p className="text-sm xl:text-base">Oportunidades personalizadas para ti</p>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
 };
