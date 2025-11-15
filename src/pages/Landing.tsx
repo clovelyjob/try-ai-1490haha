@@ -181,9 +181,7 @@ const Landing = () => {
               </Button>
             </Link>
             <Link to="/registro" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto gradient-orange text-white text-base sm:text-lg px-6 sm:px-8 min-h-[48px] sm:min-h-[52px] hover-glow hover:scale-105 transition-all duration-300">
-                Descubre tu camino ideal <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
+              
             </Link>
           </div>
           
@@ -202,12 +200,7 @@ const Landing = () => {
           delay: 0.3,
           duration: 0.6
         }} className="mt-8 sm:mt-12 glass rounded-xl sm:rounded-2xl overflow-hidden animate-float">
-            <img 
-              src={heroImage} 
-              alt="Profesional joven trabajando con confianza en su desarrollo de carrera" 
-              className="w-full h-auto object-cover"
-              loading="eager"
-            />
+            <img src={heroImage} alt="Profesional joven trabajando con confianza en su desarrollo de carrera" className="w-full h-auto object-cover" loading="eager" />
           </motion.div>
         </motion.div>
       </section>
@@ -282,12 +275,7 @@ const Landing = () => {
               }} transition={{
                 delay: 0.2
               }} className="glass rounded-xl sm:rounded-2xl overflow-hidden">
-                  <img 
-                    src={collaborationImage} 
-                    alt="Equipo colaborando en desarrollo profesional" 
-                    className="w-full h-auto object-cover"
-                    loading="lazy"
-                  />
+                  <img src={collaborationImage} alt="Equipo colaborando en desarrollo profesional" className="w-full h-auto object-cover" loading="lazy" />
                 </motion.div>
               </div>
               
@@ -401,12 +389,7 @@ const Landing = () => {
           }} transition={{
             delay: 0.4
           }} className="glass rounded-xl sm:rounded-2xl overflow-hidden animate-float max-w-3xl mx-auto">
-              <img 
-                src={careerDiscoveryImage} 
-                alt="Momento de descubrimiento profesional con análisis de carrera" 
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
+              <img src={careerDiscoveryImage} alt="Momento de descubrimiento profesional con análisis de carrera" className="w-full h-auto object-cover" loading="lazy" />
             </motion.div>
           </div>
         </motion.div>
