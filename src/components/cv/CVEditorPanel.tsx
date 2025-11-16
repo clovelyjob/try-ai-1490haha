@@ -205,7 +205,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-2">
                   <Label>Resumen (50-500 caracteres)</Label>
                   <Button
                     variant="outline"
@@ -218,10 +218,22 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                     {improvingField === 'summary' ? 'Mejorando...' : 'Mejorar con IA'}
                   </Button>
                 </div>
+                
+                {/* Harvard Summary Guide */}
+                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-md text-xs space-y-1">
+                  <p className="font-semibold text-blue-900 dark:text-blue-100">📝 Harvard Summary Format:</p>
+                  <p className="text-blue-800 dark:text-blue-200">
+                    2-3 sentences: <span className="font-medium">Professional identity</span> + Key achievements with metrics + Value proposition
+                  </p>
+                  <p className="text-blue-700 dark:text-blue-300 italic text-[10px] mt-1">
+                    Example: "Software Engineer with 5+ years building scalable web apps. Led development of platform serving 100K+ users with 99.9% uptime. Passionate about clean code and user-centric design."
+                  </p>
+                </div>
+                
                 <Textarea
                   value={cv.summary}
                   onChange={(e) => onUpdate({ summary: e.target.value })}
-                  placeholder="Describe tu perfil profesional en 2-4 frases..."
+                  placeholder="Results-driven professional with X years of experience. Achieved Y by doing Z. Passionate about..."
                   rows={4}
                   maxLength={500}
                 />
@@ -348,7 +360,27 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                       </div>
 
                       <div>
-                        <Label>Logros y responsabilidades</Label>
+                        <div className="flex items-center justify-between mb-2">
+                          <Label>Logros y responsabilidades</Label>
+                          <div className="text-xs text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-md border border-border">
+                            <span className="font-semibold">Harvard Tips:</span> Start with action verbs (Led, Managed, Developed) + Add metrics
+                          </div>
+                        </div>
+                        
+                        {/* Harvard Style Guide */}
+                        <div className="mb-3 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-md text-xs space-y-1">
+                          <p className="font-semibold text-amber-900 dark:text-amber-100">✨ Harvard Bullet Format:</p>
+                          <p className="text-amber-800 dark:text-amber-200">
+                            <span className="font-medium">Action Verb</span> + What you did + <span className="font-medium">Quantifiable Impact</span>
+                          </p>
+                          <p className="text-amber-700 dark:text-amber-300 italic">
+                            Example: "Led team of 8 to launch product feature, increasing user engagement by 35%"
+                          </p>
+                          <p className="text-amber-600 dark:text-amber-400 text-[10px] mt-1">
+                            Strong verbs: Led, Managed, Developed, Implemented, Increased, Reduced, Designed, Optimized
+                          </p>
+                        </div>
+
                         {exp.bullets.map((bullet, bIndex) => (
                           <div key={bIndex} className="flex gap-2 mb-2">
                             <Input
@@ -366,16 +398,21 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                                 );
                                 onUpdate({ experience: updatedExp });
                               }}
-                              placeholder="Logro o responsabilidad"
+                              placeholder="Led cross-functional team of 12 to streamline operations, reducing costs by 35%"
                             />
                             <Button
                               variant="ghost"
                               size="icon"
                               onClick={() => handleImproveBullet(exp.id, bIndex, bullet.text)}
                               disabled={isAILoading || improvingField === `exp-${exp.id}-${bIndex}`}
-                              title="Mejorar con IA"
+                              title="Transform to Harvard-style bullet with AI"
+                              className="shrink-0"
                             >
-                              <Sparkles className="h-4 w-4" />
+                              {improvingField === `exp-${exp.id}-${bIndex}` ? (
+                                <span className="h-4 w-4 animate-spin">⏳</span>
+                              ) : (
+                                <Sparkles className="h-4 w-4 text-amber-500" />
+                              )}
                             </Button>
                             <Button
                               variant="ghost"
@@ -515,7 +552,11 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                               );
                               onUpdate({ education: updated });
                             }}
+                            placeholder="3.8/4.0"
                           />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            💡 Harvard tip: Only include if ≥ 3.5/4.0
+                          </p>
                         </div>
                       </div>
 

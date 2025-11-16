@@ -55,13 +55,61 @@ serve(async (req) => {
 
     switch (type) {
       case "summary":
-        systemPrompt = "Eres un experto en redacción de CVs profesionales. Tu tarea es mejorar resúmenes profesionales haciéndolos más impactantes, concisos y orientados a resultados.";
-        userPrompt = `Mejora este resumen profesional. Hazlo más impactante y orientado a logros. Mantén el mismo tono profesional pero hazlo más atractivo para reclutadores.\n\nTexto original:\n${text}\n\nContexto adicional: ${context || 'CV profesional general'}`;
+        systemPrompt = `You are a Harvard Business School career advisor specializing in professional summaries. You craft compelling 2-3 sentence summaries that highlight achievements and value proposition.
+
+HARVARD SUMMARY FORMAT:
+1. Lead with your strongest professional identity
+2. Highlight 2-3 key achievements with metrics
+3. Show your value proposition
+4. Keep it concise: 2-3 sentences maximum
+5. Use confident, professional language
+
+EXAMPLE:
+"Results-driven Product Manager with 5+ years driving growth in SaaS startups. Led product launches generating $3M in ARR and improved user retention by 40% through data-driven feature optimization. Passionate about building products that solve real customer problems at scale."`;
+
+        userPrompt = `Transform this professional summary into a Harvard-style summary (2-3 sentences max).
+
+ORIGINAL: "${text}"
+CONTEXT: ${context || 'Professional CV'}
+
+Make it achievement-focused, include metrics if possible, and show clear value proposition. Return ONLY the improved summary.`;
         break;
       
       case "experience":
-        systemPrompt = "Eres un experto en redacción de experiencias laborales para CVs. Mejoras descripciones usando verbos de acción, métricas y resultados cuantificables.";
-        userPrompt = `Mejora esta descripción de experiencia laboral. Usa verbos de acción fuertes, añade estructura con bullets y enfócate en logros medibles cuando sea posible.\n\nTexto original:\n${text}\n\nContexto: ${context || 'Experiencia profesional general'}`;
+        systemPrompt = `You are a Harvard Business School career advisor specializing in resume bullet points. You transform experience descriptions into powerful, Harvard-style achievement bullets.
+
+CRITICAL HARVARD FORMAT RULES:
+1. Start with strong action verbs: Led, Managed, Developed, Implemented, Increased, Reduced, Designed, Established, Transformed, Coordinated, Analyzed, Streamlined, Optimized
+2. Structure: ACTION VERB + What you did + Quantifiable IMPACT
+3. Include metrics whenever possible: percentages, dollar amounts, time saved, people managed, items produced
+4. Be concise: 1-2 lines maximum per bullet
+5. Focus on RESULTS and IMPACT, not responsibilities
+6. Use past tense for completed roles
+
+EXAMPLES OF HARVARD-STYLE BULLETS:
+❌ BAD: "Responsible for managing a team and improving processes"
+✅ GOOD: "Led cross-functional team of 12 to streamline operations, reducing processing time by 35% and saving $50K annually"
+
+❌ BAD: "Worked on marketing campaigns"
+✅ GOOD: "Designed and executed 5 digital marketing campaigns, increasing customer engagement by 45% and generating 200+ qualified leads"
+
+❌ BAD: "Helped with sales"
+✅ GOOD: "Exceeded quarterly sales targets by 28%, generating $2.3M in revenue through strategic client relationship management"`;
+
+        userPrompt = `Transform this experience description into a powerful Harvard-style bullet point. 
+
+ORIGINAL TEXT: "${text}"
+CONTEXT: ${context || 'Professional experience'}
+
+INSTRUCTIONS:
+- Start with a strong action verb (Led, Managed, Developed, etc.)
+- Include specific metrics or quantifiable results (numbers, percentages, dollar amounts)
+- Keep it concise (1-2 lines max)
+- Focus on IMPACT and ACHIEVEMENTS, not just tasks
+- Use professional, confident language
+- Return ONLY the improved bullet point, no extra explanation
+
+If the original text lacks metrics, infer reasonable achievements based on the role and context.`;
         break;
       
       case "education":
