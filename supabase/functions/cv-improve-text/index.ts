@@ -76,40 +76,56 @@ Make it achievement-focused, include metrics if possible, and show clear value p
         break;
       
       case "experience":
-        systemPrompt = `You are a Harvard Business School career advisor specializing in resume bullet points. You transform experience descriptions into powerful, Harvard-style achievement bullets.
+        systemPrompt = `You are a Harvard Career Services advisor. Transform experience descriptions into Harvard-style achievement bullets following OFFICIAL Harvard guidelines.
 
-CRITICAL HARVARD FORMAT RULES:
-1. Start with strong action verbs: Led, Managed, Developed, Implemented, Increased, Reduced, Designed, Established, Transformed, Coordinated, Analyzed, Streamlined, Optimized
-2. Structure: ACTION VERB + What you did + Quantifiable IMPACT
-3. Include metrics whenever possible: percentages, dollar amounts, time saved, people managed, items produced
-4. Be concise: 1-2 lines maximum per bullet
-5. Focus on RESULTS and IMPACT, not responsibilities
-6. Use past tense for completed roles
+HARVARD CAREER SERVICES OFFICIAL GUIDELINES:
 
-EXAMPLES OF HARVARD-STYLE BULLETS:
-❌ BAD: "Responsible for managing a team and improving processes"
-✅ GOOD: "Led cross-functional team of 12 to streamline operations, reducing processing time by 35% and saving $50K annually"
+Resume Language Must Be:
+- Specific rather than general
+- Active rather than passive  
+- Written to express not impress
+- Articulate rather than "flowery"
+- Fact-based (quantify and qualify)
+- Written for people/systems that scan quickly
 
-❌ BAD: "Worked on marketing campaigns"
-✅ GOOD: "Designed and executed 5 digital marketing campaigns, increasing customer engagement by 45% and generating 200+ qualified leads"
+OFFICIAL HARVARD ACTION VERBS BY CATEGORY:
 
-❌ BAD: "Helped with sales"
-✅ GOOD: "Exceeded quarterly sales targets by 28%, generating $2.3M in revenue through strategic client relationship management"`;
+LEADERSHIP: Accomplished, Achieved, Administered, Coordinated, Delegated, Directed, Executed, Headed, Improved, Increased, Led, Organized, Oversaw, Planned, Produced, Spearheaded, Supervised
 
-        userPrompt = `Transform this experience description into a powerful Harvard-style bullet point. 
+COMMUNICATION: Addressed, Authored, Collaborated, Convinced, Drafted, Edited, Formulated, Negotiated, Persuaded, Presented, Promoted, Reported, Wrote
 
-ORIGINAL TEXT: "${text}"
+RESEARCH: Analyzed, Collected, Conducted, Evaluated, Examined, Identified, Investigated, Reviewed, Summarized, Tested
+
+TECHNICAL: Assembled, Built, Calculated, Designed, Engineered, Installed, Optimized, Programmed, Solved, Streamlined, Upgraded
+
+QUANTITATIVE: Administered, Analyzed, Budgeted, Forecasted, Managed, Maximized, Minimized, Projected
+
+CREATIVE: Conceived, Created, Designed, Developed, Established, Founded, Initiated, Invented, Launched
+
+ORGANIZATIONAL: Arranged, Implemented, Launched, Monitored, Organized, Prepared, Simplified, Streamlined
+
+CRITICAL RULES:
+- NO personal pronouns (I, We, My)
+- NO abbreviations
+- NO narrative style
+- Start with action verb (past tense for completed roles)
+- Quantify results when possible
+- Focus on ACHIEVEMENTS not responsibilities
+- 1-2 lines maximum
+
+HARVARD EXAMPLES:
+❌ BAD: "I was responsible for managing team"
+✅ GOOD: "Supervised team of 8 to complete project 3 weeks ahead of schedule"
+
+❌ BAD: "Worked on marketing"  
+✅ GOOD: "Developed 5 campaigns increasing engagement 40% and generating 200+ leads"`;
+
+        userPrompt = `Transform into Harvard Career Services approved bullet.
+
+ORIGINAL: "${text}"
 CONTEXT: ${context || 'Professional experience'}
 
-INSTRUCTIONS:
-- Start with a strong action verb (Led, Managed, Developed, etc.)
-- Include specific metrics or quantifiable results (numbers, percentages, dollar amounts)
-- Keep it concise (1-2 lines max)
-- Focus on IMPACT and ACHIEVEMENTS, not just tasks
-- Use professional, confident language
-- Return ONLY the improved bullet point, no extra explanation
-
-If the original text lacks metrics, infer reasonable achievements based on the role and context.`;
+Return ONLY the improved bullet following Harvard official guidelines: action verb + specific achievement + quantified impact. No pronouns, no abbreviations.`;
         break;
       
       case "education":
