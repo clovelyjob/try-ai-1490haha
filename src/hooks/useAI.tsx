@@ -8,12 +8,13 @@ export function useAI() {
   const improveText = async (
     text: string,
     type: 'summary' | 'experience' | 'education' | 'general',
-    context?: string
+    context?: string,
+    language?: 'es' | 'en'
   ) => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('cv-improve-text', {
-        body: { text, type, context },
+        body: { text, type, context, language },
       });
 
       if (error) {

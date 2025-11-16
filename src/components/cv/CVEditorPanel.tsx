@@ -17,7 +17,7 @@ import { useState } from 'react';
 interface CVEditorPanelProps {
   cv: CVData;
   onUpdate: (updates: Partial<CVData>) => void;
-  onImproveText: (text: string, type: 'summary' | 'experience' | 'education' | 'general', context?: string) => Promise<string>;
+  onImproveText: (text: string, type: 'summary' | 'experience' | 'education' | 'general', context?: string, language?: 'es' | 'en') => Promise<string>;
   isAILoading: boolean;
 }
 
@@ -32,7 +32,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
     setImprovingField('summary');
     try {
-      const improved = await onImproveText(cv.summary, 'summary', cv.personal.title);
+      const improved = await onImproveText(cv.summary, 'summary', cv.personal.title, cv.language || 'es');
       onUpdate({ summary: improved });
       toast.success('✨ Resumen mejorado con IA');
     } catch (error) {
@@ -54,7 +54,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
     try {
       const exp = cv.experience.find(e => e.id === expId);
       const context = exp ? `${exp.role} en ${exp.company}` : '';
-      const improved = await onImproveText(bulletText, 'experience', context);
+      const improved = await onImproveText(bulletText, 'experience', context, cv.language || 'es');
       
       const updatedExp = cv.experience.map((ex) =>
         ex.id === expId
