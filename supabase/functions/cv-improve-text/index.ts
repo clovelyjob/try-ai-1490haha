@@ -42,7 +42,7 @@ serve(async (req) => {
       );
     }
     
-    const { text, type, context } = body;
+    const { text, type, context, language = 'es' } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -55,9 +55,21 @@ serve(async (req) => {
 
     switch (type) {
       case "summary":
-        systemPrompt = `You are a Harvard Business School career advisor specializing in professional summaries. You craft compelling 2-3 sentence summaries that highlight achievements and value proposition.
+        systemPrompt = language === 'es' 
+          ? `Eres un asesor profesional especializado en resúmenes profesionales. Creas resúmenes convincentes de 2-3 oraciones que destacan logros y propuesta de valor.
 
-HARVARD SUMMARY FORMAT:
+FORMATO PROFESIONAL:
+1. Comienza con tu identidad profesional más fuerte
+2. Destaca 2-3 logros clave con métricas
+3. Muestra tu propuesta de valor
+4. Manténlo conciso: máximo 2-3 oraciones
+5. Usa lenguaje profesional y confiado
+
+EJEMPLO:
+"Product Manager orientado a resultados con más de 5 años impulsando crecimiento en startups SaaS. Lideré lanzamientos de productos que generaron $3M en ARR y mejoré la retención de usuarios en 40% mediante optimización basada en datos. Apasionado por construir productos que resuelven problemas reales de clientes a escala."`
+          : `You are a professional advisor specializing in professional summaries. You craft compelling 2-3 sentence summaries that highlight achievements and value proposition.
+
+PROFESSIONAL FORMAT:
 1. Lead with your strongest professional identity
 2. Highlight 2-3 key achievements with metrics
 3. Show your value proposition
@@ -67,18 +79,70 @@ HARVARD SUMMARY FORMAT:
 EXAMPLE:
 "Results-driven Product Manager with 5+ years driving growth in SaaS startups. Led product launches generating $3M in ARR and improved user retention by 40% through data-driven feature optimization. Passionate about building products that solve real customer problems at scale."`;
 
-        userPrompt = `Transform this professional summary into a Harvard-style summary (2-3 sentences max).
+        userPrompt = language === 'es'
+          ? `Transforma este resumen profesional en un resumen de estilo profesional (máximo 2-3 oraciones).
+
+ORIGINAL: "${text}"
+CONTEXTO: ${context || 'CV Profesional'}
+
+Enfócalo en logros, incluye métricas si es posible, y muestra una propuesta de valor clara. Devuelve SOLO el resumen mejorado EN ESPAÑOL.`
+          : `Transform this professional summary into a professional-style summary (2-3 sentences max).
 
 ORIGINAL: "${text}"
 CONTEXT: ${context || 'Professional CV'}
 
-Make it achievement-focused, include metrics if possible, and show clear value proposition. Return ONLY the improved summary.`;
+Make it achievement-focused, include metrics if possible, and show clear value proposition. Return ONLY the improved summary IN ENGLISH.`;
         break;
       
       case "experience":
-        systemPrompt = `You are a Harvard Career Services advisor. Transform experience descriptions into Harvard-style achievement bullets following OFFICIAL Harvard guidelines.
+        systemPrompt = language === 'es'
+          ? `Eres un asesor de carreras profesional. Transforma descripciones de experiencia en bullets de logros siguiendo directrices profesionales oficiales.
 
-HARVARD CAREER SERVICES OFFICIAL GUIDELINES:
+DIRECTRICES PROFESIONALES OFICIALES:
+
+El Lenguaje del CV Debe Ser:
+- Específico en lugar de general
+- Activo en lugar de pasivo
+- Escrito para expresar no para impresionar
+- Articulado en lugar de "florido"
+- Basado en hechos (cuantificar y calificar)
+- Escrito para personas/sistemas que escanean rápidamente
+
+VERBOS DE ACCIÓN OFICIALES POR CATEGORÍA:
+
+LIDERAZGO: Logré, Alcancé, Administré, Coordiné, Delegué, Dirigí, Ejecuté, Encabecé, Mejoré, Incrementé, Lideré, Organicé, Supervisé, Planifiqué, Produje, Impulsé
+
+COMUNICACIÓN: Me dirigí, Redacté, Colaboré, Convencí, Edité, Formulé, Negocié, Persuadí, Presenté, Promovió, Reporté, Escribí
+
+INVESTIGACIÓN: Analicé, Recopilé, Conduje, Evalué, Examiné, Identifiqué, Investigué, Revisé, Resumí, Probé
+
+TÉCNICO: Construí, Calculé, Diseñé, Desarrollé, Ingenié, Implementé, Instalé, Mantuve, Programé, Resolví, Actualicé
+
+CUANTITATIVO: Asigné, Evalué, Audité, Presupuesté, Pronostiqué, Medí, Proyecté, Reduje
+
+CREATIVO: Conceptualicé, Creé, Diseñé, Ilustré, Inicié, Fui pionero, Visualicé
+
+ORGANIZACIONAL: Catalogué, Documenté, Archivé, Mantuve, Organicé, Preparé, Actualicé
+
+REGLAS CRÍTICAS:
+- SIN pronombres personales (yo, mi, me)
+- SIN abreviaturas
+- Basado en hechos (cuantificar y calificar)
+- Comenzar con verbo de acción fuerte de la lista oficial anterior
+- Incluir métricas específicas e impacto
+- Máximo 2 líneas por bullet
+
+FORMATO: "Verbo de Acción + Tarea + Resultado Cuantificable"
+
+EJEMPLOS:
+✓ "Supervisé equipo de 8 personas para completar proyecto 3 semanas antes de lo programado"
+✓ "Incrementé ingresos por ventas en 25% mediante alcance estratégico a clientes"
+✓ "Analicé datos de más de 500 encuestas para identificar tendencias clave de clientes"
+✗ "Ayudé con proyectos del equipo"
+✗ "Responsable de ventas"`
+          : `You are a professional career advisor. Transform experience descriptions into professional achievement bullets following official guidelines.
+
+OFFICIAL PROFESSIONAL GUIDELINES:
 
 Resume Language Must Be:
 - Specific rather than general
@@ -88,7 +152,7 @@ Resume Language Must Be:
 - Fact-based (quantify and qualify)
 - Written for people/systems that scan quickly
 
-OFFICIAL HARVARD ACTION VERBS BY CATEGORY:
+OFFICIAL ACTION VERBS BY CATEGORY:
 
 LEADERSHIP: Accomplished, Achieved, Administered, Coordinated, Delegated, Directed, Executed, Headed, Improved, Increased, Led, Organized, Oversaw, Planned, Produced, Spearheaded, Supervised
 
@@ -113,29 +177,53 @@ CRITICAL RULES:
 - Focus on ACHIEVEMENTS not responsibilities
 - 1-2 lines maximum
 
-HARVARD EXAMPLES:
+EXAMPLES:
 ❌ BAD: "I was responsible for managing team"
 ✅ GOOD: "Supervised team of 8 to complete project 3 weeks ahead of schedule"
 
 ❌ BAD: "Worked on marketing"  
 ✅ GOOD: "Developed 5 campaigns increasing engagement 40% and generating 200+ leads"`;
 
-        userPrompt = `Transform into Harvard Career Services approved bullet.
+        userPrompt = language === 'es'
+          ? `Transforma este bullet de experiencia en un bullet de logro de estilo profesional oficial.
 
 ORIGINAL: "${text}"
-CONTEXT: ${context || 'Professional experience'}
+CONTEXTO: ${context || 'Experiencia Profesional'}
 
-Return ONLY the improved bullet following Harvard official guidelines: action verb + specific achievement + quantified impact. No pronouns, no abbreviations.`;
+REQUISITOS:
+- Comenzar con verbo de acción fuerte de la lista oficial
+- Incluir métricas específicas e impacto cuantificable
+- Máximo 2 líneas
+- Sin pronombres personales
+- Sin abreviaturas
+- Basado en hechos
+
+Devuelve SOLO el bullet point mejorado EN ESPAÑOL.`
+          : `Transform this experience bullet into an official professional-style achievement bullet.
+
+ORIGINAL: "${text}"
+CONTEXT: ${context || 'Professional Experience'}
+
+REQUIREMENTS:
+- Begin with strong action verb from official list
+- Include specific metrics and quantifiable impact
+- Maximum 2 lines
+- No personal pronouns
+- No abbreviations
+- Fact-based
+
+Return ONLY the improved bullet point IN ENGLISH.`;
         break;
       
       case "education":
-        systemPrompt = "Eres un experto en redacción de secciones educativas para CVs. Mejoras descripciones haciendo énfasis en logros académicos relevantes.";
-        userPrompt = `Mejora esta descripción educativa. Hazla más profesional y destaca logros académicos relevantes.\n\nTexto original:\n${text}`;
-        break;
-      
+      case "general":
       default:
-        systemPrompt = "Eres un experto en redacción profesional. Mejoras textos haciéndolos más claros, concisos y profesionales.";
-        userPrompt = `Mejora este texto profesional:\n\n${text}`;
+        systemPrompt = language === 'es'
+          ? `Eres un experto profesional en redacción de CVs. Mejora el texto para que sea claro, conciso y profesional manteniendo la precisión.`
+          : `You are a professional CV writing expert. Improve the text to be clear, concise, and professional while maintaining accuracy.`;
+        userPrompt = language === 'es'
+          ? `Mejora este texto para un CV profesional:\n\n"${text}"\n\nDevuelve SOLO el texto mejorado EN ESPAÑOL.`
+          : `Improve this text for a professional CV:\n\n"${text}"\n\nReturn ONLY the improved text IN ENGLISH.`;
     }
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
