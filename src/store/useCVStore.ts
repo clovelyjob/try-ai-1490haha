@@ -46,6 +46,7 @@ const createEmptyCV = (userId: string, title: string): CVData => ({
   userId,
   title,
   template: 'harvard',
+  language: 'es',
   personal: {
     fullName: '',
     email: '',
@@ -322,6 +323,7 @@ export const useCVStore = create<CVState>()(
           userId,
           title: 'CV - Analista de Datos',
           template: 'harvard',
+          language: 'es',
           personal: {
             fullName: 'María González',
             title: 'Analista de Datos',

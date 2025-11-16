@@ -407,6 +407,7 @@ export interface CVData {
   userId: string;
   title: string;
   template: CVTemplate;
+  language: 'es' | 'en';
   personal: CVPersonalInfo;
   summary: string;
   education: CVEducation[];
