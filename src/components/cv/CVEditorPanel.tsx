@@ -77,6 +77,39 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
   return (
     <div className="space-y-4">
+      {/* Language Selector */}
+      <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-200 dark:border-blue-800">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="text-2xl">🌐</div>
+            <div>
+              <h3 className="font-bold text-foreground">Idioma del CV</h3>
+              <p className="text-xs text-muted-foreground">
+                Cambia el idioma de las secciones del CV
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant={cv.language === 'es' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => onUpdate({ language: 'es' })}
+              className="gap-2"
+            >
+              🇪🇸 Español
+            </Button>
+            <Button
+              variant={cv.language === 'en' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => onUpdate({ language: 'en' })}
+              className="gap-2"
+            >
+              🇬🇧 English
+            </Button>
+          </div>
+        </div>
+      </Card>
+
       {/* Guías Profesionales para CV */}
       <div className="mb-4 p-4 bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/20 rounded-lg">
         <div className="flex items-start gap-3">

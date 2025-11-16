@@ -7,6 +7,33 @@ interface CVPreviewPanelProps {
 }
 
 const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, ref) => {
+  const lang = cv.language || 'es';
+  
+  const translations = {
+    es: {
+      education: 'EDUCACIÓN',
+      experience: 'EXPERIENCIA',
+      leadership: 'LIDERAZGO Y ACTIVIDADES',
+      skills: 'HABILIDADES E INTERESES',
+      technicalSkills: 'Habilidades Técnicas',
+      languages: 'Idiomas',
+      certifications: 'CERTIFICACIONES Y PREMIOS',
+      technologies: 'Tecnologías'
+    },
+    en: {
+      education: 'EDUCATION',
+      experience: 'EXPERIENCE',
+      leadership: 'LEADERSHIP & ACTIVITIES',
+      skills: 'SKILLS & INTERESTS',
+      technicalSkills: 'Technical Skills',
+      languages: 'Languages',
+      certifications: 'CERTIFICATIONS & AWARDS',
+      technologies: 'Technologies'
+    }
+  };
+
+  const t = translations[lang];
+
   return (
     <div 
       ref={ref} 
@@ -37,7 +64,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Education comes FIRST after header */}
       {cv.education.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">EDUCACIÓN</h2>
+          <h2 className="mb-3">{t.education}</h2>
           {cv.education.map((edu, index) => (
             <div key={edu.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
               {/* Format: Institution name bold on left, dates on right */}
@@ -63,7 +90,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Experience with strong action verbs */}
       {cv.experience.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">EXPERIENCIA</h2>
+          <h2 className="mb-3">{t.experience}</h2>
           {cv.experience.map((exp, index) => (
             <div key={exp.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
               <div className="flex justify-between items-baseline mb-1">
@@ -92,7 +119,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Leadership & Activities */}
       {cv.projects.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">LIDERAZGO Y ACTIVIDADES</h2>
+          <h2 className="mb-3">{t.leadership}</h2>
           {cv.projects.map((project, index) => (
             <div key={project.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
               <h3 className="mb-1">{project.title}</h3>
@@ -102,7 +129,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
               )}
               {project.technologies && project.technologies.length > 0 && (
                 <p className="text-[10pt] mt-1 text-secondary">
-                  <span className="italic">Technologies:</span> {project.technologies.join(', ')}
+                  <span className="italic">{t.technologies}:</span> {project.technologies.join(', ')}
                 </p>
               )}
             </div>
@@ -113,10 +140,10 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Skills & Interests combined section */}
       {(cv.skills.length > 0 || cv.languages.length > 0) && (
         <div className="mb-5">
-          <h2 className="mb-3">HABILIDADES E INTERESES</h2>
+          <h2 className="mb-3">{t.skills}</h2>
           {cv.skills.length > 0 && (
             <div className="mb-2">
-              <span className="font-semibold">Habilidades Técnicas: </span>
+              <span className="font-semibold">{t.technicalSkills}: </span>
               <span className="text-[10.5pt]">
                 {cv.skills.map(skill => skill.name).join(', ')}
               </span>
@@ -124,7 +151,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
           )}
           {cv.languages.length > 0 && (
             <div className="mb-2">
-              <span className="font-semibold">Idiomas: </span>
+              <span className="font-semibold">{t.languages}: </span>
               <span className="text-[10.5pt]">
                 {cv.languages.map(lang => `${lang.name} (${lang.level})`).join(', ')}
               </span>
@@ -136,7 +163,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Certifications - Optional section */}
       {cv.certifications.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">CERTIFICACIONES Y PREMIOS</h2>
+          <h2 className="mb-3">{t.certifications}</h2>
           <ul className="list-none pl-0 space-y-1">
             {cv.certifications.map((cert) => (
               <li key={cert.id} className="text-[10.5pt] leading-relaxed">

@@ -36,6 +36,7 @@ export function useDataPersistence() {
           userId: cv.user_id,
           title: cv.nombre_cv,
           template: cv.template as any || 'harvard',
+          language: 'es',
           personal: cv.info_personal as any || {},
           summary: cv.resumen || '',
           education: cv.educacion as any || [],
