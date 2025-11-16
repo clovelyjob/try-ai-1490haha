@@ -174,6 +174,42 @@ const Landing = () => {
             y te conecta con oportunidades alineadas a tu propósito
           </p>
           
+          {/* Hero Video */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="relative max-w-4xl mx-auto px-4 sm:px-6 mt-8 sm:mt-10 mb-8 sm:mb-10"
+          >
+            <div className="relative rounded-2xl overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:border-primary/50 transition-all duration-500 group">
+              {/* Glow effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-primary/50 to-primary opacity-30 blur-xl group-hover:opacity-50 transition-opacity duration-500" />
+              
+              {/* Video container */}
+              <div className="relative bg-background/50 backdrop-blur-sm">
+                <video 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  className="w-full h-auto rounded-xl"
+                  poster="/clovely-logo.png"
+                >
+                  <source src="/clovely-hero-video.mp4" type="video/mp4" />
+                  Tu navegador no soporta el video.
+                </video>
+              </div>
+
+              {/* Decorative gradient overlay */}
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-background/30 via-transparent to-transparent" />
+              
+              {/* Animated border gradient */}
+              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-pulse" />
+              </div>
+            </div>
+          </motion.div>
+          
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4 sm:px-0">
             <Link to="/guest-start" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 min-h-[48px] sm:min-h-[52px] gradient-orange text-white hover-lift hover-glow hover:shadow-2xl transition-all duration-300">
