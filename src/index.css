@@ -73,6 +73,12 @@
     --sidebar-accent-foreground: 0 0% 15%;
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 100% 50%;
+    
+    /* Harvard CV Specific */
+    --harvard-text: 0 0% 0%; /* Pure black #000000 */
+    --harvard-text-secondary: 0 0% 33%; /* Gray #555555 */
+    --harvard-bg: 0 0% 100%; /* Pure white */
+    --harvard-border: 0 0% 0%; /* Black borders */
   }
 
   .dark {
@@ -153,6 +159,85 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
+  }
+  
+  /* Harvard CV Typography - Professional Serif */
+  .harvard-cv {
+    font-family: 'EB Garamond', 'Crimson Text', 'Georgia', 'Times New Roman', serif;
+    color: #000000;
+    background: #ffffff;
+    line-height: 1.4;
+    font-size: 11pt;
+  }
+  
+  .harvard-cv h1 {
+    font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: #000000;
+  }
+  
+  .harvard-cv h2 {
+    font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid #000000;
+    color: #000000;
+  }
+  
+  .harvard-cv h3 {
+    font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+    font-size: 11pt;
+    font-weight: 600;
+    margin: 0;
+    color: #000000;
+  }
+  
+  .harvard-cv p,
+  .harvard-cv li,
+  .harvard-cv span {
+    font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.4;
+    color: #000000;
+  }
+  
+  .harvard-cv .text-secondary {
+    color: #555555;
+  }
+  
+  /* Harvard CV Layout - A4 with Harvard standard margins */
+  .harvard-cv-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 0.75in;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 0 auto;
+  }
+  
+  @media print {
+    .harvard-cv-page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 0.75in;
+      box-shadow: none;
+      page-break-after: always;
+    }
+    
+    .harvard-cv h2 {
+      page-break-after: avoid;
+    }
+    
+    .harvard-cv .section-item {
+      page-break-inside: avoid;
+    }
   }
 }
 

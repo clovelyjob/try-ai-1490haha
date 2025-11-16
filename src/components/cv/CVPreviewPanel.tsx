@@ -1,7 +1,5 @@
 import { forwardRef } from 'react';
 import { CVData } from '@/types';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, MapPin, Linkedin, Github, Globe } from 'lucide-react';
 
 interface CVPreviewPanelProps {
@@ -9,221 +7,179 @@ interface CVPreviewPanelProps {
 }
 
 const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, ref) => {
-  const templateStyles = {
-    harvard: 'bg-white text-gray-900',
-    modern: 'bg-gradient-to-br from-blue-50 to-white text-gray-900',
-    minimal: 'bg-white text-gray-900',
-    creative: 'bg-gradient-to-br from-purple-50 to-white text-gray-900',
-  };
-
   return (
-    <Card 
+    <div 
       ref={ref} 
-      className={`p-8 shadow-xl ${templateStyles[cv.template]} min-h-[297mm] print:shadow-none print:min-h-0 print:break-inside-avoid`}
+      className="harvard-cv harvard-cv-page"
     >
-      {/* Header */}
-      <div className="border-b-2 border-gray-800 pb-4 mb-6">
-        <h1 className="text-3xl font-bold mb-1">{cv.personal.fullName || 'Tu Nombre'}</h1>
-        {cv.personal.title && (
-          <h2 className="text-xl text-gray-600 mb-3">{cv.personal.title}</h2>
-        )}
+      {/* Header - Name centered, contact info below */}
+      <div className="text-center mb-6">
+        <h1 className="mb-3">
+          {cv.personal.fullName || 'YOUR NAME'}
+        </h1>
         
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-700">
+        {/* Contact Information - Single line, centered */}
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[10pt]">
           {cv.personal.email && (
-            <div className="flex items-center gap-1">
-              <Mail className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <Mail className="h-3 w-3 inline" />
               {cv.personal.email}
-            </div>
+            </span>
           )}
           {cv.personal.phone && (
-            <div className="flex items-center gap-1">
-              <Phone className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <Phone className="h-3 w-3 inline" />
               {cv.personal.phone}
-            </div>
+            </span>
           )}
           {cv.personal.location && (
-            <div className="flex items-center gap-1">
-              <MapPin className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <MapPin className="h-3 w-3 inline" />
               {cv.personal.location}
-            </div>
+            </span>
           )}
-        </div>
-        
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-700 mt-1">
           {cv.personal.linkedin && (
-            <div className="flex items-center gap-1">
-              <Linkedin className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <Linkedin className="h-3 w-3 inline" />
               {cv.personal.linkedin}
-            </div>
+            </span>
           )}
           {cv.personal.github && (
-            <div className="flex items-center gap-1">
-              <Github className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <Github className="h-3 w-3 inline" />
               {cv.personal.github}
-            </div>
+            </span>
           )}
           {cv.personal.website && (
-            <div className="flex items-center gap-1">
-              <Globe className="h-3 w-3" />
+            <span className="flex items-center gap-1">
+              <Globe className="h-3 w-3 inline" />
               {cv.personal.website}
-            </div>
+            </span>
           )}
         </div>
       </div>
 
-      {/* Summary */}
-      {cv.summary && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-2 text-gray-800">RESUMEN PROFESIONAL</h3>
-          <p className="text-sm text-gray-700 leading-relaxed">{cv.summary}</p>
-        </div>
-      )}
-
-      {/* Education */}
+      {/* Education - Harvard style: comes FIRST */}
       {cv.education.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">FORMACIÓN ACADÉMICA</h3>
-          {cv.education.map((edu) => (
-            <div key={edu.id} className="mb-3">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-semibold text-gray-900">{edu.degree} en {edu.field}</h4>
-                  <p className="text-sm text-gray-700">{edu.institution}</p>
-                </div>
-                <div className="text-sm text-gray-600 text-right">
-                  {edu.startDate && new Date(edu.startDate).getFullYear()}
-                  {edu.endDate && ` - ${new Date(edu.endDate).getFullYear()}`}
-                </div>
+        <div className="mb-5">
+          <h2 className="mb-3">EDUCATION</h2>
+          {cv.education.map((edu, index) => (
+            <div key={edu.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
+              <div className="flex justify-between items-baseline mb-1">
+                <h3>{edu.institution}</h3>
+                <span className="text-[10pt]">
+                  {edu.startDate && new Date(edu.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  {edu.endDate && ` – ${new Date(edu.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`}
+                </span>
               </div>
-              {edu.gpa && <p className="text-sm text-gray-600">GPA: {edu.gpa}</p>}
+              <p className="italic mb-0">
+                {edu.degree} in {edu.field}
+                {edu.gpa && `, GPA: ${edu.gpa}`}
+              </p>
               {edu.description && (
-                <p className="text-sm text-gray-700 mt-1">{edu.description}</p>
+                <p className="mt-1 text-[10pt]">{edu.description}</p>
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Experience */}
+      {/* Experience - Harvard style with strong action verbs */}
       {cv.experience.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">EXPERIENCIA LABORAL</h3>
-          {cv.experience.map((exp) => (
-            <div key={exp.id} className="mb-4">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-semibold text-gray-900">{exp.role}</h4>
-                  <p className="text-sm text-gray-700">{exp.company}</p>
-                  {exp.location && <p className="text-xs text-gray-600">{exp.location}</p>}
-                </div>
-                <div className="text-sm text-gray-600 text-right">
-                  {exp.startDate && new Date(exp.startDate).getFullYear()}
-                  {exp.current ? ' - Presente' : exp.endDate ? ` - ${new Date(exp.endDate).getFullYear()}` : ''}
-                </div>
+        <div className="mb-5">
+          <h2 className="mb-3">EXPERIENCE</h2>
+          {cv.experience.map((exp, index) => (
+            <div key={exp.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
+              <div className="flex justify-between items-baseline mb-1">
+                <h3>{exp.company}</h3>
+                <span className="text-[10pt]">
+                  {exp.startDate && new Date(exp.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  {exp.current ? ' – Present' : exp.endDate ? ` – ${new Date(exp.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}` : ''}
+                </span>
               </div>
+              <p className="italic mb-2">{exp.role}</p>
               {exp.bullets.length > 0 && (
-                <ul className="list-disc list-inside mt-2 space-y-1">
+                <ul className="list-none pl-0 space-y-1">
                   {exp.bullets.map((bullet, idx) => (
-                    <li key={idx} className="text-sm text-gray-700">
+                    <li key={idx} className="text-[10.5pt] leading-relaxed">
+                      <span className="inline-block mr-2">•</span>
                       {bullet.text}
-                      {bullet.metric && (
-                        <span className="font-semibold text-gray-900"> ({bullet.metric})</span>
-                      )}
                     </li>
                   ))}
                 </ul>
               )}
-              {exp.technologies && exp.technologies.length > 0 && (
-                <div className="flex gap-1 mt-2 flex-wrap">
-                  {exp.technologies.map((tech, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Projects */}
+      {/* Leadership & Activities */}
       {cv.projects.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">PROYECTOS DESTACADOS</h3>
-          {cv.projects.map((proj) => (
-            <div key={proj.id} className="mb-3">
-              <h4 className="font-semibold text-gray-900">{proj.title}</h4>
-              {proj.role && <p className="text-sm text-gray-600">{proj.role}</p>}
-              <p className="text-sm text-gray-700 mt-1">{proj.description}</p>
-              {proj.technologies.length > 0 && (
-                <div className="flex gap-1 mt-1 flex-wrap">
-                  {proj.technologies.map((tech, idx) => (
-                    <Badge key={idx} variant="outline" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+        <div className="mb-5">
+          <h2 className="mb-3">LEADERSHIP & ACTIVITIES</h2>
+          {cv.projects.map((project, index) => (
+            <div key={project.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
+              <h3 className="mb-1">{project.title}</h3>
+              {project.role && <p className="italic mb-1">{project.role}</p>}
+              {project.description && (
+                <p className="text-[10.5pt] leading-relaxed">{project.description}</p>
+              )}
+              {project.technologies && project.technologies.length > 0 && (
+                <p className="text-[10pt] mt-1 text-secondary">
+                  <span className="italic">Technologies:</span> {project.technologies.join(', ')}
+                </p>
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Skills */}
-      {cv.skills.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">HABILIDADES</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {cv.skills.map((skill, idx) => (
-              <div key={idx} className="flex justify-between text-sm">
-                <span className="text-gray-700">{skill.name}</span>
-                <span className="text-gray-600 capitalize">{skill.level}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Languages */}
-      {cv.languages.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">IDIOMAS</h3>
-          <div className="flex gap-4 flex-wrap">
-            {cv.languages.map((lang, idx) => (
-              <div key={idx} className="text-sm text-gray-700">
-                <span className="font-medium">{lang.name}</span> - {lang.level}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Certifications */}
-      {cv.certifications.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-lg font-bold mb-3 text-gray-800">CERTIFICACIONES</h3>
-          {cv.certifications.map((cert) => (
-            <div key={cert.id} className="mb-2">
-              <h4 className="font-semibold text-sm text-gray-900">{cert.name}</h4>
-              <p className="text-sm text-gray-700">
-                {cert.institution} • {new Date(cert.date).getFullYear()}
-              </p>
+      {/* Skills & Interests - Harvard style: combined section */}
+      {(cv.skills.length > 0 || cv.languages.length > 0) && (
+        <div className="mb-5">
+          <h2 className="mb-3">SKILLS & INTERESTS</h2>
+          {cv.skills.length > 0 && (
+            <div className="mb-2">
+              <span className="font-semibold">Technical Skills: </span>
+              <span className="text-[10.5pt]">
+                {cv.skills.map(skill => skill.name).join(', ')}
+              </span>
             </div>
-          ))}
+          )}
+          {cv.languages.length > 0 && (
+            <div className="mb-2">
+              <span className="font-semibold">Languages: </span>
+              <span className="text-[10.5pt]">
+                {cv.languages.map(lang => `${lang.name} (${lang.level})`).join(', ')}
+              </span>
+            </div>
+          )}
+          {cv.summary && (
+            <div>
+              <span className="font-semibold">Interests: </span>
+              <span className="text-[10.5pt]">{cv.summary}</span>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Score Badge */}
-      <div className="mt-8 pt-4 border-t border-gray-300">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-500">CV Score</span>
-          <Badge variant={cv.score.overall >= 75 ? 'default' : 'secondary'}>
-            {cv.score.overall}%
-          </Badge>
+      {/* Certifications - Optional section */}
+      {cv.certifications.length > 0 && (
+        <div className="mb-5">
+          <h2 className="mb-3">CERTIFICATIONS & AWARDS</h2>
+          <ul className="list-none pl-0 space-y-1">
+            {cv.certifications.map((cert) => (
+              <li key={cert.id} className="text-[10.5pt] leading-relaxed">
+                <span className="inline-block mr-2">•</span>
+                <span className="font-semibold">{cert.name}</span>
+                {cert.institution && `, ${cert.institution}`}
+                {cert.date && ` (${new Date(cert.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })})`}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </Card>
+      )}
+    </div>
   );
 });
 
