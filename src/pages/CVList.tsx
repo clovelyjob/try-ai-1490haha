@@ -49,7 +49,7 @@ export default function CVList() {
 
   const getTemplateLabel = (template: string) => {
     const labels: Record<string, string> = {
-      harvard: 'Harvard',
+      harvard: 'Profesional',
       modern: 'Moderno',
       minimal: 'Minimal',
       creative: 'Creativo',

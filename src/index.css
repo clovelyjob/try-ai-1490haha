@@ -74,7 +74,7 @@
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 100% 50%;
     
-    /* Harvard CV Specific */
+    /* Professional CV Specific */
     --harvard-text: 0 0% 0%; /* Pure black #000000 */
     --harvard-text-secondary: 0 0% 33%; /* Gray #555555 */
     --harvard-bg: 0 0% 100%; /* Pure white */
@@ -161,7 +161,7 @@
     @apply font-heading;
   }
   
-  /* Harvard CV Typography - Professional Serif */
+  /* Professional CV Typography - Serif */
   .harvard-cv {
     font-family: 'EB Garamond', 'Crimson Text', 'Georgia', 'Times New Roman', serif;
     color: #000000;
@@ -212,7 +212,7 @@
     color: #555555;
   }
   
-  /* Harvard CV Layout - A4 with Harvard standard margins */
+  /* Professional CV Layout - A4 with standard margins */
   .harvard-cv-page {
     width: 210mm;
     min-height: 297mm;
