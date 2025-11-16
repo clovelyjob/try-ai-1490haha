@@ -12,13 +12,13 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       ref={ref} 
       className="harvard-cv harvard-cv-page"
     >
-      {/* Header - Harvard Official Format: Name centered, contact below */}
+      {/* Header: Name centered, contact below */}
       <div className="text-center mb-6">
         <h1 className="mb-2">
           {cv.personal.fullName || 'YOUR NAME'}
         </h1>
         
-        {/* Contact Information - Harvard format: Single line, centered, no icons per guidelines */}
+        {/* Contact Information: Single line, centered, no icons */}
         <div className="flex flex-wrap justify-center gap-x-2 text-[10pt] leading-tight">
           {cv.personal.email && <span>{cv.personal.email}</span>}
           {cv.personal.email && cv.personal.phone && <span>•</span>}
@@ -34,20 +34,20 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
         </div>
       </div>
 
-      {/* Education - Harvard style: comes FIRST after header */}
+      {/* Education comes FIRST after header */}
       {cv.education.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">EDUCATION</h2>
+          <h2 className="mb-3">EDUCACIÓN</h2>
           {cv.education.map((edu, index) => (
             <div key={edu.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
-              {/* Harvard format: Institution name bold on left, dates on right */}
+              {/* Format: Institution name bold on left, dates on right */}
               <div className="flex justify-between items-baseline mb-0.5">
                 <h3>{edu.institution}</h3>
                 <span className="text-[10pt]">
                   {edu.endDate ? new Date(edu.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Expected ' + (edu.startDate ? new Date(edu.startDate).getFullYear() : '')}
                 </span>
               </div>
-              {/* Harvard format: Degree in italics */}
+              {/* Degree in italics */}
               <p className="italic mb-0">
                 {edu.degree}{edu.field ? ` in ${edu.field}` : ''}
                 {edu.gpa && parseFloat(edu.gpa) >= 3.5 && `, GPA: ${edu.gpa}`}
@@ -60,10 +60,10 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
         </div>
       )}
 
-      {/* Experience - Harvard style with strong action verbs */}
+      {/* Experience with strong action verbs */}
       {cv.experience.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">EXPERIENCE</h2>
+          <h2 className="mb-3">EXPERIENCIA</h2>
           {cv.experience.map((exp, index) => (
             <div key={exp.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
               <div className="flex justify-between items-baseline mb-1">
@@ -92,7 +92,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Leadership & Activities */}
       {cv.projects.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">LEADERSHIP & ACTIVITIES</h2>
+          <h2 className="mb-3">LIDERAZGO Y ACTIVIDADES</h2>
           {cv.projects.map((project, index) => (
             <div key={project.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
               <h3 className="mb-1">{project.title}</h3>
@@ -110,13 +110,13 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
         </div>
       )}
 
-      {/* Skills & Interests - Harvard style: combined section */}
+      {/* Skills & Interests combined section */}
       {(cv.skills.length > 0 || cv.languages.length > 0) && (
         <div className="mb-5">
-          <h2 className="mb-3">SKILLS & INTERESTS</h2>
+          <h2 className="mb-3">HABILIDADES E INTERESES</h2>
           {cv.skills.length > 0 && (
             <div className="mb-2">
-              <span className="font-semibold">Technical Skills: </span>
+              <span className="font-semibold">Habilidades Técnicas: </span>
               <span className="text-[10.5pt]">
                 {cv.skills.map(skill => skill.name).join(', ')}
               </span>
@@ -124,16 +124,10 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
           )}
           {cv.languages.length > 0 && (
             <div className="mb-2">
-              <span className="font-semibold">Languages: </span>
+              <span className="font-semibold">Idiomas: </span>
               <span className="text-[10.5pt]">
                 {cv.languages.map(lang => `${lang.name} (${lang.level})`).join(', ')}
               </span>
-            </div>
-          )}
-          {cv.summary && (
-            <div>
-              <span className="font-semibold">Interests: </span>
-              <span className="text-[10.5pt]">{cv.summary}</span>
             </div>
           )}
         </div>
@@ -142,7 +136,7 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       {/* Certifications - Optional section */}
       {cv.certifications.length > 0 && (
         <div className="mb-5">
-          <h2 className="mb-3">CERTIFICATIONS & AWARDS</h2>
+          <h2 className="mb-3">CERTIFICACIONES Y PREMIOS</h2>
           <ul className="list-none pl-0 space-y-1">
             {cv.certifications.map((cert) => (
               <li key={cert.id} className="text-[10.5pt] leading-relaxed">

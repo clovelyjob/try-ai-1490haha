@@ -77,38 +77,38 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
   return (
     <div className="space-y-4">
-      {/* Harvard Career Services Official Banner */}
-      <div className="mb-4 p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/30 dark:to-red-900/30 border-2 border-red-200 dark:border-red-800 rounded-lg">
+      {/* Guías Profesionales para CV */}
+      <div className="mb-4 p-4 bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/20 rounded-lg">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">🎓</div>
+          <div className="text-2xl">📝</div>
           <div className="flex-1">
-            <h3 className="font-bold text-red-900 dark:text-red-100 mb-1">Harvard Career Services Official Guidelines</h3>
-            <p className="text-xs text-red-800 dark:text-red-200 mb-2">
-              This CV builder follows the official Harvard University Career Services resume format and guidelines
+            <h3 className="font-bold text-foreground mb-1">Guías Profesionales para tu CV</h3>
+            <p className="text-xs text-muted-foreground mb-2">
+              Este constructor sigue las mejores prácticas profesionales para CVs efectivos
             </p>
             <div className="grid grid-cols-2 gap-2 text-[10px]">
-              <div className="bg-white/50 dark:bg-black/20 p-2 rounded">
-                <span className="font-semibold text-red-900 dark:text-red-100">✓ Specific</span>
-                <span className="text-red-700 dark:text-red-300"> not general</span>
+              <div className="bg-background/50 p-2 rounded">
+                <span className="font-semibold text-foreground">✓ Específico</span>
+                <span className="text-muted-foreground"> no general</span>
               </div>
-              <div className="bg-white/50 dark:bg-black/20 p-2 rounded">
-                <span className="font-semibold text-red-900 dark:text-red-100">✓ Active</span>
-                <span className="text-red-700 dark:text-red-300"> not passive</span>
+              <div className="bg-background/50 p-2 rounded">
+                <span className="font-semibold text-foreground">✓ Activo</span>
+                <span className="text-muted-foreground"> no pasivo</span>
               </div>
-              <div className="bg-white/50 dark:bg-black/20 p-2 rounded">
-                <span className="font-semibold text-red-900 dark:text-red-100">✓ Fact-based</span>
-                <span className="text-red-700 dark:text-red-300"> (quantify!)</span>
+              <div className="bg-background/50 p-2 rounded">
+                <span className="font-semibold text-foreground">✓ Basado en hechos</span>
+                <span className="text-muted-foreground"> (¡cuantifica!)</span>
               </div>
-              <div className="bg-white/50 dark:bg-black/20 p-2 rounded">
-                <span className="font-semibold text-red-900 dark:text-red-100">✓ Easy to scan</span>
-                <span className="text-red-700 dark:text-red-300"> quickly</span>
+              <div className="bg-background/50 p-2 rounded">
+                <span className="font-semibold text-foreground">✓ Fácil de escanear</span>
+                <span className="text-muted-foreground"> rápidamente</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <Accordion type="multiple" defaultValue={['personal', 'summary']} className="space-y-4">
+      <Accordion type="multiple" defaultValue={['personal']} className="space-y-4">
         {/* Información Personal */}
         <AccordionItem value="personal">
           <Card>
@@ -228,61 +228,6 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
           </Card>
         </AccordionItem>
 
-        {/* Resumen Profesional */}
-        <AccordionItem value="summary">
-          <Card>
-            <AccordionTrigger className="px-6 py-4 hover:no-underline">
-              <span className="font-semibold">Resumen Profesional</span>
-            </AccordionTrigger>
-            <AccordionContent className="px-6 pb-6">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between mb-2">
-                  <Label>Resumen (50-500 caracteres)</Label>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleImproveSummary}
-                    disabled={isAILoading || improvingField === 'summary'}
-                    className="gap-2"
-                  >
-                    <Sparkles className="h-3 w-3" />
-                    {improvingField === 'summary' ? 'Mejorando...' : 'Mejorar con IA'}
-                  </Button>
-                </div>
-                
-                {/* Harvard Official Summary Guidelines */}
-                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-md text-xs space-y-2">
-                  <p className="font-bold text-blue-900 dark:text-blue-100">📝 Harvard Career Services: Summary Guidelines</p>
-                  <div className="text-blue-800 dark:text-blue-200 space-y-1">
-                    <p className="font-semibold">A resume summary should highlight your:</p>
-                    <ul className="list-disc list-inside text-[10px] space-y-0.5 ml-2">
-                      <li>Strongest assets and skills</li>
-                      <li>Abilities that differentiate you from others</li>
-                      <li>Quantified achievements and results</li>
-                    </ul>
-                  </div>
-                  <p className="text-blue-700 dark:text-blue-300 italic text-[10px]">
-                    Example: "Biomedical Engineering student with research experience in neural networks. Developed algorithm improving detection accuracy by 25%. Passionate about applying ML to healthcare challenges."
-                  </p>
-                  <p className="text-[10px] text-blue-600 dark:text-blue-400 font-medium">
-                    ⚠️ Be specific • Active voice • Fact-based • No pronouns (I, We, My)
-                  </p>
-                </div>
-                
-                <Textarea
-                  value={cv.summary}
-                  onChange={(e) => onUpdate({ summary: e.target.value })}
-                  placeholder="Results-driven professional with X years of experience. Achieved Y by doing Z. Passionate about..."
-                  rows={4}
-                  maxLength={500}
-                />
-                <div className="text-xs text-muted-foreground text-right">
-                  {cv.summary.length}/500 caracteres
-                </div>
-              </div>
-            </AccordionContent>
-          </Card>
-        </AccordionItem>
 
         {/* Experiencia Laboral */}
         <AccordionItem value="experience">
@@ -291,15 +236,15 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               <span className="font-semibold">Experiencia Laboral ({cv.experience.length})</span>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
-              {/* Harvard Experience Guidelines */}
+              {/* Guías para Experiencia */}
               <div className="mb-4 p-3 bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-md text-xs">
-                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Harvard Top 5 Resume Mistakes to Avoid:</p>
+                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Top 5 Errores de CV a Evitar:</p>
                 <ol className="list-decimal list-inside text-[10px] text-purple-800 dark:text-purple-200 space-y-0.5 ml-2">
-                  <li>Spelling and grammar errors</li>
-                  <li>Missing email and phone information</li>
-                  <li>Using passive language instead of "action" words</li>
-                  <li>Not well organized, concise, or easy to skim</li>
-                  <li>Not demonstrating results (no quantification)</li>
+                  <li>Errores ortográficos y gramaticales</li>
+                  <li>Falta de email y teléfono</li>
+                  <li>Usar lenguaje pasivo en lugar de verbos de acción</li>
+                  <li>Mala organización, poco conciso o difícil de leer</li>
+                  <li>No demostrar resultados (sin cuantificación)</li>
                 </ol>
               </div>
               
@@ -414,32 +359,32 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         <div className="flex items-center justify-between mb-2">
                           <Label>Logros y responsabilidades</Label>
                           <div className="text-xs text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-md border border-border">
-                            <span className="font-semibold">Harvard Tips:</span> Start with action verbs (Led, Managed, Developed) + Add metrics
+                            <span className="font-semibold">Consejo:</span> Empieza con verbos de acción (Lideré, Gestioné, Desarrollé) + Métricas
                           </div>
                         </div>
                         
-                        {/* Harvard Official Guidelines */}
+                        {/* Guías Oficiales */}
                         <div className="mb-3 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-md text-xs space-y-2">
-                          <p className="font-bold text-amber-900 dark:text-amber-100">📋 Harvard Career Services Official Format:</p>
+                          <p className="font-bold text-amber-900 dark:text-amber-100">📋 Formato Profesional:</p>
                           <div className="space-y-1">
                             <p className="text-amber-800 dark:text-amber-200">
-                              <span className="font-semibold">Action Verb</span> + Specific achievement + <span className="font-semibold">Quantified impact</span>
+                              <span className="font-semibold">Verbo de Acción</span> + Logro específico + <span className="font-semibold">Impacto cuantificado</span>
                             </p>
                             <p className="text-amber-700 dark:text-amber-300 italic text-[10px]">
-                              "Supervised team of 8 to complete project 3 weeks ahead of schedule"
+                              "Supervisé equipo de 8 para completar proyecto 3 semanas antes de lo programado"
                             </p>
                           </div>
                           <div className="border-t border-amber-300 dark:border-amber-700 pt-2">
-                            <p className="font-semibold text-amber-900 dark:text-amber-100 mb-1">Harvard Action Verbs:</p>
+                            <p className="font-semibold text-amber-900 dark:text-amber-100 mb-1">Verbos de Acción por Categoría:</p>
                             <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-[10px] text-amber-700 dark:text-amber-300">
-                              <div><span className="font-semibold">Leadership:</span> Led, Directed, Managed</div>
-                              <div><span className="font-semibold">Technical:</span> Designed, Built, Engineered</div>
-                              <div><span className="font-semibold">Communication:</span> Presented, Authored</div>
-                              <div><span className="font-semibold">Quantitative:</span> Analyzed, Forecasted</div>
+                              <div><span className="font-semibold">Liderazgo:</span> Lideré, Dirigí, Gestioné</div>
+                              <div><span className="font-semibold">Técnico:</span> Diseñé, Construí, Desarrollé</div>
+                              <div><span className="font-semibold">Comunicación:</span> Presenté, Redacté</div>
+                              <div><span className="font-semibold">Cuantitativo:</span> Analicé, Pronostiqué</div>
                             </div>
                           </div>
                           <p className="text-[10px] text-amber-600 dark:text-amber-400 mt-1 font-medium">
-                            ⚠️ NO pronouns (I, We) • NO abbreviations • Be specific not general
+                            ⚠️ SIN pronombres (Yo, Nosotros) • SIN abreviaturas • Sé específico no general
                           </p>
                         </div>
 
@@ -468,7 +413,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                               size="icon"
                               onClick={() => handleImproveBullet(exp.id, bIndex, bullet.text)}
                               disabled={isAILoading || improvingField === `exp-${exp.id}-${bIndex}`}
-                              title="Transform to Harvard-style bullet with AI"
+                              title="Transformar a bullet profesional con IA"
                               className="shrink-0"
                             >
                               {improvingField === `exp-${exp.id}-${bIndex}` ? (
@@ -546,15 +491,15 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               <span className="font-semibold">Formación Académica ({cv.education.length})</span>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
-              {/* Harvard Education Guidelines */}
+              {/* Guías de Educación */}
               <div className="mb-4 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-md text-xs">
-                <p className="font-bold text-green-900 dark:text-green-100 mb-1">🎓 Harvard Guidelines - Education Section:</p>
+                <p className="font-bold text-green-900 dark:text-green-100 mb-1">🎓 Guías - Sección de Educación:</p>
                 <ul className="list-disc list-inside text-[10px] text-green-800 dark:text-green-200 space-y-0.5">
-                  <li>List in reverse chronological order (most recent first)</li>
-                  <li>Include: Institution, Degree, Field, Graduation Date</li>
-                  <li>GPA: Only include if ≥ 3.5/4.0 or required by employer</li>
-                  <li>Can include: Relevant coursework, honors, thesis title</li>
-                  <li>Study abroad experiences can be listed here</li>
+                  <li>Lista en orden cronológico inverso (más reciente primero)</li>
+                  <li>Incluye: Institución, Título, Campo, Fecha de Graduación</li>
+                  <li>GPA: Solo incluye si es ≥ 3.5/4.0 o lo requiere el empleador</li>
+                  <li>Puedes incluir: Cursos relevantes, honores, título de tesis</li>
+                  <li>Experiencias de intercambio se pueden listar aquí</li>
                 </ul>
               </div>
               
@@ -630,7 +575,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                             placeholder="3.8/4.0"
                           />
                           <p className="text-xs text-muted-foreground mt-1">
-                            💡 Harvard tip: Only include if ≥ 3.5/4.0
+                            💡 Consejo: Solo incluye si es ≥ 3.5/4.0
                           </p>
                         </div>
                       </div>
