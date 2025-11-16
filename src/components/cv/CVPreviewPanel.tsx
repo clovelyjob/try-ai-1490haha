@@ -12,69 +12,45 @@ const CVPreviewPanel = forwardRef<HTMLDivElement, CVPreviewPanelProps>(({ cv }, 
       ref={ref} 
       className="harvard-cv harvard-cv-page"
     >
-      {/* Header - Name centered, contact info below */}
+      {/* Header - Harvard Official Format: Name centered, contact below */}
       <div className="text-center mb-6">
-        <h1 className="mb-3">
+        <h1 className="mb-2">
           {cv.personal.fullName || 'YOUR NAME'}
         </h1>
         
-        {/* Contact Information - Single line, centered */}
-        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[10pt]">
-          {cv.personal.email && (
-            <span className="flex items-center gap-1">
-              <Mail className="h-3 w-3 inline" />
-              {cv.personal.email}
-            </span>
-          )}
-          {cv.personal.phone && (
-            <span className="flex items-center gap-1">
-              <Phone className="h-3 w-3 inline" />
-              {cv.personal.phone}
-            </span>
-          )}
-          {cv.personal.location && (
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3 w-3 inline" />
-              {cv.personal.location}
-            </span>
-          )}
-          {cv.personal.linkedin && (
-            <span className="flex items-center gap-1">
-              <Linkedin className="h-3 w-3 inline" />
-              {cv.personal.linkedin}
-            </span>
-          )}
-          {cv.personal.github && (
-            <span className="flex items-center gap-1">
-              <Github className="h-3 w-3 inline" />
-              {cv.personal.github}
-            </span>
-          )}
-          {cv.personal.website && (
-            <span className="flex items-center gap-1">
-              <Globe className="h-3 w-3 inline" />
-              {cv.personal.website}
-            </span>
-          )}
+        {/* Contact Information - Harvard format: Single line, centered, no icons per guidelines */}
+        <div className="flex flex-wrap justify-center gap-x-2 text-[10pt] leading-tight">
+          {cv.personal.email && <span>{cv.personal.email}</span>}
+          {cv.personal.email && cv.personal.phone && <span>•</span>}
+          {cv.personal.phone && <span>{cv.personal.phone}</span>}
+          {cv.personal.phone && cv.personal.location && <span>•</span>}
+          {cv.personal.location && <span>{cv.personal.location}</span>}
+          {cv.personal.location && cv.personal.linkedin && <span>•</span>}
+          {cv.personal.linkedin && <span>{cv.personal.linkedin}</span>}
+          {cv.personal.linkedin && cv.personal.github && <span>•</span>}
+          {cv.personal.github && <span>{cv.personal.github}</span>}
+          {cv.personal.github && cv.personal.website && <span>•</span>}
+          {cv.personal.website && <span>{cv.personal.website}</span>}
         </div>
       </div>
 
-      {/* Education - Harvard style: comes FIRST */}
+      {/* Education - Harvard style: comes FIRST after header */}
       {cv.education.length > 0 && (
         <div className="mb-5">
           <h2 className="mb-3">EDUCATION</h2>
           {cv.education.map((edu, index) => (
             <div key={edu.id} className={`section-item ${index > 0 ? 'mt-3' : ''}`}>
-              <div className="flex justify-between items-baseline mb-1">
+              {/* Harvard format: Institution name bold on left, dates on right */}
+              <div className="flex justify-between items-baseline mb-0.5">
                 <h3>{edu.institution}</h3>
                 <span className="text-[10pt]">
-                  {edu.startDate && new Date(edu.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                  {edu.endDate && ` – ${new Date(edu.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`}
+                  {edu.endDate ? new Date(edu.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Expected ' + (edu.startDate ? new Date(edu.startDate).getFullYear() : '')}
                 </span>
               </div>
+              {/* Harvard format: Degree in italics */}
               <p className="italic mb-0">
-                {edu.degree} in {edu.field}
-                {edu.gpa && `, GPA: ${edu.gpa}`}
+                {edu.degree}{edu.field ? ` in ${edu.field}` : ''}
+                {edu.gpa && parseFloat(edu.gpa) >= 3.5 && `, GPA: ${edu.gpa}`}
               </p>
               {edu.description && (
                 <p className="mt-1 text-[10pt]">{edu.description}</p>
