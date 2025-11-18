@@ -22,6 +22,16 @@
     --primary-dark: 25 100% 40%; /* Darker orange */
     --primary-foreground: 0 0% 100%;
 
+    /* Warm Colors - Peach & Coral */
+    --peach: 25 100% 77%; /* #FFB88A Durazno suave */
+    --peach-foreground: 0 0% 15%;
+    --coral: 6 100% 69%; /* #FF6F61 Coral */
+    --coral-foreground: 0 0% 100%;
+    
+    /* Premium Blue */
+    --blue-premium: 205 100% 21%; /* #0A3D62 Azul premium profundo */
+    --blue-premium-foreground: 0 0% 100%;
+
     /* Secondary - Gray accents */
     --secondary: 0 0% 45%; /* Medium gray */
     --secondary-light: 0 0% 75%; /* Light gray */
@@ -95,6 +105,16 @@
     --primary-light: 25 100% 60%;
     --primary-dark: 25 100% 40%;
     --primary-foreground: 0 0% 100%;
+
+    /* Warm Colors - Darker variations for dark mode */
+    --peach: 25 80% 65%; /* Darker peach for dark mode */
+    --peach-foreground: 0 0% 15%;
+    --coral: 6 85% 58%; /* Darker coral for dark mode */
+    --coral-foreground: 0 0% 100%;
+    
+    /* Premium Blue - stays the same */
+    --blue-premium: 205 100% 21%;
+    --blue-premium-foreground: 0 0% 100%;
 
     --secondary: 0 0% 25%;
     --secondary-light: 0 0% 35%;
