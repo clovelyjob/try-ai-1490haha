@@ -48,6 +48,18 @@ export default {
           dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        peach: {
+          DEFAULT: "hsl(var(--peach))",
+          foreground: "hsl(var(--peach-foreground))",
+        },
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+          foreground: "hsl(var(--coral-foreground))",
+        },
+        "blue-premium": {
+          DEFAULT: "hsl(var(--blue-premium))",
+          foreground: "hsl(var(--blue-premium-foreground))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           light: "hsl(var(--secondary-light))",
