@@ -9,34 +9,23 @@ interface DecoratedLogoProps {
 export const DecoratedLogo = ({ size = 'md', animated = false, className = '' }: DecoratedLogoProps) => {
   const sizes = {
     sm: {
-      logo: 'w-12 h-12',
-      line: 'w-12 h-0.5',
-      glow: 'w-20 h-20',
+      logo: 'h-10',
     },
     md: {
-      logo: 'w-16 h-16',
-      line: 'w-16 h-0.5',
-      glow: 'w-28 h-28',
+      logo: 'h-12',
     },
     lg: {
-      logo: 'w-20 h-20',
-      line: 'w-20 h-0.5',
-      glow: 'w-36 h-36',
+      logo: 'h-16',
     },
   };
 
   const LogoElement = (
-    <div className={`flex items-center gap-4 ${className}`}>
-      <div className={`${sizes[size].line} bg-gradient-to-r from-transparent to-[#FF7A00]`} />
-      <div className="relative flex justify-center items-center">
-        <div className={`absolute ${sizes[size].glow} blur-3xl bg-[#FF7A00]/15 dark:bg-[#FF7A00]/30 rounded-full scale-125 animate-pulse`} />
-        <img
-          src="/clovely-logo.png"
-          alt="Clovely"
-          className={`relative ${sizes[size].logo} object-contain drop-shadow-[0_0_8px_rgba(255,122,0,0.25)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.35)]`}
-        />
-      </div>
-      <div className={`${sizes[size].line} bg-gradient-to-l from-transparent to-[#FF7A00]`} />
+    <div className={`flex items-center justify-center ${className}`}>
+      <img
+        src="/clovely-logo-full.svg"
+        alt="Clovely"
+        className={`${sizes[size].logo} w-auto object-contain drop-shadow-[0_0_8px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.25)]`}
+      />
     </div>
   );
 

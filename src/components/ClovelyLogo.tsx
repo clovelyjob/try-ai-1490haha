@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
-interface ClovelyHeaderLogoProps {
+interface ClovelyLogoProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   animated?: boolean;
@@ -10,34 +11,36 @@ interface ClovelyHeaderLogoProps {
   asMotion?: boolean;
 }
 
-export const ClovelyHeaderLogo = ({ 
+/**
+ * Adaptive Clovely Logo component that switches between light/dark versions
+ * Uses the official C + "Clovely" text logo without lines or card background
+ */
+export const ClovelyLogo = ({ 
   size = 'md', 
   className = '', 
-  animated = true,
+  animated = false,
   to = '/',
   asMotion = false
-}: ClovelyHeaderLogoProps) => {
+}: ClovelyLogoProps) => {
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = currentTheme === 'dark';
+
   const sizes = {
-    sm: {
-      logo: 'h-7 w-auto',
-    },
-    md: {
-      logo: 'h-8 w-auto',
-    },
-    lg: {
-      logo: 'h-9 w-auto',
-    },
+    sm: 'h-7 w-auto',
+    md: 'h-8 w-auto',
+    lg: 'h-9 w-auto',
   };
 
   const LogoContent = (
     <img
-      src="/clovely-logo-dashboard.svg"
+      src={isDark ? '/clovely-logo-dashboard-dark.svg' : '/clovely-logo-dashboard.svg'}
       alt="Clovely"
       className={cn(
-        'object-contain transition-transform duration-200',
-        sizes[size].logo,
+        'object-contain transition-all duration-200',
+        sizes[size],
         'opacity-95',
-        'drop-shadow-[0_0_4px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.2)]',
+        'drop-shadow-[0_0_4px_rgba(255,122,0,0.18)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.25)]',
         'hover:scale-[1.04]'
       )}
     />
