@@ -93,94 +93,97 @@ const Onboarding = () => {
     handleNext();
   };
 
-  const handleComplete = async () => {
+  const handleComplete = () => {
     if (!user?.id) {
-      toast.error('No se pudo identificar al usuario');
+      // Si no hay usuario, redirigir igualmente
+      navigate('/dashboard');
       return;
     }
 
-    try {
-      // Track onboarding completion
-      await trackEvent('onboarding_completed', {
-        role: detectedRole,
-        confidence: roleConfidence,
-        completedAt: new Date().toISOString()
-      });
-      // Actualizar perfil en Supabase
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          rol_profesional: detectedRole,
-          preferencias_laborales: {
-            ...onboardingData.rolePreferences,
-            interests: onboardingData.interests,
-            values: onboardingData.values,
-            workStyle: onboardingData.workStyle,
-            skills: onboardingData.skills,
-            experience: onboardingData.experience,
-            situation: onboardingData.situation,
-            challenge: onboardingData.challenge,
-          },
-          progreso: {
-            cv_completado: false,
-            entrevistas_realizadas: 0,
-            oportunidades_guardadas: 0,
-            onboarding_completado: true,
-          }
-        })
-        .eq('id', user.id);
+    // Actualizar stores locales primero
+    const profileData = {
+      userId: user.id,
+      interests: onboardingData.interests,
+      values: onboardingData.values,
+      workStyle: onboardingData.workStyle,
+      skills: onboardingData.skills,
+      experience: (onboardingData.experience || 'student') as 'student' | 'graduate' | 'junior' | 'mid' | 'senior' | 'transition',
+      situation: onboardingData.situation,
+      challenge: onboardingData.challenge,
+      diagnosticResults: {
+        topCareers: [
+          { title: 'Product Designer', match: 92 },
+          { title: 'Product Manager', match: 87 },
+          { title: 'Marketing Manager', match: 83 },
+        ],
+        profileType: 'Innovador Creativo',
+        insights: [
+          'Tienes un perfil equilibrado entre creatividad y análisis',
+          'Tu capacidad de comunicación es una fortaleza clave',
+          'Valoras el impacto y la autonomía en tu trabajo',
+        ],
+        radarData: [
+          { skill: 'Creatividad', value: 85 },
+          { skill: 'Análisis', value: 72 },
+          { skill: 'Liderazgo', value: 68 },
+          { skill: 'Comunicación', value: 90 },
+          { skill: 'Técnica', value: 65 },
+          { skill: 'Estrategia', value: 78 },
+        ],
+      },
+      rolActual: detectedRole,
+      rolesSugeridos: [],
+      preferencias: onboardingData.rolePreferences,
+      historialRol: [{
+        rol: detectedRole,
+        fecha: new Date().toISOString(),
+        confidence: roleConfidence
+      }]
+    };
 
-      if (error) throw error;
+    setProfile(profileData);
+    updateUser({ onboardingCompleted: true });
+    
+    // Navegar al dashboard inmediatamente
+    navigate('/dashboard');
 
-      // Actualizar stores locales
-      const profileData = {
-        userId: user.id,
-        interests: onboardingData.interests,
-        values: onboardingData.values,
-        workStyle: onboardingData.workStyle,
-        skills: onboardingData.skills,
-        experience: (onboardingData.experience || 'student') as 'student' | 'graduate' | 'junior' | 'mid' | 'senior' | 'transition',
-        situation: onboardingData.situation,
-        challenge: onboardingData.challenge,
-        diagnosticResults: {
-          topCareers: [
-            { title: 'Product Designer', match: 92 },
-            { title: 'Product Manager', match: 87 },
-            { title: 'Marketing Manager', match: 83 },
-          ],
-          profileType: 'Innovador Creativo',
-          insights: [
-            'Tienes un perfil equilibrado entre creatividad y análisis',
-            'Tu capacidad de comunicación es una fortaleza clave',
-            'Valoras el impacto y la autonomía en tu trabajo',
-          ],
-          radarData: [
-            { skill: 'Creatividad', value: 85 },
-            { skill: 'Análisis', value: 72 },
-            { skill: 'Liderazgo', value: 68 },
-            { skill: 'Comunicación', value: 90 },
-            { skill: 'Técnica', value: 65 },
-            { skill: 'Estrategia', value: 78 },
-          ],
-        },
-        rolActual: detectedRole,
-        rolesSugeridos: [],
-        preferencias: onboardingData.rolePreferences,
-        historialRol: [{
-          rol: detectedRole,
-          fecha: new Date().toISOString(),
-          confidence: roleConfidence
-        }]
-      };
+    // Guardar en Supabase en background (no bloquea la navegación)
+    (async () => {
+      try {
+        // Track onboarding completion
+        await trackEvent('onboarding_completed', {
+          role: detectedRole,
+          confidence: roleConfidence,
+          completedAt: new Date().toISOString()
+        });
 
-      setProfile(profileData);
-      updateUser({ onboardingCompleted: true });
-      toast.success('¡Perfil completado!');
-      navigate('/dashboard');
-    } catch (error: any) {
-      console.error('Error saving profile:', error);
-      toast.error('Error al guardar el perfil. Por favor, intenta de nuevo.');
-    }
+        // Actualizar perfil en Supabase
+        await supabase
+          .from('profiles')
+          .update({
+            rol_profesional: detectedRole,
+            preferencias_laborales: {
+              ...onboardingData.rolePreferences,
+              interests: onboardingData.interests,
+              values: onboardingData.values,
+              workStyle: onboardingData.workStyle,
+              skills: onboardingData.skills,
+              experience: onboardingData.experience,
+              situation: onboardingData.situation,
+              challenge: onboardingData.challenge,
+            },
+            progreso: {
+              cv_completado: false,
+              entrevistas_realizadas: 0,
+              oportunidades_guardadas: 0,
+              onboarding_completado: true,
+            }
+          })
+          .eq('id', user.id);
+      } catch (error: any) {
+        console.error('Error guardando perfil en background:', error);
+      }
+    })();
   };
 
   const steps = [
