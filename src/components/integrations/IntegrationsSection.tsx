@@ -35,7 +35,7 @@ export const IntegrationsSection = () => {
           {/* CTA */}
           <div className="text-center mt-8">
             <Link 
-              to="/integrations"
+              to="/opportunities"
               className="inline-flex items-center gap-2 text-sm md:text-base
                          text-[#0B0B0B] hover:text-[#0B0B0B]/80 underline-offset-4 hover:underline
                          transition-colors duration-200"
