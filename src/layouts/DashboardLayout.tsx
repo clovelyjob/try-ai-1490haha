@@ -141,8 +141,8 @@ export default function DashboardLayout() {
               <motion.img
                 src="/clovely-logo-transparent.svg"
                 alt="Clovely"
-                className="h-9 w-auto opacity-95 drop-shadow-[0_0_4px_rgba(255,122,0,0.12)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.18)]"
-                whileHover={{ scale: 1.03 }}
+                className="h-9 w-auto opacity-95 drop-shadow-[0_0_6px_rgba(255,122,0,0.25)] dark:drop-shadow-[0_0_8px_rgba(255,122,0,0.35)]"
+                whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.2 }}
               />
             </Link>
