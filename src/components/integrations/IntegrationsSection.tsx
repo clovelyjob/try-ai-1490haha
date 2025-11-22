@@ -17,12 +17,12 @@ export const IntegrationsSection = () => {
                         bg-gradient-to-r from-[#FF7A00] to-[#F97316]
                         shadow-[0_0_25px_rgba(255,122,0,0.25)]">
           {/* Header */}
-          <div className="text-center mb-8 md:mb-10 space-y-2">
-            <h2 className="text-2xl md:text-3xl font-semibold text-[#0B0B0B]">
-              No rompas tu flujo de trabajo
+          <div className="text-center mb-8 md:mb-10 space-y-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0B0B0B]">
+              Haz match con empresas como estas
             </h2>
             <p className="text-base md:text-lg text-[#0B0B0B]/80 max-w-2xl mx-auto">
-              Conecta tus herramientas favoritas y trabaja donde ya estás.
+              Tus habilidades te conectan con oportunidades reales
             </p>
           </div>
 
