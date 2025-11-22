@@ -135,13 +135,13 @@ export default function DashboardLayout() {
           )}
           aria-label="Navegación principal"
         >
-          {/* Logo & Collapse */}
-          <div className="h-16 border-b flex items-center justify-center px-4">
+          {/* Logo */}
+          <div className="h-16 border-b flex items-center px-4">
             <ClovelyHeaderLogo 
               size={sidebarCollapsed && !sidebarPinned ? 'sm' : 'md'} 
               to="/dashboard"
               asMotion={true}
-              animated={true}
+              animated={false}
             />
           </div>
 
