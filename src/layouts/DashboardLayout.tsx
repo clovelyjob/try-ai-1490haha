@@ -136,13 +136,16 @@ export default function DashboardLayout() {
           aria-label="Navegación principal"
         >
           {/* Logo */}
-          <div className="h-16 border-b flex items-center px-4">
-            <ClovelyHeaderLogo 
-              size={sidebarCollapsed && !sidebarPinned ? 'sm' : 'md'} 
-              to="/dashboard"
-              asMotion={true}
-              animated={false}
-            />
+          <div className="flex items-center px-4 pt-4 pb-2 border-b">
+            <Link to="/dashboard">
+              <motion.img
+                src="/clovely-logo-transparent.svg"
+                alt="Clovely"
+                className="h-9 w-auto opacity-95 drop-shadow-[0_0_4px_rgba(255,122,0,0.12)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.18)]"
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.2 }}
+              />
+            </Link>
           </div>
 
           {/* User Profile */}
