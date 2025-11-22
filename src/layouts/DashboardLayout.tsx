@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
+import { ClovelyLogo } from '@/components/ClovelyLogo';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -137,15 +137,12 @@ export default function DashboardLayout() {
         >
           {/* Logo */}
           <div className="flex items-center px-4 pt-4 pb-2 border-b">
-            <Link to="/dashboard">
-              <motion.img
-                src="/clovely-logo-transparent.svg"
-                alt="Clovely"
-                className="h-9 w-auto opacity-95 drop-shadow-[0_0_6px_rgba(255,122,0,0.25)] dark:drop-shadow-[0_0_8px_rgba(255,122,0,0.35)]"
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.2 }}
-              />
-            </Link>
+            <ClovelyLogo 
+              size="md"
+              to="/dashboard"
+              asMotion={true}
+              animated={false}
+            />
           </div>
 
           {/* User Profile */}

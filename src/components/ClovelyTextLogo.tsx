@@ -8,27 +8,18 @@ interface ClovelyTextLogoProps {
 
 export const ClovelyTextLogo = ({ size = 'md', className = '', animated = true }: ClovelyTextLogoProps) => {
   const sizes = {
-    sm: 'text-2xl',
-    md: 'text-3xl',
-    lg: 'text-4xl'
-  };
-  
-  const logoSizes = {
-    sm: 'w-6 h-6',
-    md: 'w-7 h-7',
-    lg: 'w-9 h-9'
+    sm: 'h-6',
+    md: 'h-7',
+    lg: 'h-9'
   };
 
   const LogoElement = (
-    <div className={`inline-flex items-center gap-1 ${className}`}>
+    <div className={`inline-flex items-center ${className}`}>
       <img
-        src="/clovely-logo.png"
+        src="/clovely-logo-dashboard.svg"
         alt="Clovely"
-        className={`${logoSizes[size]} object-contain drop-shadow-sm`}
+        className={`${sizes[size]} w-auto object-contain drop-shadow-sm`}
       />
-      <span className={`${sizes[size]} font-poppins font-semibold tracking-tight text-foreground`}>
-        lovely
-      </span>
     </div>
   );
 
