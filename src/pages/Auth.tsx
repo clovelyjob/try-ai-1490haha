@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ClovelyTextLogo } from '@/components/ClovelyTextLogo';
+import { OfficialLogo } from '@/components/OfficialLogo';
 import { Loader2 } from 'lucide-react';
 import { z } from 'zod';
 
@@ -197,7 +197,7 @@ export default function Auth() {
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <ClovelyTextLogo className="h-12 mx-auto mb-6" />
+          <OfficialLogo size="lg" className="mx-auto mb-6" />
           <h1 className="text-4xl font-heading font-bold mb-3">
             Impulsa tu carrera
           </h1>

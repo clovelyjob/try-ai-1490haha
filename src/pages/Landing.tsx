@@ -11,9 +11,7 @@ import careerDiscoveryImage from '@/assets/career-discovery-moment.jpg';
 import planningImage from '@/assets/planning-workspace.jpg';
 import clovelyLogo from '@/assets/clovely-logo.jpg';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
-import { ClovelyTextLogo } from '@/components/ClovelyTextLogo';
-import { DecoratedLogo } from '@/components/DecoratedLogo';
-import { ClovelyHeaderLogo } from '@/components/ClovelyHeaderLogo';
+import { OfficialLogo } from '@/components/OfficialLogo';
 import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
 const Landing = () => {
   const {
@@ -107,7 +105,7 @@ const Landing = () => {
       {/* Navbar - Mobile First Responsive */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-3 sm:px-4 lg:px-6 h-16 sm:h-18 lg:h-20 flex items-center justify-between max-w-7xl">
-          <ClovelyHeaderLogo size="lg" />
+          <OfficialLogo size="lg" to="/" />
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm">
@@ -630,7 +628,7 @@ const Landing = () => {
       <footer className="border-t py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="mb-8 pt-6 flex justify-center">
-            <DecoratedLogo size="lg" animated={false} />
+            <OfficialLogo size="lg" animated={false} fullVersion={true} />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>

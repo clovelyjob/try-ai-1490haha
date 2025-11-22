@@ -29,9 +29,9 @@
     <circle cx="14" cy="24" r="2.5" fill="white" opacity="0.5"/>
   </g>
   
-  <!-- "Clovely" Text inside card -->
+  <!-- "Clovely" Text inside card (complete with C) -->
   <text x="132" y="48" font-family="Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="22" font-weight="600" fill="#1F2937" letter-spacing="-0.02em">
-    lovely
+    Clovely
   </text>
   
   <!-- Right decorative line -->

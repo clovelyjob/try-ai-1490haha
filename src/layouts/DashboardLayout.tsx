@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ClovelyLogo } from '@/components/ClovelyLogo';
+import { OfficialLogo } from '@/components/OfficialLogo';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -137,7 +137,7 @@ export default function DashboardLayout() {
         >
           {/* Logo */}
           <div className="flex items-center px-4 pt-4 pb-2 border-b">
-            <ClovelyLogo 
+            <OfficialLogo 
               size="md"
               to="/dashboard"
               asMotion={true}
