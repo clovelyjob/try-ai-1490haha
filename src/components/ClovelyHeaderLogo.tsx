@@ -31,13 +31,13 @@ export const ClovelyHeaderLogo = ({
 
   const LogoContent = (
     <img
-      src="/clovely-logo.png"
+      src="/clovely-logo-transparent.svg"
       alt="Clovely"
       className={cn(
         'object-contain transition-transform duration-200',
         sizes[size].logo,
         'opacity-95',
-        'drop-shadow-[0_0_4px_rgba(255,122,0,0.15)]',
+        'drop-shadow-[0_0_4px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.2)]',
         'hover:scale-[1.04]'
       )}
     />
