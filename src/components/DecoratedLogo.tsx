@@ -22,7 +22,7 @@ export const DecoratedLogo = ({ size = 'md', animated = false, className = '' }:
   const LogoElement = (
     <div className={`flex items-center justify-center ${className}`}>
       <img
-        src="/clovely-logo-full.svg"
+        src="/clovely-logo-light.png"
         alt="Clovely"
         className={`${sizes[size].logo} w-auto object-contain drop-shadow-[0_0_8px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.25)]`}
       />
