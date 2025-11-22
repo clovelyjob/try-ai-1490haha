@@ -32,16 +32,16 @@ export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
                    rounded-xl
                    bg-white
                    border border-slate-200
-                   shadow-[0_2px_10px_rgba(0,0,0,0.06)]
+                   shadow-[0_2px_8px_rgba(0,0,0,0.04)]
                    transition-all duration-300
-                   group-hover:border-[#FF7A00]/40"
+                   group-hover:border-[#FF7A00]/40
+                   group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
       >
         <img
-          src={error ? '/integrations/_fallback.svg' : integration.src}
+          src={integration.src}
           alt={`${integration.name} logo`}
-          className="h-6 md:h-7 w-auto object-contain"
+          className="h-10 md:h-12 w-auto object-contain"
           loading="lazy"
-          onError={() => setError(true)}
         />
       </div>
 
