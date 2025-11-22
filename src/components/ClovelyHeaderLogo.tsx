@@ -31,7 +31,7 @@ export const ClovelyHeaderLogo = ({
 
   const LogoContent = (
     <img
-      src="/clovely-logo-dashboard.svg"
+      src="/clovely-logo-light.png"
       alt="Clovely"
       className={cn(
         'object-contain transition-transform duration-200',

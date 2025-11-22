@@ -49,10 +49,10 @@ export const OfficialLogo = ({
 
   // Choose correct logo variant
   const logoSrc = fullVersion 
-    ? '/clovely-logo-full.svg'  // Landing version with lines and card
+    ? (isDark ? '/clovely-logo-dark.png' : '/clovely-logo-light.png')  // Landing version
     : isDark 
-      ? '/clovely-logo-dashboard-dark.svg'  // Dashboard dark mode
-      : '/clovely-logo-dashboard.svg';  // Dashboard light mode
+      ? '/clovely-logo-dark.png'  // Dashboard dark mode
+      : '/clovely-logo-light.png';  // Dashboard light mode
 
   const LogoContent = (
     <img

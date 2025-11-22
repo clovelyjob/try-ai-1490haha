@@ -16,7 +16,7 @@ export const ClovelyTextLogo = ({ size = 'md', className = '', animated = true }
   const LogoElement = (
     <div className={`inline-flex items-center ${className}`}>
       <img
-        src="/clovely-logo-dashboard.svg"
+        src="/clovely-logo-light.png"
         alt="Clovely"
         className={`${sizes[size]} w-auto object-contain drop-shadow-sm`}
       />
