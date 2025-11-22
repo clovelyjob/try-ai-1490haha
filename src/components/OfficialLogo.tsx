@@ -47,12 +47,8 @@ export const OfficialLogo = ({
     lg: fullVersion ? 'h-16' : 'h-9 w-auto',
   };
 
-  // Choose correct logo variant
-  const logoSrc = fullVersion 
-    ? (isDark ? '/clovely-logo-dark.png' : '/clovely-logo-light.png')  // Landing version
-    : isDark 
-      ? '/clovely-logo-dark.png'  // Dashboard dark mode
-      : '/clovely-logo-light.png';  // Dashboard light mode
+  // Choose correct logo variant - always use light version with black text
+  const logoSrc = '/clovely-logo-light.png';
 
   const LogoContent = (
     <img
