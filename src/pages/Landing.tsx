@@ -88,7 +88,6 @@ const Landing = () => {
     title: 'Envíes lo que envíes, nadie responde',
     description: 'Tus aplicaciones desaparecen en el vacío sin explicación'
   }];
-  
   const benefits = [{
     icon: '🎯',
     title: 'Claridad total sobre tu camino',
@@ -187,26 +186,25 @@ const Landing = () => {
           </p>
           
           {/* Hero Video */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative max-w-4xl mx-auto px-4 sm:px-6 mt-8 sm:mt-10 mb-8 sm:mb-10"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          scale: 1,
+          y: 0
+        }} transition={{
+          duration: 0.7,
+          delay: 0.3
+        }} className="relative max-w-4xl mx-auto px-4 sm:px-6 mt-8 sm:mt-10 mb-8 sm:mb-10">
             <div className="relative rounded-2xl overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:border-primary/50 transition-all duration-500 group">
               {/* Glow effect */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-primary/50 to-primary opacity-30 blur-xl group-hover:opacity-50 transition-opacity duration-500" />
               
               {/* Video container */}
               <div className="relative bg-background/50 backdrop-blur-sm">
-                <video 
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
-                  className="w-full h-auto rounded-xl"
-                  poster="/clovely-logo.png"
-                >
+                <video autoPlay muted loop playsInline className="w-full h-auto rounded-xl" poster="/clovely-logo.png">
                   <source src="/clovely-hero-video.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.
                 </video>
@@ -244,7 +242,7 @@ const Landing = () => {
           delay: 0.3,
           duration: 0.6
         }} className="mt-8 sm:mt-12 glass rounded-xl sm:rounded-2xl overflow-hidden animate-float">
-            <img src={heroImage} alt="Profesional joven trabajando con confianza en su desarrollo de carrera" className="w-full h-auto object-cover" loading="eager" />
+            
           </motion.div>
         </motion.div>
       </section>
@@ -437,7 +435,7 @@ const Landing = () => {
           }} transition={{
             delay: 0.4
           }} className="glass rounded-xl sm:rounded-2xl overflow-hidden animate-float max-w-3xl mx-auto">
-              <img src={careerDiscoveryImage} alt="Momento de descubrimiento profesional con análisis de carrera" className="w-full h-auto object-cover" loading="lazy" />
+              
             </motion.div>
           </div>
         </motion.div>
