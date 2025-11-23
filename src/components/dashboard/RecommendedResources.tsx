@@ -114,42 +114,54 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
     : RESOURCES_BY_ROLE.default;
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 rounded-2xl shadow-clovely-md">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold">Recursos Recomendados</h3>
+            <h3 className="text-lg font-semibold mb-1 bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">
+              Recursos Recomendados
+            </h3>
             <p className="text-sm text-muted-foreground">
               Contenido seleccionado para tu perfil profesional
             </p>
           </div>
-          <BookOpen className="h-5 w-5 text-primary" />
+          <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary-warm/10">
+            <BookOpen className="h-6 w-6 text-primary" />
+          </div>
         </div>
 
         <div className="space-y-3">
           {resources.map((resource) => {
             const Icon = getResourceIcon(resource.type);
+            const badgeColors = {
+              course: 'bg-gradient-to-r from-primary to-primary-warm text-white',
+              video: 'bg-gradient-to-r from-blue-500 to-blue-600 text-white',
+              article: 'bg-gradient-to-r from-green-500 to-green-600 text-white',
+              tool: 'bg-gradient-to-r from-purple-500 to-purple-600 text-white'
+            };
             return (
               <div
                 key={resource.id}
-                className="p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
+                className="p-4 rounded-xl border-2 border-border hover:border-primary/30 hover:shadow-clovely-sm hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <Icon className="h-4 w-4 text-primary" />
+                  <div className="p-2 bg-gradient-to-br from-primary/10 to-primary-warm/10 rounded-lg">
+                    <Icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex-1 space-y-1">
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="font-medium text-sm">{resource.title}</h4>
-                      <Badge variant="outline" className="text-xs capitalize">
-                        {resource.type}
+                      <Badge className={`text-xs capitalize shadow-clovely-sm ${badgeColors[resource.type]}`}>
+                        {resource.type === 'course' ? 'Curso' :
+                         resource.type === 'video' ? 'Video' :
+                         resource.type === 'article' ? 'Artículo' : 'Herramienta'}
                       </Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {resource.description}
                     </p>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span>{resource.platform}</span>
+                      <span className="font-medium">{resource.platform}</span>
                       {resource.duration && (
                         <>
                           <span>•</span>
@@ -163,7 +175,7 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="w-full text-xs"
+                    className="w-full text-xs hover:bg-primary/5 hover:border-primary/30 transition-all"
                     onClick={() => window.open(resource.url, '_blank')}
                   >
                     Ver Recurso

@@ -16,19 +16,23 @@ export function DailyJob() {
   };
 
   return (
-    <Card className="p-6 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+    <Card className="p-6 border-2 border-primary/10 rounded-2xl shadow-clovely-lg hover:-translate-y-1 hover:shadow-clovely-xl transition-all duration-300 bg-gradient-to-br from-primary/[0.03] via-background to-primary/[0.02]">
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-primary" />
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+                <TrendingUp className="h-5 w-5 text-primary" />
+              </div>
               <h3 className="font-semibold text-lg">Trabajo del Día</h3>
             </div>
-            <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">
+            <Badge className="text-xs bg-gradient-to-r from-primary to-primary-warm text-white shadow-clovely-sm">
               {job.matchScore}% Match
             </Badge>
           </div>
-          <Briefcase className="h-6 w-6 text-primary" />
+          <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+            <Briefcase className="h-6 w-6 text-primary" />
+          </div>
         </div>
 
         <div>
@@ -48,14 +52,14 @@ export function DailyJob() {
 
         <div className="flex flex-wrap gap-2">
           {job.tags.map((tag) => (
-            <Badge key={tag} variant="outline" className="text-xs">
+            <Badge key={tag} variant="outline" className="text-xs rounded-full">
               {tag}
             </Badge>
           ))}
         </div>
 
         <Link to={`/dashboard/opportunities/${job.id}`}>
-          <Button className="w-full bg-primary hover:bg-primary/90">
+          <Button variant="premium" className="w-full shadow-clovely-glow">
             Ver Detalles
           </Button>
         </Link>
