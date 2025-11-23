@@ -62,8 +62,8 @@ export default function FilterPanel({
     filters.location;
 
   return (
-    <Card className="p-4 sticky top-4">
-      <div className="flex items-center justify-between mb-4">
+    <Card className="p-6 rounded-2xl sticky top-4 shadow-clovely-md backdrop-blur-sm bg-card/95">
+      <div className="flex items-center justify-between mb-6">
         <h3 className="font-semibold">Filtros</h3>
         {hasActiveFilters && (
           <Button variant="ghost" size="sm" onClick={onClearFilters}>

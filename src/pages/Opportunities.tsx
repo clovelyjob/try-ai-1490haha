@@ -121,8 +121,8 @@ export default function Opportunities() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="border-b bg-card">
-        <div className="container mx-auto px-4 py-6">
+      <div className="border-b bg-card shadow-clovely-sm">
+        <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold">Oportunidades</h1>

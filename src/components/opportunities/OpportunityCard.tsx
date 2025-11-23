@@ -46,7 +46,7 @@ export default function OpportunityCard({
   };
 
   return (
-    <Card className="p-6 hover:shadow-lg transition-shadow">
+    <Card className="p-6 rounded-2xl border-2 shadow-clovely-md hover:shadow-clovely-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-start gap-3">
@@ -71,10 +71,10 @@ export default function OpportunityCard({
             <Badge
               variant="outline"
               className={cn(
-                'font-semibold',
-                matchScore >= 80 && 'bg-green-50 text-green-700 border-green-200',
-                matchScore >= 60 && matchScore < 80 && 'bg-yellow-50 text-yellow-700 border-yellow-200',
-                matchScore < 60 && 'bg-red-50 text-red-700 border-red-200'
+                'font-semibold shadow-sm',
+                matchScore >= 80 && 'bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 border-green-300',
+                matchScore >= 60 && matchScore < 80 && 'bg-gradient-to-r from-yellow-50 to-amber-50 text-yellow-700 border-yellow-300',
+                matchScore < 60 && 'bg-gradient-to-r from-red-50 to-rose-50 text-red-700 border-red-300'
               )}
             >
               {matchScore}% match

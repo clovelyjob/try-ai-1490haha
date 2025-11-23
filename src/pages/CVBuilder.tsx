@@ -186,8 +186,8 @@ export default function CVBuilder() {
   return (
     <div className="h-screen flex flex-col bg-background">
       {/* Header */}
-      <div className="border-b bg-card">
-        <div className="flex items-center justify-between px-6 py-4">
+      <div className="border-b bg-card/80 backdrop-blur-md shadow-clovely-md sticky top-0 z-10">
+        <div className="flex items-center justify-between px-6 py-5">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/cvs')}>
               <ArrowLeft className="h-4 w-4" />
@@ -205,43 +205,43 @@ export default function CVBuilder() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <TemplateSelector
               value={currentCV.template}
               onChange={(template) => updateCV(currentCV.id, { template })}
             />
             
-            <Button variant="outline" size="icon" onClick={() => setShowTemplateCustomizer(true)} title="Personalizar colores">
+            <Button variant="outline" size="icon" onClick={() => setShowTemplateCustomizer(true)} title="Personalizar colores" className="shadow-clovely-sm">
               <Palette className="h-4 w-4" />
             </Button>
             
-            <Button variant="outline" onClick={() => setShowVersionHistory(true)}>
+            <Button variant="outline" onClick={() => setShowVersionHistory(true)} className="shadow-clovely-sm">
               <History className="mr-2 h-4 w-4" />
               Historial
             </Button>
             
             {currentCV.versions.length > 0 && (
-              <Button variant="outline" onClick={() => setShowVersionCompare(true)}>
+              <Button variant="outline" onClick={() => setShowVersionCompare(true)} className="shadow-clovely-sm">
                 <GitCompare className="mr-2 h-4 w-4" />
                 Comparar
               </Button>
             )}
             
-            <Button variant="outline" onClick={handleSaveVersion}>
+            <Button variant="outline" onClick={handleSaveVersion} className="shadow-clovely-sm">
               Guardar versión
             </Button>
             
-            <Button variant="outline" onClick={handleAnalyze} disabled={isAILoading}>
+            <Button variant="outline" onClick={handleAnalyze} disabled={isAILoading} className="shadow-clovely-sm">
               <Sparkles className="mr-2 h-4 w-4" />
               {isAILoading ? 'Analizando...' : 'Analizar'}
             </Button>
             
-            <Button variant="outline" onClick={() => setShowExportSettings(true)}>
+            <Button variant="outline" onClick={() => setShowExportSettings(true)} className="shadow-clovely-sm">
               <Download className="mr-2 h-4 w-4" />
               Exportar
             </Button>
             
-            <Button onClick={handleSave} disabled={isSaving}>
+            <Button variant="premium" onClick={handleSave} disabled={isSaving} className="shadow-clovely-glow">
               <Save className="mr-2 h-4 w-4" />
               {isSaving ? 'Guardando...' : 'Guardar'}
             </Button>

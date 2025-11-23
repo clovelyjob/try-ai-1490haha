@@ -70,7 +70,7 @@ export const ValuesStep = ({ selected, onChange }: ValuesStepProps) => {
               <button
                 key={value.id}
                 onClick={() => toggleValue(value.id)}
-                className="p-3 rounded-lg border hover:border-primary transition-colors text-left"
+                className="p-3 rounded-xl border-2 hover:border-primary transition-all duration-300 text-left hover:shadow-clovely-sm hover:-translate-y-0.5"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{value.icon}</span>
@@ -104,7 +104,7 @@ export const ValuesStep = ({ selected, onChange }: ValuesStepProps) => {
                     onDragStart={(e) => handleDragStart(e, id)}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, id)}
-                    className="p-3 rounded-lg border bg-card cursor-move hover:shadow-md transition-shadow"
+                    className="p-3 rounded-2xl border-2 bg-card cursor-move hover:shadow-clovely-lg transition-all duration-300 hover:-translate-y-1 border-primary/20"
                   >
                     <div className="flex items-center gap-3">
                       <GripVertical className="h-4 w-4 text-muted-foreground" />
