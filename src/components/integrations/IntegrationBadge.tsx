@@ -11,43 +11,45 @@ export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
   return (
     <div
       className="relative inline-flex items-center gap-3 pr-3 md:pr-4
-                 transition-transform duration-200 ease-out
-                 hover:-translate-y-[1px]
+                 transition-all duration-300 ease-out
+                 hover:-translate-y-[2px]
                  group cursor-pointer flex-shrink-0"
       aria-label={integration.name}
     >
-      {/* Halo naranja solo en hover, detrás del badge */}
+      {/* Subtle glow on hover */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -inset-2 rounded-2xl -z-10
-                   bg-[#FF7A00]/0 blur-[22px]
-                   transition-colors duration-200
-                   group-hover:bg-[#FF7A00]/30 hidden md:block"
+                   opacity-0 group-hover:opacity-100
+                   bg-gradient-to-r from-primary/10 to-primary/5
+                   blur-xl transition-opacity duration-300"
       />
 
-      {/* Marco blanco para el icono */}
+      {/* Icon container with premium styling */}
       <div
         className="grid place-items-center
                    w-11 h-11 md:w-12 md:h-12
                    rounded-xl
-                   bg-white
-                   border border-slate-200
+                   bg-background dark:bg-card
+                   border border-border
                    shadow-sm
                    transition-all duration-300
-                   group-hover:border-[#FF7A00]/40
-                   group-hover:shadow-md"
+                   group-hover:border-primary/30
+                   group-hover:shadow-md
+                   group-hover:scale-105"
       >
         <img
           src={error ? '/integrations/_fallback.svg' : integration.src}
           alt={`${integration.name} logo`}
-          className="h-6 md:h-7 w-auto object-contain"
+          className="h-6 md:h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
           loading="lazy"
           onError={() => setError(true)}
         />
       </div>
 
-      {/* Nombre a la derecha */}
-      <span className="whitespace-nowrap font-semibold text-sm md:text-base text-[#0B0B0B]">
+      {/* Company name */}
+      <span className="whitespace-nowrap font-semibold text-sm md:text-base text-foreground
+                       transition-colors duration-300 group-hover:text-primary">
         {integration.name}
       </span>
     </div>

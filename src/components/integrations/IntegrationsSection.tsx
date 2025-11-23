@@ -10,40 +10,43 @@ export const IntegrationsSection = () => {
   const secondRow = INTEGRATIONS.slice(midPoint);
 
   return (
-    <section className="relative py-16 md:py-20 overflow-hidden">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Orange Panel */}
-        <div className="rounded-3xl border-2 border-white p-8 md:p-10
-                        bg-gradient-to-r from-[#FF7A00] to-[#F97316]
-                        shadow-[0_0_25px_rgba(255,122,0,0.25)]">
-          {/* Header */}
-          <div className="text-center mb-8 md:mb-10 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0B0B0B]">
-              Haz match con empresas como estas
-            </h2>
-            <p className="text-base md:text-lg text-[#0B0B0B]/80 max-w-2xl mx-auto">
-              Tus habilidades te conectan con oportunidades reales
-            </p>
-          </div>
+    <section className="relative py-20 md:py-28 overflow-hidden">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-blue-50/30 to-background dark:from-background dark:via-blue-950/10 dark:to-background pointer-events-none" />
+      
+      <div className="container mx-auto px-6 max-w-6xl relative">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-16 space-y-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            Conecta con las mejores empresas
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Tu próximo trabajo está en empresas que contratan activamente
+          </p>
+        </div>
 
-          {/* Logo Strips with oval effect */}
-          <div className="space-y-6">
+        {/* Logo Strips Container - Premium white card */}
+        <div className="bg-white/80 dark:bg-card/50 backdrop-blur-sm rounded-3xl 
+                        border border-border/50 p-8 md:p-12
+                        shadow-clovely-lg hover:shadow-clovely-xl
+                        transition-all duration-300">
+          <div className="space-y-8">
             <LogoStrip logos={firstRow} direction="normal" speed={40} />
             <LogoStrip logos={secondRow} direction="reverse" speed={40} />
           </div>
+        </div>
 
-          {/* CTA */}
-          <div className="text-center mt-8">
-            <Link 
-              to="/dashboard"
-              className="inline-flex items-center gap-2 text-sm md:text-base
-                         text-[#0B0B0B] hover:text-[#0B0B0B]/80 underline-offset-4 hover:underline
-                         transition-colors duration-200"
-            >
-              Explorar integraciones
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+        {/* CTA */}
+        <div className="text-center mt-10">
+          <Link 
+            to="/registro"
+            className="inline-flex items-center gap-2 text-sm md:text-base font-medium
+                       text-primary hover:text-primary/80 
+                       transition-colors duration-200 group"
+          >
+            Descubre oportunidades
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>
