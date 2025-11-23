@@ -419,7 +419,7 @@ const Landing = () => {
             <div className="pt-4">
               <Link to="/guest-start">
                 <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-50 text-lg px-12 py-7 font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  Empieza tu transformación
+                  Empieza tu cambio
                   <ArrowRight className="ml-2 h-6 w-6" />
                 </Button>
               </Link>
