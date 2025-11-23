@@ -42,22 +42,22 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-b from-background via-muted/20 to-background">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-8 md:py-12 space-y-8">
+        {/* Header Premium */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="space-y-2">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold bg-gradient-to-r from-primary via-primary-warm to-primary bg-clip-text text-transparent animate-gradient-x">
               Hola, {user?.name?.split(' ')[0] || 'Usuario'} 👋
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
               Construye tu futuro profesional con Clovely
             </p>
           </div>
           <NotificationsBell />
         </div>
 
-        {/* User Stats */}
+        {/* User Stats con gradientes */}
         <UserStats 
           streak={user?.streak || 0}
           applicationsSubmitted={user?.applicationsSubmitted || 0}
@@ -74,45 +74,45 @@ const Dashboard = () => {
           opportunitiesSaved={opportunitiesSaved}
         />
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link to="/dashboard/cvs" className="block">
-            <Card className="p-6 hover-lift hover:border-primary/50 transition-all cursor-pointer group gradient-card">
+        {/* Quick Actions con premium hover */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Link to="/dashboard/cvs" className="block group">
+            <Card className="p-8 cursor-pointer h-full bg-gradient-to-br from-card to-card/50 backdrop-blur-sm border-border/50 group-hover:border-primary/30 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <FileText className="h-6 w-6 text-primary" />
+                <div className="p-4 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl group-hover:scale-110 transition-transform shadow-clovely-md">
+                  <FileText className="h-7 w-7 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold">CV Builder</h3>
+                  <h3 className="font-heading font-semibold text-lg group-hover:text-primary transition-colors">CV Builder</h3>
                   <p className="text-sm text-muted-foreground">Crea tu CV profesional</p>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </div>
             </Card>
           </Link>
 
-          <Link to="/dashboard/opportunities" className="block">
-            <Card className="p-6 hover-lift hover:border-primary/50 transition-all cursor-pointer group gradient-card">
+          <Link to="/dashboard/opportunities" className="block group">
+            <Card className="p-8 cursor-pointer h-full bg-gradient-to-br from-card to-card/50 backdrop-blur-sm border-border/50 group-hover:border-primary/30 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Briefcase className="h-6 w-6 text-primary" />
+                <div className="p-4 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl group-hover:scale-110 transition-transform shadow-clovely-md">
+                  <Briefcase className="h-7 w-7 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold">Oportunidades</h3>
+                  <h3 className="font-heading font-semibold text-lg group-hover:text-primary transition-colors">Oportunidades</h3>
                   <p className="text-sm text-muted-foreground">Encuentra trabajos</p>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </div>
             </Card>
           </Link>
 
-          <Card className="p-6 border-dashed gradient-soft">
+          <Card className="p-8 border-dashed bg-gradient-to-br from-muted/50 to-muted/20">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-muted rounded-lg">
-                <Target className="h-6 w-6 text-muted-foreground" />
+              <div className="p-4 bg-muted rounded-2xl">
+                <Target className="h-7 w-7 text-muted-foreground" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold">Próximamente</h3>
+                <h3 className="font-heading font-semibold text-lg">Próximamente</h3>
                 <p className="text-sm text-muted-foreground">Más funciones pronto</p>
               </div>
             </div>

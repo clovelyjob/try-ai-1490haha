@@ -38,25 +38,27 @@ export function ProgressBar({
   ];
 
   return (
-    <Card className="p-6">
-      <h3 className="font-semibold text-lg mb-4">Tu Progreso</h3>
-      <div className="space-y-4">
+    <Card className="p-8">
+      <h3 className="font-heading font-semibold text-xl mb-6">Tu Progreso</h3>
+      <div className="space-y-6">
         {metrics.map((metric) => {
           const Icon = metric.icon;
           const percentage = Math.min((metric.value / metric.max) * 100, 100);
           
           return (
-            <div key={metric.label} className="space-y-2">
+            <div key={metric.label} className="space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-primary/10">
+                    <Icon className="h-5 w-5 text-primary" />
+                  </div>
                   <span className="text-sm font-medium">{metric.label}</span>
                 </div>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm font-semibold text-muted-foreground">
                   {metric.value}/{metric.max}
                 </span>
               </div>
-              <Progress value={percentage} className="h-2" />
+              <Progress value={percentage} className="h-2.5" />
             </div>
           );
         })}
