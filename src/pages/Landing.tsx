@@ -128,6 +128,27 @@ const Landing = () => {
               Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
             </p>
 
+            {/* Video Demo */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="max-w-5xl mx-auto"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-gradient-to-br from-primary/5 to-primary/10">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto"
+                >
+                  <source src="/clovely-hero-video.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              </div>
+            </motion.div>
+
             {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
