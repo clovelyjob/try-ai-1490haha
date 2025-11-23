@@ -448,7 +448,7 @@ const Landing = () => {
             </div>
 
             <p className="text-sm text-muted-foreground">
-              &copy; 2024 Clovely. Todos los derechos reservados.
+              © 2025 Clovely. Todos los derechos reservados.
             </p>
           </div>
         </div>
