@@ -4,44 +4,32 @@ export interface Integration {
 }
 
 export const INTEGRATIONS: Integration[] = [
+  // Tech Giants
   { name: 'Google', src: 'https://cdn.simpleicons.org/google/4285F4' },
+  { name: 'Apple', src: 'https://cdn.simpleicons.org/apple/000000' },
+  { name: 'Microsoft', src: 'https://cdn.simpleicons.org/microsoft/00A4EF' },
   { name: 'Meta', src: 'https://cdn.simpleicons.org/meta/0668E1' },
-  { name: 'Spotify', src: 'https://cdn.simpleicons.org/spotify/1DB954' },
-  { name: 'GitHub', src: 'https://cdn.simpleicons.org/github/181717' },
-  { name: 'Notion', src: 'https://cdn.simpleicons.org/notion/000000' },
-  { name: 'Slack', src: 'https://cdn.simpleicons.org/slack/4A154B' },
-  { name: 'Figma', src: 'https://cdn.simpleicons.org/figma/F24E1E' },
-  { name: 'Netflix', src: 'https://cdn.simpleicons.org/netflix/E50914' },
-  { name: 'Asana', src: 'https://cdn.simpleicons.org/asana/F06A6A' },
-  { name: 'Jira', src: 'https://cdn.simpleicons.org/jira/0052CC' },
-  { name: 'VS Code', src: 'https://cdn.simpleicons.org/visualstudiocode/007ACC' },
-  { name: 'LinkedIn', src: 'https://cdn.simpleicons.org/linkedin/0A66C2' },
-  { name: 'GitLab', src: 'https://cdn.simpleicons.org/gitlab/FC6D26' },
-  { name: 'Microsoft Teams', src: 'https://cdn.simpleicons.org/microsoftteams/6264A7' },
-  { name: 'ClickUp', src: 'https://cdn.simpleicons.org/clickup/7B68EE' },
-  { name: 'Dropbox', src: 'https://cdn.simpleicons.org/dropbox/0061FF' },
-  { name: 'Zoom', src: 'https://cdn.simpleicons.org/zoom/2D8CFF' },
-  { name: 'Discord', src: 'https://cdn.simpleicons.org/discord/5865F2' },
   { name: 'Amazon', src: 'https://cdn.simpleicons.org/amazon/FF9900' },
-  { name: 'Google Drive', src: 'https://cdn.simpleicons.org/googledrive/4285F4' },
-  { name: 'Airtable', src: 'https://cdn.simpleicons.org/airtable/18BFFF' },
-  { name: 'Monday', src: 'https://cdn.simpleicons.org/monday/FF3D57' },
-  { name: 'Canva', src: 'https://cdn.simpleicons.org/canva/00C4CC' },
-  { name: 'Airbnb', src: 'https://cdn.simpleicons.org/airbnb/FF5A5F' },
-  { name: 'Stripe', src: 'https://cdn.simpleicons.org/stripe/008CDD' },
-  { name: 'HubSpot', src: 'https://cdn.simpleicons.org/hubspot/FF7A59' },
-  { name: 'Salesforce', src: 'https://cdn.simpleicons.org/salesforce/00A1E0' },
-  { name: 'Intercom', src: 'https://cdn.simpleicons.org/intercom/1F8DED' },
-  { name: 'Zendesk', src: 'https://cdn.simpleicons.org/zendesk/03363D' },
-  { name: 'Mailchimp', src: 'https://cdn.simpleicons.org/mailchimp/FFE01B' },
-  { name: 'PayPal', src: 'https://cdn.simpleicons.org/paypal/00457C' },
-  { name: 'Shopify', src: 'https://cdn.simpleicons.org/shopify/7AB55C' },
-  { name: 'Telegram', src: 'https://cdn.simpleicons.org/telegram/26A5E4' },
-  { name: 'WhatsApp', src: 'https://cdn.simpleicons.org/whatsapp/25D366' },
-  { name: 'Twitter', src: 'https://cdn.simpleicons.org/x/000000' },
-  { name: 'Instagram', src: 'https://cdn.simpleicons.org/instagram/E4405F' },
-  { name: 'YouTube', src: 'https://cdn.simpleicons.org/youtube/FF0000' },
-  { name: 'TikTok', src: 'https://cdn.simpleicons.org/tiktok/000000' },
-  { name: 'Evernote', src: 'https://cdn.simpleicons.org/evernote/00A82D' },
-  { name: 'DoorDash', src: 'https://cdn.simpleicons.org/doordash/FF3008' },
+  { name: 'NVIDIA', src: 'https://cdn.simpleicons.org/nvidia/76B900' },
+  { name: 'Tesla', src: 'https://cdn.simpleicons.org/tesla/CC0000' },
+  
+  // Investment Banking & Finance
+  { name: 'JPMorgan', src: 'https://cdn.simpleicons.org/jpmorganchase/117ACA' },
+  { name: 'Goldman Sachs', src: 'https://cdn.simpleicons.org/goldmansachs/0066CC' },
+  { name: 'Morgan Stanley', src: 'https://cdn.simpleicons.org/morganstanley/00529B' },
+  { name: 'Bank of America', src: 'https://cdn.simpleicons.org/bankofamerica/E31837' },
+  
+  // Consulting & Professional Services
+  { name: 'McKinsey', src: 'https://cdn.simpleicons.org/mckinsey/002E6D' },
+  { name: 'Deloitte', src: 'https://cdn.simpleicons.org/deloitte/0076A8' },
+  { name: 'PwC', src: 'https://cdn.simpleicons.org/pwc/D93954' },
+  { name: 'KPMG', src: 'https://cdn.simpleicons.org/kpmg/00338D' },
+  { name: 'EY', src: 'https://cdn.simpleicons.org/ey/FFE600' },
+  
+  // Energy & Resources
+  { name: 'Shell', src: 'https://cdn.simpleicons.org/shell/FBCE07' },
+  { name: 'ExxonMobil', src: 'https://cdn.simpleicons.org/exxonmobil/FF0000' },
+  
+  // Healthcare & Pharma
+  { name: 'Johnson & Johnson', src: 'https://cdn.simpleicons.org/johnsonandjohnson/DC0028' },
 ];
