@@ -1,22 +1,20 @@
 import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 
 export const ThemeToggle = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    const stored = localStorage.getItem('clovely-theme') as 'light' | 'dark' | null;
-    const initial = stored || 'light';
-    setTheme(initial);
-    document.documentElement.classList.toggle('dark', initial === 'dark');
-  }, []);
+    // Force light mode on first load if no preference exists
+    if (!localStorage.getItem('clovely-theme')) {
+      setTheme('light');
+    }
+  }, [setTheme]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('clovely-theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   return (

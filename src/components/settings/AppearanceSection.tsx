@@ -1,4 +1,4 @@
-import { Palette, Sun, Moon, Monitor, Type, Eye } from 'lucide-react';
+import { Palette, Sun, Moon, Type, Eye } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -13,7 +13,7 @@ export function AppearanceSection() {
     setTheme(newTheme);
     toast({
       title: 'Tema actualizado',
-      description: `Has cambiado al modo ${newTheme === 'system' ? 'sistema' : newTheme === 'light' ? 'claro' : 'oscuro'}.`,
+      description: `Has cambiado al modo ${newTheme === 'light' ? 'claro' : 'oscuro'}.`,
     });
   };
 
@@ -44,22 +44,11 @@ export function AppearanceSection() {
         <CardHeader>
           <CardTitle className="text-base">Tema</CardTitle>
           <CardDescription>
-            Selecciona tu tema preferido o sigue la configuración del sistema
+            Selecciona tu tema preferido (claro u oscuro)
           </CardDescription>
         </CardHeader>
         <CardContent>
           <RadioGroup value={theme} onValueChange={(value) => handleThemeChange(value as ThemeMode)}>
-            <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-accent transition-colors">
-              <RadioGroupItem value="system" id="system" />
-              <Label htmlFor="system" className="flex items-center gap-2 flex-1 cursor-pointer">
-                <Monitor className="h-4 w-4" />
-                <div>
-                  <p className="text-sm font-medium">Sistema</p>
-                  <p className="text-xs text-muted-foreground">Usar configuración del dispositivo</p>
-                </div>
-              </Label>
-            </div>
-
             <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-accent transition-colors">
               <RadioGroupItem value="light" id="light" />
               <Label htmlFor="light" className="flex items-center gap-2 flex-1 cursor-pointer">
