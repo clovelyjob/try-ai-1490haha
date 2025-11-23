@@ -23,15 +23,15 @@ export default function TemplateSelector({ value, onChange }: TemplateSelectorPr
 
   return (
     <Select value={value} onValueChange={(v) => onChange(v as CVTemplate)}>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-[220px]">
         <Layout className="h-4 w-4 mr-2" />
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {templates.map((template) => (
           <SelectItem key={template.value} value={template.value}>
-            <div>
-              <div className="font-medium">{template.label}</div>
+            <div className="py-1">
+              <div className="font-semibold">{template.label}</div>
               <div className="text-xs text-muted-foreground">{template.description}</div>
             </div>
           </SelectItem>

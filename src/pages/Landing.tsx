@@ -75,94 +75,93 @@ const Landing = () => {
         </div>
       </nav>
 
-      {/* Hero - Impacto inmediato */}
+      {/* Hero - Impacto inmediato con animaciones secuenciales */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/40 via-orange-100/30 to-transparent dark:from-blue-950/20 dark:via-orange-950/10 pointer-events-none" />
         
-        <div className="container mx-auto px-6 py-32 md:py-40 max-w-6xl relative">
-          <motion.div initial={{
-          opacity: 0,
-          y: 30
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8,
-          ease: 'easeOut'
-        }} className="text-center space-y-8">
-            {/* Badge */}
-            <motion.div initial={{
-            opacity: 0,
-            scale: 0.9
-          }} animate={{
-            opacity: 1,
-            scale: 1
-          }} transition={{
-            delay: 0.2,
-            duration: 0.5
-          }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-primary/20 text-sm font-medium text-foreground shadow-sm">
-              <Star className="h-4 w-4 text-primary fill-primary" />
+        <div className="container mx-auto px-6 py-40 md:py-48 max-w-6xl relative">
+          <div className="text-center space-y-12">
+            {/* Badge con animación de entrada */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-primary/20 text-sm font-medium text-foreground shadow-clovely-md"
+            >
+              <Star className="h-4 w-4 text-primary fill-primary animate-pulse" />
               <span>Más de 10,000 profesionales</span>
             </motion.div>
 
-            {/* Hero Title */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-tight tracking-tight">
+            {/* Hero Title con reveal animado */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold leading-[1.1] tracking-tight"
+            >
               Encuentra el trabajo que{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-warm to-primary animate-gradient-x">
                 realmente mereces
               </span>
-            </h1>
+            </motion.h1>
 
-            {/* Subtitle */}
-            <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
+            {/* Subtitle con fade suave */}
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed"
+            >
               Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
-            </p>
+            </motion.p>
 
-            {/* Video Demo */}
-            <motion.div initial={{
-            opacity: 0,
-            y: 30
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.3,
-            duration: 0.8
-          }} className="max-w-6xl mx-auto px-4">
-              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 p-2 shadow-[0_20px_70px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-15px_rgba(0,0,0,0.6)]">
+            {/* Video Demo con zoom-in y sombra dramática */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }} 
+              animate={{ opacity: 1, scale: 1, y: 0 }} 
+              transition={{ delay: 0.8, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-6xl mx-auto px-4"
+            >
+              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 p-2 shadow-clovely-glow hover:shadow-[0_30px_90px_-20px_rgba(255,122,0,0.5)] transition-all duration-500 group">
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
                   <video autoPlay loop muted playsInline className="w-full h-auto">
                     <source src="/clovely-hero-video.mp4" type="video/mp4" />
                     Tu navegador no soporta el elemento de video.
                   </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </div>
             </motion.div>
 
-            {/* CTA */}
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.4,
-            duration: 0.6
-          }} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            {/* CTA con bounce sutil */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 1.0, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+            >
               <Link to="/guest-start" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto text-lg px-10 py-7 gradient-orange text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <Button 
+                  size="lg" 
+                  variant="premium"
+                  className="w-full sm:w-auto text-lg px-12 py-7 font-bold group"
+                >
                   Sube tu CV y encuentra trabajo
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </motion.div>
 
-            {/* Trust indicator */}
-            <p className="text-sm text-muted-foreground pt-4">
+            {/* Trust indicator con fade */}
+            <motion.p 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 1.2, duration: 0.5 }}
+              className="text-sm text-muted-foreground pt-4"
+            >
               ✨ 7 días gratis • Sin tarjeta • Cancela cuando quieras
-            </p>
-          </motion.div>
+            </motion.p>
+          </div>
         </div>
       </section>
 
