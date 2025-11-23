@@ -181,8 +181,7 @@ const Landing = () => {
           </h1>
           
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Tu carrera no debería sentirse como un misterio. Con Clovely, tu potencial deja de ser invisible: 
-            la IA analiza quién eres, te muestra tu camino ideal y te conecta con oportunidades que encajan contigo.
+            Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
           </p>
           
           {/* Hero Video */}
