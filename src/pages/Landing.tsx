@@ -19,28 +19,24 @@ const Landing = () => {
   } = useThemeLogo();
   const features = [{
     icon: Brain,
-    title: 'Diagnóstico IA',
-    description: 'Descubre tus fortalezas ocultas en 10 minutos'
+    title: 'Diagnóstico IA en 10 minutos',
+    description: 'Descubre tu perfil profesional completo con inteligencia artificial'
   }, {
     icon: Map,
     title: 'Ruta personalizada',
-    description: 'Plan paso a paso con microacciones diarias'
+    description: 'Plan paso a paso diseñado específicamente para ti'
   }, {
     icon: FileText,
-    title: 'CV optimizado',
-    description: 'Pasa filtros ATS automáticamente'
+    title: 'CV optimizado automáticamente',
+    description: 'Tu CV perfecto sin esfuerzo, listo para competir'
   }, {
     icon: MessageSquare,
-    title: 'Simulador de entrevistas',
-    description: 'Feedback instantáneo con IA'
+    title: 'Simulador de entrevistas con IA',
+    description: 'Practica y recibe feedback real antes de la entrevista'
   }, {
-    icon: Users,
-    title: 'Círculos de progreso',
-    description: 'Apoyo grupal y motivación constante'
-  }, {
-    icon: Trophy,
-    title: 'Gamificación total',
-    description: 'XP, niveles y logros por cada paso'
+    icon: Target,
+    title: 'Match con empleos alineados a tu perfil',
+    description: 'Oportunidades que realmente encajan contigo'
   }];
   const steps = [{
     icon: Clock,
@@ -80,17 +76,35 @@ const Landing = () => {
     rating: 5
   }];
   const problems = [{
-    icon: '🧠',
-    title: 'No sabes qué te apasiona',
-    description: 'Falta claridad sobre tus intereses y fortalezas reales'
+    icon: '❓',
+    title: 'No sabes qué quieres',
+    description: 'Te sientes perdido sin una dirección clara en tu carrera'
   }, {
-    icon: '🧭',
-    title: 'El mercado es un laberinto',
-    description: 'Miles de ofertas, no sabes por dónde empezar'
+    icon: '🌀',
+    title: 'El mercado laboral parece un caos',
+    description: 'Miles de opciones pero ninguna parece la correcta'
   }, {
+    icon: '📧',
+    title: 'Envíes lo que envíes, nadie responde',
+    description: 'Tus aplicaciones desaparecen en el vacío sin explicación'
+  }];
+  
+  const benefits = [{
     icon: '🎯',
-    title: 'CVs sin respuestas',
-    description: 'Te pierdes entre cientos, no sabes qué está fallando'
+    title: 'Claridad total sobre tu camino',
+    description: 'Sabrás exactamente qué hacer y por qué'
+  }, {
+    icon: '📄',
+    title: 'Un CV y perfil listos para competir',
+    description: 'Destaca entre cientos con herramientas profesionales'
+  }, {
+    icon: '💼',
+    title: 'Oportunidades reales en tu bandeja',
+    description: 'Empleos que encajan con tu perfil y objetivos'
+  }, {
+    icon: '🚀',
+    title: 'Seguridad, enfoque y avance constante',
+    description: 'Progreso medible cada día hacia tu meta'
   }];
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -159,17 +173,17 @@ const Landing = () => {
       }} className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
           
           <Badge variant="secondary" className="mb-3 sm:mb-4 bg-primary/10 text-primary border-primary/20 text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2">
-            🚀 +10,000 profesionales transformaron su carrera
+            ⭐ Más de 10,000 profesionales ya transformaron su carrera
           </Badge>
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight px-2">
-            Encuentra el trabajo que te hace{' '}
-            <span className="text-primary">feliz</span> con el poder de la IA
+            Encuentra el trabajo que{' '}
+            <span className="text-primary">realmente mereces</span> con IA que te guía paso a paso
           </h1>
           
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Nuestro coach con IA analiza tu perfil, diseña tu ruta personalizada
-            y te conecta con oportunidades alineadas a tu propósito
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+            Tu carrera no debería sentirse como un misterio. Con Clovely, tu potencial deja de ser invisible: 
+            la IA analiza quién eres, te muestra tu camino ideal y te conecta con oportunidades que encajan contigo.
           </p>
           
           {/* Hero Video */}
@@ -211,17 +225,13 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4 sm:px-0">
             <Link to="/guest-start" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 min-h-[48px] sm:min-h-[52px] gradient-orange text-white hover-lift hover-glow hover:shadow-2xl transition-all duration-300">
-                Sube tu CV y encuentra trabajo
+                Sube tu CV y accede a oportunidades diseñadas para ti
               </Button>
-            </Link>
-            <Link to="/registro" className="w-full sm:w-auto">
-              
             </Link>
           </div>
           
           <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4 max-w-md mx-auto">
-            <p className="text-primary font-semibold text-center text-sm sm:text-base">✨ 7 días de prueba gratuita</p>
-            <p className="text-xs sm:text-sm text-muted-foreground text-center">Sin compromiso. Cancela cuando quieras.</p>
+            <p className="text-primary font-semibold text-center text-sm sm:text-base">✨ 7 días gratis, sin tarjeta</p>
           </div>
 
           <motion.div initial={{
@@ -242,7 +252,7 @@ const Landing = () => {
       {/* Integrations */}
       <IntegrationsSection />
 
-      {/* Problems - Mobile optimized */}
+      {/* Por qué miles aman Clovely */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-7xl">
         <motion.div initial={{
         opacity: 0
@@ -252,12 +262,81 @@ const Landing = () => {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="max-w-5xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-center mb-8 sm:mb-12 px-4">
-            ¿Te suena familiar?
+      }} className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold mb-6 sm:mb-8 px-4">
+            Por qué miles aman Clovely
           </h2>
+          <div className="space-y-3 sm:space-y-4 text-lg sm:text-xl md:text-2xl font-medium text-muted-foreground">
+            <p className="hover:text-primary transition-colors">Porque sienten claridad.</p>
+            <p className="hover:text-primary transition-colors">Porque dejan de adivinar.</p>
+            <p className="hover:text-primary transition-colors">Porque dejan de enviar CVs al vacío.</p>
+            <p className="hover:text-primary transition-colors">Porque finalmente ven un plan que pueden seguir.</p>
+            <p className="text-primary font-bold text-xl sm:text-2xl md:text-3xl">Porque funciona.</p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Problems - ¿Te suena familiar? */}
+      <section className="bg-muted/30 py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <motion.div initial={{
+          opacity: 0
+        }} whileInView={{
+          opacity: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }} className="max-w-5xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-center mb-4 sm:mb-6 px-4">
+              ¿Te suena familiar?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+              {problems.map((problem, i) => <motion.div key={i} initial={{
+              opacity: 0,
+              y: 20
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} transition={{
+              delay: i * 0.1
+            }}>
+                  <Card className="p-5 sm:p-6 hover-lift h-full">
+                    <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{problem.icon}</div>
+                    <h3 className="font-heading font-bold text-base sm:text-lg mb-2">{problem.title}</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">{problem.description}</p>
+                  </Card>
+                </motion.div>)}
+            </div>
+            <p className="text-center text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-primary">
+              Eso termina hoy.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features - Todo lo que necesitas */}
+      <section id="features" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-7xl">
+        <motion.div initial={{
+        opacity: 0
+      }} whileInView={{
+        opacity: 1
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-center mb-4 sm:mb-6 px-4">
+            Todo lo que necesitas para avanzar está aquí
+          </h2>
+          <p className="text-center text-muted-foreground mb-8 sm:mb-12 text-base sm:text-lg max-w-2xl mx-auto px-4">
+            Cinco herramientas poderosas trabajando juntas para transformar tu carrera
+          </p>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {problems.map((problem, i) => <motion.div key={i} initial={{
+            {features.map((feature, i) => <motion.div key={i} initial={{
             opacity: 0,
             y: 20
           }} whileInView={{
@@ -268,85 +347,20 @@ const Landing = () => {
           }} transition={{
             delay: i * 0.1
           }}>
-                <Card className="p-5 sm:p-6 hover-lift h-full">
-                  <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{problem.icon}</div>
-                  <h3 className="font-heading font-bold text-base sm:text-lg mb-2">{problem.title}</h3>
-                  <p className="text-sm sm:text-base text-muted-foreground">{problem.description}</p>
+                <Card className="p-5 sm:p-6 hover-lift cursor-pointer group h-full">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl gradient-orange flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <feature.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                  </div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg mb-2 group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm">
+                    {feature.description}
+                  </p>
                 </Card>
               </motion.div>)}
           </div>
         </motion.div>
-      </section>
-
-      {/* Features - Responsive Grid */}
-      <section id="features" className="bg-muted/30 py-12 sm:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5
-        }} className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12 lg:mb-16">
-              <div className="order-2 lg:order-1">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold mb-3 sm:mb-4 px-2 sm:px-0">
-                  Tu coach personal 24/7
-                </h2>
-                <p className="text-muted-foreground mb-6 sm:mb-8 text-base sm:text-lg px-2 sm:px-0">
-                  Todas las herramientas que necesitas para transformar tu carrera, con el apoyo de una comunidad que crece contigo.
-                </p>
-                <motion.div initial={{
-                opacity: 0,
-                x: -20
-              }} whileInView={{
-                opacity: 1,
-                x: 0
-              }} viewport={{
-                once: true
-              }} transition={{
-                delay: 0.2
-              }} className="glass rounded-xl sm:rounded-2xl overflow-hidden">
-                  <img src={collaborationImage} alt="Equipo colaborando en desarrollo profesional" className="w-full h-auto object-cover" loading="lazy" />
-                </motion.div>
-              </div>
-              
-              <div className="grid gap-4 sm:gap-6 order-1 lg:order-2">
-                {features.map((feature, i) => <motion.div key={i} initial={{
-                opacity: 0,
-                x: 20
-              }} whileInView={{
-                opacity: 1,
-                x: 0
-              }} viewport={{
-                once: true
-              }} transition={{
-                delay: i * 0.1
-              }}>
-                    <Card className="p-4 sm:p-6 hover-lift cursor-pointer group">
-                      <div className="flex gap-3 sm:gap-4">
-                        <div className="shrink-0">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                          </div>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-heading font-bold text-base sm:text-lg mb-1 sm:mb-2 group-hover:text-primary transition-colors">
-                            {feature.title}
-                          </h3>
-                          <p className="text-muted-foreground text-xs sm:text-sm">
-                            {feature.description}
-                          </p>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>)}
-              </div>
-            </div>
-          </motion.div>
-        </div>
       </section>
 
       {/* How it works - Fully Responsive */}
@@ -475,6 +489,46 @@ const Landing = () => {
         </div>
       </section>
 
+      {/* Imagina tu vida profesional en 90 días */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-7xl">
+        <motion.div initial={{
+        opacity: 0
+      }} whileInView={{
+        opacity: 1
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="max-w-5xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-center mb-4 sm:mb-6 px-4">
+            Imagina tu vida profesional en 90 días
+          </h2>
+          <p className="text-center text-muted-foreground mb-8 sm:mb-12 text-base sm:text-lg max-w-2xl mx-auto px-4">
+            Esto es lo que lograrás con Clovely
+          </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {benefits.map((benefit, i) => <motion.div key={i} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            delay: i * 0.1
+          }}>
+                <Card className="p-5 sm:p-6 hover-lift h-full group cursor-pointer hover:border-primary/50 transition-all">
+                  <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{benefit.icon}</div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg mb-2 group-hover:text-primary transition-colors">{benefit.title}</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground">{benefit.description}</p>
+                </Card>
+              </motion.div>)}
+          </div>
+        </motion.div>
+      </section>
+
       {/* Pricing - Mobile First */}
       <section id="pricing" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-7xl">
         <motion.div initial={{
@@ -595,32 +649,41 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Final CTA - Touch Optimized */}
+      {/* Final CTA */}
       <section className="gradient-orange text-white py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-7xl">
-          <Badge variant="secondary" className="mb-3 sm:mb-4 bg-white/20 text-white border-white/30 text-xs sm:text-sm">
-            ✨ Prueba 7 días gratis
-          </Badge>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold mb-3 sm:mb-4 px-4">
-            ¿Listo para dejar de buscar y empezar a encontrar?
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 opacity-90 px-4">
-            🎯 87% consigue empleo en 3 meses | ⭐ 4.9/5 | 🚀 10,243 carreras transformadas
-          </p>
-          <motion.div whileHover={{
-          scale: 1.05
-        }} whileTap={{
-          scale: 0.95
-        }}>
-            <Link to="/registro">
-              <Button size="lg" className="gradient-blue text-white text-base sm:text-lg px-6 sm:px-8 min-h-[48px] sm:min-h-[52px] hover:shadow-2xl transition-all duration-300">
-                Empieza tu prueba gratuita ahora <Zap className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </Link>
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }} className="max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold mb-4 sm:mb-6 px-4">
+              Todo empieza subiendo tu CV hoy
+            </h2>
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-95 px-4">
+              Únete a los miles de profesionales que ya transformaron su carrera
+            </p>
+            <motion.div whileHover={{
+            scale: 1.05
+          }} whileTap={{
+            scale: 0.95
+          }} className="mb-4">
+              <Link to="/guest-start">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-base sm:text-lg lg:text-xl px-8 sm:px-10 lg:px-12 min-h-[52px] sm:min-h-[56px] hover:shadow-2xl transition-all duration-300 font-bold">
+                  Empieza tu transformación <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                </Button>
+              </Link>
+            </motion.div>
+            <p className="text-sm sm:text-base opacity-90 px-4">
+              7 días gratis • Sin compromiso • Cancela cuando quieras
+            </p>
           </motion.div>
-          <p className="text-xs sm:text-sm mt-3 sm:mt-4 opacity-75 px-4">
-            Sin tarjeta requerida • Cancela cuando quieras
-          </p>
         </div>
       </section>
 

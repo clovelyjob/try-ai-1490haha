@@ -51,7 +51,12 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           light: "hsl(var(--secondary-light))",
+          coral: "hsl(var(--secondary-coral))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        premium: {
+          blue: "hsl(var(--premium-blue))",
+          foreground: "hsl(var(--premium-blue-foreground))",
         },
         success: {
           DEFAULT: "hsl(var(--success))",
