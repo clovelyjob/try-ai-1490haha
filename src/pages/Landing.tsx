@@ -51,21 +51,21 @@ const Landing = () => {
 
   const testimonials = [
     {
-      name: 'Ana M.',
+      name: 'Ana M., 24',
       role: 'Contadora → UX Designer',
-      text: 'En 3 meses conseguí mi primer trabajo en UX',
+      text: 'Me cambió la vida. En 3 meses conseguí mi primer trabajo en UX y nunca me sentí tan segura en una entrevista.',
       rating: 5
     },
     {
-      name: 'Carlos R.',
+      name: 'Carlos R., 28',
       role: 'Aumento salarial 40%',
-      text: 'Solo seguí el plan, funcionó perfectamente',
+      text: 'Es la primera vez que entiendo mi carrera. Solo seguí el plan y funcionó. Es el producto que siempre necesité.',
       rating: 5
     },
     {
-      name: 'María F.',
+      name: 'María F., 22',
       role: 'Recién graduada',
-      text: 'Recibí 3 ofertas, el simulador me dio confianza',
+      text: 'Clovely es increíble. Recibí 3 ofertas y el simulador me dio la confianza que me faltaba. No puedo creerlo.',
       rating: 5
     }
   ];
@@ -117,15 +117,15 @@ const Landing = () => {
 
             {/* Hero Title */}
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-tight tracking-tight">
-              Encuentra el trabajo que{' '}
+              Tu mejor versión profesional{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
-                realmente mereces
+                comienza aquí
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
-              Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
+              Deja de adivinar. Empieza a avanzar. La IA analiza tu CV, crea tu ruta personalizada y te conecta con las oportunidades que realmente importan.
             </p>
 
             {/* CTA */}
@@ -157,6 +157,138 @@ const Landing = () => {
       {/* Integrations */}
       <IntegrationsSection />
 
+      {/* CV Builder Explanation - Cómo funciona */}
+      <section className="py-32 bg-white dark:bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-blue-50/30 pointer-events-none" />
+        
+        <div className="container mx-auto px-6 max-w-6xl relative">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-20"
+          >
+            {/* Header */}
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
+                Cómo funciona el <span className="text-primary">CV Builder</span>
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Tu transformación profesional en 5 pasos automáticos
+              </p>
+            </div>
+
+            {/* Steps Grid */}
+            <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+              {/* Step 1 */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="space-y-4"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-xl shadow-lg">
+                  1
+                </div>
+                <h3 className="text-2xl font-heading font-bold">Analiza tu CV completo</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  La IA lee cada línea de tu experiencia, identifica tus fortalezas únicas y detecta oportunidades de mejora instantáneamente.
+                </p>
+              </motion.div>
+
+              {/* Step 2 */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="space-y-4"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-xl shadow-lg">
+                  2
+                </div>
+                <h3 className="text-2xl font-heading font-bold">Optimiza automáticamente</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Reescribe secciones clave, ajusta formato y añade keywords que los reclutadores buscan. Tu CV compite al máximo nivel.
+                </p>
+              </motion.div>
+
+              {/* Step 3 */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="space-y-4"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-xl shadow-lg">
+                  3
+                </div>
+                <h3 className="text-2xl font-heading font-bold">Crea tu ruta personalizada</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Diseña un plan específico para ti: objetivos claros, timeline realista y microacciones diarias que te acercan a tu meta.
+                </p>
+              </motion.div>
+
+              {/* Step 4 */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="space-y-4"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-xl shadow-lg">
+                  4
+                </div>
+                <h3 className="text-2xl font-heading font-bold">Genera microacciones</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Cada día, tareas concretas de 15-30 minutos que construyen tu futuro paso a paso. Sin agobios, solo progreso real.
+                </p>
+              </motion.div>
+
+              {/* Step 5 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="space-y-4 md:col-span-2 max-w-2xl mx-auto text-center"
+              >
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-xl shadow-lg">
+                  5
+                </div>
+                <h3 className="text-2xl font-heading font-bold">Acelera tu búsqueda laboral</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Match inteligente con empleos alineados a tu perfil. El simulador de entrevistas te prepara. Llegas a cada oportunidad listo para ganar.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="text-center pt-8"
+            >
+              <Link to="/guest-start">
+                <Button 
+                  size="lg" 
+                  className="text-lg px-10 py-7 gradient-orange text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                >
+                  <FileText className="mr-2 h-6 w-6" />
+                  Prueba el CV Builder ahora
+                </Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Por qué Clovely - Minimalista */}
       <section className="py-32 bg-white dark:bg-background">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -171,44 +303,66 @@ const Landing = () => {
               Por qué miles aman Clovely
             </h2>
             
-            <div className="space-y-6 text-2xl sm:text-3xl font-light text-muted-foreground">
+            <div className="space-y-8 text-2xl sm:text-3xl font-light text-muted-foreground">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="hover:text-foreground transition-colors cursor-default"
+                className="hover:text-foreground transition-colors cursor-default leading-relaxed"
               >
-                Porque sienten claridad.
+                Porque <span className="font-semibold text-foreground">sienten claridad</span> por primera vez.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="hover:text-foreground transition-colors cursor-default"
+                className="hover:text-foreground transition-colors cursor-default leading-relaxed"
               >
-                Porque dejan de adivinar.
+                Porque <span className="font-semibold text-foreground">dejan de adivinar</span> qué hacer.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="hover:text-foreground transition-colors cursor-default"
+                className="hover:text-foreground transition-colors cursor-default leading-relaxed"
               >
-                Porque ven resultados reales.
+                Porque <span className="font-semibold text-foreground">dejan de enviar CVs al vacío</span>.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="text-primary font-semibold text-4xl mt-8"
+                className="hover:text-foreground transition-colors cursor-default leading-relaxed"
+              >
+                Porque finalmente <span className="font-semibold text-foreground">ven un plan que pueden seguir</span>.
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="text-primary font-bold text-4xl sm:text-5xl mt-12"
               >
                 Porque funciona.
               </motion.p>
             </div>
+
+            {/* Urgency line */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="pt-8"
+            >
+              <p className="text-xl text-foreground font-medium">
+                Tu potencial merece una guía real. Deja de adivinar. <span className="text-primary font-bold">Empieza a avanzar.</span>
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -301,7 +455,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Ultra emocionales */}
       <section className="py-32 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background">
         <div className="container mx-auto px-6 max-w-6xl">
           <motion.div
@@ -310,9 +464,14 @@ const Landing = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-20 tracking-tight">
-              Historias de éxito
-            </h2>
+            <div className="text-center mb-20 space-y-4">
+              <h2 className="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
+                Historias que inspiran
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Profesionales como tú que transformaron sus carreras con Clovely
+              </p>
+            </div>
             
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, i) => (
@@ -323,122 +482,248 @@ const Landing = () => {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                 >
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800/50">
-                    <div className="flex gap-1 mb-4">
-                      {Array.from({ length: testimonial.rating }).map((_, j) => (
-                        <Star key={j} className="h-5 w-5 fill-orange-500 text-orange-500" />
-                      ))}
-                    </div>
-                    <p className="text-lg mb-6 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
-                    <div className="border-t pt-4">
-                      <p className="font-semibold text-lg">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <Card className="p-8 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800/50 border-2 border-transparent hover:border-primary/20 group">
+                    <div className="space-y-6">
+                      {/* Stars */}
+                      <div className="flex gap-1">
+                        {Array.from({ length: testimonial.rating }).map((_, j) => (
+                          <Star key={j} className="h-5 w-5 fill-orange-500 text-orange-500" />
+                        ))}
+                      </div>
+                      
+                      {/* Quote */}
+                      <p className="text-lg leading-relaxed text-foreground">
+                        &ldquo;{testimonial.text}&rdquo;
+                      </p>
+                      
+                      {/* Author */}
+                      <div className="border-t pt-6 space-y-1">
+                        <p className="font-bold text-lg group-hover:text-primary transition-colors">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-sm text-primary font-medium">
+                          {testimonial.role}
+                        </p>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
               ))}
             </div>
+
+            {/* Social proof line */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-center text-muted-foreground mt-16 text-lg"
+            >
+              Más de <span className="font-bold text-primary">10,000 profesionales</span> ya están transformando sus carreras
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Pricing - Minimalista */}
-      <section className="py-32 bg-white dark:bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
+      {/* Pricing - Ultra Premium con copy exacto */}
+      <section className="py-32 bg-gradient-to-b from-white via-gray-50/50 to-white dark:from-background dark:via-gray-900/50 dark:to-background">
+        <div className="container mx-auto px-6 max-w-6xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-20 tracking-tight">
-              Un precio. Todo incluido.
+            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-6 tracking-tight">
+              Elige tu plan
             </h2>
+            <p className="text-center text-xl text-muted-foreground mb-20 max-w-2xl mx-auto">
+              Empieza gratis o desbloquea todo tu potencial
+            </p>
             
-            <div className="max-w-lg mx-auto">
-              <Card className="p-12 border-2 border-primary hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-semibold rounded-bl-2xl">
-                  7 días gratis
-                </div>
-                
-                <div className="text-center mb-10">
-                  <h3 className="text-3xl font-heading font-bold mb-4">Premium</h3>
-                  <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-6xl font-heading font-bold text-primary">$20</span>
-                    <span className="text-2xl text-muted-foreground">/mes</span>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Free Plan */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+              >
+                <Card className="p-10 h-full hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700">
+                  <div className="space-y-8">
+                    <div>
+                      <h3 className="text-3xl font-heading font-bold mb-2">Free</h3>
+                      <div className="flex items-baseline gap-2 mb-6">
+                        <span className="text-5xl font-heading font-bold">$0</span>
+                        <span className="text-xl text-muted-foreground">/mes</span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-4">
+                      {[
+                        'Diagnóstico básico',
+                        '1 objetivo activo',
+                        '5 microacciones/semana',
+                        '5 mensajes IA/mes'
+                      ].map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2 className="h-5 w-5 text-gray-400 shrink-0 mt-0.5" />
+                          <span className="text-base text-muted-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link to="/registro" className="block mt-auto">
+                      <Button 
+                        variant="outline"
+                        size="lg" 
+                        className="w-full text-base py-6 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
+                      >
+                        Empezar gratis
+                      </Button>
+                    </Link>
                   </div>
-                </div>
+                </Card>
+              </motion.div>
 
-                <ul className="space-y-4 mb-10">
-                  {[
-                    'Diagnóstico IA completo',
-                    'Objetivos ilimitados',
-                    'IA 24/7 sin límites',
-                    'CV optimizado con IA',
-                    'Simulador de entrevistas',
-                    'Match inteligente de empleos',
-                    '2 mentorías mensuales'
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                      <span className="text-lg">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Premium Plan - Destacado */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="relative"
+              >
+                {/* Glow effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300 animate-pulse" />
+                
+                <Card className="relative p-10 h-full border-2 border-primary hover:border-primary bg-white dark:bg-gray-800 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+                  {/* Badge Más Popular */}
+                  <div className="absolute -top-1 -right-1 px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-bold rounded-bl-2xl rounded-tr-2xl shadow-lg">
+                    ⭐ Más popular
+                  </div>
 
-                <Link to="/registro" className="block">
-                  <Button 
-                    size="lg" 
-                    className="w-full text-lg py-7 gradient-orange text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
-                  >
-                    Empieza tu prueba gratis
-                  </Button>
-                </Link>
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/5 to-transparent animate-shimmer" />
+                  </div>
 
-                <p className="text-center text-sm text-muted-foreground mt-6">
-                  Sin compromiso • Cancela cuando quieras
-                </p>
-              </Card>
+                  <div className="space-y-8 relative z-10">
+                    <div>
+                      <h3 className="text-3xl font-heading font-bold mb-2 text-primary">Premium</h3>
+                      <div className="flex items-baseline gap-2 mb-6">
+                        <span className="text-5xl font-heading font-bold text-primary">$20</span>
+                        <span className="text-xl text-muted-foreground">/mes</span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-4">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <span className="text-base font-semibold">Todo de Free +</span>
+                      </li>
+                      {[
+                        'Objetivos ilimitados',
+                        'IA 24/7 ilimitado',
+                        'CV optimizado IA',
+                        'Simulador ilimitado',
+                        'Match inteligente empleos',
+                        '2 mentorías/mes'
+                      ].map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                          <span className="text-base">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link to="/registro" className="block mt-auto">
+                      <Button 
+                        size="lg" 
+                        className="w-full text-base py-6 gradient-orange text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                      >
+                        Prueba 7 días gratis
+                        <Zap className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+
+                    <p className="text-center text-sm text-muted-foreground">
+                      Sin compromiso • Cancela cuando quieras
+                    </p>
+                  </div>
+                </Card>
+              </motion.div>
             </div>
+
+            {/* Trust line */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-center text-muted-foreground mt-12 text-lg"
+            >
+              El 85% de nuestros usuarios eligen Premium para acelerar su transformación
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Final CTA - Impactante */}
+      {/* Final CTA - Ultra emocional */}
       <section className="py-32 gradient-orange text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
         
-        <div className="container mx-auto px-6 text-center max-w-4xl relative">
+        <div className="container mx-auto px-6 text-center max-w-5xl relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-10"
           >
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold leading-tight tracking-tight">
-              Todo empieza subiendo<br />tu CV hoy
-            </h2>
-            
-            <p className="text-xl sm:text-2xl font-light opacity-95 max-w-2xl mx-auto">
-              Únete a los miles de profesionales que ya transformaron su carrera
-            </p>
-            
-            <div className="pt-4">
+            {/* Emotional headline */}
+            <div className="space-y-4">
+              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-tight tracking-tight">
+                Tu mejor versión comienza<br className="hidden sm:block" /> con un solo clic
+              </h2>
+              
+              <p className="text-2xl sm:text-3xl font-light opacity-95 max-w-3xl mx-auto leading-relaxed">
+                Miles de profesionales ya transformaron sus carreras.<br className="hidden sm:block" />
+                <span className="font-semibold">Es tu turno.</span>
+              </p>
+            </div>
+
+            {/* Main CTA */}
+            <div className="pt-8">
               <Link to="/guest-start">
                 <Button 
                   size="lg" 
-                  className="bg-white text-orange-600 hover:bg-gray-50 text-lg px-12 py-7 font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="bg-white text-orange-600 hover:bg-gray-50 text-xl px-14 py-8 font-bold rounded-2xl hover:shadow-2xl hover:scale-110 transition-all duration-300 group"
                 >
+                  <Sparkles className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
                   Empieza tu transformación
-                  <ArrowRight className="ml-2 h-6 w-6" />
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
 
-            <p className="text-base opacity-90 pt-4">
-              7 días gratis • Sin compromiso • Cancela cuando quieras
-            </p>
+            {/* Trust indicators */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 text-base opacity-95">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" />
+                <span>7 días gratis</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 bg-white/50 rounded-full" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" />
+                <span>Sin tarjeta</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 bg-white/50 rounded-full" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" />
+                <span>Cancela cuando quieras</span>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
