@@ -155,7 +155,7 @@ const Register = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Ana García"
-                className={errors.name ? 'border-destructive' : ''}
+                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.name ? 'border-destructive' : ''}`}
               />
               {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
             </div>
@@ -168,7 +168,7 @@ const Register = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="ana@ejemplo.com"
-                className={errors.email ? 'border-destructive' : ''}
+                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.email ? 'border-destructive' : ''}`}
               />
               {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
             </div>
@@ -181,7 +181,7 @@ const Register = () => {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 placeholder="••••••••"
-                className={errors.password ? 'border-destructive' : ''}
+                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.password ? 'border-destructive' : ''}`}
               />
               {formData.password && (
                 <div className="mt-2 space-y-1">
@@ -213,7 +213,7 @@ const Register = () => {
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 placeholder="••••••••"
-                className={errors.confirmPassword ? 'border-destructive' : ''}
+                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.confirmPassword ? 'border-destructive' : ''}`}
               />
               {errors.confirmPassword && (
                 <p className="text-xs text-destructive mt-1">{errors.confirmPassword}</p>
@@ -279,7 +279,7 @@ const Register = () => {
               <Button 
                 type="button" 
                 variant="outline" 
-                className="hover-lift"
+                className="shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
                 onClick={handleGoogleSignup}
               >
                 <Chrome className="mr-2 h-4 w-4" />
@@ -288,7 +288,7 @@ const Register = () => {
               <Button 
                 type="button" 
                 variant="outline" 
-                className="hover-lift"
+                className="shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
                 onClick={handleLinkedInSignup}
               >
                 <Linkedin className="mr-2 h-4 w-4" />

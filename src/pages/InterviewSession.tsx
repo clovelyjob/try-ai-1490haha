@@ -54,18 +54,18 @@ export default function InterviewSession() {
   return (
     <div className="container max-w-4xl py-8 space-y-6">
       {/* Progress */}
-      <Card className="p-6 space-y-3">
+      <Card className="p-6 space-y-3 rounded-2xl shadow-clovely-lg border-2 border-primary/10">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Progreso</span>
           <span className="font-medium">{answeredCount} / {totalQuestions} preguntas</span>
         </div>
-        <Progress value={progress} />
+        <Progress value={progress} className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-primary-warm" />
       </Card>
 
       {/* Question */}
-      <Card className="p-8 space-y-6">
+      <Card className="p-8 space-y-6 rounded-xl bg-gradient-to-br from-card to-primary/[0.02] shadow-clovely-md border-2">
         <div className="space-y-3">
-          <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+          <div className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary-warm/10 border-2 border-primary/20 text-primary text-sm font-medium">
             Pregunta {answeredCount + 1}
           </div>
           <h2 className="text-2xl font-semibold leading-relaxed">
@@ -73,8 +73,8 @@ export default function InterviewSession() {
           </h2>
           {currentQuestion?.sampleAnswer && (
             <details className="text-sm text-muted-foreground">
-              <summary className="cursor-pointer hover:text-foreground">Ver ejemplo de respuesta</summary>
-              <p className="mt-2 pl-4 border-l-2 border-border">{currentQuestion.sampleAnswer}</p>
+              <summary className="cursor-pointer hover:text-foreground transition-colors">Ver ejemplo de respuesta</summary>
+              <p className="mt-2 pl-4 border-l-2 border-primary/30 bg-muted/50 p-3 rounded-r-lg">{currentQuestion.sampleAnswer}</p>
             </details>
           )}
         </div>
@@ -86,10 +86,10 @@ export default function InterviewSession() {
             onChange={(e) => setAnswer(e.target.value)}
             rows={8}
             disabled={isAnalyzing}
-            className="resize-none"
+            className="resize-none rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md focus-visible:ring-primary/20 transition-all duration-300"
           />
-          <p className="text-sm text-muted-foreground">
-            Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
+          <p className="text-sm text-muted-foreground bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
+            💡 Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
           </p>
         </div>
 
@@ -102,10 +102,11 @@ export default function InterviewSession() {
               }
             }}
             disabled={isAnalyzing}
+            className="shadow-clovely-sm"
           >
             Salir
           </Button>
-          <Button onClick={handleSubmit} disabled={isAnalyzing || !answer.trim()} className="flex-1">
+          <Button onClick={handleSubmit} disabled={isAnalyzing || !answer.trim()} variant="premium" className="flex-1 shadow-clovely-glow">
             {isAnalyzing ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -126,10 +127,15 @@ export default function InterviewSession() {
 
       {/* Recent feedback */}
       {currentSession.responses.length > 0 && (
-        <Card className="p-6 space-y-4">
-          <h3 className="font-semibold">Última retroalimentación</h3>
+        <Card className="p-6 space-y-4 rounded-xl border-2 shadow-clovely-md">
+          <h3 className="font-semibold flex items-center gap-2">
+            <div className="p-2 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-500/10">
+              <CheckCircle2 className="h-4 w-4 text-green-600" />
+            </div>
+            Última retroalimentación
+          </h3>
           <div className="space-y-3">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground p-4 rounded-lg bg-muted/50">
               {currentSession.responses[currentSession.responses.length - 1].feedbackText}
             </p>
             
@@ -137,8 +143,8 @@ export default function InterviewSession() {
             {currentSession.responses[currentSession.responses.length - 1].scores && (
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t">
                 {Object.entries(currentSession.responses[currentSession.responses.length - 1].scores).map(([key, value]) => (
-                  <div key={key} className="text-center">
-                    <p className="text-xs text-muted-foreground capitalize">{key}</p>
+                  <div key={key} className="text-center p-3 rounded-xl bg-gradient-to-br from-primary/5 to-primary-warm/5 border border-primary/10">
+                    <p className="text-xs text-muted-foreground capitalize mb-1">{key}</p>
                     <p className="text-lg font-semibold text-primary">{value}</p>
                   </div>
                 ))}
