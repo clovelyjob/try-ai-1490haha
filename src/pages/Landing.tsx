@@ -53,9 +53,9 @@ const Landing = () => {
     text: 'Recibí 3 ofertas, el simulador me dio confianza',
     rating: 5
   }];
-  return <div className="min-h-screen bg-gradient-to-b from-blue-50/50 via-orange-50/30 to-white dark:from-gray-900 dark:via-gray-800 dark:to-background">
+  return <div className="min-h-screen bg-gradient-to-br from-orange-50/30 via-white to-blue-50/20 dark:from-gray-900 dark:via-gray-800 dark:to-background">
       {/* Navbar - Ultra limpio */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-background/70 border-b border-border/50">
+      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-background/80 border-b border-border/30">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between max-w-7xl">
           <OfficialLogo size="lg" to="/" />
           
@@ -76,10 +76,8 @@ const Landing = () => {
       </nav>
 
       {/* Hero - Impacto inmediato */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/40 via-orange-100/30 to-transparent dark:from-blue-950/20 dark:via-orange-950/10 pointer-events-none" />
-        
-        <div className="container mx-auto px-6 py-32 md:py-40 max-w-6xl relative">
+      <section className="relative overflow-hidden">        
+        <div className="container mx-auto px-6 py-40 md:py-48 max-w-5xl relative">
           <motion.div initial={{
           opacity: 0,
           y: 30
@@ -106,16 +104,16 @@ const Landing = () => {
             </motion.div>
 
             {/* Hero Title */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-tight tracking-tight">
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-semibold leading-[1.1] tracking-tight text-foreground">
               Encuentra el trabajo que{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500">
                 realmente mereces
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
-              Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
+            <p className="text-2xl sm:text-3xl text-muted-foreground/80 max-w-3xl mx-auto font-light leading-relaxed">
+              La IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo
             </p>
 
             {/* Video Demo */}
@@ -128,14 +126,12 @@ const Landing = () => {
           }} transition={{
             delay: 0.3,
             duration: 0.8
-          }} className="max-w-6xl mx-auto px-4">
-              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 p-2 shadow-[0_20px_70px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-15px_rgba(0,0,0,0.6)]">
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-                  <video autoPlay loop muted playsInline className="w-full h-auto">
-                    <source src="/clovely-hero-video.mp4" type="video/mp4" />
-                    Tu navegador no soporta el elemento de video.
-                  </video>
-                </div>
+          }} className="max-w-5xl mx-auto px-4">
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_25px_80px_-20px_rgba(255,122,0,0.25)] dark:shadow-[0_25px_80px_-20px_rgba(255,122,0,0.4)]">
+                <video autoPlay loop muted playsInline className="w-full h-auto rounded-2xl">
+                  <source src="/clovely-hero-video.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
               </div>
             </motion.div>
 
@@ -149,18 +145,17 @@ const Landing = () => {
           }} transition={{
             delay: 0.4,
             duration: 0.6
-          }} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          }} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <Link to="/guest-start" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto text-lg px-10 py-7 gradient-orange text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <Button size="lg" className="w-full sm:w-auto text-lg px-12 py-8 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200">
                   Sube tu CV y encuentra trabajo
-                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </motion.div>
 
             {/* Trust indicator */}
-            <p className="text-sm text-muted-foreground pt-4">
-              ✨ 7 días gratis • Sin tarjeta • Cancela cuando quieras
+            <p className="text-base text-muted-foreground/70 pt-6">
+              7 días gratis • Sin tarjeta • Cancela cuando quieras
             </p>
           </motion.div>
         </div>
@@ -170,8 +165,8 @@ const Landing = () => {
       <IntegrationsSection />
 
       {/* Por qué Clovely - Minimalista */}
-      <section className="py-32 bg-white dark:bg-background">
-        <div className="container mx-auto px-6 max-w-4xl">
+      <section className="py-40 bg-white dark:bg-background">
+        <div className="container mx-auto px-6 max-w-5xl">
           <motion.div initial={{
           opacity: 0
         }} whileInView={{
@@ -181,11 +176,11 @@ const Landing = () => {
         }} transition={{
           duration: 0.8
         }} className="space-y-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
+            <h2 className="text-5xl sm:text-6xl font-heading font-semibold tracking-tight leading-tight">
               Por qué miles aman Clovely
             </h2>
             
-            <div className="space-y-6 text-2xl sm:text-3xl font-light text-muted-foreground">
+            <div className="space-y-8 text-3xl sm:text-4xl font-light text-muted-foreground/70 leading-snug">
               <motion.p initial={{
               opacity: 0,
               y: 20
@@ -244,7 +239,7 @@ const Landing = () => {
       </section>
 
       {/* Benefits - Cards premium */}
-      <section className="py-32 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background">
+      <section className="py-40 bg-white dark:bg-background">
         <div className="container mx-auto px-6 max-w-6xl">
           <motion.div initial={{
           opacity: 0
@@ -255,10 +250,10 @@ const Landing = () => {
         }} transition={{
           duration: 0.6
         }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-6 tracking-tight">
+            <h2 className="text-5xl sm:text-6xl font-heading font-semibold text-center mb-8 tracking-tight leading-tight">
               Todo lo que necesitas
             </h2>
-            <p className="text-center text-xl text-muted-foreground mb-16 max-w-2xl mx-auto">
+            <p className="text-center text-2xl text-muted-foreground/70 mb-20 max-w-3xl mx-auto font-light">
               Cuatro herramientas poderosas trabajando juntas
             </p>
             
@@ -275,14 +270,14 @@ const Landing = () => {
               delay: i * 0.1,
               duration: 0.6
             }}>
-                  <Card className="p-10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800/50 border-gray-200/50 dark:border-gray-700/50 group cursor-pointer h-full">
-                    <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                      <benefit.icon className="h-8 w-8 text-white" />
+                  <Card className="p-12 hover:shadow-lg transition-all duration-200 bg-white dark:bg-gray-800/50 border border-border/50 group cursor-pointer h-full">
+                    <div className="w-14 h-14 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-6">
+                      <benefit.icon className="h-7 w-7 text-orange-500" />
                     </div>
-                    <h3 className="font-heading font-bold text-2xl mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="font-heading font-semibold text-2xl mb-4">
                       {benefit.title}
                     </h3>
-                    <p className="text-muted-foreground text-lg">
+                    <p className="text-muted-foreground/70 text-lg font-light leading-relaxed">
                       {benefit.description}
                     </p>
                   </Card>
@@ -293,7 +288,7 @@ const Landing = () => {
       </section>
 
       {/* Transformación - Timeline style */}
-      <section className="py-32 bg-white dark:bg-background">
+      <section className="py-40 bg-gradient-to-b from-orange-50/20 to-white dark:from-gray-900/30 dark:to-background">
         <div className="container mx-auto px-6 max-w-6xl">
           <motion.div initial={{
           opacity: 0
@@ -304,10 +299,10 @@ const Landing = () => {
         }} transition={{
           duration: 0.6
         }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-6 tracking-tight">
+            <h2 className="text-5xl sm:text-6xl font-heading font-semibold text-center mb-8 tracking-tight leading-tight">
               Tu transformación en 30 días
             </h2>
-            <p className="text-center text-xl text-muted-foreground mb-20 max-w-2xl mx-auto">
+            <p className="text-center text-2xl text-muted-foreground/70 mb-24 max-w-3xl mx-auto font-light">
               Así es como Clovely te lleva de donde estás a donde quieres estar
             </p>
             
@@ -323,17 +318,16 @@ const Landing = () => {
             }} transition={{
               delay: i * 0.15,
               duration: 0.5
-            }} className="text-center space-y-4">
+            }} className="text-center space-y-6">
                   <div className="relative inline-block">
-                    <div className="text-6xl font-heading font-bold text-primary">
+                    <div className="text-7xl font-heading font-semibold text-orange-500">
                       {item.stat}
                     </div>
-                    <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/10 to-orange-600/10 blur-xl -z-10 rounded-full" />
                   </div>
-                  <h3 className="text-2xl font-heading font-semibold">
+                  <h3 className="text-3xl font-heading font-medium">
                     {item.label}
                   </h3>
-                  <p className="text-muted-foreground text-lg">
+                  <p className="text-muted-foreground/70 text-xl font-light leading-relaxed">
                     {item.description}
                   </p>
                 </motion.div>)}
@@ -343,7 +337,7 @@ const Landing = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-32 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background">
+      <section className="py-40 bg-white dark:bg-background">
         <div className="container mx-auto px-6 max-w-6xl">
           <motion.div initial={{
           opacity: 0
@@ -354,7 +348,7 @@ const Landing = () => {
         }} transition={{
           duration: 0.6
         }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-20 tracking-tight">
+            <h2 className="text-5xl sm:text-6xl font-heading font-semibold text-center mb-24 tracking-tight leading-tight">
               Historias de éxito
             </h2>
             
@@ -371,16 +365,16 @@ const Landing = () => {
               delay: i * 0.1,
               duration: 0.6
             }}>
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800/50">
-                    <div className="flex gap-1 mb-4">
+                  <Card className="p-10 h-full bg-white dark:bg-gray-800/50 border border-border/50 hover:shadow-lg transition-all duration-200">
+                    <div className="flex gap-1 mb-6">
                       {Array.from({
                     length: testimonial.rating
                   }).map((_, j) => <Star key={j} className="h-5 w-5 fill-orange-500 text-orange-500" />)}
                     </div>
-                    <p className="text-lg mb-6 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
-                    <div className="border-t pt-4">
+                    <p className="text-xl mb-8 leading-relaxed font-light">&ldquo;{testimonial.text}&rdquo;</p>
+                    <div className="border-t pt-6">
                       <p className="font-semibold text-lg">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      <p className="text-base text-muted-foreground/70">{testimonial.role}</p>
                     </div>
                   </Card>
                 </motion.div>)}
@@ -393,10 +387,12 @@ const Landing = () => {
       
 
       {/* Final CTA - Impactante */}
-      <section className="py-32 gradient-orange text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
+      <section className="py-40 bg-gradient-to-br from-orange-500 to-orange-600 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
+        </div>
         
-        <div className="container mx-auto px-6 text-center max-w-4xl relative">
+        <div className="container mx-auto px-6 text-center max-w-5xl relative">
           <motion.div initial={{
           opacity: 0,
           y: 30
@@ -407,25 +403,24 @@ const Landing = () => {
           once: true
         }} transition={{
           duration: 0.8
-        }} className="space-y-8">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold leading-tight tracking-tight">
+        }} className="space-y-10">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-semibold leading-tight tracking-tight">
               Todo empieza subiendo<br />tu CV hoy
             </h2>
             
-            <p className="text-xl sm:text-2xl font-light opacity-95 max-w-2xl mx-auto">
+            <p className="text-2xl sm:text-3xl font-light opacity-90 max-w-3xl mx-auto leading-relaxed">
               Únete a los miles de profesionales que ya transformaron su carrera
             </p>
             
-            <div className="pt-4">
+            <div className="pt-6">
               <Link to="/guest-start">
-                <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-50 text-lg px-12 py-7 font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-50 text-lg px-14 py-8 font-medium rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200">
                   Empieza tu cambio
-                  <ArrowRight className="ml-2 h-6 w-6" />
                 </Button>
               </Link>
             </div>
 
-            <p className="text-base opacity-90 pt-4">
+            <p className="text-base opacity-85 pt-2">
               7 días gratis • Sin compromiso • Cancela cuando quieras
             </p>
           </motion.div>
@@ -433,12 +428,12 @@ const Landing = () => {
       </section>
 
       {/* Footer - Simple y elegante */}
-      <footer className="py-16 bg-white dark:bg-background border-t">
+      <footer className="py-20 bg-white dark:bg-background border-t border-border/30">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col items-center justify-center space-y-8">
+          <div className="flex flex-col items-center justify-center space-y-10">
             <OfficialLogo size="lg" animated={false} fullVersion={true} />
             
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+            <div className="flex flex-wrap justify-center gap-10 text-base text-muted-foreground/70">
               <Link to="/pricing" className="hover:text-foreground transition-colors">Precios</Link>
               <Link to="/about" className="hover:text-foreground transition-colors">Nosotros</Link>
               <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
@@ -447,7 +442,7 @@ const Landing = () => {
               <Link to="/terms" className="hover:text-foreground transition-colors">Términos</Link>
             </div>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground/70">
               © 2025 Clovely. Todos los derechos reservados.
             </p>
           </div>
