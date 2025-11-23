@@ -40,16 +40,16 @@ export default function InterviewResults() {
   return (
     <div className="container max-w-4xl py-8 space-y-6">
       {/* Success header */}
-      <Card className="p-8 text-center space-y-4">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-2">
-          <CheckCircle2 className="w-8 h-8 text-green-600" />
+      <Card className="p-8 text-center space-y-4 rounded-3xl shadow-clovely-xl border-2 border-green-200 bg-gradient-to-br from-green-50/50 to-emerald-50/30">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 shadow-clovely-md mb-2">
+          <CheckCircle2 className="w-10 h-10 text-green-600" />
         </div>
-        <h1 className="text-3xl font-bold">¡Entrevista Completada!</h1>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">¡Entrevista Completada!</h1>
         <p className="text-muted-foreground">Has respondido {responses.length} preguntas</p>
       </Card>
 
       {/* Score */}
-      <Card className="p-8 space-y-6">
+      <Card className="p-8 space-y-6 rounded-2xl shadow-clovely-lg border-2 border-primary/10">
         <div className="text-center space-y-3">
           <p className="text-muted-foreground">Puntuación Final</p>
           <p className={`text-6xl font-bold ${getScoreColor(finalScore)}`}>
@@ -111,15 +111,19 @@ export default function InterviewResults() {
 
       {/* Recommendations */}
       {recommendations.length > 0 && (
-        <Card className="p-6 space-y-4">
+        <Card className="p-6 space-y-4 rounded-xl border-2 shadow-clovely-md">
           <h3 className="font-semibold flex items-center gap-2">
-            <Lightbulb className="w-4 h-4" />
+            <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500/10 to-yellow-500/10">
+              <Lightbulb className="w-4 h-4 text-amber-600" />
+            </div>
             Recomendaciones
           </h3>
           <div className="space-y-3">
             {recommendations.map((rec, idx) => (
-              <div key={idx} className="flex gap-3 p-3 rounded-lg bg-muted/50">
-                <Target className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+              <div key={idx} className="flex gap-3 p-4 rounded-xl bg-gradient-to-br from-blue-50/50 to-cyan-50/30 border border-blue-200/50">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 flex-shrink-0">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
                 <p className="text-sm">{rec.text}</p>
               </div>
             ))}
@@ -129,10 +133,10 @@ export default function InterviewResults() {
 
       {/* Actions */}
       <div className="flex gap-3">
-        <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="flex-1">
+        <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="flex-1 shadow-clovely-sm">
           Ver Historial
         </Button>
-        <Button onClick={handleSave} className="flex-1">
+        <Button onClick={handleSave} variant="premium" className="flex-1 shadow-clovely-glow">
           Guardar y Continuar
         </Button>
       </div>

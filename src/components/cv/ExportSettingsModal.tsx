@@ -65,7 +65,7 @@ export default function ExportSettingsModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md rounded-3xl">
         <DialogHeader>
           <DialogTitle>Configuración de Exportación</DialogTitle>
           <DialogDescription>
@@ -83,7 +83,7 @@ export default function ExportSettingsModal({
               className="space-y-2"
             >
               {Object.entries(formatInfo).map(([format, info]) => (
-                <div key={format} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-accent transition-colors">
+                <div key={format} className="flex items-center space-x-2 p-3 border-2 rounded-xl hover:bg-accent/50 hover:border-primary/30 transition-all duration-300 hover:shadow-clovely-sm">
                   <RadioGroupItem value={format} id={format} />
                   <Label htmlFor={format} className="flex-1 cursor-pointer">
                     <div className="font-medium">{format}</div>
@@ -104,7 +104,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Superior</Label>
-                  <Badge variant="secondary">{settings.marginTop}mm</Badge>
+                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginTop}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginTop]}
@@ -118,7 +118,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Inferior</Label>
-                  <Badge variant="secondary">{settings.marginBottom}mm</Badge>
+                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginBottom}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginBottom]}
@@ -132,7 +132,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Izquierdo</Label>
-                  <Badge variant="secondary">{settings.marginLeft}mm</Badge>
+                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginLeft}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginLeft]}
@@ -146,7 +146,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Derecho</Label>
-                  <Badge variant="secondary">{settings.marginRight}mm</Badge>
+                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginRight}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginRight]}
@@ -213,10 +213,10 @@ export default function ExportSettingsModal({
               Vista previa
             </Button>
           )}
-          <Button variant="outline" onClick={onClose}>
+            <Button variant="outline" onClick={onClose} className="shadow-clovely-sm">
             Cancelar
           </Button>
-          <Button onClick={handleExport}>
+          <Button onClick={handleExport} variant="premium" className="shadow-clovely-glow">
             <FileDown className="mr-2 h-4 w-4" />
             Exportar PDF
           </Button>

@@ -62,7 +62,7 @@ export default function VersionHistoryModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onClose}>
-        <DialogContent className="max-w-2xl max-h-[80vh]">
+        <DialogContent className="max-w-2xl max-h-[80vh] rounded-3xl">
           <DialogHeader>
             <DialogTitle>Historial de Versiones</DialogTitle>
             <DialogDescription>
@@ -73,8 +73,10 @@ export default function VersionHistoryModal({
           <ScrollArea className="h-[500px] pr-4">
             {sortedVersions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-                <FileText className="h-12 w-12 mb-4 opacity-50" />
-                <p>No hay versiones guardadas aún</p>
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 mb-4">
+                  <FileText className="h-16 w-16 opacity-50" />
+                </div>
+                <p className="font-medium text-lg">No hay versiones guardadas aún</p>
                 <p className="text-sm mt-2">Haz clic en "Guardar versión" para crear una</p>
               </div>
             ) : (
@@ -82,7 +84,7 @@ export default function VersionHistoryModal({
                 {sortedVersions.map((version, index) => (
                   <div
                     key={version.versionId}
-                    className="border rounded-lg p-4 hover:bg-accent/50 transition-colors"
+                    className="border-2 rounded-xl p-4 hover:bg-accent/50 hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
@@ -98,7 +100,7 @@ export default function VersionHistoryModal({
                             })}
                           </span>
                           {index === 0 && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge className="text-xs bg-gradient-to-r from-primary to-primary-warm border-primary/30">
                               Más reciente
                             </Badge>
                           )}
@@ -112,7 +114,7 @@ export default function VersionHistoryModal({
                         </p>
 
                         {version.note && (
-                          <p className="text-sm mt-2 text-foreground/80">
+                          <p className="text-sm mt-2 text-foreground/80 p-2 rounded-lg bg-muted/50">
                             📝 {version.note}
                           </p>
                         )}
@@ -123,6 +125,7 @@ export default function VersionHistoryModal({
                           variant="outline"
                           size="sm"
                           onClick={() => setRestoreConfirm(version.versionId)}
+                          className="shadow-clovely-sm hover:shadow-clovely-md"
                         >
                           <RotateCcw className="h-4 w-4 mr-1" />
                           Restaurar
@@ -133,6 +136,7 @@ export default function VersionHistoryModal({
                             variant="ghost"
                             size="sm"
                             onClick={() => setDeleteConfirm(version.versionId)}
+                            className="hover:bg-destructive/10"
                           >
                             <Trash2 className="h-4 w-4 text-destructive" />
                           </Button>
@@ -149,7 +153,7 @@ export default function VersionHistoryModal({
 
       {/* Restore Confirmation Dialog */}
       <AlertDialog open={!!restoreConfirm} onOpenChange={() => setRestoreConfirm(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-3xl backdrop-blur-md">
           <AlertDialogHeader>
             <AlertDialogTitle>¿Restaurar esta versión?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -158,8 +162,8 @@ export default function VersionHistoryModal({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => restoreConfirm && handleRestore(restoreConfirm)}>
+            <AlertDialogCancel className="rounded-xl">Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => restoreConfirm && handleRestore(restoreConfirm)} className="rounded-xl shadow-clovely-sm">
               Restaurar versión
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -168,7 +172,7 @@ export default function VersionHistoryModal({
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!deleteConfirm} onOpenChange={() => setDeleteConfirm(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-3xl backdrop-blur-md">
           <AlertDialogHeader>
             <AlertDialogTitle>¿Eliminar esta versión?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -176,10 +180,10 @@ export default function VersionHistoryModal({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className="rounded-xl">Cancelar</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deleteConfirm && handleDelete(deleteConfirm)}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-clovely-sm"
             >
               Eliminar
             </AlertDialogAction>

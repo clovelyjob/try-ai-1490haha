@@ -122,7 +122,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="min-h-[44px] text-base"
+                className="min-h-[44px] text-base shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300"
               />
             </div>
 
@@ -135,7 +135,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
-                className="min-h-[44px] text-base"
+                className="min-h-[44px] text-base shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300"
               />
             </div>
 
@@ -187,7 +187,7 @@ const Login = () => {
                 type="button"
                 variant="outline"
                 onClick={handleGoogleLogin}
-                className="min-h-[48px] text-sm sm:text-base"
+                className="min-h-[48px] text-sm sm:text-base shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Chrome className="mr-2 h-4 w-4" />
                 Google
@@ -196,7 +196,7 @@ const Login = () => {
                 type="button"
                 variant="outline"
                 onClick={handleLinkedInLogin}
-                className="min-h-[48px] text-sm sm:text-base"
+                className="min-h-[48px] text-sm sm:text-base shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn

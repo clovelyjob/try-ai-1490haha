@@ -58,9 +58,9 @@ export default function InterviewSetup() {
 
   return (
     <div className="container max-w-3xl py-8">
-      <Card className="p-8 space-y-6">
+      <Card className="p-8 space-y-6 rounded-2xl shadow-clovely-lg border-2">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Configura tu Entrevista</h1>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">Configura tu Entrevista</h1>
           <p className="text-muted-foreground">
             Personaliza la práctica según el puesto al que aplicas
           </p>
@@ -74,6 +74,7 @@ export default function InterviewSetup() {
               placeholder="Ej: Analista de Datos, Product Manager, Desarrollador Frontend"
               value={role}
               onChange={(e) => setRole(e.target.value)}
+              className="rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
             />
           </div>
 
@@ -81,7 +82,7 @@ export default function InterviewSetup() {
             <div className="space-y-2">
               <Label htmlFor="level">Nivel de Experiencia</Label>
               <Select value={level} onValueChange={(v) => setLevel(v as InterviewLevel)}>
-                <SelectTrigger id="level">
+                <SelectTrigger id="level" className="rounded-xl shadow-clovely-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -95,7 +96,7 @@ export default function InterviewSetup() {
             <div className="space-y-2">
               <Label htmlFor="type">Tipo de Entrevista</Label>
               <Select value={interviewType} onValueChange={(v) => setInterviewType(v as InterviewType)}>
-                <SelectTrigger id="type">
+                <SelectTrigger id="type" className="rounded-xl shadow-clovely-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -112,7 +113,7 @@ export default function InterviewSetup() {
           <div className="space-y-2">
             <Label htmlFor="tone">Tono del Entrevistador</Label>
             <Select value={tone} onValueChange={(v) => setTone(v as InterviewTone)}>
-              <SelectTrigger id="tone">
+              <SelectTrigger id="tone" className="rounded-xl shadow-clovely-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -131,6 +132,7 @@ export default function InterviewSetup() {
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               rows={4}
+              className="rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
             />
           </div>
         </div>
@@ -139,7 +141,7 @@ export default function InterviewSetup() {
           <Button 
             variant="outline" 
             onClick={() => navigate('/dashboard/interviews')} 
-            className="flex-1"
+            className="flex-1 shadow-clovely-sm"
             disabled={isGenerating}
           >
             Cancelar
@@ -147,7 +149,8 @@ export default function InterviewSetup() {
           <Button 
             onClick={handleStart} 
             disabled={!role || isGenerating} 
-            className="flex-1"
+            variant="premium"
+            className="flex-1 shadow-clovely-glow"
           >
             {isGenerating ? (
               <>
