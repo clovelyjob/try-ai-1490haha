@@ -25,7 +25,7 @@ const Landing = () => {
     description: 'Practica con IA, llega preparado'
   }];
   const transformations = [{
-    stat: '10 min',
+    stat: 'Al instante',
     label: 'Descubre tu potencial',
     description: 'Diagnóstico completo'
   }, {
