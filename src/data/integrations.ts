@@ -7,7 +7,7 @@ export const INTEGRATIONS: Integration[] = [
   // Tech Giants
   { name: 'Google', src: 'https://cdn.simpleicons.org/google/4285F4' },
   { name: 'Apple', src: 'https://cdn.simpleicons.org/apple/000000' },
-  { name: 'Microsoft', src: 'https://cdn.simpleicons.org/microsoft/00A4EF' },
+  { name: 'Microsoft', src: '/integrations/microsoft-logo.png' },
   { name: 'Meta', src: 'https://cdn.simpleicons.org/meta/0668E1' },
   { name: 'Amazon', src: '/integrations/amazon-logo.png' },
   { name: 'NVIDIA', src: 'https://cdn.simpleicons.org/nvidia/76B900' },
