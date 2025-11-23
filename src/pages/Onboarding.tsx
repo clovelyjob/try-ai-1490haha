@@ -262,14 +262,20 @@ const Onboarding = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {currentStep > 0 && currentStep < totalSteps - 1 && (
-        <div className="sticky top-0 z-10 bg-background border-b">
+        <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b shadow-clovely-sm">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center gap-4 max-w-3xl mx-auto">
               <span className="text-sm font-medium whitespace-nowrap">
                 Paso {currentStep} de {totalSteps - 2}
               </span>
-              <Progress value={progress} className="flex-1" />
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
+              <div className="flex-1 relative">
+                <Progress value={progress} className="h-2" />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-r from-primary to-primary-warm rounded-full opacity-20 animate-pulse"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <span className="text-sm font-medium whitespace-nowrap">
                 {Math.round(progress)}%
               </span>
             </div>
@@ -294,19 +300,23 @@ const Onboarding = () => {
       </div>
 
       {currentStep > 0 && currentStep < totalSteps - 1 && (
-        <div className="sticky bottom-0 border-t bg-background">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex gap-3 max-w-3xl mx-auto">
+        <div className="sticky bottom-0 border-t bg-background/80 backdrop-blur-md shadow-clovely-lg">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex gap-4 max-w-3xl mx-auto">
               <Button
                 variant="outline"
+                size="lg"
                 onClick={handleBack}
                 disabled={currentStep === 1}
+                className="shadow-clovely-sm"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Atrás
               </Button>
               <Button
-                className="flex-1 gradient-orange text-white"
+                variant="premium"
+                size="lg"
+                className="flex-1 shadow-clovely-glow"
                 onClick={handleNext}
               >
                 {currentStep === totalSteps - 2 ? 'Ver resultados' : 'Continuar'}

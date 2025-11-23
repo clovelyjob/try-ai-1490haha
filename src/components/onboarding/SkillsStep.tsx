@@ -225,10 +225,10 @@ export const SkillsStep = ({ skills, onChange }: SkillsStepProps) => {
               <button
                 key={skill}
                 onClick={() => toggleSoftSkill(skill)}
-                className={`p-3 rounded-lg border-2 transition-all text-left text-sm ${
+                className={`p-3 rounded-xl border-2 transition-all duration-300 text-left text-sm ${
                   skills.soft.includes(skill)
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? 'border-primary bg-gradient-to-br from-primary/10 to-primary/5 shadow-clovely-sm hover:shadow-clovely-md'
+                    : 'border-border hover:border-primary/50 hover:shadow-clovely-sm'
                 }`}
               >
                 {skill}

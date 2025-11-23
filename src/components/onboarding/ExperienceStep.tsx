@@ -34,10 +34,10 @@ export const ExperienceStep = ({ data, onChange }: ExperienceStepProps) => {
               <button
                 key={level.id}
                 onClick={() => onChange({ ...data, experience: level.id })}
-                className={`p-4 rounded-lg border-2 transition-all text-left ${
+                className={`p-4 rounded-2xl border-2 transition-all duration-300 text-left ${
                   data.experience === level.id
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? 'border-primary bg-gradient-to-br from-primary/10 to-primary/5 shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1'
+                    : 'border-border hover:border-primary/50 hover:shadow-clovely-sm hover:-translate-y-0.5'
                 }`}
               >
                 <div className="text-3xl mb-2">{level.icon}</div>

@@ -96,10 +96,10 @@ export default function Settings() {
                 <button
                   key={item.id}
                   onClick={() => setActiveSection(item.id as SettingSection)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${
                     isActive
-                      ? 'bg-primary text-primary-foreground'
-                      : 'hover:bg-accent text-muted-foreground hover:text-foreground'
+                      ? 'bg-gradient-to-r from-primary to-primary-warm text-primary-foreground shadow-clovely-md'
+                      : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground hover:shadow-clovely-sm'
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -112,10 +112,10 @@ export default function Settings() {
 
             <button
               onClick={() => setActiveSection('account' as SettingSection)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${
                 activeSection === 'account'
-                  ? 'bg-accent text-foreground'
-                  : 'hover:bg-accent text-muted-foreground hover:text-foreground'
+                  ? 'bg-accent text-foreground shadow-clovely-sm'
+                  : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground'
               }`}
             >
               <Download className="h-5 w-5" />
