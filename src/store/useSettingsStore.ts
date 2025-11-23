@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type ThemeMode = 'system' | 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark';
 export type FontSize = 'small' | 'normal' | 'large';
 export type ProfileVisibility = 'public' | 'network' | 'private';
 export type CoachTone = 'empathetic' | 'direct' | 'technical';
@@ -90,7 +90,7 @@ interface SettingsState extends Settings {
 }
 
 const DEFAULT_SETTINGS: Settings = {
-  theme: 'system',
+  theme: 'light',
   fontSize: 'normal',
   highContrast: false,
   notifications: {
@@ -155,13 +155,8 @@ export const useSettingsStore = create<SettingsState>()(
       setTheme: (theme) => {
         set({ theme });
         
-        // Apply theme to document
-        if (theme === 'system') {
-          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          document.documentElement.classList.toggle('dark', systemTheme === 'dark');
-        } else {
-          document.documentElement.classList.toggle('dark', theme === 'dark');
-        }
+        // Apply theme to document - only light or dark, no system detection
+        document.documentElement.classList.toggle('dark', theme === 'dark');
       },
 
       setFontSize: (fontSize) => {
