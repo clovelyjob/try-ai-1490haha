@@ -9,7 +9,7 @@ import { IntegrationsSection } from '@/components/integrations/IntegrationsSecti
 const Landing = () => {
   const benefits = [{
     icon: Sparkles,
-    title: 'Diagnóstico IA en 10 minutos',
+    title: 'Diagnóstico IA',
     description: 'Descubre tu perfil profesional único'
   }, {
     icon: Target,
