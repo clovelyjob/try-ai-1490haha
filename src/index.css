@@ -16,16 +16,21 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    /* Clovely Brand - Orange #FF7A00 */
-    --primary: 25 100% 50%; /* #FF7A00 Orange */
-    --primary-light: 25 100% 65%; /* Lighter orange */
-    --primary-dark: 25 100% 40%; /* Darker orange */
+    /* Clovely Brand - Naranja vibrante #FF7A00 */
+    --primary: 25 100% 50%; /* #FF7A00 Naranja principal */
+    --primary-light: 25 100% 65%; /* Naranja claro */
+    --primary-dark: 25 100% 40%; /* Naranja oscuro */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Gray accents */
-    --secondary: 0 0% 45%; /* Medium gray */
-    --secondary-light: 0 0% 75%; /* Light gray */
+    /* Colores secundarios - Durazno y Coral */
+    --secondary: 16 100% 70%; /* #FFB88A Durazno suave */
+    --secondary-light: 16 100% 80%; /* Durazno más claro */
+    --secondary-coral: 4 100% 69%; /* #FF6F61 Coral */
     --secondary-foreground: 0 0% 100%;
+    
+    /* Color premium de contraste - Azul profundo */
+    --premium-blue: 207 86% 21%; /* #0A3D62 Azul profundo */
+    --premium-blue-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
@@ -96,9 +101,13 @@
     --primary-dark: 25 100% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 25%;
-    --secondary-light: 0 0% 35%;
+    --secondary: 16 100% 70%;
+    --secondary-light: 16 100% 80%;
+    --secondary-coral: 4 100% 69%;
     --secondary-foreground: 0 0% 100%;
+    
+    --premium-blue: 207 86% 21%;
+    --premium-blue-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
