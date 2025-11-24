@@ -19,7 +19,7 @@ import TemplateSelector from '@/components/cv/TemplateSelector';
 import AIAnalysisModal from '@/components/cv/AIAnalysisModal';
 import VersionHistoryModal from '@/components/cv/VersionHistoryModal';
 import VersionCompareModal from '@/components/cv/VersionCompareModal';
-import ExportSettingsModal, { ExportSettings } from '@/components/cv/ExportSettingsModal';
+
 import TemplateCustomizer, { TemplateColors } from '@/components/cv/TemplateCustomizer';
 import { cn } from '@/lib/utils';
 import { useAI } from '@/hooks/useAI';
@@ -38,7 +38,6 @@ export default function CVBuilder() {
   const [isSaving, setIsSaving] = useState(false);
   const [showVersionHistory, setShowVersionHistory] = useState(false);
   const [showVersionCompare, setShowVersionCompare] = useState(false);
-  const [showExportSettings, setShowExportSettings] = useState(false);
   const [showTemplateCustomizer, setShowTemplateCustomizer] = useState(false);
   const [templateColors, setTemplateColors] = useState<TemplateColors>({
     primary: '#1e40af',
@@ -124,31 +123,36 @@ export default function CVBuilder() {
     }
   };
 
-  const handleExportPDF = (settings: ExportSettings) => {
+  const handleExportPDF = () => {
     if (!previewRef.current || !currentCV) return;
 
     const element = previewRef.current;
     const fileName = `${currentCV.title || 'CV'}_${currentCV.personal.fullName || 'sin-nombre'}.pdf`;
 
-    const formatMap = {
-      A4: 'a4',
-      Letter: 'letter',
-      Legal: 'legal',
+    // Configuración por defecto
+    const defaultSettings = {
+      format: 'a4',
+      marginTop: 10,
+      marginRight: 10,
+      marginBottom: 10,
+      marginLeft: 10,
+      highQuality: true,
+      includeColors: true,
     };
 
     const opt = {
-      margin: [settings.marginTop, settings.marginRight, settings.marginBottom, settings.marginLeft] as [number, number, number, number],
+      margin: [defaultSettings.marginTop, defaultSettings.marginRight, defaultSettings.marginBottom, defaultSettings.marginLeft] as [number, number, number, number],
       filename: fileName,
-      image: { type: 'jpeg' as const, quality: settings.highQuality ? 0.98 : 0.85 },
+      image: { type: 'jpeg' as const, quality: defaultSettings.highQuality ? 0.98 : 0.85 },
       html2canvas: { 
-        scale: settings.highQuality ? 2 : 1, 
+        scale: defaultSettings.highQuality ? 2 : 1, 
         useCORS: true, 
         letterRendering: true,
-        backgroundColor: settings.includeColors ? null : '#ffffff',
+        backgroundColor: defaultSettings.includeColors ? null : '#ffffff',
       },
       jsPDF: { 
         unit: 'mm', 
-        format: formatMap[settings.format], 
+        format: defaultSettings.format, 
         orientation: 'portrait' as const
       },
     };
@@ -228,7 +232,7 @@ export default function CVBuilder() {
                     {isAILoading ? 'Analizando...' : 'Analizar con IA'}
                   </DropdownMenuItem>
                   
-                  <DropdownMenuItem onClick={() => setShowExportSettings(true)}>
+                  <DropdownMenuItem onClick={handleExportPDF}>
                     <Download className="mr-2 h-4 w-4" />
                     Exportar PDF
                   </DropdownMenuItem>
@@ -294,7 +298,7 @@ export default function CVBuilder() {
                 {isAILoading ? 'Analizando...' : 'Analizar'}
               </Button>
               
-              <Button variant="outline" onClick={() => setShowExportSettings(true)} className="shadow-clovely-sm min-h-[44px]">
+              <Button variant="outline" onClick={handleExportPDF} className="shadow-clovely-sm min-h-[44px]">
                 <Download className="mr-2 h-4 w-4" />
                 Exportar
               </Button>
@@ -395,20 +399,6 @@ export default function CVBuilder() {
         />
       )}
 
-      {/* Export Settings Modal */}
-      {showExportSettings && (
-        <ExportSettingsModal
-          open={showExportSettings}
-          onClose={() => setShowExportSettings(false)}
-          onExport={handleExportPDF}
-          onPreview={() => {
-            toast({
-              title: '👁️ Vista previa',
-              description: 'La vista previa actual muestra cómo se verá tu PDF',
-            });
-          }}
-        />
-      )}
 
       {/* Template Customizer Modal */}
       {showTemplateCustomizer && currentCV && (
