@@ -78,7 +78,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
   return (
     <div className="space-y-4">
       {/* Language Selector */}
-      <Card className="p-4 rounded-2xl shadow-clovely-md bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-2 border-blue-200 dark:border-blue-800">
+      <Card className="p-4 rounded-2xl shadow-clovely-md bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-200 dark:border-blue-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="text-2xl">🌐</div>
@@ -111,7 +111,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       </Card>
 
       {/* Guías Profesionales para CV */}
-      <Card className="p-4 rounded-2xl shadow-clovely-sm bg-gradient-to-br from-primary/5 to-primary-warm/10 border-2 border-primary/20">
+      <Card className="p-4 rounded-2xl shadow-clovely-sm bg-primary/5 border-2 border-primary/20">
         <div className="flex items-start gap-3">
           <div className="text-2xl">📝</div>
           <div className="flex-1">
@@ -270,7 +270,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               {/* Guías para Experiencia */}
-              <div className="mb-4 p-3 rounded-xl bg-gradient-to-br from-purple-50 to-violet-50/50 dark:from-purple-950/30 dark:to-violet-950/30 border-2 border-purple-200 dark:border-purple-800 text-xs shadow-clovely-sm">
+              <div className="mb-4 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border-2 border-purple-200 dark:border-purple-800 text-xs shadow-clovely-sm">
                 <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Top 5 Errores de CV a Evitar:</p>
                 <ol className="list-decimal list-inside text-[10px] text-purple-800 dark:text-purple-200 space-y-0.5 ml-2">
                   <li>Errores ortográficos y gramaticales</li>
@@ -397,7 +397,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         </div>
                         
                         {/* Guías Oficiales */}
-                        <div className="mb-3 p-3 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50/50 dark:from-amber-950/30 dark:to-yellow-950/30 border-2 border-amber-200 dark:border-amber-800 text-xs space-y-2 shadow-clovely-sm">
+                        <div className="mb-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-800 text-xs space-y-2 shadow-clovely-sm">
                           <p className="font-bold text-amber-900 dark:text-amber-100">📋 Formato Profesional:</p>
                           <div className="space-y-1">
                             <p className="text-amber-800 dark:text-amber-200">
@@ -525,7 +525,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               {/* Guías de Educación */}
-              <div className="mb-4 p-3 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 border-2 border-green-200 dark:border-green-800 text-xs shadow-clovely-sm">
+              <div className="mb-4 p-3 rounded-xl bg-green-50 dark:bg-green-950/30 border-2 border-green-200 dark:border-green-800 text-xs shadow-clovely-sm">
                 <p className="font-bold text-green-900 dark:text-green-100 mb-1">🎓 Guías - Sección de Educación:</p>
                 <ul className="list-disc list-inside text-[10px] text-green-800 dark:text-green-200 space-y-0.5">
                   <li>Lista en orden cronológico inverso (más reciente primero)</li>

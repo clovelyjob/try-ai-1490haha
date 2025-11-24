@@ -73,7 +73,7 @@ export default function VersionHistoryModal({
           <ScrollArea className="h-[500px] pr-4">
             {sortedVersions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 mb-4">
+                <div className="p-4 rounded-2xl bg-primary/5 mb-4">
                   <FileText className="h-16 w-16 opacity-50" />
                 </div>
                 <p className="font-medium text-lg">No hay versiones guardadas aún</p>
@@ -100,7 +100,7 @@ export default function VersionHistoryModal({
                             })}
                           </span>
                           {index === 0 && (
-                            <Badge className="text-xs bg-gradient-to-r from-primary to-primary-warm border-primary/30">
+                            <Badge className="text-xs bg-primary text-primary-foreground border-primary/30">
                               Más reciente
                             </Badge>
                           )}

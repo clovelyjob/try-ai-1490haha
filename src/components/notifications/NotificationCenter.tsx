@@ -23,12 +23,12 @@ const notificationIcons = {
 };
 
 const notificationColors = {
-  info: 'bg-gradient-to-br from-blue-500/10 to-blue-600/20 text-blue-600 dark:text-blue-400',
-  success: 'bg-gradient-to-br from-green-500/10 to-emerald-600/20 text-green-600 dark:text-green-400',
-  warning: 'bg-gradient-to-br from-yellow-500/10 to-amber-600/20 text-amber-600 dark:text-amber-400',
-  achievement: 'bg-gradient-to-br from-purple-500/10 to-violet-600/20 text-purple-600 dark:text-purple-400',
-  reminder: 'bg-gradient-to-br from-cyan-500/10 to-cyan-600/20 text-cyan-600 dark:text-cyan-400',
-  opportunity: 'bg-gradient-to-br from-primary/10 to-primary-warm/20 text-primary dark:text-primary-warm',
+  info: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+  success: 'bg-green-500/10 text-green-600 dark:text-green-400',
+  warning: 'bg-yellow-500/10 text-amber-600 dark:text-amber-400',
+  achievement: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+  reminder: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400',
+  opportunity: 'bg-primary/10 text-primary',
 };
 
 export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {

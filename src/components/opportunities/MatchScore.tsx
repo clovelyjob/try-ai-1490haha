@@ -16,15 +16,15 @@ export default function MatchScore({ matchResult }: MatchScoreProps) {
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-gradient-to-br from-green-50 to-emerald-100 border-green-300 shadow-green-200/50';
-    if (score >= 60) return 'bg-gradient-to-br from-yellow-50 to-amber-100 border-yellow-300 shadow-yellow-200/50';
-    return 'bg-gradient-to-br from-red-50 to-rose-100 border-red-300 shadow-red-200/50';
+    if (score >= 80) return 'bg-green-50 border-green-300 shadow-green-200/50';
+    if (score >= 60) return 'bg-yellow-50 border-yellow-300 shadow-yellow-200/50';
+    return 'bg-red-50 border-red-300 shadow-red-200/50';
   };
 
   const getProgressColor = (score: number) => {
-    if (score >= 80) return 'bg-gradient-to-r from-green-500 to-emerald-500';
-    if (score >= 60) return 'bg-gradient-to-r from-yellow-500 to-amber-500';
-    return 'bg-gradient-to-r from-red-500 to-rose-500';
+    if (score >= 80) return 'bg-green-500';
+    if (score >= 60) return 'bg-yellow-500';
+    return 'bg-red-500';
   };
 
   return (
@@ -78,7 +78,7 @@ export default function MatchScore({ matchResult }: MatchScoreProps) {
         </div>
       </div>
 
-      <div className="space-y-3 p-4 rounded-xl bg-gradient-to-br from-blue-50/50 to-primary/5">
+      <div className="space-y-3 p-4 rounded-xl bg-blue-50/50">
         <div className="flex items-center gap-2 text-sm font-semibold">
           <TrendingUp className="h-4 w-4 text-primary" />
           <span>Recomendaciones</span>

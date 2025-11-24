@@ -35,11 +35,11 @@ export function ProgressBar({
 
   const getProgressGradient = (percentage: number) => {
     if (percentage <= 30) {
-      return 'bg-gradient-to-r from-red-500 to-orange-500';
+      return 'bg-red-500';
     } else if (percentage <= 70) {
-      return 'bg-gradient-to-r from-yellow-500 to-amber-500';
+      return 'bg-yellow-500';
     } else {
-      return 'bg-gradient-to-r from-green-500 to-emerald-500';
+      return 'bg-green-500';
     }
   };
 
@@ -56,7 +56,7 @@ export function ProgressBar({
             <div key={metric.label} className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 shadow-sm">
+                  <div className="p-2 rounded-xl bg-primary/10 shadow-sm">
                     <Icon className="h-5 w-5 text-primary" />
                   </div>
                   <span className="text-sm font-medium">{metric.label}</span>

@@ -118,14 +118,14 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold mb-1 bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold mb-1 text-primary">
               Recursos Recomendados
             </h3>
             <p className="text-sm text-muted-foreground">
               Contenido seleccionado para tu perfil profesional
             </p>
           </div>
-          <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary-warm/10">
+          <div className="p-2 rounded-xl bg-primary/10">
             <BookOpen className="h-6 w-6 text-primary" />
           </div>
         </div>
@@ -134,10 +134,10 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
           {resources.map((resource) => {
             const Icon = getResourceIcon(resource.type);
             const badgeColors = {
-              course: 'bg-gradient-to-r from-primary to-primary-warm text-white',
-              video: 'bg-gradient-to-r from-blue-500 to-blue-600 text-white',
-              article: 'bg-gradient-to-r from-green-500 to-green-600 text-white',
-              tool: 'bg-gradient-to-r from-purple-500 to-purple-600 text-white'
+              course: 'bg-primary text-primary-foreground',
+              video: 'bg-blue-500 text-white',
+              article: 'bg-green-500 text-white',
+              tool: 'bg-purple-500 text-white'
             };
             return (
               <div
@@ -145,7 +145,7 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
                 className="p-4 rounded-xl border-2 border-border hover:border-primary/30 hover:shadow-clovely-sm hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-gradient-to-br from-primary/10 to-primary-warm/10 rounded-lg">
+                  <div className="p-2 bg-primary/10 rounded-lg">
                     <Icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex-1 space-y-1">

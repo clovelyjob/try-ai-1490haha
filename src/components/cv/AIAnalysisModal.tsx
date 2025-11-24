@@ -81,7 +81,7 @@ export default function AIAnalysisModal({
       <DialogContent className="max-w-4xl max-h-[85vh] rounded-3xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+            <div className="p-2 rounded-xl bg-primary/10">
               <Sparkles className="h-5 w-5 text-primary" />
             </div>
             Análisis IA del CV
@@ -94,12 +94,12 @@ export default function AIAnalysisModal({
         <ScrollArea className="h-[calc(85vh-180px)] pr-4">
           <div className="space-y-6">
             {/* Score Overview */}
-            <Card className="p-6 rounded-2xl shadow-clovely-lg border-2 border-primary/10 bg-gradient-to-br from-primary/10 to-primary-warm/20">
+            <Card className="p-6 rounded-2xl shadow-clovely-lg border-2 border-primary/10 bg-primary/10">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">Score General</h3>
+                <h3 className="font-semibold text-lg text-primary">Score General</h3>
                 <div className="text-4xl font-bold text-primary">{analysisData.overallScore}/100</div>
               </div>
-              <Progress value={analysisData.overallScore} className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-primary-warm" />
+              <Progress value={analysisData.overallScore} className="h-3 [&>div]:bg-primary" />
             </Card>
 
             {/* Strengths */}
@@ -143,7 +143,7 @@ export default function AIAnalysisModal({
             {/* Suggestions */}
             <div>
               <h3 className="font-semibold mb-3 flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+                <div className="p-2 rounded-xl bg-primary/10">
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
                 Sugerencias Específicas ({analysisData.suggestions.length})
@@ -154,7 +154,7 @@ export default function AIAnalysisModal({
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="p-1.5 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5">
+                          <div className="p-1.5 rounded-lg bg-primary/10">
                             {getCategoryIcon(suggestion.category)}
                           </div>
                           <h4 className="font-medium">{suggestion.title}</h4>

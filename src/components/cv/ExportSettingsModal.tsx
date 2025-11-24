@@ -104,7 +104,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Superior</Label>
-                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginTop}mm</Badge>
+                  <Badge className="bg-primary/10 border-primary/20">{settings.marginTop}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginTop]}
@@ -118,7 +118,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Inferior</Label>
-                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginBottom}mm</Badge>
+                  <Badge className="bg-primary/10 border-primary/20">{settings.marginBottom}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginBottom]}
@@ -132,7 +132,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Izquierdo</Label>
-                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginLeft}mm</Badge>
+                  <Badge className="bg-primary/10 border-primary/20">{settings.marginLeft}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginLeft]}
@@ -146,7 +146,7 @@ export default function ExportSettingsModal({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <Label className="text-sm">Derecho</Label>
-                  <Badge className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">{settings.marginRight}mm</Badge>
+                  <Badge className="bg-primary/10 border-primary/20">{settings.marginRight}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginRight]}

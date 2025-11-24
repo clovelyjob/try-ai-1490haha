@@ -16,21 +16,21 @@ export function DailyJob() {
   };
 
   return (
-    <Card className="p-6 border-2 border-primary/10 rounded-2xl shadow-clovely-lg hover:-translate-y-1 hover:shadow-clovely-xl transition-all duration-300 bg-gradient-to-br from-primary/[0.03] via-background to-primary/[0.02]">
+    <Card className="p-6 border-2 border-primary/10 rounded-2xl shadow-clovely-lg hover:-translate-y-1 hover:shadow-clovely-xl transition-all duration-300 bg-card">
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+              <div className="p-2 rounded-xl bg-primary/10">
                 <TrendingUp className="h-5 w-5 text-primary" />
               </div>
               <h3 className="font-semibold text-lg">Trabajo del Día</h3>
             </div>
-            <Badge className="text-xs bg-gradient-to-r from-primary to-primary-warm text-white shadow-clovely-sm">
+            <Badge className="text-xs bg-primary text-primary-foreground shadow-clovely-sm">
               {job.matchScore}% Match
             </Badge>
           </div>
-          <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+          <div className="p-2 rounded-xl bg-primary/10">
             <Briefcase className="h-6 w-6 text-primary" />
           </div>
         </div>

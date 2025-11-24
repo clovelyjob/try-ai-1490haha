@@ -39,8 +39,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="
           rounded-2xl border-2 border-primary/20 
-          bg-gradient-to-br from-primary/5 via-primary-warm/8 to-secondary/5
-          dark:from-primary/10 dark:via-primary-warm/15 dark:to-secondary/10
+          bg-primary/5 dark:bg-primary/10
           p-4 relative overflow-hidden
           shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-0.5 transition-all duration-300
         "
@@ -48,18 +47,18 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-10 dark:opacity-20">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary-warm rounded-full blur-2xl" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary rounded-full blur-2xl" />
         </div>
         
         {/* Content */}
         <div className="relative flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-1">
-            <div className="p-2 rounded-full bg-gradient-to-br from-primary/20 to-primary-warm/20 dark:from-primary/30 dark:to-primary-warm/30">
-              <Sparkles className="h-5 w-5 text-primary dark:text-primary-warm" />
+            <div className="p-2 rounded-full bg-primary/20">
+              <Sparkles className="h-5 w-5 text-primary" />
             </div>
             <div className="flex-1">
               <p className="font-semibold text-sm text-foreground mb-0.5">
-                Prueba Clovely Premium <span className="px-2 py-0.5 rounded-md bg-gradient-to-r from-primary to-primary-warm text-white text-xs font-bold">7 días gratis</span>
+                Prueba Clovely Premium <span className="px-2 py-0.5 rounded-md bg-primary text-white text-xs font-bold">7 días gratis</span>
               </p>
               <p className="text-xs text-muted-foreground">
                 Desbloquea coach IA ilimitado, simulador de entrevistas y más

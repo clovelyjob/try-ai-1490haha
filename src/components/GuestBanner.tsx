@@ -24,7 +24,7 @@ export function GuestBanner() {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="sticky top-0 z-40"
           >
-            <Alert className="rounded-none border-x-0 bg-gradient-to-r from-primary/10 via-primary-warm/10 to-secondary/10 border-2 border-primary/20 shadow-clovely-md">
+            <Alert className="rounded-none border-x-0 bg-primary/5 border-2 border-primary/20 shadow-clovely-md">
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <AlertDescription className="flex items-center justify-between gap-4">
                 <span className="text-sm">
