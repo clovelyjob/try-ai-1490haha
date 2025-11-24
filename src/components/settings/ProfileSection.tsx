@@ -95,15 +95,20 @@ export function ProfileSection() {
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Avatar */}
-        <div className="flex items-center gap-4">
-          <Avatar className="h-20 w-20">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+          <Avatar className="h-20 w-20 flex-shrink-0">
             <AvatarImage src={user?.avatar} />
             <AvatarFallback className="text-lg">
               {user?.name?.[0]?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <Button variant="outline" size="sm" onClick={handleAvatarChange}>
+          <div className="flex-1">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleAvatarChange}
+              className="min-h-[44px] w-full sm:w-auto"
+            >
               <Camera className="h-4 w-4 mr-2" />
               Cambiar foto
             </Button>
@@ -125,7 +130,7 @@ export function ProfileSection() {
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
               disabled={!isEditing}
-              className={errors.name ? 'border-destructive' : ''}
+              className={`min-h-[44px] ${errors.name ? 'border-destructive' : ''}`}
             />
             {errors.name && (
               <p className="text-xs text-destructive">{errors.name}</p>
@@ -143,7 +148,7 @@ export function ProfileSection() {
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
               disabled={!isEditing}
-              className={errors.email ? 'border-destructive' : ''}
+              className={`min-h-[44px] ${errors.email ? 'border-destructive' : ''}`}
             />
             {errors.email && (
               <p className="text-xs text-destructive">{errors.email}</p>
@@ -167,6 +172,7 @@ export function ProfileSection() {
               onChange={(e) => handleChange('phone', e.target.value)}
               disabled={!isEditing}
               placeholder="+51 999 999 999"
+              className="min-h-[44px]"
             />
           </div>
 
@@ -181,6 +187,7 @@ export function ProfileSection() {
               onChange={(e) => handleChange('location', e.target.value)}
               disabled={!isEditing}
               placeholder="Lima, Perú"
+              className="min-h-[44px]"
             />
           </div>
 
@@ -196,7 +203,7 @@ export function ProfileSection() {
               onChange={(e) => handleChange('linkedin', e.target.value)}
               disabled={!isEditing}
               placeholder="https://linkedin.com/in/tu-perfil"
-              className={errors.linkedin ? 'border-destructive' : ''}
+              className={`min-h-[44px] ${errors.linkedin ? 'border-destructive' : ''}`}
             />
             {errors.linkedin && (
               <p className="text-xs text-destructive">{errors.linkedin}</p>
@@ -205,10 +212,10 @@ export function ProfileSection() {
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           {isEditing ? (
             <>
-              <Button onClick={handleSave} disabled={isSaving}>
+              <Button onClick={handleSave} disabled={isSaving} className="min-h-[44px] w-full sm:w-auto">
                 {isSaving ? 'Guardando...' : 'Guardar cambios'}
               </Button>
               <Button
@@ -226,12 +233,13 @@ export function ProfileSection() {
                   });
                 }}
                 disabled={isSaving}
+                className="min-h-[44px] w-full sm:w-auto"
               >
                 Cancelar
               </Button>
             </>
           ) : (
-            <Button onClick={() => setIsEditing(true)}>
+            <Button onClick={() => setIsEditing(true)} className="min-h-[44px] w-full sm:w-auto">
               Editar perfil
             </Button>
           )}
