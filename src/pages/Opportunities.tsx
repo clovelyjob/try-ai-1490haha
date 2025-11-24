@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useOpportunitiesStore } from '@/store/useOpportunitiesStore';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
@@ -8,9 +9,10 @@ import { useCVStore } from '@/store/useCVStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import OpportunityCard from '@/components/opportunities/OpportunityCard';
 import FilterPanel from '@/components/opportunities/FilterPanel';
-import { Search, RefreshCw, Briefcase } from 'lucide-react';
+import { Search, RefreshCw, Briefcase, SlidersHorizontal } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function Opportunities() {
   const { user } = useAuthStore();
@@ -31,6 +33,8 @@ export default function Opportunities() {
 
   const [localSearch, setLocalSearch] = useState(filters.search);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     loadOpportunities();
@@ -122,45 +126,78 @@ export default function Opportunities() {
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b bg-card shadow-clovely-sm">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold">Oportunidades</h1>
-              <p className="text-muted-foreground">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-2xl sm:text-3xl font-bold truncate">Oportunidades</h1>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Encuentra prácticas y empleos que se ajusten a tu perfil
               </p>
             </div>
-            <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing}>
+            <Button 
+              variant="outline" 
+              onClick={handleRefresh} 
+              disabled={isRefreshing}
+              className="min-h-[44px] w-full sm:w-auto"
+            >
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
               Actualizar
             </Button>
           </div>
 
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Buscar por título, empresa, tecnología..."
-              className="pl-10"
-              value={localSearch}
-              onChange={(e) => setLocalSearch(e.target.value)}
-            />
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Buscar por título, empresa..."
+                className="pl-10 min-h-[44px]"
+                value={localSearch}
+                onChange={(e) => setLocalSearch(e.target.value)}
+              />
+            </div>
+            
+            {/* Mobile Filter Button */}
+            {isMobile && (
+              <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon" className="min-h-[44px] min-w-[44px]">
+                    <SlidersHorizontal className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[85vw] sm:w-[400px] p-0">
+                  <SheetHeader className="p-6 pb-4">
+                    <SheetTitle>Filtros</SheetTitle>
+                  </SheetHeader>
+                  <div className="px-6 pb-6 overflow-y-auto max-h-[calc(100vh-80px)]">
+                    <FilterPanel
+                      filters={filters}
+                      onFilterChange={(newFilters) => setFilters(newFilters)}
+                      onClearFilters={clearFilters}
+                      inDrawer
+                    />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Filters Sidebar */}
-          <aside className="lg:col-span-1">
-            <FilterPanel
-              filters={filters}
-              onFilterChange={(newFilters) => setFilters(newFilters)}
-              onClearFilters={clearFilters}
-            />
-          </aside>
+          {/* Desktop Filters Sidebar */}
+          {!isMobile && (
+            <aside className="lg:col-span-1">
+              <FilterPanel
+                filters={filters}
+                onFilterChange={(newFilters) => setFilters(newFilters)}
+                onClearFilters={clearFilters}
+              />
+            </aside>
+          )}
 
           {/* Results */}
-          <main className="lg:col-span-3">
+          <main className={isMobile ? 'col-span-1' : 'lg:col-span-3'}>
             <div className="mb-6">
               <p className="text-sm text-muted-foreground">
                 {sortedOpportunities.length} oportunidad(es) encontrada(s)

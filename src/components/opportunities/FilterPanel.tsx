@@ -16,6 +16,7 @@ interface FilterPanelProps {
   };
   onFilterChange: (filters: any) => void;
   onClearFilters: () => void;
+  inDrawer?: boolean;
 }
 
 const categories = [
@@ -45,6 +46,7 @@ export default function FilterPanel({
   filters,
   onFilterChange,
   onClearFilters,
+  inDrawer = false,
 }: FilterPanelProps) {
   const toggleArrayFilter = (key: 'category' | 'modality' | 'contractType', value: string) => {
     const current = filters[key];
@@ -62,16 +64,31 @@ export default function FilterPanel({
     filters.location;
 
   return (
-    <Card className="p-6 rounded-2xl sticky top-4 shadow-clovely-md backdrop-blur-sm bg-card/95">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold">Filtros</h3>
-        {hasActiveFilters && (
-          <Button variant="ghost" size="sm" onClick={onClearFilters}>
-            <X className="h-4 w-4 mr-1" />
-            Limpiar
+    <Card className={inDrawer ? 'p-0 border-0 shadow-none bg-transparent' : 'p-6 rounded-2xl sticky top-4 shadow-clovely-md backdrop-blur-sm bg-card/95'}>
+      {!inDrawer && (
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="font-semibold">Filtros</h3>
+          {hasActiveFilters && (
+            <Button variant="ghost" size="sm" onClick={onClearFilters} className="min-h-[44px]">
+              <X className="h-4 w-4 mr-1" />
+              Limpiar
+            </Button>
+          )}
+        </div>
+      )}
+      
+      {inDrawer && hasActiveFilters && (
+        <div className="mb-4">
+          <Button 
+            variant="outline" 
+            onClick={onClearFilters} 
+            className="w-full min-h-[44px]"
+          >
+            <X className="h-4 w-4 mr-2" />
+            Limpiar filtros
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="space-y-6">
         {/* Search */}
@@ -82,6 +99,7 @@ export default function FilterPanel({
             placeholder="Palabra clave..."
             value={filters.search}
             onChange={(e) => onFilterChange({ search: e.target.value })}
+            className="min-h-[44px]"
           />
         </div>
 
@@ -91,11 +109,12 @@ export default function FilterPanel({
         <div className="space-y-3">
           <Label>Categoría</Label>
           {categories.map((category) => (
-            <div key={category.value} className="flex items-center space-x-2">
+            <div key={category.value} className="flex items-center space-x-2 min-h-[44px]">
               <Checkbox
                 id={`category-${category.value}`}
                 checked={filters.category.includes(category.value)}
                 onCheckedChange={() => toggleArrayFilter('category', category.value)}
+                className="min-h-[24px] min-w-[24px]"
               />
               <label
                 htmlFor={`category-${category.value}`}
@@ -113,11 +132,12 @@ export default function FilterPanel({
         <div className="space-y-3">
           <Label>Modalidad</Label>
           {modalities.map((modality) => (
-            <div key={modality.value} className="flex items-center space-x-2">
+            <div key={modality.value} className="flex items-center space-x-2 min-h-[44px]">
               <Checkbox
                 id={`modality-${modality.value}`}
                 checked={filters.modality.includes(modality.value)}
                 onCheckedChange={() => toggleArrayFilter('modality', modality.value)}
+                className="min-h-[24px] min-w-[24px]"
               />
               <label
                 htmlFor={`modality-${modality.value}`}
@@ -135,11 +155,12 @@ export default function FilterPanel({
         <div className="space-y-3">
           <Label>Tipo de contrato</Label>
           {contractTypes.map((type) => (
-            <div key={type.value} className="flex items-center space-x-2">
+            <div key={type.value} className="flex items-center space-x-2 min-h-[44px]">
               <Checkbox
                 id={`contract-${type.value}`}
                 checked={filters.contractType.includes(type.value)}
                 onCheckedChange={() => toggleArrayFilter('contractType', type.value)}
+                className="min-h-[24px] min-w-[24px]"
               />
               <label
                 htmlFor={`contract-${type.value}`}
@@ -161,6 +182,7 @@ export default function FilterPanel({
             placeholder="Ciudad, país..."
             value={filters.location}
             onChange={(e) => onFilterChange({ location: e.target.value })}
+            className="min-h-[44px]"
           />
         </div>
       </div>
