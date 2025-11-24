@@ -62,15 +62,15 @@ export default function VersionHistoryModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onClose}>
-        <DialogContent className="max-w-2xl max-h-[80vh] rounded-3xl">
+        <DialogContent className="max-w-[95vw] sm:max-w-2xl max-h-[85vh] rounded-2xl sm:rounded-3xl p-4 sm:p-6">
           <DialogHeader>
-            <DialogTitle>Historial de Versiones</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-base sm:text-lg">Historial de Versiones</DialogTitle>
+            <DialogDescription className="text-xs sm:text-sm">
               Gestiona las versiones guardadas de tu CV. Puedes restaurar cualquier versión anterior.
             </DialogDescription>
           </DialogHeader>
 
-          <ScrollArea className="h-[500px] pr-4">
+          <ScrollArea className="h-[400px] sm:h-[500px] pr-2 sm:pr-4">
             {sortedVersions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
                 <div className="p-4 rounded-2xl bg-primary/5 mb-4">
@@ -120,12 +120,12 @@ export default function VersionHistoryModal({
                         )}
                       </div>
 
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => setRestoreConfirm(version.versionId)}
-                          className="shadow-clovely-sm hover:shadow-clovely-md"
+                          className="shadow-clovely-sm hover:shadow-clovely-md min-h-[44px] w-full sm:w-auto"
                         >
                           <RotateCcw className="h-4 w-4 mr-1" />
                           Restaurar
@@ -136,7 +136,7 @@ export default function VersionHistoryModal({
                             variant="ghost"
                             size="sm"
                             onClick={() => setDeleteConfirm(version.versionId)}
-                            className="hover:bg-destructive/10"
+                            className="hover:bg-destructive/10 min-h-[44px] min-w-[44px]"
                           >
                             <Trash2 className="h-4 w-4 text-destructive" />
                           </Button>
@@ -153,17 +153,17 @@ export default function VersionHistoryModal({
 
       {/* Restore Confirmation Dialog */}
       <AlertDialog open={!!restoreConfirm} onOpenChange={() => setRestoreConfirm(null)}>
-        <AlertDialogContent className="rounded-3xl backdrop-blur-md">
+        <AlertDialogContent className="rounded-2xl sm:rounded-3xl backdrop-blur-md max-w-[95vw] sm:max-w-lg">
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Restaurar esta versión?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-base sm:text-lg">¿Restaurar esta versión?</AlertDialogTitle>
+            <AlertDialogDescription className="text-xs sm:text-sm">
               Se creará una copia de seguridad automática de tu CV actual antes de restaurar.
               Los cambios no guardados se perderán.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="rounded-xl">Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => restoreConfirm && handleRestore(restoreConfirm)} className="rounded-xl shadow-clovely-sm">
+          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+            <AlertDialogCancel className="rounded-xl min-h-[44px] w-full sm:w-auto">Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => restoreConfirm && handleRestore(restoreConfirm)} className="rounded-xl shadow-clovely-sm min-h-[44px] w-full sm:w-auto">
               Restaurar versión
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -172,18 +172,18 @@ export default function VersionHistoryModal({
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!deleteConfirm} onOpenChange={() => setDeleteConfirm(null)}>
-        <AlertDialogContent className="rounded-3xl backdrop-blur-md">
+        <AlertDialogContent className="rounded-2xl sm:rounded-3xl backdrop-blur-md max-w-[95vw] sm:max-w-lg">
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Eliminar esta versión?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-base sm:text-lg">¿Eliminar esta versión?</AlertDialogTitle>
+            <AlertDialogDescription className="text-xs sm:text-sm">
               Esta acción no se puede deshacer. La versión será eliminada permanentemente.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="rounded-xl">Cancelar</AlertDialogCancel>
+          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+            <AlertDialogCancel className="rounded-xl min-h-[44px] w-full sm:w-auto">Cancelar</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deleteConfirm && handleDelete(deleteConfirm)}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-clovely-sm"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-clovely-sm min-h-[44px] w-full sm:w-auto"
             >
               Eliminar
             </AlertDialogAction>

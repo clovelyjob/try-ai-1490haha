@@ -65,28 +65,28 @@ export default function ExportSettingsModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md rounded-3xl">
+      <DialogContent className="max-w-[95vw] sm:max-w-md rounded-2xl sm:rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle>Configuración de Exportación</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-base sm:text-lg">Configuración de Exportación</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm">
             Personaliza cómo se exportará tu CV en formato PDF
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-4 sm:space-y-6 py-4">
           {/* Format Selection */}
           <div className="space-y-3">
-            <Label className="text-base font-semibold">Formato de Página</Label>
+            <Label className="text-sm sm:text-base font-semibold">Formato de Página</Label>
             <RadioGroup
               value={settings.format}
               onValueChange={(value) => setSettings({ ...settings, format: value as ExportFormat })}
               className="space-y-2"
             >
               {Object.entries(formatInfo).map(([format, info]) => (
-                <div key={format} className="flex items-center space-x-2 p-3 border-2 rounded-xl hover:bg-accent/50 hover:border-primary/30 transition-all duration-300 hover:shadow-clovely-sm">
-                  <RadioGroupItem value={format} id={format} />
+                <div key={format} className="flex items-center space-x-2 p-3 border-2 rounded-xl hover:bg-accent/50 hover:border-primary/30 transition-all min-h-[44px]">
+                  <RadioGroupItem value={format} id={format} className="min-h-[24px] min-w-[24px] flex-shrink-0" />
                   <Label htmlFor={format} className="flex-1 cursor-pointer">
-                    <div className="font-medium">{format}</div>
+                    <div className="font-medium text-sm sm:text-base">{format}</div>
                     <div className="text-xs text-muted-foreground">
                       {info.width} × {info.height} {info.region}
                     </div>
@@ -98,13 +98,13 @@ export default function ExportSettingsModal({
 
           {/* Margins */}
           <div className="space-y-4">
-            <Label className="text-base font-semibold">Márgenes (mm)</Label>
+            <Label className="text-sm sm:text-base font-semibold">Márgenes (mm)</Label>
             
             <div className="space-y-3">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label className="text-sm">Superior</Label>
-                  <Badge className="bg-primary/10 border-primary/20">{settings.marginTop}mm</Badge>
+                  <Label className="text-xs sm:text-sm">Superior</Label>
+                  <Badge className="bg-primary/10 border-primary/20 text-xs">{settings.marginTop}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginTop]}
@@ -112,13 +112,14 @@ export default function ExportSettingsModal({
                   min={0}
                   max={30}
                   step={1}
+                  className="min-h-[44px]"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label className="text-sm">Inferior</Label>
-                  <Badge className="bg-primary/10 border-primary/20">{settings.marginBottom}mm</Badge>
+                  <Label className="text-xs sm:text-sm">Inferior</Label>
+                  <Badge className="bg-primary/10 border-primary/20 text-xs">{settings.marginBottom}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginBottom]}
@@ -126,13 +127,14 @@ export default function ExportSettingsModal({
                   min={0}
                   max={30}
                   step={1}
+                  className="min-h-[44px]"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label className="text-sm">Izquierdo</Label>
-                  <Badge className="bg-primary/10 border-primary/20">{settings.marginLeft}mm</Badge>
+                  <Label className="text-xs sm:text-sm">Izquierdo</Label>
+                  <Badge className="bg-primary/10 border-primary/20 text-xs">{settings.marginLeft}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginLeft]}
@@ -140,13 +142,14 @@ export default function ExportSettingsModal({
                   min={0}
                   max={30}
                   step={1}
+                  className="min-h-[44px]"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label className="text-sm">Derecho</Label>
-                  <Badge className="bg-primary/10 border-primary/20">{settings.marginRight}mm</Badge>
+                  <Label className="text-xs sm:text-sm">Derecho</Label>
+                  <Badge className="bg-primary/10 border-primary/20 text-xs">{settings.marginRight}mm</Badge>
                 </div>
                 <Slider
                   value={[settings.marginRight]}
@@ -154,6 +157,7 @@ export default function ExportSettingsModal({
                   min={0}
                   max={30}
                   step={1}
+                  className="min-h-[44px]"
                 />
               </div>
             </div>
@@ -161,7 +165,7 @@ export default function ExportSettingsModal({
             <Button
               variant="outline"
               size="sm"
-              className="w-full"
+              className="w-full min-h-[44px]"
               onClick={() => setSettings({
                 ...settings,
                 marginTop: 10,
@@ -170,17 +174,17 @@ export default function ExportSettingsModal({
                 marginLeft: 10,
               })}
             >
-              Restablecer márgenes predeterminados
+              Restablecer márgenes
             </Button>
           </div>
 
           {/* Quality Options */}
           <div className="space-y-3">
-            <Label className="text-base font-semibold">Opciones de Calidad</Label>
+            <Label className="text-sm sm:text-base font-semibold">Opciones de Calidad</Label>
             
-            <div className="flex items-center justify-between p-3 border rounded-lg">
-              <div className="space-y-0.5">
-                <Label>Alta calidad</Label>
+            <div className="flex items-center justify-between p-3 border rounded-lg min-h-[44px]">
+              <div className="space-y-0.5 flex-1">
+                <Label className="text-sm">Alta calidad</Label>
                 <p className="text-xs text-muted-foreground">
                   Exportar con máxima resolución (2x)
                 </p>
@@ -188,12 +192,13 @@ export default function ExportSettingsModal({
               <Switch
                 checked={settings.highQuality}
                 onCheckedChange={(checked) => setSettings({ ...settings, highQuality: checked })}
+                className="min-h-[24px] min-w-[44px] flex-shrink-0"
               />
             </div>
 
-            <div className="flex items-center justify-between p-3 border rounded-lg">
-              <div className="space-y-0.5">
-                <Label>Incluir colores</Label>
+            <div className="flex items-center justify-between p-3 border rounded-lg min-h-[44px]">
+              <div className="space-y-0.5 flex-1">
+                <Label className="text-sm">Incluir colores</Label>
                 <p className="text-xs text-muted-foreground">
                   Mantener el esquema de colores del template
                 </p>
@@ -201,22 +206,23 @@ export default function ExportSettingsModal({
               <Switch
                 checked={settings.includeColors}
                 onCheckedChange={(checked) => setSettings({ ...settings, includeColors: checked })}
+                className="min-h-[24px] min-w-[44px] flex-shrink-0"
               />
             </div>
           </div>
         </div>
 
-        <DialogFooter className="gap-2">
+        <DialogFooter className="flex-col sm:flex-row gap-2">
           {onPreview && (
-            <Button variant="outline" onClick={onPreview}>
+            <Button variant="outline" onClick={onPreview} className="w-full sm:w-auto min-h-[44px]">
               <Eye className="mr-2 h-4 w-4" />
               Vista previa
             </Button>
           )}
-            <Button variant="outline" onClick={onClose} className="shadow-clovely-sm">
+          <Button variant="outline" onClick={onClose} className="w-full sm:w-auto shadow-clovely-sm min-h-[44px]">
             Cancelar
           </Button>
-          <Button onClick={handleExport} variant="premium" className="shadow-clovely-glow">
+          <Button onClick={handleExport} variant="premium" className="w-full sm:w-auto shadow-clovely-glow min-h-[44px]">
             <FileDown className="mr-2 h-4 w-4" />
             Exportar PDF
           </Button>

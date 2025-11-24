@@ -78,26 +78,26 @@ export default function AIAnalysisModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[85vh] rounded-3xl">
+      <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[90vh] sm:max-h-[85vh] rounded-2xl sm:rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-primary/10">
-              <Sparkles className="h-5 w-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <div className="p-2 rounded-xl bg-primary/10 flex-shrink-0">
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
             </div>
-            Análisis IA del CV
+            <span className="truncate">Análisis IA del CV</span>
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             Análisis completo y sugerencias personalizadas generadas por IA
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="h-[calc(85vh-180px)] pr-4">
+        <ScrollArea className="h-[calc(90vh-140px)] sm:h-[calc(85vh-180px)] pr-2 sm:pr-4">
           <div className="space-y-6">
             {/* Score Overview */}
-            <Card className="p-6 rounded-2xl shadow-clovely-lg border-2 border-primary/10 bg-primary/10">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg text-primary">Score General</h3>
-                <div className="text-4xl font-bold text-primary">{analysisData.overallScore}/100</div>
+            <Card className="p-4 sm:p-6 rounded-2xl shadow-clovely-lg border-2 border-primary/10 bg-primary/10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <h3 className="font-semibold text-base sm:text-lg text-primary">Score General</h3>
+                <div className="text-3xl sm:text-4xl font-bold text-primary">{analysisData.overallScore}/100</div>
               </div>
               <Progress value={analysisData.overallScore} className="h-3 [&>div]:bg-primary" />
             </Card>
@@ -105,16 +105,16 @@ export default function AIAnalysisModal({
             {/* Strengths */}
             {analysisData.strengths.length > 0 && (
               <div>
-                <h3 className="font-semibold mb-3 flex items-center gap-2 text-green-600 dark:text-green-400">
-                  <div className="p-2 rounded-xl bg-gradient-to-br from-green-500/10 to-emerald-500/10">
-                    <CheckCircle2 className="h-5 w-5" />
+                <h3 className="font-semibold mb-3 flex items-center gap-2 text-green-600 dark:text-green-400 text-sm sm:text-base">
+                  <div className="p-1.5 sm:p-2 rounded-xl bg-green-500/10 flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                   Fortalezas ({analysisData.strengths.length})
                 </h3>
                 <div className="space-y-2">
                   {analysisData.strengths.map((strength, idx) => (
-                    <Card key={idx} className="p-4 rounded-xl border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50/50 dark:border-green-700 dark:from-green-950/30 dark:to-emerald-950/20 shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300">
-                      <p className="text-sm">{strength}</p>
+                    <Card key={idx} className="p-3 sm:p-4 rounded-xl border-2 border-green-300 bg-green-50 dark:border-green-700 dark:bg-green-950/30 shadow-clovely-sm">
+                      <p className="text-xs sm:text-sm">{strength}</p>
                     </Card>
                   ))}
                 </div>
@@ -124,16 +124,16 @@ export default function AIAnalysisModal({
             {/* Improvements */}
             {analysisData.improvements.length > 0 && (
               <div>
-                <h3 className="font-semibold mb-3 flex items-center gap-2 text-amber-600 dark:text-amber-400">
-                  <div className="p-2 rounded-xl bg-gradient-to-br from-amber-500/10 to-yellow-500/10">
-                    <AlertCircle className="h-5 w-5" />
+                <h3 className="font-semibold mb-3 flex items-center gap-2 text-amber-600 dark:text-amber-400 text-sm sm:text-base">
+                  <div className="p-1.5 sm:p-2 rounded-xl bg-amber-500/10 flex-shrink-0">
+                    <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                   Áreas de Mejora ({analysisData.improvements.length})
                 </h3>
                 <div className="space-y-2">
                   {analysisData.improvements.map((improvement, idx) => (
-                    <Card key={idx} className="p-4 rounded-xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-yellow-50/50 dark:border-amber-700 dark:from-amber-950/30 dark:to-yellow-950/20 shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300">
-                      <p className="text-sm">{improvement}</p>
+                    <Card key={idx} className="p-3 sm:p-4 rounded-xl border-2 border-amber-300 bg-amber-50 dark:border-amber-700 dark:bg-amber-950/30 shadow-clovely-sm">
+                      <p className="text-xs sm:text-sm">{improvement}</p>
                     </Card>
                   ))}
                 </div>
@@ -142,25 +142,25 @@ export default function AIAnalysisModal({
 
             {/* Suggestions */}
             <div>
-              <h3 className="font-semibold mb-3 flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-primary/10">
-                  <TrendingUp className="h-5 w-5 text-primary" />
+              <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm sm:text-base">
+                <div className="p-1.5 sm:p-2 rounded-xl bg-primary/10 flex-shrink-0">
+                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 </div>
                 Sugerencias Específicas ({analysisData.suggestions.length})
               </h3>
               <div className="space-y-3">
                 {analysisData.suggestions.map((suggestion, idx) => (
-                  <Card key={idx} className="p-4 rounded-xl shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300 border-2">
-                    <div className="flex items-start justify-between gap-4">
+                  <Card key={idx} className="p-3 sm:p-4 rounded-xl shadow-clovely-sm border-2">
+                    <div className="flex flex-col gap-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="p-1.5 rounded-lg bg-primary/10">
+                          <div className="p-1.5 rounded-lg bg-primary/10 flex-shrink-0">
                             {getCategoryIcon(suggestion.category)}
                           </div>
-                          <h4 className="font-medium">{suggestion.title}</h4>
+                          <h4 className="font-medium text-sm sm:text-base">{suggestion.title}</h4>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">{suggestion.description}</p>
-                        <div className="flex items-center gap-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-3">{suggestion.description}</p>
+                        <div className="flex flex-wrap items-center gap-2">
                           <Badge variant="outline" className="text-xs">
                             {suggestion.category === 'structure' ? 'Estructura' : 
                              suggestion.category === 'content' ? 'Contenido' : 
@@ -181,7 +181,7 @@ export default function AIAnalysisModal({
 
         {/* Actions */}
         <div className="flex justify-end gap-2 pt-4 border-t">
-          <Button variant="outline" onClick={onClose} className="shadow-clovely-sm">
+          <Button variant="outline" onClick={onClose} className="shadow-clovely-sm min-h-[44px] w-full sm:w-auto">
             Cerrar
           </Button>
         </div>

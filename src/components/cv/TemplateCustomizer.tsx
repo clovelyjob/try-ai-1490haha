@@ -93,41 +93,41 @@ export default function TemplateCustomizer({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[85vh]">
+      <DialogContent className="max-w-[95vw] sm:max-w-2xl max-h-[85vh] rounded-2xl sm:rounded-3xl p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Palette className="h-5 w-5" />
-            Personalizar Colores del Template
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Palette className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <span className="truncate">Personalizar Colores del Template</span>
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             Ajusta los colores para crear un diseño único y profesional
           </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="custom" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="custom">Personalizado</TabsTrigger>
-            <TabsTrigger value="presets">Esquemas Predefinidos</TabsTrigger>
+            <TabsTrigger value="custom" className="min-h-[44px]">Personalizado</TabsTrigger>
+            <TabsTrigger value="presets" className="min-h-[44px]">Predefinidos</TabsTrigger>
           </TabsList>
 
           <TabsContent value="custom" className="space-y-4">
-            <ScrollArea className="h-[400px] pr-4">
+            <ScrollArea className="h-[300px] sm:h-[400px] pr-2 sm:pr-4">
               <div className="space-y-4">
                 {/* Primary Color */}
                 <div className="space-y-2">
-                  <Label>Color Principal</Label>
+                  <Label className="text-sm">Color Principal</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
                       value={colors.primary}
                       onChange={(e) => setColors({ ...colors, primary: e.target.value })}
-                      className="w-20 h-10 cursor-pointer"
+                      className="w-16 sm:w-20 h-12 cursor-pointer flex-shrink-0"
                     />
                     <Input
                       type="text"
                       value={colors.primary}
                       onChange={(e) => setColors({ ...colors, primary: e.target.value })}
-                      className="flex-1 font-mono"
+                      className="flex-1 font-mono text-sm min-h-[44px]"
                       placeholder="#1e40af"
                     />
                   </div>
@@ -138,19 +138,19 @@ export default function TemplateCustomizer({
 
                 {/* Secondary Color */}
                 <div className="space-y-2">
-                  <Label>Color Secundario</Label>
+                  <Label className="text-sm">Color Secundario</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
                       value={colors.secondary}
                       onChange={(e) => setColors({ ...colors, secondary: e.target.value })}
-                      className="w-20 h-10 cursor-pointer"
+                      className="w-16 sm:w-20 h-12 cursor-pointer flex-shrink-0"
                     />
                     <Input
                       type="text"
                       value={colors.secondary}
                       onChange={(e) => setColors({ ...colors, secondary: e.target.value })}
-                      className="flex-1 font-mono"
+                      className="flex-1 font-mono text-sm min-h-[44px]"
                       placeholder="#3b82f6"
                     />
                   </div>
@@ -161,19 +161,19 @@ export default function TemplateCustomizer({
 
                 {/* Accent Color */}
                 <div className="space-y-2">
-                  <Label>Color de Acento</Label>
+                  <Label className="text-sm">Color de Acento</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
                       value={colors.accent}
                       onChange={(e) => setColors({ ...colors, accent: e.target.value })}
-                      className="w-20 h-10 cursor-pointer"
+                      className="w-16 sm:w-20 h-12 cursor-pointer flex-shrink-0"
                     />
                     <Input
                       type="text"
                       value={colors.accent}
                       onChange={(e) => setColors({ ...colors, accent: e.target.value })}
-                      className="flex-1 font-mono"
+                      className="flex-1 font-mono text-sm min-h-[44px]"
                       placeholder="#60a5fa"
                     />
                   </div>
@@ -184,19 +184,19 @@ export default function TemplateCustomizer({
 
                 {/* Text Color */}
                 <div className="space-y-2">
-                  <Label>Color de Texto</Label>
+                  <Label className="text-sm">Color de Texto</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
                       value={colors.text}
                       onChange={(e) => setColors({ ...colors, text: e.target.value })}
-                      className="w-20 h-10 cursor-pointer"
+                      className="w-16 sm:w-20 h-12 cursor-pointer flex-shrink-0"
                     />
                     <Input
                       type="text"
                       value={colors.text}
                       onChange={(e) => setColors({ ...colors, text: e.target.value })}
-                      className="flex-1 font-mono"
+                      className="flex-1 font-mono text-sm min-h-[44px]"
                       placeholder="#1f2937"
                     />
                   </div>
@@ -207,19 +207,19 @@ export default function TemplateCustomizer({
 
                 {/* Background Color */}
                 <div className="space-y-2">
-                  <Label>Color de Fondo</Label>
+                  <Label className="text-sm">Color de Fondo</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
                       value={colors.background}
                       onChange={(e) => setColors({ ...colors, background: e.target.value })}
-                      className="w-20 h-10 cursor-pointer"
+                      className="w-16 sm:w-20 h-12 cursor-pointer flex-shrink-0"
                     />
                     <Input
                       type="text"
                       value={colors.background}
                       onChange={(e) => setColors({ ...colors, background: e.target.value })}
-                      className="flex-1 font-mono"
+                      className="flex-1 font-mono text-sm min-h-[44px]"
                       placeholder="#ffffff"
                     />
                   </div>
@@ -229,16 +229,16 @@ export default function TemplateCustomizer({
                 </div>
 
                 {/* Preview */}
-                <div className="border rounded-lg p-4 space-y-2" style={{ backgroundColor: colors.background }}>
-                  <h3 className="font-bold text-xl" style={{ color: colors.primary }}>
+                <div className="border rounded-lg p-3 sm:p-4 space-y-2" style={{ backgroundColor: colors.background }}>
+                  <h3 className="font-bold text-lg sm:text-xl" style={{ color: colors.primary }}>
                     Vista Previa
                   </h3>
                   <div className="h-px" style={{ backgroundColor: colors.secondary }} />
-                  <p className="text-sm" style={{ color: colors.text }}>
+                  <p className="text-xs sm:text-sm" style={{ color: colors.text }}>
                     Este es un texto de ejemplo con el esquema de colores seleccionado.
                   </p>
                   <div className="flex gap-2">
-                    <span className="px-3 py-1 rounded text-xs font-medium" style={{ backgroundColor: colors.accent, color: colors.background }}>
+                    <span className="px-2 sm:px-3 py-1 rounded text-xs font-medium" style={{ backgroundColor: colors.accent, color: colors.background }}>
                       Elemento de acento
                     </span>
                   </div>
@@ -248,18 +248,18 @@ export default function TemplateCustomizer({
           </TabsContent>
 
           <TabsContent value="presets">
-            <ScrollArea className="h-[400px] pr-4">
-              <div className="grid grid-cols-2 gap-3">
+            <ScrollArea className="h-[300px] sm:h-[400px] pr-2 sm:pr-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {presetSchemes.map((preset, index) => (
                   <button
                     key={index}
                     onClick={() => applyPreset(preset.colors)}
-                    className="p-4 border rounded-lg hover:border-primary transition-all text-left group"
+                    className="p-3 sm:p-4 border rounded-lg hover:border-primary transition-all text-left group min-h-[44px]"
                   >
-                    <div className="font-medium mb-2 group-hover:text-primary transition-colors">
+                    <div className="font-medium mb-2 group-hover:text-primary transition-colors text-sm">
                       {preset.name}
                     </div>
-                    <div className="flex gap-1 h-8">
+                    <div className="flex gap-1 h-6 sm:h-8">
                       <div className="flex-1 rounded" style={{ backgroundColor: preset.colors.primary }} />
                       <div className="flex-1 rounded" style={{ backgroundColor: preset.colors.secondary }} />
                       <div className="flex-1 rounded" style={{ backgroundColor: preset.colors.accent }} />
@@ -271,16 +271,16 @@ export default function TemplateCustomizer({
           </TabsContent>
         </Tabs>
 
-        <div className="flex justify-between pt-4 border-t">
-          <Button variant="outline" onClick={handleReset}>
+        <div className="flex flex-col sm:flex-row justify-between gap-2 pt-4 border-t">
+          <Button variant="outline" onClick={handleReset} className="min-h-[44px] w-full sm:w-auto">
             <RotateCcw className="mr-2 h-4 w-4" />
             Restablecer
           </Button>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={onClose}>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={onClose} className="min-h-[44px] w-full sm:w-auto">
               Cancelar
             </Button>
-            <Button onClick={handleApply}>
+            <Button onClick={handleApply} className="min-h-[44px] w-full sm:w-auto">
               Aplicar Cambios
             </Button>
           </div>
