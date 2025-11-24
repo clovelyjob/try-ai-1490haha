@@ -18,13 +18,14 @@ export function GuestBanner() {
       <AnimatePresence>
         {showBanner && (
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="sticky top-0 z-40"
           >
-            <Alert className="rounded-none border-x-0 bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
-              <Sparkles className="h-4 w-4 text-primary" />
+            <Alert className="rounded-none border-x-0 bg-gradient-to-r from-primary/10 via-primary-warm/10 to-secondary/10 border-2 border-primary/20 shadow-clovely-md">
+              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <AlertDescription className="flex items-center justify-between gap-4">
                 <span className="text-sm">
                   <strong>Estás usando la versión demo.</strong> Tus datos no se guardarán permanentemente.
@@ -33,7 +34,8 @@ export function GuestBanner() {
                   <Button
                     size="sm"
                     onClick={() => setShowModal(true)}
-                    className="gradient-orange text-white shrink-0"
+                    variant="premium"
+                    className="shrink-0 shadow-clovely-glow"
                   >
                     Crear mi cuenta
                   </Button>

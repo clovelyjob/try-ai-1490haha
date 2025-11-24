@@ -78,7 +78,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
   return (
     <div className="space-y-4">
       {/* Language Selector */}
-      <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-200 dark:border-blue-800">
+      <Card className="p-4 rounded-2xl shadow-clovely-md bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-2 border-blue-200 dark:border-blue-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="text-2xl">🌐</div>
@@ -94,7 +94,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               variant={cv.language === 'es' ? 'default' : 'outline'}
               size="sm"
               onClick={() => onUpdate({ language: 'es' })}
-              className="gap-2"
+              className="gap-2 hover:shadow-clovely-sm transition-all"
             >
               🇪🇸 Español
             </Button>
@@ -102,7 +102,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               variant={cv.language === 'en' ? 'default' : 'outline'}
               size="sm"
               onClick={() => onUpdate({ language: 'en' })}
-              className="gap-2"
+              className="gap-2 hover:shadow-clovely-sm transition-all"
             >
               🇬🇧 English
             </Button>
@@ -111,40 +111,40 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       </Card>
 
       {/* Guías Profesionales para CV */}
-      <div className="mb-4 p-4 bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/20 rounded-lg">
+      <Card className="p-4 rounded-2xl shadow-clovely-sm bg-gradient-to-br from-primary/5 to-primary-warm/10 border-2 border-primary/20">
         <div className="flex items-start gap-3">
           <div className="text-2xl">📝</div>
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-1">Guías Profesionales para tu CV</h3>
-            <p className="text-xs text-muted-foreground mb-2">
+            <p className="text-xs text-muted-foreground mb-3">
               Este constructor sigue las mejores prácticas profesionales para CVs efectivos
             </p>
             <div className="grid grid-cols-2 gap-2 text-[10px]">
-              <div className="bg-background/50 p-2 rounded">
+              <div className="bg-background/70 p-2 rounded-lg border border-border/50">
                 <span className="font-semibold text-foreground">✓ Específico</span>
                 <span className="text-muted-foreground"> no general</span>
               </div>
-              <div className="bg-background/50 p-2 rounded">
+              <div className="bg-background/70 p-2 rounded-lg border border-border/50">
                 <span className="font-semibold text-foreground">✓ Activo</span>
                 <span className="text-muted-foreground"> no pasivo</span>
               </div>
-              <div className="bg-background/50 p-2 rounded">
+              <div className="bg-background/70 p-2 rounded-lg border border-border/50">
                 <span className="font-semibold text-foreground">✓ Basado en hechos</span>
                 <span className="text-muted-foreground"> (¡cuantifica!)</span>
               </div>
-              <div className="bg-background/50 p-2 rounded">
+              <div className="bg-background/70 p-2 rounded-lg border border-border/50">
                 <span className="font-semibold text-foreground">✓ Fácil de escanear</span>
                 <span className="text-muted-foreground"> rápidamente</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Card>
 
       <Accordion type="multiple" defaultValue={['personal']} className="space-y-4">
         {/* Información Personal */}
         <AccordionItem value="personal">
-          <Card>
+          <Card className="rounded-2xl shadow-clovely-md">
             <AccordionTrigger className="px-6 py-4 hover:no-underline">
               <span className="font-semibold">Información Personal</span>
             </AccordionTrigger>
@@ -264,13 +264,13 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
         {/* Experiencia Laboral */}
         <AccordionItem value="experience">
-          <Card>
+          <Card className="rounded-2xl shadow-clovely-md">
             <AccordionTrigger className="px-6 py-4 hover:no-underline">
               <span className="font-semibold">Experiencia Laboral ({cv.experience.length})</span>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               {/* Guías para Experiencia */}
-              <div className="mb-4 p-3 bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-md text-xs">
+              <div className="mb-4 p-3 rounded-xl bg-gradient-to-br from-purple-50 to-violet-50/50 dark:from-purple-950/30 dark:to-violet-950/30 border-2 border-purple-200 dark:border-purple-800 text-xs shadow-clovely-sm">
                 <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Top 5 Errores de CV a Evitar:</p>
                 <ol className="list-decimal list-inside text-[10px] text-purple-800 dark:text-purple-200 space-y-0.5 ml-2">
                   <li>Errores ortográficos y gramaticales</li>
@@ -397,7 +397,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         </div>
                         
                         {/* Guías Oficiales */}
-                        <div className="mb-3 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-md text-xs space-y-2">
+                        <div className="mb-3 p-3 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50/50 dark:from-amber-950/30 dark:to-yellow-950/30 border-2 border-amber-200 dark:border-amber-800 text-xs space-y-2 shadow-clovely-sm">
                           <p className="font-bold text-amber-900 dark:text-amber-100">📋 Formato Profesional:</p>
                           <div className="space-y-1">
                             <p className="text-amber-800 dark:text-amber-200">
@@ -442,17 +442,17 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                               className="text-sm"
                             />
                             <Button
-                              variant="ghost"
+                              variant="outline"
                               size="icon"
                               onClick={() => handleImproveBullet(exp.id, bIndex, bullet.text)}
                               disabled={isAILoading || improvingField === `exp-${exp.id}-${bIndex}`}
                               title="Transformar a bullet profesional con IA"
-                              className="shrink-0"
+                              className="shrink-0 shadow-clovely-sm hover:shadow-clovely-md transition-all"
                             >
                               {improvingField === `exp-${exp.id}-${bIndex}` ? (
                                 <span className="h-4 w-4 animate-spin">⏳</span>
                               ) : (
-                                <Sparkles className="h-4 w-4 text-amber-500" />
+                                <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                               )}
                             </Button>
                             <Button
@@ -519,13 +519,13 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
         {/* Formación */}
         <AccordionItem value="education">
-          <Card>
+          <Card className="rounded-2xl shadow-clovely-md">
             <AccordionTrigger className="px-6 py-4 hover:no-underline">
               <span className="font-semibold">Formación Académica ({cv.education.length})</span>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               {/* Guías de Educación */}
-              <div className="mb-4 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-md text-xs">
+              <div className="mb-4 p-3 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 border-2 border-green-200 dark:border-green-800 text-xs shadow-clovely-sm">
                 <p className="font-bold text-green-900 dark:text-green-100 mb-1">🎓 Guías - Sección de Educación:</p>
                 <ul className="list-disc list-inside text-[10px] text-green-800 dark:text-green-200 space-y-0.5">
                   <li>Lista en orden cronológico inverso (más reciente primero)</li>
@@ -673,7 +673,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
         {/* Skills */}
         <AccordionItem value="skills">
-          <Card>
+          <Card className="rounded-2xl shadow-clovely-md">
             <AccordionTrigger className="px-6 py-4 hover:no-underline">
               <span className="font-semibold">Habilidades ({cv.skills.length})</span>
             </AccordionTrigger>
@@ -690,6 +690,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         onUpdate({ skills: updated });
                       }}
                       placeholder="Python"
+                      className="focus-visible:shadow-clovely-md focus-visible:ring-2 focus-visible:ring-primary/20 transition-all"
                     />
                     <select
                       value={skill.level}
@@ -699,7 +700,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         );
                         onUpdate({ skills: updated });
                       }}
-                      className="border rounded px-3 py-2 bg-background"
+                      className="border rounded-lg px-3 py-2 bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:shadow-clovely-sm transition-all"
                     >
                       <option value="básico">Básico</option>
                       <option value="intermedio">Intermedio</option>
@@ -719,7 +720,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
 
                 <Button
                   variant="outline"
-                  className="w-full"
+                  className="w-full shadow-clovely-sm hover:shadow-clovely-md transition-all"
                   onClick={() => {
                     onUpdate({
                       skills: [...cv.skills, { name: '', level: 'intermedio' }],

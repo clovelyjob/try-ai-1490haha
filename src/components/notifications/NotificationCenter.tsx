@@ -23,12 +23,12 @@ const notificationIcons = {
 };
 
 const notificationColors = {
-  info: 'bg-primary/10 text-primary',
-  success: 'bg-green-500/10 text-green-500',
-  warning: 'bg-yellow-500/10 text-yellow-500',
-  achievement: 'bg-purple-500/10 text-purple-500',
-  reminder: 'bg-blue-500/10 text-blue-500',
-  opportunity: 'bg-orange-500/10 text-orange-500',
+  info: 'bg-gradient-to-br from-blue-500/10 to-blue-600/20 text-blue-600 dark:text-blue-400',
+  success: 'bg-gradient-to-br from-green-500/10 to-emerald-600/20 text-green-600 dark:text-green-400',
+  warning: 'bg-gradient-to-br from-yellow-500/10 to-amber-600/20 text-amber-600 dark:text-amber-400',
+  achievement: 'bg-gradient-to-br from-purple-500/10 to-violet-600/20 text-purple-600 dark:text-purple-400',
+  reminder: 'bg-gradient-to-br from-cyan-500/10 to-cyan-600/20 text-cyan-600 dark:text-cyan-400',
+  opportunity: 'bg-gradient-to-br from-primary/10 to-primary-warm/20 text-primary dark:text-primary-warm',
 };
 
 export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
@@ -92,11 +92,11 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
       {notifications.length > 0 && (
         <div className="flex items-center gap-2 p-3 border-b bg-muted/30">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={markAllAsRead}
             disabled={unreadCount === 0}
-            className="text-xs"
+            className="text-xs shadow-clovely-sm hover:shadow-clovely-md transition-all"
           >
             <CheckCheck className="h-3 w-3 mr-1" />
             Marcar todas leídas
@@ -105,7 +105,7 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
             variant="ghost"
             size="sm"
             onClick={clearAll}
-            className="text-xs text-destructive hover:text-destructive"
+            className="text-xs text-destructive hover:text-destructive hover:bg-destructive/10"
           >
             <Trash2 className="h-3 w-3 mr-1" />
             Limpiar todo
@@ -117,12 +117,12 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
       <ScrollArea className="flex-1">
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Bell className="h-8 w-8 text-muted-foreground" />
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 to-primary-warm/20 flex items-center justify-center mb-4 shadow-clovely-md">
+              <Bell className="h-10 w-10 text-primary" />
             </div>
-            <h3 className="font-medium text-lg mb-2">No hay notificaciones</h3>
-            <p className="text-sm text-muted-foreground">
-              Te avisaremos cuando haya algo nuevo
+            <h3 className="font-semibold text-lg mb-2">No hay notificaciones</h3>
+            <p className="text-sm text-muted-foreground max-w-[200px]">
+              Te avisaremos cuando haya algo nuevo para ti
             </p>
           </div>
         ) : (
@@ -131,8 +131,8 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
               <div
                 key={notification.id}
                 className={cn(
-                  "p-4 hover:bg-muted/50 transition-colors cursor-pointer relative",
-                  !notification.read && "bg-primary/5"
+                  "p-4 hover:bg-accent/50 transition-all duration-200 cursor-pointer relative rounded-xl border-2 border-transparent hover:border-primary/30 hover:shadow-clovely-sm mx-2 my-1",
+                  !notification.read && "bg-primary/5 dark:bg-primary/10"
                 )}
                 onClick={() => handleNotificationClick(notification)}
               >
