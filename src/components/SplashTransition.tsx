@@ -38,8 +38,8 @@ export const SplashTransition = ({
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
       style={{
         background: isDark
-          ? 'radial-gradient(1200px 800px at 50% 0%, rgba(249,115,22,0.12), transparent 60%)'
-          : 'radial-gradient(1200px 800px at 50% 0%, rgba(255,122,0,0.08), transparent 60%)',
+          ? 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(249,115,22,0.18), transparent 65%)'
+          : 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(255,122,0,0.12), transparent 65%)',
         backgroundColor: isDark ? '#0E0E0E' : '#FFFFFF'
       }}
       role="status"
@@ -61,7 +61,7 @@ export const SplashTransition = ({
             scale: [1, 1.06, 1],
             filter: [
               'drop-shadow(0 0 0px rgba(255, 122, 0, 0))',
-              'drop-shadow(0 0 12px rgba(255, 122, 0, 0.3))',
+              'drop-shadow(0 0 24px rgba(255, 122, 0, 0.5)) drop-shadow(0 0 48px rgba(255, 122, 0, 0.3))',
               'drop-shadow(0 0 0px rgba(255, 122, 0, 0))'
             ]
           }}
@@ -112,8 +112,10 @@ export const SplashTransition = ({
               }}
               className="w-2 h-2 rounded-full"
               style={{
-                backgroundColor: index === 1 ? '#FF7A00' : '#F97316',
-                opacity: index === 1 ? 1 : 0.6
+                background: index === 1 
+                  ? 'linear-gradient(135deg, #FF7A00, #F97316)' 
+                  : 'linear-gradient(135deg, #F97316, #FB923C)',
+                opacity: index === 1 ? 1 : 0.7
               }}
             />
           ))}

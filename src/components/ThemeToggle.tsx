@@ -22,12 +22,12 @@ export const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-full"
+      className="rounded-full hover:bg-accent/50 hover:scale-110 transition-all duration-300 group"
     >
       {theme === 'light' ? (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-5 w-5 group-hover:text-primary transition-colors" />
       ) : (
-        <Sun className="h-5 w-5" />
+        <Sun className="h-5 w-5 group-hover:text-primary transition-colors" />
       )}
     </Button>
   );
