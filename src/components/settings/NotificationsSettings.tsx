@@ -76,7 +76,7 @@ export const NotificationsSettings = () => {
       <CardContent className="space-y-6">
         {settings.map((setting, index) => (
           <div key={setting.id}>
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-4 min-h-[44px]">
               <div className="flex gap-3 flex-1">
                 <div className="mt-1">
                   <setting.icon className="h-5 w-5 text-muted-foreground" />
@@ -98,6 +98,7 @@ export const NotificationsSettings = () => {
                 checked={setting.checked}
                 onCheckedChange={(checked) => handleToggle(setting.id, checked)}
                 disabled={setting.disabled}
+                className="min-h-[24px] min-w-[44px]"
               />
             </div>
             {index < settings.length - 1 && <Separator className="mt-6" />}

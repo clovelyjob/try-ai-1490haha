@@ -122,7 +122,7 @@ export function SecuritySection() {
         </CardHeader>
         <CardContent className="space-y-4">
           {!isChangingPassword ? (
-            <Button onClick={() => setIsChangingPassword(true)}>
+            <Button onClick={() => setIsChangingPassword(true)} className="min-h-[44px] w-full sm:w-auto">
               Cambiar contraseña
             </Button>
           ) : (
@@ -141,7 +141,7 @@ export function SecuritySection() {
                       setErrors(newErrors);
                     }
                   }}
-                  className={errors.current ? 'border-destructive' : ''}
+                  className={`min-h-[44px] ${errors.current ? 'border-destructive' : ''}`}
                 />
                 {errors.current && (
                   <p className="text-xs text-destructive">{errors.current}</p>
@@ -162,7 +162,7 @@ export function SecuritySection() {
                       setErrors(newErrors);
                     }
                   }}
-                  className={errors.new ? 'border-destructive' : ''}
+                  className={`min-h-[44px] ${errors.new ? 'border-destructive' : ''}`}
                 />
                 {errors.new && (
                   <p className="text-xs text-destructive">{errors.new}</p>
@@ -186,15 +186,15 @@ export function SecuritySection() {
                       setErrors(newErrors);
                     }
                   }}
-                  className={errors.confirm ? 'border-destructive' : ''}
+                  className={`min-h-[44px] ${errors.confirm ? 'border-destructive' : ''}`}
                 />
                 {errors.confirm && (
                   <p className="text-xs text-destructive">{errors.confirm}</p>
                 )}
               </div>
 
-              <div className="flex gap-2">
-                <Button onClick={handlePasswordChange} disabled={isSaving}>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button onClick={handlePasswordChange} disabled={isSaving} className="min-h-[44px] w-full sm:w-auto">
                   {isSaving ? 'Guardando...' : 'Actualizar contraseña'}
                 </Button>
                 <Button
@@ -205,6 +205,7 @@ export function SecuritySection() {
                     setErrors({});
                   }}
                   disabled={isSaving}
+                  className="min-h-[44px] w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
@@ -280,6 +281,7 @@ export function SecuritySection() {
             <Button
               variant="outline"
               onClick={() => setShowCloseSessionsDialog(true)}
+              className="min-h-[44px] w-full sm:w-auto"
             >
               <AlertTriangle className="h-4 w-4 mr-2" />
               Cerrar otras sesiones

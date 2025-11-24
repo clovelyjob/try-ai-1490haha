@@ -5,6 +5,9 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { ProfileSection } from '@/components/settings/ProfileSection';
 import { SecuritySection } from '@/components/settings/SecuritySection';
 import { NotificationsSection } from '@/components/settings/NotificationsSection';
@@ -43,6 +46,7 @@ const navigation = [
 
 export default function Settings() {
   const [activeSection, setActiveSection] = useState<SettingSection>('profile');
+  const isMobile = useIsMobile();
 
   const renderContent = () => {
     switch (activeSection) {
@@ -75,60 +79,96 @@ export default function Settings() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
+    <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Configuración</h1>
-        <p className="text-muted-foreground">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">Configuración</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Administra tu cuenta y personaliza tu experiencia en Clovely
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar Navigation */}
-        <aside className="w-full md:w-64 space-y-1">
-          <nav className="sticky top-6">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeSection === item.id;
-
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveSection(item.id as SettingSection)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-primary to-primary-warm text-primary-foreground shadow-clovely-md'
-                      : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground hover:shadow-clovely-sm'
-                  }`}
+      {isMobile ? (
+        /* Mobile: Horizontal Tabs */
+        <div className="space-y-6">
+          <ScrollArea className="w-full whitespace-nowrap">
+            <Tabs value={activeSection} onValueChange={(value) => setActiveSection(value as SettingSection)}>
+              <TabsList className="inline-flex h-auto w-auto p-1 bg-muted/50">
+                {navigation.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <TabsTrigger
+                      key={item.id}
+                      value={item.id}
+                      className="min-h-[44px] px-3 sm:px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                    >
+                      <Icon className="h-4 w-4 mr-2" />
+                      <span className="text-xs sm:text-sm">{item.label}</span>
+                    </TabsTrigger>
+                  );
+                })}
+                <TabsTrigger
+                  value="account"
+                  className="min-h-[44px] px-3 sm:px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              );
-            })}
+                  <Download className="h-4 w-4 mr-2" />
+                  <span className="text-xs sm:text-sm">Cuenta</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
 
-            <Separator className="my-4" />
+          <main className="min-w-0">
+            {renderContent()}
+          </main>
+        </div>
+      ) : (
+        /* Desktop: Sidebar Navigation */
+        <div className="flex flex-col md:flex-row gap-8">
+          <aside className="w-full md:w-64 space-y-1">
+            <nav className="sticky top-6">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeSection === item.id;
 
-            <button
-              onClick={() => setActiveSection('account' as SettingSection)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${
-                activeSection === 'account'
-                  ? 'bg-accent text-foreground shadow-clovely-sm'
-                  : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <Download className="h-5 w-5" />
-              <span className="font-medium">Cuenta</span>
-            </button>
-          </nav>
-        </aside>
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveSection(item.id as SettingSection)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 min-h-[44px] ${
+                      isActive
+                        ? 'bg-primary text-primary-foreground shadow-clovely-md'
+                        : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground hover:shadow-clovely-sm'
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="font-medium">{item.label}</span>
+                  </button>
+                );
+              })}
 
-        {/* Main Content */}
-        <main className="flex-1 min-w-0">
-          {renderContent()}
-        </main>
-      </div>
+              <Separator className="my-4" />
+
+              <button
+                onClick={() => setActiveSection('account' as SettingSection)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 min-h-[44px] ${
+                  activeSection === 'account'
+                    ? 'bg-accent text-foreground shadow-clovely-sm'
+                    : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Download className="h-5 w-5" />
+                <span className="font-medium">Cuenta</span>
+              </button>
+            </nav>
+          </aside>
+
+          <main className="flex-1 min-w-0">
+            {renderContent()}
+          </main>
+        </div>
+      )}
     </div>
   );
 }
