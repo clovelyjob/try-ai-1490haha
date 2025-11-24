@@ -9,8 +9,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { ArrowLeft, Save, Sparkles, Download, History, Palette, GitCompare } from 'lucide-react';
+import { ArrowLeft, Save, Sparkles, Download, History, Palette, GitCompare, MoreVertical } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import CVEditorPanel from '@/components/cv/CVEditorPanel';
 import CVPreviewPanel from '@/components/cv/CVPreviewPanel';
@@ -22,6 +23,7 @@ import ExportSettingsModal, { ExportSettings } from '@/components/cv/ExportSetti
 import TemplateCustomizer, { TemplateColors } from '@/components/cv/TemplateCustomizer';
 import { cn } from '@/lib/utils';
 import { useAI } from '@/hooks/useAI';
+import { useIsMobile } from '@/hooks/use-mobile';
 import html2pdf from 'html2pdf.js';
 
 export default function CVBuilder() {
@@ -46,6 +48,7 @@ export default function CVBuilder() {
     background: '#ffffff',
   });
   const previewRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (id === 'new') {
@@ -187,65 +190,121 @@ export default function CVBuilder() {
     <div className="h-screen flex flex-col bg-background">
       {/* Header */}
       <div className="border-b bg-card/80 backdrop-blur-md shadow-clovely-md sticky top-0 z-10">
-        <div className="flex items-center justify-between px-6 py-5">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/cvs')}>
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5">
+          <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/cvs')} className="min-h-[44px] min-w-[44px] flex-shrink-0">
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <div>
+            <div className="min-w-0 flex-1">
               <input
                 type="text"
                 value={currentCV.title}
                 onChange={(e) => updateCV(currentCV.id, { title: e.target.value })}
-                className="text-xl font-semibold bg-transparent border-none outline-none focus:ring-2 focus:ring-primary rounded px-2 py-1"
+                className="text-base sm:text-xl font-semibold bg-transparent border-none outline-none focus:ring-2 focus:ring-primary rounded px-2 py-1 w-full truncate"
               />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">
                 {currentCV.personal.fullName || 'Sin nombre'}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <TemplateSelector
-              value={currentCV.template}
-              onChange={(template) => updateCV(currentCV.id, { template })}
-            />
-            
-            <Button variant="outline" size="icon" onClick={() => setShowTemplateCustomizer(true)} title="Personalizar colores" className="shadow-clovely-sm">
-              <Palette className="h-4 w-4" />
-            </Button>
-            
-            <Button variant="outline" onClick={() => setShowVersionHistory(true)} className="shadow-clovely-sm">
-              <History className="mr-2 h-4 w-4" />
-              Historial
-            </Button>
-            
-            {currentCV.versions.length > 0 && (
-              <Button variant="outline" onClick={() => setShowVersionCompare(true)} className="shadow-clovely-sm">
-                <GitCompare className="mr-2 h-4 w-4" />
-                Comparar
+          {isMobile ? (
+            /* Mobile: Dropdown Menu */
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <Button variant="premium" onClick={handleSave} disabled={isSaving} size="sm" className="min-h-[44px]">
+                <Save className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">{isSaving ? 'Guardando...' : 'Guardar'}</span>
               </Button>
-            )}
-            
-            <Button variant="outline" onClick={handleSaveVersion} className="shadow-clovely-sm">
-              Guardar versión
-            </Button>
-            
-            <Button variant="outline" onClick={handleAnalyze} disabled={isAILoading} className="shadow-clovely-sm">
-              <Sparkles className="mr-2 h-4 w-4" />
-              {isAILoading ? 'Analizando...' : 'Analizar'}
-            </Button>
-            
-            <Button variant="outline" onClick={() => setShowExportSettings(true)} className="shadow-clovely-sm">
-              <Download className="mr-2 h-4 w-4" />
-              Exportar
-            </Button>
-            
-            <Button variant="premium" onClick={handleSave} disabled={isSaving} className="shadow-clovely-glow">
-              <Save className="mr-2 h-4 w-4" />
-              {isSaving ? 'Guardando...' : 'Guardar'}
-            </Button>
-          </div>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" className="min-h-[44px] min-w-[44px]">
+                    <MoreVertical className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem onClick={handleAnalyze} disabled={isAILoading}>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    {isAILoading ? 'Analizando...' : 'Analizar con IA'}
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => setShowExportSettings(true)}>
+                    <Download className="mr-2 h-4 w-4" />
+                    Exportar PDF
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={() => setShowTemplateCustomizer(true)}>
+                    <Palette className="mr-2 h-4 w-4" />
+                    Personalizar colores
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={() => setShowVersionHistory(true)}>
+                    <History className="mr-2 h-4 w-4" />
+                    Ver historial
+                  </DropdownMenuItem>
+                  
+                  {currentCV.versions.length > 0 && (
+                    <DropdownMenuItem onClick={() => setShowVersionCompare(true)}>
+                      <GitCompare className="mr-2 h-4 w-4" />
+                      Comparar versiones
+                    </DropdownMenuItem>
+                  )}
+                  
+                  <DropdownMenuItem onClick={handleSaveVersion}>
+                    <Save className="mr-2 h-4 w-4" />
+                    Guardar versión
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            /* Desktop: All Buttons */
+            <div className="flex items-center gap-3">
+              <TemplateSelector
+                value={currentCV.template}
+                onChange={(template) => updateCV(currentCV.id, { template })}
+              />
+              
+              <Button variant="outline" size="icon" onClick={() => setShowTemplateCustomizer(true)} title="Personalizar colores" className="shadow-clovely-sm min-h-[44px] min-w-[44px]">
+                <Palette className="h-4 w-4" />
+              </Button>
+              
+              <Button variant="outline" onClick={() => setShowVersionHistory(true)} className="shadow-clovely-sm min-h-[44px]">
+                <History className="mr-2 h-4 w-4" />
+                Historial
+              </Button>
+              
+              {currentCV.versions.length > 0 && (
+                <Button variant="outline" onClick={() => setShowVersionCompare(true)} className="shadow-clovely-sm min-h-[44px]">
+                  <GitCompare className="mr-2 h-4 w-4" />
+                  Comparar
+                </Button>
+              )}
+              
+              <Button variant="outline" onClick={handleSaveVersion} className="shadow-clovely-sm min-h-[44px]">
+                Guardar versión
+              </Button>
+              
+              <Button variant="outline" onClick={handleAnalyze} disabled={isAILoading} className="shadow-clovely-sm min-h-[44px]">
+                <Sparkles className="mr-2 h-4 w-4" />
+                {isAILoading ? 'Analizando...' : 'Analizar'}
+              </Button>
+              
+              <Button variant="outline" onClick={() => setShowExportSettings(true)} className="shadow-clovely-sm min-h-[44px]">
+                <Download className="mr-2 h-4 w-4" />
+                Exportar
+              </Button>
+              
+              <Button variant="premium" onClick={handleSave} disabled={isSaving} className="shadow-clovely-glow min-h-[44px]">
+                <Save className="mr-2 h-4 w-4" />
+                {isSaving ? 'Guardando...' : 'Guardar'}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -253,10 +312,10 @@ export default function CVBuilder() {
       <div className="md:hidden border-b bg-card px-4 py-2">
         <Tabs value={activeView} onValueChange={(v) => setActiveView(v as any)}>
           <TabsList className="w-full">
-            <TabsTrigger value="editor" className="flex-1">
+            <TabsTrigger value="editor" className="flex-1 min-h-[44px]">
               Editor
             </TabsTrigger>
-            <TabsTrigger value="preview" className="flex-1">
+            <TabsTrigger value="preview" className="flex-1 min-h-[44px]">
               Vista previa
             </TabsTrigger>
           </TabsList>
@@ -265,7 +324,7 @@ export default function CVBuilder() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
-        <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4 p-2 sm:p-4">
           {/* Editor Panel */}
           <div className={cn(
             "overflow-auto",
