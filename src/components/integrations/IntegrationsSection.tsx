@@ -12,7 +12,7 @@ export const IntegrationsSection = () => {
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-blue-50/30 to-background dark:from-background dark:via-blue-950/10 dark:to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-background/90 dark:bg-background/90 pointer-events-none" />
       
       <div className="container mx-auto px-6 max-w-6xl relative">
         {/* Header */}

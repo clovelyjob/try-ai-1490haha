@@ -21,7 +21,7 @@ export const IntegrationBadge = ({ integration }: IntegrationBadgeProps) => {
         aria-hidden="true"
         className="pointer-events-none absolute -inset-2 rounded-2xl -z-10
                    opacity-0 group-hover:opacity-100
-                   bg-gradient-to-r from-primary/10 to-primary/5
+                   bg-primary/10
                    blur-xl transition-opacity duration-300"
       />
 
