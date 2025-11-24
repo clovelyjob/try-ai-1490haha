@@ -59,7 +59,7 @@ export default function InterviewSession() {
           <span className="text-muted-foreground">Progreso</span>
           <span className="font-medium">{answeredCount} / {totalQuestions} preguntas</span>
         </div>
-        <Progress value={progress} className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-primary-warm" />
+        <Progress value={progress} className="h-4 sm:h-5 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-primary-warm" />
       </Card>
 
       {/* Question */}
@@ -84,16 +84,16 @@ export default function InterviewSession() {
             placeholder="Escribe tu respuesta aquí..."
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            rows={8}
+            rows={10}
             disabled={isAnalyzing}
-            className="resize-none rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md focus-visible:ring-primary/20 transition-all duration-300"
+            className="resize-none min-h-[240px] sm:min-h-[200px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md focus-visible:ring-primary/20 transition-all duration-300"
           />
           <p className="text-sm text-muted-foreground bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
             💡 Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
           </p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button
             variant="outline"
             onClick={() => {
@@ -102,11 +102,11 @@ export default function InterviewSession() {
               }
             }}
             disabled={isAnalyzing}
-            className="shadow-clovely-sm"
+            className="min-h-[44px] w-full sm:w-auto shadow-clovely-sm"
           >
             Salir
           </Button>
-          <Button onClick={handleSubmit} disabled={isAnalyzing || !answer.trim()} variant="premium" className="flex-1 shadow-clovely-glow">
+          <Button onClick={handleSubmit} disabled={isAnalyzing || !answer.trim()} variant="premium" className="min-h-[44px] flex-1 shadow-clovely-glow">
             {isAnalyzing ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />

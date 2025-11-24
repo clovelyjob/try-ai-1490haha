@@ -74,7 +74,7 @@ export default function InterviewSetup() {
               placeholder="Ej: Analista de Datos, Product Manager, Desarrollador Frontend"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
+              className="min-h-[44px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
             />
           </div>
 
@@ -82,7 +82,7 @@ export default function InterviewSetup() {
             <div className="space-y-2">
               <Label htmlFor="level">Nivel de Experiencia</Label>
               <Select value={level} onValueChange={(v) => setLevel(v as InterviewLevel)}>
-                <SelectTrigger id="level" className="rounded-xl shadow-clovely-sm">
+                <SelectTrigger id="level" className="min-h-[44px] rounded-xl shadow-clovely-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -96,7 +96,7 @@ export default function InterviewSetup() {
             <div className="space-y-2">
               <Label htmlFor="type">Tipo de Entrevista</Label>
               <Select value={interviewType} onValueChange={(v) => setInterviewType(v as InterviewType)}>
-                <SelectTrigger id="type" className="rounded-xl shadow-clovely-sm">
+                <SelectTrigger id="type" className="min-h-[44px] rounded-xl shadow-clovely-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -113,7 +113,7 @@ export default function InterviewSetup() {
           <div className="space-y-2">
             <Label htmlFor="tone">Tono del Entrevistador</Label>
             <Select value={tone} onValueChange={(v) => setTone(v as InterviewTone)}>
-              <SelectTrigger id="tone" className="rounded-xl shadow-clovely-sm">
+              <SelectTrigger id="tone" className="min-h-[44px] rounded-xl shadow-clovely-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -131,17 +131,17 @@ export default function InterviewSetup() {
               placeholder="Pega aquí la descripción del puesto para personalizar las preguntas..."
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              rows={4}
-              className="rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
+              rows={5}
+              className="min-h-[120px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
             />
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button 
             variant="outline" 
             onClick={() => navigate('/dashboard/interviews')} 
-            className="flex-1 shadow-clovely-sm"
+            className="min-h-[44px] flex-1 shadow-clovely-sm"
             disabled={isGenerating}
           >
             Cancelar
@@ -150,7 +150,7 @@ export default function InterviewSetup() {
             onClick={handleStart} 
             disabled={!role || isGenerating} 
             variant="premium"
-            className="flex-1 shadow-clovely-glow"
+            className="min-h-[44px] flex-1 shadow-clovely-glow"
           >
             {isGenerating ? (
               <>

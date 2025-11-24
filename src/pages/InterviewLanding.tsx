@@ -21,7 +21,7 @@ export default function InterviewLanding() {
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada
         </p>
-        <Button size="lg" onClick={() => navigate('/dashboard/interviews/setup')} variant="premium" className="mt-4 shadow-clovely-glow">
+        <Button size="lg" onClick={() => navigate('/dashboard/interviews/setup')} variant="premium" className="min-h-[44px] mt-4 shadow-clovely-glow">
           Comenzar Nueva Práctica
         </Button>
       </div>
