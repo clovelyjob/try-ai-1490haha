@@ -71,7 +71,7 @@ export default function InterviewResults() {
                 <span>Claridad</span>
                 <span className="font-medium">{breakdown.clarity}/25</span>
               </div>
-              <Progress value={(breakdown.clarity / 25) * 100} />
+              <Progress value={(breakdown.clarity / 25) * 100} className="h-3 sm:h-4" />
             </div>
             
             <div className="space-y-1">
@@ -79,7 +79,7 @@ export default function InterviewResults() {
                 <span>Estructura</span>
                 <span className="font-medium">{breakdown.structure}/25</span>
               </div>
-              <Progress value={(breakdown.structure / 25) * 100} />
+              <Progress value={(breakdown.structure / 25) * 100} className="h-3 sm:h-4" />
             </div>
             
             <div className="space-y-1">
@@ -87,7 +87,7 @@ export default function InterviewResults() {
                 <span>Evidencia</span>
                 <span className="font-medium">{breakdown.evidence}/25</span>
               </div>
-              <Progress value={(breakdown.evidence / 25) * 100} />
+              <Progress value={(breakdown.evidence / 25) * 100} className="h-3 sm:h-4" />
             </div>
             
             <div className="space-y-1">
@@ -95,7 +95,7 @@ export default function InterviewResults() {
                 <span>Lenguaje</span>
                 <span className="font-medium">{breakdown.language}/15</span>
               </div>
-              <Progress value={(breakdown.language / 15) * 100} />
+              <Progress value={(breakdown.language / 15) * 100} className="h-3 sm:h-4" />
             </div>
             
             <div className="space-y-1">
@@ -103,7 +103,7 @@ export default function InterviewResults() {
                 <span>Cultura</span>
                 <span className="font-medium">{breakdown.culture}/10</span>
               </div>
-              <Progress value={(breakdown.culture / 10) * 100} />
+              <Progress value={(breakdown.culture / 10) * 100} className="h-3 sm:h-4" />
             </div>
           </div>
         </div>
@@ -132,11 +132,11 @@ export default function InterviewResults() {
       )}
 
       {/* Actions */}
-      <div className="flex gap-3">
-        <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="flex-1 shadow-clovely-sm">
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Button variant="outline" onClick={() => navigate('/dashboard/interviews')} className="min-h-[44px] flex-1 shadow-clovely-sm">
           Ver Historial
         </Button>
-        <Button onClick={handleSave} variant="premium" className="flex-1 shadow-clovely-glow">
+        <Button onClick={handleSave} variant="premium" className="min-h-[44px] flex-1 shadow-clovely-glow">
           Guardar y Continuar
         </Button>
       </div>
