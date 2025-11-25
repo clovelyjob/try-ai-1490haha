@@ -105,8 +105,8 @@ export default function DashboardLayout() {
       if (!isMobile && !sidebarPinned) {
         setSidebarCollapsed(false);
       }
-    }, 120),
-    [isMobile, sidebarPinned]
+    }, 150),
+    [isMobile, sidebarPinned, setSidebarCollapsed]
   );
 
   const handleMouseLeave = useCallback(
@@ -114,8 +114,8 @@ export default function DashboardLayout() {
       if (!isMobile && !sidebarPinned) {
         setSidebarCollapsed(true);
       }
-    }, 120),
-    [isMobile, sidebarPinned]
+    }, 300),
+    [isMobile, sidebarPinned, setSidebarCollapsed]
   );
 
   const handleFocus = () => {
