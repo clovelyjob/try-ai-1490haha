@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -87,6 +87,19 @@ export default function DashboardLayout() {
 
     return items;
   }, [isAdmin]);
+
+  // Simple hover handlers without debounce to avoid conflicts
+  const handleMouseEnter = () => {
+    if (!isMobile && !sidebarPinned) {
+      setSidebarCollapsed(false);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile && !sidebarPinned) {
+      setSidebarCollapsed(true);
+    }
+  };
 
   
 
@@ -283,6 +296,8 @@ export default function DashboardLayout() {
         {/* Desktop Sidebar */}
         {!isMobile && (
           <aside
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             className={cn(
               'border-r bg-card/80 backdrop-blur-sm transition-[width] duration-200 ease-out flex flex-col fixed h-screen z-50',
               sidebarCollapsed && !sidebarPinned ? 'w-[72px]' : 'w-[260px]'
