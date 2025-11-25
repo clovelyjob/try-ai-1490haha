@@ -19,15 +19,6 @@ import {
   Home, FileText, Briefcase, Settings, Pin, Mic, Shield, Menu,
 } from 'lucide-react';
 
-// Debounce utility
-function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
-  let timeoutId: NodeJS.Timeout;
-  return ((...args) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), delay);
-  }) as T;
-}
-
 export default function DashboardLayout() {
   const { user, startPremiumTrial } = useAuthStore();
   const { sidebarCollapsed, sidebarPinned, setSidebarCollapsed, toggleSidebarPinned } = useUIStore();
@@ -99,30 +90,6 @@ export default function DashboardLayout() {
 
   
 
-  // Hover handlers with debounce (only for desktop)
-  const handleMouseEnter = useCallback(
-    debounce(() => {
-      if (!isMobile && !sidebarPinned) {
-        setSidebarCollapsed(false);
-      }
-    }, 150),
-    [isMobile, sidebarPinned, setSidebarCollapsed]
-  );
-
-  const handleMouseLeave = useCallback(
-    debounce(() => {
-      if (!isMobile && !sidebarPinned) {
-        setSidebarCollapsed(true);
-      }
-    }, 300),
-    [isMobile, sidebarPinned, setSidebarCollapsed]
-  );
-
-  const handleFocus = () => {
-    if (!isMobile && !sidebarPinned) {
-      setSidebarCollapsed(false);
-    }
-  };
 
   // Sidebar content component for reusability
   const SidebarContent = ({ inDrawer = false }: { inDrawer?: boolean }) => (
@@ -171,7 +138,6 @@ export default function DashboardLayout() {
               key={item.path}
               to={item.path}
               onClick={() => inDrawer && setMobileDrawerOpen(false)}
-              onFocus={handleFocus}
               className={cn(
                 'flex items-center gap-3 px-3 py-3 rounded-lg transition-all',
                 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
@@ -317,8 +283,6 @@ export default function DashboardLayout() {
         {/* Desktop Sidebar */}
         {!isMobile && (
           <aside
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
             className={cn(
               'border-r bg-card/80 backdrop-blur-sm transition-[width] duration-200 ease-out flex flex-col fixed h-screen z-50',
               sidebarCollapsed && !sidebarPinned ? 'w-[72px]' : 'w-[260px]'
