@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -27,6 +27,7 @@ export default function DashboardLayout() {
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   useEffect(() => {
     checkAdminStatus();
@@ -88,20 +89,38 @@ export default function DashboardLayout() {
     return items;
   }, [isAdmin]);
 
-  // Simple hover handlers without debounce to avoid conflicts
+  // Robust hover handlers with timeout cleanup
   const handleMouseEnter = () => {
+    // Clear any pending close timeout
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    
+    // Only expand if not pinned and on desktop
     if (!isMobile && !sidebarPinned) {
       setSidebarCollapsed(false);
     }
   };
 
   const handleMouseLeave = () => {
+    // Only collapse if not pinned and on desktop
     if (!isMobile && !sidebarPinned) {
-      setSidebarCollapsed(true);
+      // Add a small delay to prevent accidental closes
+      leaveTimeoutRef.current = setTimeout(() => {
+        setSidebarCollapsed(true);
+      }, 200);
     }
   };
 
-  
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current);
+      }
+    };
+  }, []);
 
 
   // Sidebar content component for reusability
