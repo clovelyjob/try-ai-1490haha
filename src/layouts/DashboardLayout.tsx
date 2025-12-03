@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { Button } from '@/components/ui/button';
@@ -144,15 +143,10 @@ export default function DashboardLayout() {
             <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
           </Avatar>
           {(!(sidebarCollapsed && !sidebarPinned) || inDrawer) && (
-            <motion.div
-              className="flex-1 min-w-0"
-              initial={{ opacity: 0, x: -4 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <div className="flex-1 min-w-0">
               <p className="font-semibold text-sm truncate">{user?.name}</p>
               <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
-            </motion.div>
+            </div>
           )}
         </div>
       </div>
@@ -181,14 +175,7 @@ export default function DashboardLayout() {
             >
               <Icon className="h-5 w-5 flex-shrink-0" />
               {!isCollapsed && (
-                <motion.div
-                  className="flex items-center gap-2 flex-1 min-w-0"
-                  initial={{ opacity: 0, x: -4 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="flex-1 truncate">{item.label}</span>
-                </motion.div>
+                <span className="flex-1 truncate">{item.label}</span>
               )}
             </Link>
           );
@@ -223,14 +210,9 @@ export default function DashboardLayout() {
           >
             <Pin className={cn('h-4 w-4', sidebarPinned && 'rotate-45')} />
             {!(sidebarCollapsed && !sidebarPinned) && (
-              <motion.span
-                initial={{ opacity: 0, x: -4 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2 }}
-                className="text-sm"
-              >
+              <span className="text-sm">
                 {sidebarPinned ? 'Fijado' : 'Fijar'}
-              </motion.span>
+              </span>
             )}
           </Button>
         )}
