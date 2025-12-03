@@ -36,6 +36,9 @@ export const useAuthStore = create<AuthState>()(
       setUser: (user) => set({ 
         user, 
         isAuthenticated: !!user,
+        // Si es un usuario real (no guest), resetear modo invitado
+        isGuestMode: user && !user.id.startsWith('guest_') ? false : get().isGuestMode,
+        guestData: user && !user.id.startsWith('guest_') ? null : get().guestData,
       }),
       
       setSession: (session) => set({ session }),

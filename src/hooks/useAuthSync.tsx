@@ -19,6 +19,11 @@ export function useAuthSync() {
         setSession(session);
         
         if (session?.user) {
+          // Limpiar modo invitado si hay sesión real de Supabase
+          const state = useAuthStore.getState();
+          if (state.isGuestMode) {
+            useAuthStore.setState({ isGuestMode: false, guestData: null });
+          }
           // Defer profile fetch to avoid deadlock
           setTimeout(() => {
             fetchUserProfile(session.user.id);

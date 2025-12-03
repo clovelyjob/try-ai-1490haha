@@ -7,11 +7,12 @@ import { Sparkles, X } from 'lucide-react';
 import { GuestConversionModal } from './GuestConversionModal';
 
 export function GuestBanner() {
-  const { isGuestMode } = useAuthStore();
+  const { isGuestMode, session } = useAuthStore();
   const [showModal, setShowModal] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
 
-  if (!isGuestMode || !showBanner) return null;
+  // No mostrar banner si hay sesión real de Supabase o no estamos en modo invitado
+  if (!isGuestMode || !showBanner || session?.user) return null;
 
   return (
     <>
