@@ -79,6 +79,48 @@ const defaultColorSchemes: Record<string, TemplateColors> = {
     text: '#2c2c2c',
     background: '#ffffff',
   },
+  simple: {
+    primary: '#333333',
+    secondary: '#555555',
+    accent: '#dddddd',
+    text: '#333333',
+    background: '#ffffff',
+  },
+  cascade: {
+    primary: '#2d3748',
+    secondary: '#63b3ed',
+    accent: '#e2e8f0',
+    text: '#2d3748',
+    background: '#ffffff',
+  },
+  ats: {
+    primary: '#000000',
+    secondary: '#333333',
+    accent: '#666666',
+    text: '#000000',
+    background: '#ffffff',
+  },
+  professional: {
+    primary: '#1a365d',
+    secondary: '#2b6cb0',
+    accent: '#bee3f8',
+    text: '#1a365d',
+    background: '#ffffff',
+  },
+  bold: {
+    primary: '#1a1a1a',
+    secondary: '#fbbf24',
+    accent: '#f7f7f7',
+    text: '#1a1a1a',
+    background: '#ffffff',
+  },
+  classic: {
+    primary: '#8b7355',
+    secondary: '#d4c5b5',
+    accent: '#ebe4d8',
+    text: '#333333',
+    background: '#ffffff',
+  },
 };
 
 const presetSchemes = [
@@ -91,6 +133,12 @@ const presetSchemes = [
   { name: 'Corporate Azul', colors: { primary: '#0069a5', secondary: '#404040', accent: '#0088cc', text: '#000000', background: '#ffffff' } },
   { name: 'Developer Dark', colors: { primary: '#667eea', secondary: '#764ba2', accent: '#f3f0ff', text: '#1a1a2e', background: '#fafafa' } },
   { name: 'Elegante Dorado', colors: { primary: '#c9a962', secondary: '#2c2c2c', accent: '#e8d8a8', text: '#2c2c2c', background: '#ffffff' } },
+  { name: 'ATS Classic', colors: { primary: '#000000', secondary: '#333333', accent: '#666666', text: '#000000', background: '#ffffff' } },
+  { name: 'Bold Negro', colors: { primary: '#1a1a1a', secondary: '#fbbf24', accent: '#f7f7f7', text: '#1a1a1a', background: '#ffffff' } },
+  { name: 'Cascade Azul', colors: { primary: '#2d3748', secondary: '#63b3ed', accent: '#e2e8f0', text: '#2d3748', background: '#ffffff' } },
+  { name: 'Simple Clean', colors: { primary: '#333333', secondary: '#555555', accent: '#dddddd', text: '#333333', background: '#ffffff' } },
+  { name: 'Classic Marrón', colors: { primary: '#8b7355', secondary: '#d4c5b5', accent: '#ebe4d8', text: '#333333', background: '#ffffff' } },
+  { name: 'Navy Premium', colors: { primary: '#1a365d', secondary: '#2b6cb0', accent: '#bee3f8', text: '#1a365d', background: '#ffffff' } },
 ];
 
 export default function TemplateCustomizer({
