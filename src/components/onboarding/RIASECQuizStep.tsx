@@ -173,12 +173,19 @@ export function RIASECQuizStep({ onComplete, initialAnswers = {} }: RIASECQuizSt
           ))}
         </div>
 
-        {currentIndex === questions.length - 1 ? (
+{currentIndex === questions.length - 1 ? (
           <Button
-            onClick={handleComplete}
-            disabled={!isComplete}
+            onClick={() => {
+              if (isComplete) {
+                onComplete(answers);
+              } else {
+                const missing = questions.length - Object.keys(answers).length;
+                alert(`Faltan ${missing} preguntas por responder. Revisa las preguntas anteriores.`);
+              }
+            }}
+            className={!isComplete ? 'opacity-70' : ''}
           >
-            Ver Resultados
+            Ver Resultados {!isComplete && `(${Object.keys(answers).length}/${questions.length})`}
           </Button>
         ) : (
           <Button
