@@ -281,7 +281,7 @@ export interface Goal {
   history: HistoryEntry[];
 }
 
-export type CVTemplate = 'harvard' | 'modern' | 'minimal' | 'creative';
+export type CVTemplate = 'harvard' | 'modern' | 'minimal' | 'creative' | 'executive' | 'tech' | 'elegant';
 
 export interface CVPersonalInfo {
   fullName: string;

@@ -38,25 +38,46 @@ const defaultColorSchemes: Record<string, TemplateColors> = {
     background: '#ffffff',
   },
   modern: {
-    primary: '#0891b2',
-    secondary: '#06b6d4',
-    accent: '#22d3ee',
-    text: '#0f172a',
-    background: '#f0f9ff',
+    primary: '#6366f1',
+    secondary: '#818cf8',
+    accent: '#e0e7ff',
+    text: '#1f2937',
+    background: '#f3f4f6',
   },
   minimal: {
     primary: '#374151',
     secondary: '#6b7280',
     accent: '#9ca3af',
-    text: '#111827',
+    text: '#333333',
     background: '#ffffff',
   },
   creative: {
-    primary: '#7c3aed',
-    secondary: '#8b5cf6',
-    accent: '#a78bfa',
-    text: '#1f2937',
-    background: '#faf5ff',
+    primary: '#764ba2',
+    secondary: '#667eea',
+    accent: '#f093fb',
+    text: '#1a1a1a',
+    background: '#ffffff',
+  },
+  executive: {
+    primary: '#0069a5',
+    secondary: '#404040',
+    accent: '#0088cc',
+    text: '#000000',
+    background: '#ffffff',
+  },
+  tech: {
+    primary: '#667eea',
+    secondary: '#764ba2',
+    accent: '#f3f0ff',
+    text: '#1a1a2e',
+    background: '#fafafa',
+  },
+  elegant: {
+    primary: '#c9a962',
+    secondary: '#2c2c2c',
+    accent: '#e8d8a8',
+    text: '#2c2c2c',
+    background: '#ffffff',
   },
 };
 
@@ -67,6 +88,9 @@ const presetSchemes = [
   { name: 'Ejecutivo Gris', colors: { primary: '#374151', secondary: '#4b5563', accent: '#6b7280', text: '#111827', background: '#ffffff' } },
   { name: 'Marketing Rosa', colors: { primary: '#db2777', secondary: '#ec4899', accent: '#f472b6', text: '#1f2937', background: '#fdf2f8' } },
   { name: 'Finanzas Oro', colors: { primary: '#d97706', secondary: '#f59e0b', accent: '#fbbf24', text: '#1f2937', background: '#fffbeb' } },
+  { name: 'Corporate Azul', colors: { primary: '#0069a5', secondary: '#404040', accent: '#0088cc', text: '#000000', background: '#ffffff' } },
+  { name: 'Developer Dark', colors: { primary: '#667eea', secondary: '#764ba2', accent: '#f3f0ff', text: '#1a1a2e', background: '#fafafa' } },
+  { name: 'Elegante Dorado', colors: { primary: '#c9a962', secondary: '#2c2c2c', accent: '#e8d8a8', text: '#2c2c2c', background: '#ffffff' } },
 ];
 
 export default function TemplateCustomizer({
