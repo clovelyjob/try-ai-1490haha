@@ -6,18 +6,17 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { WelcomeStep } from '@/components/onboarding/WelcomeStep';
-import { InterestsStep } from '@/components/onboarding/InterestsStep';
+import { RIASECQuizStep } from '@/components/onboarding/RIASECQuizStep';
 import { ValuesStep } from '@/components/onboarding/ValuesStep';
 import { StyleStep } from '@/components/onboarding/StyleStep';
-import { SkillsStep } from '@/components/onboarding/SkillsStep';
 import { ExperienceStep } from '@/components/onboarding/ExperienceStep';
-import { RoleDetectionStep } from '@/components/onboarding/RoleDetectionStep';
 import { ResultsStep } from '@/components/onboarding/ResultsStep';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { toast } from 'sonner';
 import { ProfessionalRole, RolePreferences } from '@/types';
+import { AnswerValue, analyzeRIASECResults, RIASECResult } from '@/lib/riasecScoring';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -25,21 +24,14 @@ const Onboarding = () => {
   const { setProfile } = useProfileStore();
   const { trackEvent } = useAnalytics();
   const [currentStep, setCurrentStep] = useState(0);
-  const [detectedRole, setDetectedRole] = useState<ProfessionalRole>('other');
-  const [roleConfidence, setRoleConfidence] = useState(0);
+  const [riasecAnswers, setRiasecAnswers] = useState<Record<string, AnswerValue>>({});
+  const [riasecResult, setRiasecResult] = useState<RIASECResult | null>(null);
   const [onboardingData, setOnboardingData] = useState({
-    interests: [] as string[],
     values: [] as string[],
     workStyle: {
       modality: '',
       schedule: '',
       companySize: '',
-    },
-    skills: {
-      technical: [] as { name: string; level: 'Por explorar' | 'En desarrollo' | 'Fortaleza' | 'Experto' }[],
-      soft: [] as string[],
-      languages: [] as { name: string; level: string }[],
-      tools: [] as string[],
     },
     experience: '' as string,
     situation: '',
@@ -52,7 +44,7 @@ const Onboarding = () => {
     } as RolePreferences
   });
 
-  const totalSteps = 8;
+  const totalSteps = 6; // Welcome, RIASEC Quiz, Values, Style, Experience, Results
   const progress = (currentStep / (totalSteps - 1)) * 100;
 
   const updateData = (key: string, value: any) => {
@@ -60,10 +52,6 @@ const Onboarding = () => {
   };
 
   const handleNext = () => {
-    if (currentStep === 1 && onboardingData.interests.length < 3) {
-      toast.error('Selecciona al menos 3 áreas de interés');
-      return;
-    }
     if (currentStep === 2 && onboardingData.values.length < 3) {
       toast.error('Selecciona al menos 3 valores');
       return;
@@ -79,15 +67,15 @@ const Onboarding = () => {
     }
   };
 
-  const handleRoleConfirmed = async (role: ProfessionalRole, confidence: number) => {
-    setDetectedRole(role);
-    setRoleConfidence(confidence);
+  const handleRIASECComplete = async (answers: Record<string, AnswerValue>) => {
+    setRiasecAnswers(answers);
+    const result = analyzeRIASECResults(answers);
+    setRiasecResult(result);
     
-    // Track role detection
+    // Track RIASEC completion
     await trackEvent('role_detected', {
-      role,
-      confidence,
-      preferences: onboardingData.rolePreferences
+      hollandCode: result.hollandCode,
+      topTypes: result.topTypes.slice(0, 3).map(t => t.type),
     });
     
     handleNext();
@@ -95,79 +83,40 @@ const Onboarding = () => {
 
   const handleComplete = () => {
     if (!user?.id) {
-      // Si no hay usuario, redirigir igualmente
       navigate('/dashboard');
       return;
     }
 
-    // Actualizar stores locales primero
-    const profileData = {
-      userId: user.id,
-      interests: onboardingData.interests,
-      values: onboardingData.values,
-      workStyle: onboardingData.workStyle,
-      skills: onboardingData.skills,
-      experience: (onboardingData.experience || 'student') as 'student' | 'graduate' | 'junior' | 'mid' | 'senior' | 'transition',
-      situation: onboardingData.situation,
-      challenge: onboardingData.challenge,
-      diagnosticResults: {
-        topCareers: [
-          { title: 'Product Designer', match: 92 },
-          { title: 'Product Manager', match: 87 },
-          { title: 'Marketing Manager', match: 83 },
-        ],
-        profileType: 'Innovador Creativo',
-        insights: [
-          'Tienes un perfil equilibrado entre creatividad y análisis',
-          'Tu capacidad de comunicación es una fortaleza clave',
-          'Valoras el impacto y la autonomía en tu trabajo',
-        ],
-        radarData: [
-          { skill: 'Creatividad', value: 85 },
-          { skill: 'Análisis', value: 72 },
-          { skill: 'Liderazgo', value: 68 },
-          { skill: 'Comunicación', value: 90 },
-          { skill: 'Técnica', value: 65 },
-          { skill: 'Estrategia', value: 78 },
-        ],
-      },
-      rolActual: detectedRole,
-      rolesSugeridos: [],
-      preferencias: onboardingData.rolePreferences,
-      historialRol: [{
-        rol: detectedRole,
-        fecha: new Date().toISOString(),
-        confidence: roleConfidence
-      }]
-    };
+    const topRole = riasecResult?.compatibleRoles[0]?.role || 'other';
 
-    setProfile(profileData);
+    // Actualizar stores locales
     updateUser({ onboardingCompleted: true });
     
     // Navegar al dashboard inmediatamente
     navigate('/dashboard');
 
-    // Guardar en Supabase en background (no bloquea la navegación)
+    // Guardar en Supabase en background
     (async () => {
       try {
-        // Track onboarding completion
         await trackEvent('onboarding_completed', {
-          role: detectedRole,
-          confidence: roleConfidence,
+          hollandCode: riasecResult?.hollandCode,
+          topRole,
           completedAt: new Date().toISOString()
         });
 
-        // Actualizar perfil en Supabase
         await supabase
           .from('profiles')
           .update({
-            rol_profesional: detectedRole,
+            rol_profesional: topRole,
             preferencias_laborales: {
-              ...onboardingData.rolePreferences,
-              interests: onboardingData.interests,
+              intereses: onboardingData.rolePreferences.intereses,
+              objetivos: onboardingData.rolePreferences.objetivos,
+              herramientas: onboardingData.rolePreferences.herramientas,
+              nivelExperiencia: onboardingData.rolePreferences.nivelExperiencia,
+              riasecScores: riasecResult?.percentages ? { ...riasecResult.percentages } : null,
+              hollandCode: riasecResult?.hollandCode || null,
               values: onboardingData.values,
               workStyle: onboardingData.workStyle,
-              skills: onboardingData.skills,
               experience: onboardingData.experience,
               situation: onboardingData.situation,
               challenge: onboardingData.challenge,
@@ -188,10 +137,10 @@ const Onboarding = () => {
 
   const steps = [
     <WelcomeStep key="welcome" onStart={handleNext} userName={user?.name || 'Usuario'} />,
-    <InterestsStep
-      key="interests"
-      selected={onboardingData.interests}
-      onChange={(interests) => updateData('interests', interests)}
+    <RIASECQuizStep
+      key="riasec"
+      onComplete={handleRIASECComplete}
+      initialAnswers={riasecAnswers}
     />,
     <ValuesStep
       key="values"
@@ -202,20 +151,6 @@ const Onboarding = () => {
       key="style"
       workStyle={onboardingData.workStyle}
       onChange={(workStyle) => updateData('workStyle', workStyle)}
-    />,
-    <SkillsStep
-      key="skills"
-      skills={onboardingData.skills}
-      onChange={(skills) => {
-        updateData('skills', skills);
-        // Actualizar herramientas en rolePreferences
-        updateData('rolePreferences', {
-          ...onboardingData.rolePreferences,
-          herramientas: skills.tools,
-          nivelExperiencia: onboardingData.experience === 'senior' ? 'senior' : 
-                          onboardingData.experience === 'mid' ? 'mid' : 'junior'
-        });
-      }}
     />,
     <ExperienceStep
       key="experience"
@@ -228,7 +163,6 @@ const Onboarding = () => {
         updateData('experience', data.experience);
         updateData('situation', data.situation);
         updateData('challenge', data.challenge);
-        // Actualizar nivel de experiencia en rolePreferences
         updateData('rolePreferences', {
           ...onboardingData.rolePreferences,
           nivelExperiencia: data.experience === 'senior' ? 'senior' : 
@@ -236,32 +170,21 @@ const Onboarding = () => {
         });
       }}
     />,
-    <RoleDetectionStep
-      key="role-detection"
-      preferences={{
-        ...onboardingData.rolePreferences,
-        intereses: onboardingData.interests,
-        objetivos: [onboardingData.challenge || ''],
-      }}
-      onChange={(prefs) => updateData('rolePreferences', prefs)}
-      onRoleConfirmed={handleRoleConfirmed}
-    />,
     <ResultsStep 
       key="results" 
       onComplete={handleComplete}
-      diagnosticData={{
-        interests: onboardingData.interests,
-        values: onboardingData.values,
-        skills: onboardingData.skills,
-        experience: onboardingData.experience,
-        detectedRole: detectedRole
-      }}
+      riasecResult={riasecResult}
+      values={onboardingData.values}
+      experience={onboardingData.experience}
     />,
   ];
 
+  // Don't show navigation on Welcome (0), RIASEC Quiz (1), and Results (last)
+  const showNavigation = currentStep > 1 && currentStep < totalSteps - 1;
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {currentStep > 0 && currentStep < totalSteps - 1 && (
+      {showNavigation && (
         <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b shadow-clovely-sm">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center gap-4 max-w-3xl mx-auto">
@@ -270,10 +193,6 @@ const Onboarding = () => {
               </span>
               <div className="flex-1 relative">
                 <Progress value={progress} className="h-2" />
-                <div 
-                  className="absolute inset-0 bg-gradient-to-r from-primary to-primary-warm rounded-full opacity-20 animate-pulse"
-                  style={{ width: `${progress}%` }}
-                />
               </div>
               <span className="text-sm font-medium whitespace-nowrap">
                 {Math.round(progress)}%
@@ -299,7 +218,7 @@ const Onboarding = () => {
         </div>
       </div>
 
-      {currentStep > 0 && currentStep < totalSteps - 1 && (
+      {showNavigation && (
         <div className="sticky bottom-0 border-t bg-background/80 backdrop-blur-md shadow-clovely-lg">
           <div className="container mx-auto px-4 py-6">
             <div className="flex gap-4 max-w-3xl mx-auto">
@@ -307,7 +226,6 @@ const Onboarding = () => {
                 variant="outline"
                 size="lg"
                 onClick={handleBack}
-                disabled={currentStep === 1}
                 className="shadow-clovely-sm"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
