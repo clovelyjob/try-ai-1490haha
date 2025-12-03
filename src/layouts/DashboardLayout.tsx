@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OfficialLogo } from '@/components/OfficialLogo';
@@ -15,18 +15,17 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import {
-  Home, FileText, Briefcase, Settings, Pin, Mic, Shield, Menu,
+  Home, FileText, Briefcase, Settings, Mic, Shield, Menu,
 } from 'lucide-react';
 
 export default function DashboardLayout() {
   const { user, startPremiumTrial } = useAuthStore();
-  const { sidebarCollapsed, sidebarPinned, setSidebarCollapsed, toggleSidebarPinned } = useUIStore();
+  const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
   const location = useLocation();
   const isMobile = useIsMobile();
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   useEffect(() => {
     checkAdminStatus();
@@ -88,42 +87,8 @@ export default function DashboardLayout() {
     return items;
   }, [isAdmin]);
 
-  // Robust hover handlers with timeout cleanup
-  const handleMouseEnter = () => {
-    // Clear any pending close timeout
-    if (leaveTimeoutRef.current) {
-      clearTimeout(leaveTimeoutRef.current);
-      leaveTimeoutRef.current = null;
-    }
-    
-    // Only expand if not pinned and on desktop
-    if (!isMobile && !sidebarPinned) {
-      setSidebarCollapsed(false);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    // Only collapse if not pinned and on desktop
-    if (!isMobile && !sidebarPinned) {
-      // Add a small delay to prevent accidental closes
-      leaveTimeoutRef.current = setTimeout(() => {
-        setSidebarCollapsed(true);
-      }, 200);
-    }
-  };
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (leaveTimeoutRef.current) {
-        clearTimeout(leaveTimeoutRef.current);
-      }
-    };
-  }, []);
-
-
-  // Sidebar content component for reusability
-  const SidebarContent = ({ inDrawer = false }: { inDrawer?: boolean }) => (
+  // Sidebar content component for the drawer
+  const SidebarContent = () => (
     <>
       {/* Logo */}
       <div className="flex items-center px-4 pt-4 pb-2 border-b">
@@ -136,18 +101,16 @@ export default function DashboardLayout() {
       </div>
 
       {/* User Profile */}
-      <div className={cn('p-4 border-b', (sidebarCollapsed && !sidebarPinned && !inDrawer) && 'px-2')}>
+      <div className="p-4 border-b">
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="h-10 w-10 shrink-0">
             <AvatarImage src={user?.avatar} />
             <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
           </Avatar>
-          {(!(sidebarCollapsed && !sidebarPinned) || inDrawer) && (
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-sm truncate">{user?.name}</p>
-              <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
-            </div>
-          )}
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-sm truncate">{user?.name}</p>
+            <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+          </div>
         </div>
       </div>
 
@@ -157,114 +120,108 @@ export default function DashboardLayout() {
           const isActive = location.pathname === item.path || 
                          (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
           const Icon = item.icon;
-          const isCollapsed = sidebarCollapsed && !sidebarPinned && !inDrawer;
           
-          const navLink = (
+          return (
             <Link
               key={item.path}
               to={item.path}
-              onClick={() => inDrawer && setMobileDrawerOpen(false)}
+              onClick={() => setDrawerOpen(false)}
               className={cn(
-                'flex items-center gap-3 px-3 py-3 rounded-lg transition-all',
+                'flex items-center gap-3 px-3 py-3 rounded-lg',
                 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                'min-h-[44px]', // Touch target size
+                'min-h-[44px]',
                 isActive
                   ? 'bg-primary text-primary-foreground font-medium'
                   : 'hover:bg-accent text-muted-foreground hover:text-foreground'
               )}
             >
               <Icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && (
-                <span className="flex-1 truncate">{item.label}</span>
-              )}
+              <span className="flex-1 truncate">{item.label}</span>
             </Link>
           );
-
-          return isCollapsed ? (
-            <Tooltip key={item.path}>
-              <TooltipTrigger asChild>
-                {navLink}
-              </TooltipTrigger>
-              <TooltipContent side="right" className="flex items-center gap-2">
-                {item.label}
-              </TooltipContent>
-            </Tooltip>
-          ) : navLink;
         })}
       </nav>
 
       {/* Footer Actions */}
-      <div className={cn('p-3 border-t space-y-2', (sidebarCollapsed && !sidebarPinned && !inDrawer) && 'px-2')}>
-        {/* Pin Button - only on desktop */}
-        {!isMobile && !inDrawer && (
-          <Button
-            variant="ghost"
+      <div className="p-3 border-t space-y-2">
+        <ThemeToggle />
+        {!isPremium && (
+          <Button 
+            className="w-full bg-primary hover:bg-primary/90 min-h-[44px]"
             size="sm"
-            onClick={toggleSidebarPinned}
-            className={cn(
-              'w-full justify-start gap-2 min-h-[44px]',
-              sidebarPinned && 'text-primary'
-            )}
-            aria-pressed={sidebarPinned}
-            aria-label={sidebarPinned ? "Desfijar sidebar" : "Fijar sidebar"}
+            onClick={() => {
+              setUpgradeModalOpen(true);
+              setDrawerOpen(false);
+            }}
           >
-            <Pin className={cn('h-4 w-4', sidebarPinned && 'rotate-45')} />
-            {!(sidebarCollapsed && !sidebarPinned) && (
-              <span className="text-sm">
-                {sidebarPinned ? 'Fijado' : 'Fijar'}
-              </span>
-            )}
+            Upgrade Premium
           </Button>
-        )}
-
-        {(!(sidebarCollapsed && !sidebarPinned) || inDrawer) ? (
-          <>
-            <ThemeToggle />
-            {!isPremium && (
-              <Button 
-                className="w-full bg-primary hover:bg-primary/90 min-h-[44px]"
-                size="sm"
-                onClick={() => {
-                  setUpgradeModalOpen(true);
-                  inDrawer && setMobileDrawerOpen(false);
-                }}
-              >
-                Upgrade Premium
-              </Button>
-            )}
-          </>
-        ) : (
-          <>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div>
-                  <ThemeToggle />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                Cambiar tema
-              </TooltipContent>
-            </Tooltip>
-              {!isPremium && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      size="icon"
-                      className="w-full bg-primary hover:bg-primary/90 min-h-[44px]"
-                      onClick={() => setUpgradeModalOpen(true)}
-                    >
-                      P
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    Upgrade Premium
-                  </TooltipContent>
-                </Tooltip>
-              )}
-          </>
         )}
       </div>
     </>
+  );
+
+  // Mini sidebar for desktop - just icons
+  const MiniSidebar = () => (
+    <aside className="border-r bg-card/80 backdrop-blur-sm flex flex-col fixed h-screen z-40 w-[60px]">
+      {/* Menu button */}
+      <div className="p-2 border-b">
+        <Button 
+          variant="ghost" 
+          size="icon"
+          className="w-full h-10"
+          onClick={() => setDrawerOpen(true)}
+          aria-label="Abrir menú"
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+      </div>
+
+      {/* Navigation icons */}
+      <nav className="flex-1 overflow-y-auto p-2 space-y-1">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path || 
+                         (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
+          const Icon = item.icon;
+          
+          return (
+            <Tooltip key={item.path}>
+              <TooltipTrigger asChild>
+                <Link
+                  to={item.path}
+                  className={cn(
+                    'flex items-center justify-center p-2 rounded-lg min-h-[44px]',
+                    'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                    isActive
+                      ? 'bg-primary text-primary-foreground'
+                      : 'hover:bg-accent text-muted-foreground hover:text-foreground'
+                  )}
+                >
+                  <Icon className="h-5 w-5" />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                {item.label}
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
+      </nav>
+
+      {/* Footer */}
+      <div className="p-2 border-t space-y-1">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <ThemeToggle />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            Cambiar tema
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </aside>
   );
 
   return (
@@ -276,43 +233,29 @@ export default function DashboardLayout() {
             variant="ghost" 
             size="icon"
             className="fixed top-4 left-4 z-50 h-12 w-12 md:hidden bg-background/80 backdrop-blur-sm border shadow-lg"
-            onClick={() => setMobileDrawerOpen(true)}
+            onClick={() => setDrawerOpen(true)}
             aria-label="Abrir menú"
           >
             <Menu className="h-6 w-6" />
           </Button>
         )}
 
-        {/* Mobile Drawer */}
-        {isMobile && (
-          <Sheet open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
-            <SheetContent side="left" className="w-[18rem] p-0" showCloseButton={true}>
-              <div className="flex flex-col h-full">
-                <SidebarContent inDrawer={true} />
-              </div>
-            </SheetContent>
-          </Sheet>
-        )}
+        {/* Drawer for both mobile and desktop */}
+        <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+          <SheetContent side="left" className="w-[280px] p-0" showCloseButton={true}>
+            <div className="flex flex-col h-full">
+              <SidebarContent />
+            </div>
+          </SheetContent>
+        </Sheet>
 
-        {/* Desktop Sidebar */}
-        {!isMobile && (
-          <aside
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={cn(
-              'border-r bg-card/80 backdrop-blur-sm transition-[width] duration-200 ease-out flex flex-col fixed h-screen z-50',
-              sidebarCollapsed && !sidebarPinned ? 'w-[72px]' : 'w-[260px]'
-            )}
-            aria-label="Navegación principal"
-          >
-            <SidebarContent />
-          </aside>
-        )}
+        {/* Desktop Mini Sidebar */}
+        {!isMobile && <MiniSidebar />}
 
         {/* Main Content */}
         <main className={cn(
-          'flex-1 transition-[margin] duration-200 ease-out w-full',
-          isMobile ? 'ml-0' : (sidebarCollapsed && !sidebarPinned ? 'ml-[72px]' : 'ml-[260px]')
+          'flex-1 w-full',
+          isMobile ? 'ml-0' : 'ml-[60px]'
         )}>
           <GuestBanner />
           <Outlet />
