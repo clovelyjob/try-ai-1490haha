@@ -2,13 +2,14 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { MatchResult } from '@/types';
-import { TrendingUp, AlertCircle } from 'lucide-react';
+import { TrendingUp, AlertCircle, Brain } from 'lucide-react';
 
 interface MatchScoreProps {
   matchResult: MatchResult;
+  showRiasec?: boolean;
 }
 
-export default function MatchScore({ matchResult }: MatchScoreProps) {
+export default function MatchScore({ matchResult, showRiasec = false }: MatchScoreProps) {
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-700';
     if (score >= 60) return 'text-yellow-700';
@@ -76,7 +77,32 @@ export default function MatchScore({ matchResult }: MatchScoreProps) {
           </div>
           <Progress value={matchResult.breakdown.keywordsMatch} className={`h-2.5 ${getProgressColor(matchResult.breakdown.keywordsMatch)}`} />
         </div>
+
+        {showRiasec && matchResult.breakdown.interestMatch !== undefined && (
+          <div className="space-y-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <div className="flex justify-between text-sm">
+              <span className="font-medium flex items-center gap-1">
+                <Brain className="h-3 w-3 text-primary" />
+                Intereses (RIASEC)
+              </span>
+              <span className="font-semibold">{matchResult.breakdown.interestMatch}%</span>
+            </div>
+            <Progress value={matchResult.breakdown.interestMatch} className={`h-2.5 ${getProgressColor(matchResult.breakdown.interestMatch)}`} />
+          </div>
+        )}
       </div>
+
+      {showRiasec && (
+        <div className="mb-4 p-3 bg-primary/5 rounded-lg border border-primary/10">
+          <div className="flex items-center gap-2 text-sm">
+            <Brain className="h-4 w-4 text-primary" />
+            <span className="font-medium">Análisis RIASEC activo</span>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Tu perfil vocacional se considera en el cálculo
+          </p>
+        </div>
+      )}
 
       <div className="space-y-3 p-4 rounded-xl bg-blue-50/50">
         <div className="flex items-center gap-2 text-sm font-semibold">
