@@ -19,6 +19,9 @@ export default function TemplateSelector({ value, onChange }: TemplateSelectorPr
     { value: 'modern', label: 'Moderno', description: 'Corporate y profesional' },
     { value: 'minimal', label: 'Minimal', description: 'Limpio y elegante' },
     { value: 'creative', label: 'Creativo', description: 'Diseño e innovación' },
+    { value: 'executive', label: 'Ejecutivo', description: 'C-Level y directivos' },
+    { value: 'tech', label: 'Tech', description: 'Desarrolladores y IT' },
+    { value: 'elegant', label: 'Elegante', description: 'Serif sofisticado' },
   ];
 
   return (
