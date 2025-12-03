@@ -167,15 +167,15 @@ export default function FilterPanel({
         {/* Experience Level */}
         <div className="space-y-2">
           <Label>Nivel de experiencia</Label>
-          <Select
-            value={filters.experienceLevel || ''}
-            onValueChange={(value) => onFilterChange({ experienceLevel: value || undefined })}
+        <Select
+            value={filters.experienceLevel || 'all'}
+            onValueChange={(value) => onFilterChange({ experienceLevel: value === 'all' ? undefined : value })}
           >
             <SelectTrigger className="min-h-[44px]">
               <SelectValue placeholder="Todos los niveles" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos los niveles</SelectItem>
+              <SelectItem value="all">Todos los niveles</SelectItem>
               {experienceLevels.map((level) => (
                 <SelectItem key={level.value} value={level.value}>
                   {level.label}
