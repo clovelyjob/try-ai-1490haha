@@ -9,10 +9,12 @@ import { useCVStore } from '@/store/useCVStore';
 import { useProgressStore } from '@/store/useProgressStore';
 import OpportunityCard from '@/components/opportunities/OpportunityCard';
 import FilterPanel from '@/components/opportunities/FilterPanel';
-import { Search, RefreshCw, Briefcase, SlidersHorizontal } from 'lucide-react';
+import { SkeletonOpportunityCard } from '@/components/ui/skeleton-loader';
+import { Search, RefreshCw, Briefcase, SlidersHorizontal, AlertCircle, ExternalLink } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function Opportunities() {
   const { user } = useAuthStore();
@@ -22,7 +24,11 @@ export default function Opportunities() {
   const {
     opportunities,
     filters,
+    isLoading,
+    error,
+    hasMore,
     loadOpportunities,
+    loadMoreOpportunities,
     setFilters,
     clearFilters,
     saveOpportunity,
@@ -32,13 +38,14 @@ export default function Opportunities() {
   } = useOpportunitiesStore();
 
   const [localSearch, setLocalSearch] = useState(filters.search);
+  const [locationSearch, setLocationSearch] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    loadOpportunities();
-  }, [loadOpportunities]);
+    loadOpportunities({ query: 'developer', location: '' });
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,16 +54,24 @@ export default function Opportunities() {
     return () => clearTimeout(timer);
   }, [localSearch, setFilters]);
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setTimeout(() => {
-      loadOpportunities();
-      setIsRefreshing(false);
-      toast({
-        title: '✅ Oportunidades actualizadas',
-        description: 'Se han cargado las últimas ofertas disponibles',
-      });
-    }, 1000);
+    await loadOpportunities({ 
+      query: localSearch || 'developer',
+      location: locationSearch 
+    });
+    setIsRefreshing(false);
+    toast({
+      title: '✅ Oportunidades actualizadas',
+      description: 'Se han cargado las últimas ofertas disponibles',
+    });
+  };
+
+  const handleSearch = async () => {
+    await loadOpportunities({
+      query: localSearch || 'developer',
+      location: locationSearch,
+    });
   };
 
   const handleSaveToggle = (opportunityId: string) => {
@@ -79,7 +94,7 @@ export default function Opportunities() {
     }
   };
 
-  // Filter opportunities
+  // Filter opportunities (local filters after API search)
   const filteredOpportunities = opportunities.filter((opp) => {
     if (filters.category.length > 0 && !filters.category.includes(opp.category)) {
       return false;
@@ -125,19 +140,19 @@ export default function Opportunities() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="border-b bg-card shadow-clovely-sm">
+      <div className="border-b bg-card shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div className="min-w-0 flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold truncate">Oportunidades</h1>
               <p className="text-sm sm:text-base text-muted-foreground">
-                Encuentra prácticas y empleos que se ajusten a tu perfil
+                Trabajos reales de LinkedIn, Indeed, Glassdoor y más
               </p>
             </div>
             <Button 
               variant="outline" 
               onClick={handleRefresh} 
-              disabled={isRefreshing}
+              disabled={isRefreshing || isLoading}
               className="min-h-[44px] w-full sm:w-auto"
             >
               <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
@@ -145,7 +160,7 @@ export default function Opportunities() {
             </Button>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -153,8 +168,20 @@ export default function Opportunities() {
                 className="pl-10 min-h-[44px]"
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
             </div>
+            <Input
+              placeholder="Ciudad, país..."
+              className="min-h-[44px] sm:w-48"
+              value={locationSearch}
+              onChange={(e) => setLocationSearch(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            />
+            <Button onClick={handleSearch} disabled={isLoading} className="min-h-[44px]">
+              <Search className="h-4 w-4 mr-2" />
+              Buscar
+            </Button>
             
             {/* Mobile Filter Button */}
             {isMobile && (
@@ -184,6 +211,17 @@ export default function Opportunities() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        {error && (
+          <Alert className="mb-6 border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950">
+            <AlertCircle className="h-4 w-4 text-amber-600" />
+            <AlertDescription className="text-amber-800 dark:text-amber-200">
+              {error.includes('Rate limit') 
+                ? 'Límite de búsquedas alcanzado. Mostrando datos de ejemplo.'
+                : 'No se pudieron cargar trabajos reales. Mostrando datos de ejemplo.'}
+            </AlertDescription>
+          </Alert>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Desktop Filters Sidebar */}
           {!isMobile && (
@@ -200,16 +238,22 @@ export default function Opportunities() {
           <main className={isMobile ? 'col-span-1' : 'lg:col-span-3'}>
             <div className="mb-6">
               <p className="text-sm text-muted-foreground">
-                {sortedOpportunities.length} oportunidad(es) encontrada(s)
+                {isLoading ? 'Buscando...' : `${sortedOpportunities.length} oportunidad(es) encontrada(s)`}
               </p>
             </div>
 
-            {sortedOpportunities.length === 0 ? (
+            {isLoading && opportunities.length === 0 ? (
+              <div className="space-y-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <SkeletonOpportunityCard key={i} />
+                ))}
+              </div>
+            ) : sortedOpportunities.length === 0 ? (
               <div className="text-center py-12">
                 <Briefcase className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No se encontraron oportunidades</h3>
                 <p className="text-muted-foreground mb-4">
-                  Intenta ajustar los filtros o la búsqueda
+                  Intenta con otros términos de búsqueda o ajusta los filtros
                 </p>
                 <Button variant="outline" onClick={clearFilters}>
                   Limpiar filtros
@@ -232,6 +276,25 @@ export default function Opportunities() {
                     />
                   </motion.div>
                 ))}
+
+                {hasMore && !isLoading && (
+                  <div className="text-center pt-4">
+                    <Button 
+                      variant="outline" 
+                      onClick={loadMoreOpportunities}
+                      className="min-h-[44px]"
+                    >
+                      Cargar más oportunidades
+                    </Button>
+                  </div>
+                )}
+
+                {isLoading && opportunities.length > 0 && (
+                  <div className="space-y-4">
+                    <SkeletonOpportunityCard />
+                    <SkeletonOpportunityCard />
+                  </div>
+                )}
               </div>
             )}
           </main>

@@ -11,10 +11,24 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
+interface SearchParams {
+  query: string;
+  location: string;
+  page: number;
+  employment_types?: string;
+  remote_only?: boolean;
+  date_posted?: string;
+}
+
 interface OpportunitiesState {
   opportunities: Opportunity[];
   applications: Application[];
   savedOpportunities: SavedOpportunity[];
+  isLoading: boolean;
+  error: string | null;
+  hasMore: boolean;
+  currentPage: number;
+  searchParams: SearchParams;
   filters: {
     search: string;
     category: string[];
@@ -24,7 +38,8 @@ interface OpportunitiesState {
   };
   
   // Actions
-  loadOpportunities: () => void;
+  loadOpportunities: (params?: Partial<SearchParams>) => Promise<void>;
+  loadMoreOpportunities: () => Promise<void>;
   setFilters: (filters: Partial<OpportunitiesState['filters']>) => void;
   clearFilters: () => void;
   
@@ -46,37 +61,37 @@ interface OpportunitiesState {
   publishOpportunity: (opportunity: Omit<Opportunity, 'id' | 'views' | 'applicantsCount'>) => void;
 }
 
-// Mock data generator
+// Mock data fallback
 const generateMockOpportunities = (): Opportunity[] => [
   {
-    id: '1',
+    id: 'mock-1',
     title: 'Desarrollador Frontend React - Práctica',
     company: 'TechCorp',
     location: 'Lima, Perú',
     modality: 'hybrid',
     contractType: 'internship',
-    description: 'Buscamos un desarrollador frontend apasionado para unirse a nuestro equipo. Trabajarás en proyectos reales con React, TypeScript y TailwindCSS.',
-    requirements: ['React', 'TypeScript', 'HTML/CSS', 'Git', 'Inglés intermedio'],
-    benefits: ['Horario flexible', 'Ambiente colaborativo', 'Mentoría constante'],
-    tags: ['React', 'Frontend', 'TypeScript', 'TailwindCSS'],
+    description: 'Buscamos un desarrollador frontend apasionado para unirse a nuestro equipo.',
+    requirements: ['React', 'TypeScript', 'HTML/CSS', 'Git'],
+    benefits: ['Horario flexible', 'Ambiente colaborativo'],
+    tags: ['React', 'Frontend', 'TypeScript'],
     category: 'technology',
     publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    salaryRange: { min: 1000, max: 1500, currency: 'PEN' },
+    salaryRange: { min: 1000, max: 1500, currency: 'USD' },
     source: 'Clovely',
     views: 245,
     applicantsCount: 18,
   },
   {
-    id: '2',
+    id: 'mock-2',
     title: 'Diseñador UX/UI Junior',
     company: 'DesignStudio',
     location: 'Remoto',
     modality: 'remote',
     contractType: 'full-time',
-    description: 'Estamos buscando un diseñador UX/UI creativo para crear experiencias digitales increíbles. Trabajarás con Figma, realizarás investigación de usuarios y colaborarás con desarrolladores.',
-    requirements: ['Figma', 'Adobe Creative Suite', 'Investigación de usuarios', 'Prototipos', 'Portfolio'],
-    benefits: ['100% remoto', 'Equipamiento', 'Capacitaciones', 'Días de salud mental'],
+    description: 'Estamos buscando un diseñador UX/UI creativo para crear experiencias digitales.',
+    requirements: ['Figma', 'Adobe Creative Suite', 'Prototipos'],
+    benefits: ['100% remoto', 'Capacitaciones'],
     tags: ['UX', 'UI', 'Figma', 'Design'],
     category: 'design',
     publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
@@ -86,63 +101,6 @@ const generateMockOpportunities = (): Opportunity[] => [
     views: 412,
     applicantsCount: 34,
   },
-  {
-    id: '3',
-    title: 'Analista de Marketing Digital - Práctica',
-    company: 'Marketing Pro',
-    location: 'Buenos Aires, Argentina',
-    modality: 'onsite',
-    contractType: 'internship',
-    description: 'Únete a nuestro equipo de marketing digital y aprende sobre SEO, SEM, redes sociales y analytics. Trabajarás con herramientas como Google Analytics, Meta Ads y más.',
-    requirements: ['Google Analytics', 'Redes sociales', 'Excel', 'Redacción', 'Análisis de datos'],
-    benefits: ['Certificaciones gratuitas', 'Networking', 'Crecimiento profesional'],
-    tags: ['Marketing', 'Digital', 'SEO', 'Analytics'],
-    category: 'marketing',
-    publishedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-    expiresAt: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString(),
-    salaryRange: { min: 800, max: 1200, currency: 'USD' },
-    source: 'Partner',
-    views: 189,
-    applicantsCount: 12,
-  },
-  {
-    id: '4',
-    title: 'Data Analyst Intern',
-    company: 'DataCorp',
-    location: 'Ciudad de México',
-    modality: 'hybrid',
-    contractType: 'internship',
-    description: 'Aprende análisis de datos con Python, SQL y herramientas de visualización. Trabajarás en proyectos reales analizando datos de clientes y creando dashboards.',
-    requirements: ['Python', 'SQL', 'Excel avanzado', 'Estadística básica', 'Visualización de datos'],
-    benefits: ['Mentoría 1-on-1', 'Proyectos reales', 'Posibilidad de contratación'],
-    tags: ['Data', 'Python', 'SQL', 'Analytics'],
-    category: 'technology',
-    publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    expiresAt: new Date(Date.now() + 28 * 24 * 60 * 60 * 1000).toISOString(),
-    salaryRange: { min: 1200, max: 1800, currency: 'USD' },
-    source: 'Clovely',
-    views: 301,
-    applicantsCount: 25,
-  },
-  {
-    id: '5',
-    title: 'Desarrollador Full Stack - Node.js & React',
-    company: 'StartupTech',
-    location: 'Remoto - LATAM',
-    modality: 'remote',
-    contractType: 'full-time',
-    description: 'Buscamos un desarrollador full stack con experiencia en Node.js y React para construir productos innovadores. Stack moderno con PostgreSQL, TypeScript y AWS.',
-    requirements: ['Node.js', 'React', 'PostgreSQL', 'TypeScript', 'Docker', '2+ años de experiencia'],
-    benefits: ['100% remoto', 'Equipo internacional', 'Stock options', 'Budget para cursos'],
-    tags: ['Full Stack', 'Node.js', 'React', 'PostgreSQL'],
-    category: 'technology',
-    publishedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-    expiresAt: new Date(Date.now() + 35 * 24 * 60 * 60 * 1000).toISOString(),
-    salaryRange: { min: 3000, max: 5000, currency: 'USD' },
-    source: 'Employer',
-    views: 567,
-    applicantsCount: 45,
-  },
 ];
 
 export const useOpportunitiesStore = create<OpportunitiesState>()(
@@ -151,6 +109,15 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       opportunities: [],
       applications: [],
       savedOpportunities: [],
+      isLoading: false,
+      error: null,
+      hasMore: true,
+      currentPage: 1,
+      searchParams: {
+        query: 'developer',
+        location: '',
+        page: 1,
+      },
       filters: {
         search: '',
         category: [],
@@ -159,15 +126,104 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         location: '',
       },
 
-      loadOpportunities: () => {
-        const stored = localStorage.getItem('clovely_opportunities');
-        if (!stored) {
-          const mockData = generateMockOpportunities();
-          set({ opportunities: mockData });
-          localStorage.setItem('clovely_opportunities', JSON.stringify(mockData));
-        } else {
-          set({ opportunities: JSON.parse(stored) });
+      loadOpportunities: async (params?: Partial<SearchParams>) => {
+        set({ isLoading: true, error: null });
+        
+        const currentParams = get().searchParams;
+        const newParams = { ...currentParams, ...params, page: params?.page || 1 };
+        set({ searchParams: newParams, currentPage: newParams.page });
+
+        try {
+          const searchParams = new URLSearchParams({
+            query: newParams.query || 'developer',
+            page: newParams.page.toString(),
+          });
+
+          if (newParams.location) {
+            searchParams.set('location', newParams.location);
+          }
+          if (newParams.employment_types) {
+            searchParams.set('employment_types', newParams.employment_types);
+          }
+          if (newParams.remote_only) {
+            searchParams.set('remote_only', 'true');
+          }
+          if (newParams.date_posted) {
+            searchParams.set('date_posted', newParams.date_posted);
+          }
+
+          const { data, error } = await supabase.functions.invoke('search-jobs', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: null,
+          });
+
+          // Since we can't use GET params with invoke, use POST
+          const response = await fetch(
+            `https://otjnaalbstgxoodczqak.supabase.co/functions/v1/search-jobs?${searchParams.toString()}`,
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+          }
+
+          const result = await response.json();
+
+          if (result.error) {
+            console.warn('API returned error, using mock data:', result.error);
+            set({ 
+              opportunities: generateMockOpportunities(),
+              isLoading: false,
+              error: result.error,
+              hasMore: false,
+            });
+            return;
+          }
+
+          if (result.data && result.data.length > 0) {
+            set({ 
+              opportunities: newParams.page === 1 ? result.data : [...get().opportunities, ...result.data],
+              isLoading: false,
+              hasMore: result.hasMore || false,
+            });
+          } else {
+            // No results from API, show mock data as fallback
+            if (newParams.page === 1) {
+              set({ 
+                opportunities: generateMockOpportunities(),
+                isLoading: false,
+                hasMore: false,
+              });
+            } else {
+              set({ isLoading: false, hasMore: false });
+            }
+          }
+        } catch (error) {
+          console.error('Error loading opportunities:', error);
+          // Use mock data as fallback
+          set({ 
+            opportunities: generateMockOpportunities(),
+            isLoading: false,
+            error: error instanceof Error ? error.message : 'Error loading opportunities',
+            hasMore: false,
+          });
         }
+      },
+
+      loadMoreOpportunities: async () => {
+        const { currentPage, hasMore, isLoading } = get();
+        if (!hasMore || isLoading) return;
+        
+        await get().loadOpportunities({ page: currentPage + 1 });
       },
 
       setFilters: (newFilters) => {
@@ -209,12 +265,11 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           ),
         }));
         
-        // Eliminar de Supabase - buscar por user_id y opportunity_id en el JSON
         supabase
           .from('saved_opportunities')
           .delete()
           .eq('user_id', userId)
-          .then(({ data, error }) => {
+          .then(({ error }) => {
             if (error) {
               console.error('Error deleting saved opportunity from Supabase:', error);
               toast.error('Error al eliminar la oportunidad guardada');
@@ -268,21 +323,20 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       },
 
       calculateMatch: (opportunity, profile, cv) => {
-        // Mock matching algorithm
         const userSkills = [
           ...profile.skills.technical.map((s) => s.name.toLowerCase()),
           ...profile.skills.tools.map((t) => t.toLowerCase()),
         ];
         const requiredSkills = opportunity.requirements.map((r) => r.toLowerCase());
 
-        // Skills match
         const matchingSkills = requiredSkills.filter((req) =>
           userSkills.some((skill) => skill.includes(req) || req.includes(skill))
         );
-        const skillsMatch = Math.round((matchingSkills.length / requiredSkills.length) * 100);
+        const skillsMatch = requiredSkills.length > 0 
+          ? Math.round((matchingSkills.length / requiredSkills.length) * 100)
+          : 50;
 
-        // Experience match (based on profile experience level)
-        const experienceLevels = {
+        const experienceLevels: Record<string, number> = {
           student: 0,
           graduate: 1,
           junior: 2,
@@ -293,13 +347,10 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         const requiredLevel = opportunity.contractType === 'internship' ? 0 : 2;
         const experienceMatch = Math.max(0, 100 - Math.abs(userLevel - requiredLevel) * 20);
 
-        // Education match
         const educationMatch = cv?.education.length ? 85 : 60;
 
-        // Lifestyle match (work modality preference)
         const lifestyleMatch = profile.workStyle.modality === opportunity.modality ? 100 : 70;
 
-        // Keywords match
         const cvText = cv
           ? `${cv.summary} ${cv.experience.map((e) => e.bullets.map((b) => b.text).join(' ')).join(' ')}`
           : '';
@@ -310,7 +361,6 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           ? Math.round((keywordMatches / opportunity.tags.length) * 100)
           : 50;
 
-        // Overall weighted score
         const overall = Math.round(
           skillsMatch * 0.4 +
             experienceMatch * 0.25 +
@@ -336,11 +386,11 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         }
         if (experienceMatch < 70 && opportunity.contractType !== 'internship') {
           recommendations.push(
-            'Agrega más proyectos o experiencias relevantes a tu CV para demostrar experiencia práctica'
+            'Agrega más proyectos o experiencias relevantes a tu CV'
           );
         }
         if (recommendations.length === 0) {
-          recommendations.push('¡Excelente match! Tu perfil está bien alineado con esta oportunidad.');
+          recommendations.push('¡Excelente match! Tu perfil está bien alineado.');
         }
 
         return {

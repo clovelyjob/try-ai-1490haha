@@ -635,10 +635,11 @@ export interface Opportunity {
   publishedAt: string;
   expiresAt: string | null;
   salaryRange?: OpportunitySalaryRange;
-  source: 'Clovely' | 'Employer' | 'Partner';
+  source: string;
   companyLogo?: string;
   views: number;
   applicantsCount: number;
+  applyUrl?: string;
 }
 
 export interface MatchBreakdown {
