@@ -121,6 +121,15 @@ export interface RolePreferences {
   nivelExperiencia: 'junior' | 'mid' | 'senior';
 }
 
+export interface RIASECScores {
+  R: number; // Realistic
+  I: number; // Investigative
+  A: number; // Artistic
+  S: number; // Social
+  E: number; // Enterprising
+  C: number; // Conventional
+}
+
 export interface Profile {
   userId: string;
   interests: string[];
@@ -149,6 +158,9 @@ export interface Profile {
   rolesSugeridos: { role: ProfessionalRole; confidence: number; reasons: string[] }[];
   preferencias: RolePreferences;
   historialRol: RoleHistory[];
+  // RIASEC vocational assessment data
+  riasecCode?: string; // e.g., "AIS", "ESC"
+  riasecScores?: RIASECScores;
 }
 
 export interface CV {
@@ -648,6 +660,7 @@ export interface MatchBreakdown {
   educationMatch: number;
   lifestyleMatch: number;
   keywordsMatch: number;
+  interestMatch?: number; // RIASEC-based interest alignment
 }
 
 export interface MatchResult {

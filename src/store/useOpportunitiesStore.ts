@@ -18,7 +18,16 @@ interface SearchParams {
   employment_types?: string;
   remote_only?: boolean;
   date_posted?: string;
+  experience_level?: string;
 }
+
+interface CacheEntry {
+  data: Opportunity[];
+  timestamp: number;
+  hasMore: boolean;
+}
+
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 interface OpportunitiesState {
   opportunities: Opportunity[];
@@ -29,12 +38,16 @@ interface OpportunitiesState {
   hasMore: boolean;
   currentPage: number;
   searchParams: SearchParams;
+  cache: Record<string, CacheEntry>;
   filters: {
     search: string;
     category: string[];
     modality: string[];
     contractType: string[];
     location: string;
+    remoteOnly?: boolean;
+    datePosted?: string;
+    experienceLevel?: string;
   };
   
   // Actions
@@ -44,9 +57,10 @@ interface OpportunitiesState {
   clearFilters: () => void;
   
   // Saved opportunities
-  saveOpportunity: (userId: string, opportunityId: string, listName?: string) => void;
-  unsaveOpportunity: (userId: string, opportunityId: string) => void;
+  saveOpportunity: (userId: string, opportunityId: string, listName?: string) => Promise<void>;
+  unsaveOpportunity: (userId: string, opportunityId: string) => Promise<void>;
   isSaved: (userId: string, opportunityId: string) => boolean;
+  loadSavedOpportunities: (userId: string) => Promise<void>;
   
   // Applications
   createApplication: (application: Omit<Application, 'id' | 'createdAt' | 'updatedAt'>) => void;
@@ -103,6 +117,27 @@ const generateMockOpportunities = (): Opportunity[] => [
   },
 ];
 
+// RIASEC to job category mapping
+const riasecToCategories: Record<string, string[]> = {
+  R: ['technology', 'engineering', 'construction'],
+  I: ['technology', 'science', 'health', 'research'],
+  A: ['design', 'marketing', 'media', 'arts'],
+  S: ['education', 'health', 'social', 'customer_service'],
+  E: ['business', 'sales', 'marketing', 'management'],
+  C: ['business', 'finance', 'administration', 'legal'],
+};
+
+function getCacheKey(params: SearchParams): string {
+  return JSON.stringify({
+    query: params.query,
+    location: params.location,
+    page: params.page,
+    employment_types: params.employment_types,
+    remote_only: params.remote_only,
+    date_posted: params.date_posted,
+  });
+}
+
 export const useOpportunitiesStore = create<OpportunitiesState>()(
   persist(
     (set, get) => ({
@@ -113,6 +148,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       error: null,
       hasMore: true,
       currentPage: 1,
+      cache: {},
       searchParams: {
         query: 'developer',
         location: '',
@@ -124,14 +160,40 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         modality: [],
         contractType: [],
         location: '',
+        remoteOnly: false,
+        datePosted: 'all',
+        experienceLevel: '',
       },
 
       loadOpportunities: async (params?: Partial<SearchParams>) => {
         set({ isLoading: true, error: null });
         
         const currentParams = get().searchParams;
-        const newParams = { ...currentParams, ...params, page: params?.page || 1 };
+        const filters = get().filters;
+        const newParams: SearchParams = { 
+          ...currentParams, 
+          ...params, 
+          page: params?.page || 1,
+          employment_types: filters.contractType.length > 0 ? filters.contractType.join(',') : undefined,
+          remote_only: filters.remoteOnly,
+          date_posted: filters.datePosted !== 'all' ? filters.datePosted : undefined,
+          experience_level: filters.experienceLevel || undefined,
+        };
         set({ searchParams: newParams, currentPage: newParams.page });
+
+        const cacheKey = getCacheKey(newParams);
+        const cachedEntry = get().cache[cacheKey];
+        
+        // Check cache
+        if (cachedEntry && Date.now() - cachedEntry.timestamp < CACHE_DURATION) {
+          console.log('Using cached data for:', cacheKey);
+          set({ 
+            opportunities: newParams.page === 1 ? cachedEntry.data : [...get().opportunities, ...cachedEntry.data],
+            isLoading: false,
+            hasMore: cachedEntry.hasMore,
+          });
+          return;
+        }
 
         try {
           const searchParams = new URLSearchParams({
@@ -139,8 +201,8 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             page: newParams.page.toString(),
           });
 
-          if (newParams.location) {
-            searchParams.set('location', newParams.location);
+          if (newParams.location || filters.location) {
+            searchParams.set('location', newParams.location || filters.location);
           }
           if (newParams.employment_types) {
             searchParams.set('employment_types', newParams.employment_types);
@@ -152,17 +214,8 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             searchParams.set('date_posted', newParams.date_posted);
           }
 
-          const { data, error } = await supabase.functions.invoke('search-jobs', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: null,
-          });
-
-          // Since we can't use GET params with invoke, use POST
           const response = await fetch(
-            `https://otjnaalbstgxoodczqak.supabase.co/functions/v1/search-jobs?${searchParams.toString()}`,
+            `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/search-jobs?${searchParams.toString()}`,
             {
               method: 'GET',
               headers: {
@@ -190,13 +243,21 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           }
 
           if (result.data && result.data.length > 0) {
-            set({ 
+            // Store in cache
+            set((state) => ({
+              cache: {
+                ...state.cache,
+                [cacheKey]: {
+                  data: result.data,
+                  timestamp: Date.now(),
+                  hasMore: result.hasMore || false,
+                },
+              },
               opportunities: newParams.page === 1 ? result.data : [...get().opportunities, ...result.data],
               isLoading: false,
               hasMore: result.hasMore || false,
-            });
+            }));
           } else {
-            // No results from API, show mock data as fallback
             if (newParams.page === 1) {
               set({ 
                 opportunities: generateMockOpportunities(),
@@ -209,7 +270,6 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           }
         } catch (error) {
           console.error('Error loading opportunities:', error);
-          // Use mock data as fallback
           set({ 
             opportunities: generateMockOpportunities(),
             isLoading: false,
@@ -240,41 +300,100 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             modality: [],
             contractType: [],
             location: '',
+            remoteOnly: false,
+            datePosted: 'all',
+            experienceLevel: '',
           },
         });
       },
 
-      saveOpportunity: (userId, opportunityId, listName = 'Guardadas') => {
+      saveOpportunity: async (userId, opportunityId, listName = 'Guardadas') => {
+        const opportunity = get().opportunities.find(o => o.id === opportunityId);
+        if (!opportunity) return;
+
+        // Add to local state immediately
         set((state) => ({
           savedOpportunities: [
             ...state.savedOpportunities,
             {
-              userId,
               opportunityId,
               savedAt: new Date().toISOString(),
               listName,
+              userId,
             },
           ],
         }));
+
+        // Persist to Supabase
+        try {
+          const { error } = await supabase
+            .from('saved_opportunities')
+            .insert({
+              user_id: userId,
+              opportunity_data: opportunity as any,
+              status: 'saved',
+              notes: '',
+            });
+
+          if (error) {
+            console.error('Error saving opportunity to Supabase:', error);
+            toast.error('Error al guardar la oportunidad');
+          }
+        } catch (err) {
+          console.error('Error persisting saved opportunity:', err);
+        }
       },
 
-      unsaveOpportunity: (userId, opportunityId) => {
+      unsaveOpportunity: async (userId, opportunityId) => {
+        // Remove from local state
         set((state) => ({
           savedOpportunities: state.savedOpportunities.filter(
             (saved) => !(saved.userId === userId && saved.opportunityId === opportunityId)
           ),
         }));
         
-        supabase
-          .from('saved_opportunities')
-          .delete()
-          .eq('user_id', userId)
-          .then(({ error }) => {
-            if (error) {
-              console.error('Error deleting saved opportunity from Supabase:', error);
-              toast.error('Error al eliminar la oportunidad guardada');
-            }
-          });
+        // Remove from Supabase
+        try {
+          const { error } = await supabase
+            .from('saved_opportunities')
+            .delete()
+            .eq('user_id', userId)
+            .contains('opportunity_data', { id: opportunityId });
+
+          if (error) {
+            console.error('Error deleting saved opportunity from Supabase:', error);
+            toast.error('Error al eliminar la oportunidad guardada');
+          }
+        } catch (err) {
+          console.error('Error removing saved opportunity:', err);
+        }
+      },
+
+      loadSavedOpportunities: async (userId: string) => {
+        try {
+          const { data, error } = await supabase
+            .from('saved_opportunities')
+            .select('*')
+            .eq('user_id', userId);
+
+          if (error) {
+            console.error('Error loading saved opportunities:', error);
+            return;
+          }
+
+          if (data) {
+            const savedOpps: SavedOpportunity[] = data.map((item) => ({
+              opportunityId: (item.opportunity_data as any)?.id || item.id,
+              savedAt: item.created_at,
+              listName: item.status || 'Guardadas',
+              userId: item.user_id,
+            }));
+
+            set({ savedOpportunities: savedOpps });
+          }
+        } catch (err) {
+          console.error('Error loading saved opportunities:', err);
+        }
       },
 
       isSaved: (userId, opportunityId) => {
@@ -323,6 +442,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       },
 
       calculateMatch: (opportunity, profile, cv) => {
+        // Base skill matching
         const userSkills = [
           ...profile.skills.technical.map((s) => s.name.toLowerCase()),
           ...profile.skills.tools.map((t) => t.toLowerCase()),
@@ -332,10 +452,22 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         const matchingSkills = requiredSkills.filter((req) =>
           userSkills.some((skill) => skill.includes(req) || req.includes(skill))
         );
-        const skillsMatch = requiredSkills.length > 0 
+        let skillsMatch = requiredSkills.length > 0 
           ? Math.round((matchingSkills.length / requiredSkills.length) * 100)
           : 50;
 
+        // RIASEC-based category matching
+        let riasecBonus = 0;
+        if (profile.riasecCode) {
+          const topTypes = profile.riasecCode.split('').slice(0, 2);
+          const preferredCategories = topTypes.flatMap(type => riasecToCategories[type] || []);
+          
+          if (preferredCategories.includes(opportunity.category)) {
+            riasecBonus = 15; // Boost match for RIASEC-aligned jobs
+          }
+        }
+
+        // Experience matching with RIASEC consideration
         const experienceLevels: Record<string, number> = {
           student: 0,
           graduate: 1,
@@ -347,10 +479,13 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         const requiredLevel = opportunity.contractType === 'internship' ? 0 : 2;
         const experienceMatch = Math.max(0, 100 - Math.abs(userLevel - requiredLevel) * 20);
 
+        // Education matching
         const educationMatch = cv?.education.length ? 85 : 60;
 
+        // Lifestyle/modality matching
         const lifestyleMatch = profile.workStyle.modality === opportunity.modality ? 100 : 70;
 
+        // Keyword matching from CV
         const cvText = cv
           ? `${cv.summary} ${cv.experience.map((e) => e.bullets.map((b) => b.text).join(' ')).join(' ')}`
           : '';
@@ -361,13 +496,37 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           ? Math.round((keywordMatches / opportunity.tags.length) * 100)
           : 50;
 
-        const overall = Math.round(
-          skillsMatch * 0.4 +
-            experienceMatch * 0.25 +
-            educationMatch * 0.15 +
-            lifestyleMatch * 0.1 +
-            keywordsMatch * 0.1
-        );
+        // Interest alignment (from RIASEC)
+        let interestMatch = 50;
+        if (profile.riasecScores) {
+          // Map job category to RIASEC types
+          const categoryToRiasec: Record<string, string[]> = {
+            technology: ['R', 'I'],
+            design: ['A'],
+            marketing: ['E', 'A'],
+            business: ['E', 'C'],
+            education: ['S'],
+            health: ['S', 'I'],
+          };
+          
+          const relevantTypes = categoryToRiasec[opportunity.category] || [];
+          if (relevantTypes.length > 0 && profile.riasecScores) {
+            const scores = relevantTypes.map(type => profile.riasecScores?.[type] || 0);
+            const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            interestMatch = Math.min(100, avgScore + 20);
+          }
+        }
+
+        // Calculate overall with RIASEC bonus
+        const overall = Math.min(100, Math.round(
+          skillsMatch * 0.30 +
+          experienceMatch * 0.20 +
+          educationMatch * 0.10 +
+          lifestyleMatch * 0.10 +
+          keywordsMatch * 0.10 +
+          interestMatch * 0.20 +
+          riasecBonus
+        ));
 
         const missingSkills = requiredSkills.filter(
           (req) => !userSkills.some((skill) => skill.includes(req) || req.includes(skill))
@@ -389,6 +548,11 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             'Agrega más proyectos o experiencias relevantes a tu CV'
           );
         }
+        if (interestMatch < 60 && profile.riasecCode) {
+          recommendations.push(
+            `Esta oferta no está muy alineada con tu perfil RIASEC (${profile.riasecCode})`
+          );
+        }
         if (recommendations.length === 0) {
           recommendations.push('¡Excelente match! Tu perfil está bien alineado.');
         }
@@ -401,6 +565,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             educationMatch,
             lifestyleMatch,
             keywordsMatch,
+            interestMatch,
           },
           recommendations,
           missingSkills,
@@ -426,6 +591,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       partialize: (state) => ({
         applications: state.applications,
         savedOpportunities: state.savedOpportunities,
+        cache: state.cache,
       }),
     }
   )
