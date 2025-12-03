@@ -12,6 +12,7 @@ import {
   BookmarkCheck,
   Eye,
   Users,
+  ExternalLink,
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -49,7 +50,16 @@ export default function OpportunityCard({
     <Card className="p-4 sm:p-6 rounded-2xl border-2 shadow-clovely-md hover:shadow-clovely-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-4">
         <div className="flex items-start gap-3 flex-1 min-w-0">
-          {opportunity.companyLogo && (
+          {opportunity.companyLogo ? (
+            <img 
+              src={opportunity.companyLogo} 
+              alt={`${opportunity.company} logo`}
+              className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg object-contain bg-white p-1"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
             <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg bg-muted flex items-center justify-center text-muted-foreground font-semibold">
               {opportunity.company.charAt(0)}
             </div>
@@ -60,7 +70,14 @@ export default function OpportunityCard({
                 {opportunity.title}
               </h3>
             </Link>
-            <p className="text-sm text-muted-foreground truncate">{opportunity.company}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground truncate">{opportunity.company}</p>
+              {opportunity.source && opportunity.source !== 'Clovely' && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                  {opportunity.source}
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
 
@@ -166,9 +183,26 @@ export default function OpportunityCard({
           </span>
         </div>
 
-        <Link to={`/dashboard/opportunities/${opportunity.id}`} className="w-full sm:w-auto">
-          <Button size="sm" className="w-full sm:w-auto min-h-[44px]">Ver detalles</Button>
-        </Link>
+        <div className="flex gap-2 w-full sm:w-auto">
+          {opportunity.applyUrl && (
+            <a 
+              href={opportunity.applyUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial"
+            >
+              <Button size="sm" variant="default" className="w-full min-h-[44px] gap-1">
+                Aplicar
+                <ExternalLink className="h-3 w-3" />
+              </Button>
+            </a>
+          )}
+          <Link to={`/dashboard/opportunities/${opportunity.id}`} className="flex-1 sm:flex-initial">
+            <Button size="sm" variant={opportunity.applyUrl ? "outline" : "default"} className="w-full min-h-[44px]">
+              Ver detalles
+            </Button>
+          </Link>
+        </div>
       </div>
     </Card>
   );
