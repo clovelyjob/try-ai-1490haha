@@ -239,16 +239,17 @@ export default function CVBuilder() {
                   
                   <DropdownMenuSeparator />
                   
-                  <DropdownMenuItem className="flex-col items-start">
-                    <div className="flex items-center w-full mb-2">
+                  <div className="px-2 py-1.5">
+                    <div className="flex items-center text-sm mb-1.5">
                       <Layout className="mr-2 h-4 w-4" />
-                      <span>Cambiar template</span>
+                      <span>Template</span>
                     </div>
                     <TemplateSelector 
                       value={currentCV.template} 
                       onChange={(template) => updateCV(currentCV.id, { template })} 
+                      compact
                     />
-                  </DropdownMenuItem>
+                  </div>
                   
                   <DropdownMenuItem onClick={() => setShowTemplateCustomizer(true)}>
                     <Palette className="mr-2 h-4 w-4" />
