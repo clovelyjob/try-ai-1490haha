@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { ArrowLeft, Save, Sparkles, Download, History, Palette, GitCompare, MoreVertical } from 'lucide-react';
+import { ArrowLeft, Save, Sparkles, Download, History, Palette, GitCompare, MoreVertical, Layout } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import CVEditorPanel from '@/components/cv/CVEditorPanel';
 import CVPreviewPanel from '@/components/cv/CVPreviewPanel';
@@ -238,6 +238,17 @@ export default function CVBuilder() {
                   </DropdownMenuItem>
                   
                   <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem className="flex-col items-start">
+                    <div className="flex items-center w-full mb-2">
+                      <Layout className="mr-2 h-4 w-4" />
+                      <span>Cambiar template</span>
+                    </div>
+                    <TemplateSelector 
+                      value={currentCV.template} 
+                      onChange={(template) => updateCV(currentCV.id, { template })} 
+                    />
+                  </DropdownMenuItem>
                   
                   <DropdownMenuItem onClick={() => setShowTemplateCustomizer(true)}>
                     <Palette className="mr-2 h-4 w-4" />
