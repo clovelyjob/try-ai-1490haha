@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
+const Install = lazy(() => import("./pages/Install"));
 import DashboardLayout from "./layouts/DashboardLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -54,6 +55,7 @@ const App = () => (
             <Suspense fallback={<SkeletonDashboard />}>
               <Routes>
                 <Route path="/" element={<Landing />} />
+                <Route path="/install" element={<Suspense fallback={<SkeletonDashboard />}><Install /></Suspense>} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/registro" element={<Register />} />

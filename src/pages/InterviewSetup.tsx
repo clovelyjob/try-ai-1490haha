@@ -10,6 +10,7 @@ import { useInterviewStore } from "@/store/useInterviewStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { ResponseModeSelector, type ResponseMode } from "@/components/interview/ResponseModeSelector";
 import type { InterviewLevel, InterviewTone, InterviewType } from "@/types";
 
 export default function InterviewSetup() {
@@ -23,6 +24,7 @@ export default function InterviewSetup() {
   const [interviewType, setInterviewType] = useState<InterviewType>("screening");
   const [tone, setTone] = useState<InterviewTone>("empatico");
   const [jobDescription, setJobDescription] = useState("");
+  const [responseMode, setResponseMode] = useState<ResponseMode>("text");
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleStart = async () => {
@@ -33,6 +35,9 @@ export default function InterviewSetup() {
     try {
       // Generar preguntas con IA basadas en el rol y nivel
       await seedQuestions(role, level);
+      
+      // Create session config - responseMode is stored separately in localStorage
+      localStorage.setItem('clovely_interview_response_mode', responseMode);
       
       startSession({
         userId: user.id,
@@ -58,15 +63,17 @@ export default function InterviewSetup() {
 
   return (
     <div className="container max-w-3xl py-8">
-      <Card className="p-8 space-y-6 rounded-2xl shadow-clovely-lg border-2">
+      <Card className="p-6 sm:p-8 space-y-6 rounded-2xl shadow-clovely-lg border-2">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">Configura tu Entrevista</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">
+            Configura tu Entrevista
+          </h1>
           <p className="text-muted-foreground">
             Personaliza la práctica según el puesto al que aplicas
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div className="space-y-2">
             <Label htmlFor="role">Puesto o Rol *</Label>
             <Input
@@ -78,7 +85,7 @@ export default function InterviewSetup() {
             />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="level">Nivel de Experiencia</Label>
               <Select value={level} onValueChange={(v) => setLevel(v as InterviewLevel)}>
@@ -124,6 +131,9 @@ export default function InterviewSetup() {
             </Select>
           </div>
 
+          {/* Response Mode Selector */}
+          <ResponseModeSelector value={responseMode} onChange={setResponseMode} />
+
           <div className="space-y-2">
             <Label htmlFor="jobDescription">Descripción del Trabajo (Opcional)</Label>
             <Textarea
@@ -131,8 +141,8 @@ export default function InterviewSetup() {
               placeholder="Pega aquí la descripción del puesto para personalizar las preguntas..."
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              rows={5}
-              className="min-h-[120px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
+              rows={4}
+              className="min-h-[100px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md"
             />
           </div>
         </div>
