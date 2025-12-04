@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,6 +15,7 @@ import { ResponseModeSelector, type ResponseMode } from "@/components/interview/
 import type { InterviewLevel } from "@/types";
 
 export default function InterviewSetup() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { startSession, seedQuestions } = useInterviewStore();
   const { user } = useAuthStore();
@@ -48,8 +50,8 @@ export default function InterviewSetup() {
     } catch (error) {
       console.error('Error starting interview:', error);
       toast({
-        title: "Error",
-        description: "No se pudieron generar las preguntas. Intenta de nuevo.",
+        title: t('common.error'),
+        description: t('errors.generic'),
         variant: "destructive",
       });
     } finally {
@@ -65,20 +67,20 @@ export default function InterviewSetup() {
             <Briefcase className="w-7 h-7 text-primary" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold">
-            Práctica de Entrevista con IA
+            {t('interviews.setup.title')}
           </h1>
           <p className="text-muted-foreground">
-            Simula una entrevista real y recibe feedback para mejorar
+            {t('interviews.setup.subtitle')}
           </p>
         </div>
 
         <div className="space-y-5">
           {/* Puesto o Rol */}
           <div className="space-y-2">
-            <Label htmlFor="role">Tu Puesto *</Label>
+            <Label htmlFor="role">{t('interviews.setup.role')} *</Label>
             <Input
               id="role"
-              placeholder="Ej: Marketing Digital, Product Manager, Desarrollador Frontend"
+              placeholder={t('interviews.setup.rolePlaceholder')}
               value={role}
               onChange={(e) => setRole(e.target.value)}
               className="min-h-[48px] rounded-xl"
@@ -87,32 +89,32 @@ export default function InterviewSetup() {
 
           {/* Nivel de Experiencia */}
           <div className="space-y-2">
-            <Label htmlFor="level">Nivel de Experiencia</Label>
+            <Label htmlFor="level">{t('interviews.setup.experience')}</Label>
             <Select value={level} onValueChange={(v) => setLevel(v as InterviewLevel)}>
               <SelectTrigger id="level" className="min-h-[48px] rounded-xl">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="junior">Poca/Ninguna experiencia (0-2 años)</SelectItem>
-                <SelectItem value="mid">Algo de experiencia (3-5 años)</SelectItem>
-                <SelectItem value="senior">Mucha experiencia (6+ años)</SelectItem>
+                <SelectItem value="junior">{t('interviews.setup.experienceLevels.junior')}</SelectItem>
+                <SelectItem value="mid">{t('interviews.setup.experienceLevels.mid')}</SelectItem>
+                <SelectItem value="senior">{t('interviews.setup.experienceLevels.senior')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Descripción del Puesto */}
           <div className="space-y-2">
-            <Label htmlFor="jobDescription">Descripción del Puesto (Opcional)</Label>
+            <Label htmlFor="jobDescription">{t('interviews.setup.jobDescription')} ({t('common.optional')})</Label>
             <Textarea
               id="jobDescription"
-              placeholder="Pega la descripción del trabajo aquí para personalizar las preguntas..."
+              placeholder={t('interviews.setup.jobDescriptionPlaceholder')}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               rows={5}
               className="min-h-[120px] rounded-xl resize-none"
             />
             <p className="text-xs text-muted-foreground">
-              Incluir la descripción del puesto genera preguntas más relevantes y específicas
+              {t('interviews.setup.jobDescriptionHint')}
             </p>
           </div>
 
@@ -129,15 +131,15 @@ export default function InterviewSetup() {
           {isGenerating ? (
             <>
               <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              Generando Preguntas de Entrevista...
+              {t('interviews.setup.generating')}
             </>
           ) : (
-            'Generar Preguntas de Entrevista'
+            t('interviews.setup.generateQuestions')
           )}
         </Button>
 
         <p className="text-xs text-center text-muted-foreground">
-          Se generarán 10 preguntas personalizadas basadas en tu perfil
+          {t('interviews.setup.questionsNote')}
         </p>
       </Card>
     </div>

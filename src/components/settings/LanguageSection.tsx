@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { Globe, Check } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { toast } from 'sonner';
 
 type Language = 'es' | 'en' | 'pt' | 'fr';
@@ -12,40 +11,30 @@ interface LanguageOption {
   code: Language;
   label: string;
   flag: string;
-  nativeName: string;
 }
 
 const languages: LanguageOption[] = [
-  { code: 'es', label: 'Español', flag: '🇪🇸', nativeName: 'Español' },
-  { code: 'en', label: 'English', flag: '🇺🇸', nativeName: 'English' },
-  { code: 'pt', label: 'Português', flag: '🇧🇷', nativeName: 'Português' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷', nativeName: 'Français' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
 ];
 
 export function LanguageSection() {
-  const [language, setLanguage] = useState<Language>('es');
-  const [isSaving, setIsSaving] = useState(false);
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language as Language;
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('clovely_language') as Language;
-    if (savedLanguage && languages.some(l => l.code === savedLanguage)) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
-
-  const handleSave = () => {
-    setIsSaving(true);
-    localStorage.setItem('clovely_language', language);
+  const handleLanguageChange = (lang: Language) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('clovely_language', lang);
     
-    setTimeout(() => {
-      setIsSaving(false);
-      toast.success('Idioma actualizado', {
-        description: `El idioma se ha cambiado a ${languages.find(l => l.code === language)?.label}`,
-      });
-    }, 500);
+    const langLabel = languages.find(l => l.code === lang)?.label;
+    toast.success(t('settings.language.updated'), {
+      description: `${t('settings.language.updatedDesc')} ${langLabel}`,
+    });
   };
 
-  const currentLang = languages.find(l => l.code === language);
+  const currentLang = languages.find(l => l.code === currentLanguage) || languages[0];
 
   return (
     <div className="space-y-6">
@@ -56,22 +45,22 @@ export function LanguageSection() {
               <Globe className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <CardTitle>Idioma</CardTitle>
+              <CardTitle>{t('settings.language.title')}</CardTitle>
               <CardDescription>
-                Selecciona el idioma de la interfaz
+                {t('settings.language.subtitle')}
               </CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-3">
-            <Label htmlFor="language">Idioma de la aplicación</Label>
-            <Select value={language} onValueChange={(v) => setLanguage(v as Language)}>
+            <Label htmlFor="language">{t('settings.language.appLanguage')}</Label>
+            <Select value={currentLanguage} onValueChange={(v) => handleLanguageChange(v as Language)}>
               <SelectTrigger id="language" className="w-full max-w-xs">
                 <SelectValue>
                   <span className="flex items-center gap-2">
-                    <span>{currentLang?.flag}</span>
-                    <span>{currentLang?.label}</span>
+                    <span>{currentLang.flag}</span>
+                    <span>{currentLang.label}</span>
                   </span>
                 </SelectValue>
               </SelectTrigger>
@@ -81,51 +70,40 @@ export function LanguageSection() {
                     <span className="flex items-center gap-2">
                       <span>{lang.flag}</span>
                       <span>{lang.label}</span>
-                      <span className="text-muted-foreground text-xs">({lang.nativeName})</span>
                     </span>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Próximamente: Más idiomas disponibles
+              {t('settings.language.comingSoon')}
             </p>
           </div>
-
-          <Button onClick={handleSave} disabled={isSaving} className="min-h-[44px]">
-            {isSaving ? (
-              'Guardando...'
-            ) : (
-              <>
-                <Check className="mr-2 h-4 w-4" />
-                Guardar idioma
-              </>
-            )}
-          </Button>
         </CardContent>
       </Card>
 
       <Card className="rounded-2xl shadow-clovely-md border-2">
         <CardHeader>
-          <CardTitle className="text-base">Idiomas disponibles</CardTitle>
+          <CardTitle className="text-base">{t('settings.language.availableLanguages')}</CardTitle>
           <CardDescription>
-            Estamos trabajando para expandirnos a más regiones
+            {t('settings.language.expanding')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {languages.map((lang) => (
-              <div
+              <button
                 key={lang.code}
+                onClick={() => handleLanguageChange(lang.code)}
                 className={`p-3 rounded-xl border-2 text-center transition-all ${
-                  language === lang.code
+                  currentLanguage === lang.code
                     ? 'border-primary bg-primary/5'
                     : 'border-border hover:border-primary/50'
                 }`}
               >
                 <div className="text-2xl mb-1">{lang.flag}</div>
                 <div className="text-sm font-medium">{lang.label}</div>
-              </div>
+              </button>
             ))}
           </div>
         </CardContent>

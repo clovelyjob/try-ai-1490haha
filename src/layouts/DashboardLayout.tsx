@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ import {
 } from 'lucide-react';
 
 export default function DashboardLayout() {
+  const { t } = useTranslation();
   const { user, startPremiumTrial } = useAuthStore();
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
   const location = useLocation();
@@ -57,11 +59,11 @@ export default function DashboardLayout() {
   const handleStartTrial = async () => {
     try {
       await startPremiumTrial();
-      toast.success('¡Bienvenido a Premium! 🎉', {
-        description: 'Disfruta 7 días gratis. Cancela cuando quieras.',
+      toast.success(t('common.success'), {
+        description: t('settings.subscription.trialStarted') || 'Disfruta 7 días gratis.',
       });
     } catch (error) {
-      toast.error('Error al iniciar prueba. Intenta de nuevo.');
+      toast.error(t('common.error'));
     }
   };
   
@@ -69,11 +71,11 @@ export default function DashboardLayout() {
 
   const navItems = useMemo(() => {
     const items = [
-      { icon: Home, label: 'Inicio', path: '/dashboard' },
-      { icon: FileText, label: 'CV Builder', path: '/dashboard/cvs' },
-      { icon: Mic, label: 'Entrevistas', path: '/dashboard/interviews' },
-      { icon: Briefcase, label: 'Oportunidades', path: '/dashboard/opportunities' },
-      { icon: Settings, label: 'Configuración', path: '/dashboard/settings' },
+      { icon: Home, label: t('nav.dashboard'), path: '/dashboard' },
+      { icon: FileText, label: t('nav.cv'), path: '/dashboard/cvs' },
+      { icon: Mic, label: t('nav.interviews'), path: '/dashboard/interviews' },
+      { icon: Briefcase, label: t('nav.opportunities'), path: '/dashboard/opportunities' },
+      { icon: Settings, label: t('nav.settings'), path: '/dashboard/settings' },
     ];
 
     if (isAdmin) {
@@ -85,7 +87,7 @@ export default function DashboardLayout() {
     }
 
     return items;
-  }, [isAdmin]);
+  }, [isAdmin, t]);
 
   // Sidebar content component for the drawer
   const SidebarContent = () => (
@@ -171,7 +173,7 @@ export default function DashboardLayout() {
           size="icon"
           className="w-full h-10"
           onClick={() => setDrawerOpen(true)}
-          aria-label="Abrir menú"
+          aria-label={t('common.menu') || 'Menu'}
         >
           <Menu className="h-5 w-5" />
         </Button>
@@ -217,7 +219,7 @@ export default function DashboardLayout() {
             </div>
           </TooltipTrigger>
           <TooltipContent side="right">
-            Cambiar tema
+            {t('settings.appearance.theme')}
           </TooltipContent>
         </Tooltip>
       </div>
@@ -234,7 +236,7 @@ export default function DashboardLayout() {
             size="icon"
             className="fixed top-4 left-4 z-50 h-12 w-12 md:hidden bg-background/80 backdrop-blur-sm border shadow-lg"
             onClick={() => setDrawerOpen(true)}
-            aria-label="Abrir menú"
+            aria-label={t('common.menu') || 'Menu'}
           >
             <Menu className="h-6 w-6" />
           </Button>

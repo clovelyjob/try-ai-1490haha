@@ -1,0 +1,282 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "all": "Todos",
+    "none": "Ninguno",
+    "optional": "Opcional",
+    "required": "Requerido"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "opportunities": "Oportunidades",
+    "cv": "Mi CV",
+    "interviews": "Entrevistas",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Bienvenido de nuevo",
+    "dailyJob": "Oportunidad del día",
+    "progress": "Tu progreso",
+    "stats": "Estadísticas",
+    "recommendations": "Recursos recomendados",
+    "viewAll": "Ver todos",
+    "apply": "Aplicar",
+    "match": "Compatibilidad"
+  },
+  "opportunities": {
+    "title": "Oportunidades",
+    "subtitle": "Encuentra tu próximo trabajo ideal",
+    "search": "Buscar oportunidades...",
+    "filters": "Filtros",
+    "clearFilters": "Limpiar filtros",
+    "noResults": "No se encontraron oportunidades",
+    "location": "Ubicación",
+    "salary": "Salario",
+    "type": "Tipo",
+    "experience": "Experiencia",
+    "remote": "Remoto",
+    "fullTime": "Tiempo completo",
+    "partTime": "Medio tiempo",
+    "contract": "Contrato",
+    "internship": "Pasantía",
+    "saved": "Guardadas",
+    "applied": "Aplicadas"
+  },
+  "cv": {
+    "title": "Constructor de CV",
+    "myResumes": "Mis CVs",
+    "createNew": "Crear nuevo CV",
+    "template": "Plantilla",
+    "changeTemplate": "Cambiar plantilla",
+    "customizeColors": "Personalizar colores",
+    "exportPdf": "Exportar PDF",
+    "analyzeAi": "Analizar con IA",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "history": "Historial",
+    "compare": "Comparar",
+    "personalInfo": "Información personal",
+    "education": "Educación",
+    "experience": "Experiencia",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "projects": "Proyectos",
+    "certifications": "Certificaciones",
+    "summary": "Resumen profesional"
+  },
+  "interviews": {
+    "title": "Práctica de Entrevistas",
+    "subtitle": "Mejora tus habilidades de entrevista con IA",
+    "startPractice": "Iniciar práctica",
+    "history": "Historial de entrevistas",
+    "setup": {
+      "title": "Práctica de Entrevista con IA",
+      "subtitle": "Simula una entrevista real y recibe feedback para mejorar",
+      "role": "Tu Puesto",
+      "rolePlaceholder": "Ej: Marketing Digital, Product Manager, Desarrollador Frontend",
+      "experience": "Nivel de Experiencia",
+      "experienceLevels": {
+        "junior": "Poca/Ninguna experiencia (0-2 años)",
+        "mid": "Algo de experiencia (3-5 años)",
+        "senior": "Mucha experiencia (6+ años)"
+      },
+      "jobDescription": "Descripción del Puesto",
+      "jobDescriptionPlaceholder": "Pega la descripción del trabajo aquí para personalizar las preguntas...",
+      "jobDescriptionHint": "Incluir la descripción del puesto genera preguntas más relevantes y específicas",
+      "responseMode": "Modo de respuesta",
+      "textMode": "Texto",
+      "videoMode": "Video",
+      "generateQuestions": "Generar Preguntas de Entrevista",
+      "generating": "Generando Preguntas de Entrevista...",
+      "questionsNote": "Se generarán 10 preguntas personalizadas basadas en tu perfil"
+    },
+    "session": {
+      "progress": "Progreso",
+      "questions": "preguntas",
+      "question": "Pregunta",
+      "yourAnswer": "Tu respuesta",
+      "answerPlaceholder": "Escribe tu respuesta aquí...",
+      "submit": "Enviar respuesta",
+      "analyzing": "Analizando...",
+      "finish": "Finalizar entrevista",
+      "emptyAnswer": "Respuesta vacía",
+      "emptyAnswerDesc": "Por favor escribe una respuesta antes de continuar"
+    },
+    "results": {
+      "title": "Resultados de la Entrevista",
+      "score": "Puntuación",
+      "feedback": "Feedback",
+      "strengths": "Fortalezas",
+      "improvements": "Áreas de mejora",
+      "recommendations": "Recomendaciones",
+      "tryAgain": "Practicar de nuevo",
+      "backToInterviews": "Volver a entrevistas"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Administra tu cuenta y personaliza tu experiencia en Clovely",
+    "profile": {
+      "title": "Perfil",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "country": "País",
+      "avatar": "Foto de perfil"
+    },
+    "role": {
+      "title": "Rol Profesional",
+      "current": "Rol actual",
+      "industry": "Industria",
+      "experience": "Experiencia"
+    },
+    "security": {
+      "title": "Seguridad",
+      "password": "Contraseña",
+      "changePassword": "Cambiar contraseña",
+      "twoFactor": "Autenticación de dos factores"
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "email": "Notificaciones por email",
+      "push": "Notificaciones push",
+      "opportunities": "Nuevas oportunidades",
+      "interviews": "Recordatorios de entrevistas"
+    },
+    "appearance": {
+      "title": "Apariencia",
+      "theme": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "language": {
+      "title": "Idioma",
+      "subtitle": "Selecciona el idioma de la interfaz",
+      "appLanguage": "Idioma de la aplicación",
+      "availableLanguages": "Idiomas disponibles",
+      "comingSoon": "Próximamente: Más idiomas disponibles",
+      "expanding": "Estamos trabajando para expandirnos a más regiones",
+      "updated": "Idioma actualizado",
+      "updatedDesc": "El idioma se ha cambiado a"
+    },
+    "subscription": {
+      "title": "Suscripción",
+      "currentPlan": "Plan actual",
+      "upgrade": "Mejorar plan"
+    },
+    "privacy": {
+      "title": "Privacidad",
+      "dataUsage": "Uso de datos",
+      "deleteAccount": "Eliminar cuenta"
+    },
+    "integrations": {
+      "title": "Integraciones",
+      "connected": "Conectadas",
+      "available": "Disponibles"
+    },
+    "account": {
+      "title": "Cuenta",
+      "export": "Exportar datos",
+      "delete": "Eliminar cuenta"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Bienvenido de nuevo a Clovely",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar sesión",
+      "noAccount": "¿No tienes cuenta?",
+      "register": "Regístrate"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "subtitle": "Únete a Clovely y potencia tu carrera",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "submit": "Crear cuenta",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "login": "Inicia sesión"
+    },
+    "forgotPassword": {
+      "title": "Recuperar contraseña",
+      "subtitle": "Te enviaremos un enlace para restablecer tu contraseña",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace",
+      "backToLogin": "Volver al inicio de sesión"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Tu Coach de Carrera con IA",
+      "subtitle": "Optimiza tu CV, practica entrevistas y encuentra oportunidades perfectas para ti",
+      "cta": "Comenzar gratis",
+      "ctaSecondary": "Ver demo"
+    },
+    "features": {
+      "title": "Todo lo que necesitas para tu carrera",
+      "cv": {
+        "title": "Constructor de CV con IA",
+        "description": "Crea CVs profesionales optimizados para ATS"
+      },
+      "interviews": {
+        "title": "Práctica de Entrevistas",
+        "description": "Simula entrevistas reales y recibe feedback instantáneo"
+      },
+      "opportunities": {
+        "title": "Oportunidades Personalizadas",
+        "description": "Encuentra trabajos que coincidan con tu perfil"
+      }
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "¡Bienvenido a Clovely!",
+      "subtitle": "Vamos a conocerte mejor para personalizar tu experiencia"
+    },
+    "quiz": {
+      "title": "Descubre tu perfil profesional",
+      "subtitle": "Responde estas preguntas para identificar tus intereses",
+      "like": "Me gusta",
+      "neutral": "Neutral",
+      "dislike": "No me gusta"
+    },
+    "results": {
+      "title": "Tu perfil RIASEC",
+      "subtitle": "Basado en tus respuestas, estos son tus principales intereses",
+      "careers": "Carreras recomendadas",
+      "continue": "Continuar al dashboard"
+    }
+  },
+  "errors": {
+    "generic": "Ha ocurrido un error",
+    "network": "Error de conexión",
+    "notFound": "Página no encontrada",
+    "unauthorized": "No autorizado",
+    "validation": "Error de validación"
+  }
+}
