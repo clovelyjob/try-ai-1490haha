@@ -28,13 +28,6 @@ serve(async (req) => {
       );
     }
 
-    if (body.industry && (typeof body.industry !== 'string' || body.industry.length > 100)) {
-      return new Response(
-        JSON.stringify({ error: "industry must be a string with max 100 characters" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
     if (body.level && (typeof body.level !== 'string' || body.level.length > 50)) {
       return new Response(
         JSON.stringify({ error: "level must be a string with max 50 characters" }),
@@ -42,7 +35,14 @@ serve(async (req) => {
       );
     }
 
-    const count = body.count || 5;
+    if (body.jobDescription && (typeof body.jobDescription !== 'string' || body.jobDescription.length > 5000)) {
+      return new Response(
+        JSON.stringify({ error: "jobDescription must be a string with max 5000 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const count = body.count || 10;
     if (typeof count !== 'number' || count < 1 || count > 20) {
       return new Response(
         JSON.stringify({ error: "count must be a number between 1 and 20" }),
@@ -50,36 +50,48 @@ serve(async (req) => {
       );
     }
 
-    const { role, industry, level } = body;
+    const { role, level, jobDescription } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const systemPrompt = `Eres un experto reclutador con años de experiencia haciendo entrevistas. Generas preguntas relevantes, realistas y desafiantes para diferentes roles profesionales.`;
+    const levelText = level === 'junior' ? 'sin experiencia o junior' : level === 'senior' ? 'senior con mucha experiencia' : 'con algo de experiencia';
     
-    const levelText = level === 'junior' ? 'junior' : level === 'senior' ? 'senior' : 'intermedio';
+    const systemPrompt = `Eres un reclutador experto de una empresa Fortune 500 con más de 15 años de experiencia conduciendo entrevistas de trabajo. Conoces las mejores prácticas de entrevistas y las preguntas más efectivas para evaluar candidatos.
+
+Tu objetivo es generar preguntas de entrevista REALISTAS que se hacen en entrevistas reales de trabajo. Las preguntas deben ser:
+- Exactamente como las que haría un reclutador real
+- Apropiadas para el nivel de experiencia del candidato
+- Una mezcla de preguntas conductuales (STAR), técnicas y situacionales
+- Específicas para el rol y la industria
+
+IMPORTANTE: Las preguntas deben estar en ESPAÑOL y sonar naturales, como si un entrevistador las estuviera haciendo en persona.`;
     
-    const userPrompt = `Genera ${count} preguntas de entrevista para un puesto de ${role} nivel ${levelText}${industry ? ` en la industria ${industry}` : ''}.
+    let userPrompt = `Genera ${count} preguntas de entrevista para un candidato a un puesto de "${role}" que es ${levelText}.
 
-Las preguntas deben:
-- Ser realistas y comunes en entrevistas reales
-- Mezclar preguntas conductuales, técnicas y situacionales
-- Estar adaptadas al nivel de experiencia
-- Ser específicas para el rol
+Las preguntas deben incluir:
+1. Preguntas de apertura (ej: "Háblame de ti", "¿Por qué te interesa este puesto?")
+2. Preguntas conductuales usando método STAR (ej: "Cuéntame sobre una vez que...", "Dame un ejemplo de cuando...")  
+3. Preguntas técnicas específicas del rol
+4. Preguntas situacionales (ej: "¿Qué harías si...?", "¿Cómo manejarías...?")
+5. Preguntas sobre fortalezas y debilidades
+6. Preguntas sobre trabajo en equipo y liderazgo
+7. Preguntas sobre resolución de problemas`;
 
-Responde en formato JSON:
-{
-  "questions": [
-    {
-      "text": "Pregunta completa",
-      "type": "behavioral" | "technical" | "situational" | "opening",
-      "difficulty": "easy" | "medium" | "hard",
-      "tip": "Consejo breve para responder bien esta pregunta"
+    if (jobDescription) {
+      userPrompt += `
+
+DESCRIPCIÓN DEL PUESTO (usa esto para personalizar las preguntas):
+${jobDescription}
+
+Asegúrate de que las preguntas sean MUY específicas para esta descripción del puesto. Incluye preguntas sobre las responsabilidades, habilidades y requisitos mencionados.`;
     }
-  ]
-}`;
+
+    userPrompt += `
+
+Genera preguntas variadas y progresivamente más desafiantes. Cada pregunta debe tener un consejo útil para que el candidato la responda bien.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -93,13 +105,12 @@ Responde en formato JSON:
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt }
         ],
-        temperature: 0.8,
         tools: [
           {
             type: "function",
             function: {
               name: "generate_interview_questions",
-              description: "Genera preguntas de entrevista relevantes",
+              description: "Genera preguntas de entrevista relevantes y realistas",
               parameters: {
                 type: "object",
                 properties: {
@@ -108,16 +119,24 @@ Responde en formato JSON:
                     items: {
                       type: "object",
                       properties: {
-                        text: { type: "string" },
+                        text: { 
+                          type: "string",
+                          description: "La pregunta de entrevista completa, tal como la diría un reclutador"
+                        },
                         type: { 
                           type: "string", 
-                          enum: ["behavioral", "technical", "situational", "opening"] 
+                          enum: ["opening", "behavioral", "technical", "situational"],
+                          description: "Tipo de pregunta"
                         },
                         difficulty: { 
                           type: "string", 
-                          enum: ["easy", "medium", "hard"] 
+                          enum: ["easy", "medium", "hard"],
+                          description: "Nivel de dificultad"
                         },
-                        tip: { type: "string" }
+                        tip: { 
+                          type: "string",
+                          description: "Consejo breve y útil para responder bien esta pregunta"
+                        }
                       },
                       required: ["text", "type", "difficulty", "tip"]
                     }
@@ -135,7 +154,7 @@ Responde en formato JSON:
     if (!response.ok) {
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: "Límite de solicitudes alcanzado." }),
+          JSON.stringify({ error: "Límite de solicitudes alcanzado. Intenta de nuevo en unos minutos." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -163,7 +182,7 @@ Responde en formato JSON:
 
     const result = JSON.parse(toolCall.function.arguments);
 
-    console.log("Questions generated successfully");
+    console.log(`Generated ${result.questions?.length || 0} interview questions for role: ${role}`);
 
     return new Response(
       JSON.stringify(result),
