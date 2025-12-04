@@ -1,0 +1,282 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All",
+    "none": "None",
+    "optional": "Optional",
+    "required": "Required"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "opportunities": "Opportunities",
+    "cv": "My CV",
+    "interviews": "Interviews",
+    "settings": "Settings",
+    "logout": "Log out",
+    "login": "Log in",
+    "register": "Sign up"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "dailyJob": "Job of the day",
+    "progress": "Your progress",
+    "stats": "Statistics",
+    "recommendations": "Recommended resources",
+    "viewAll": "View all",
+    "apply": "Apply",
+    "match": "Match"
+  },
+  "opportunities": {
+    "title": "Opportunities",
+    "subtitle": "Find your next ideal job",
+    "search": "Search opportunities...",
+    "filters": "Filters",
+    "clearFilters": "Clear filters",
+    "noResults": "No opportunities found",
+    "location": "Location",
+    "salary": "Salary",
+    "type": "Type",
+    "experience": "Experience",
+    "remote": "Remote",
+    "fullTime": "Full time",
+    "partTime": "Part time",
+    "contract": "Contract",
+    "internship": "Internship",
+    "saved": "Saved",
+    "applied": "Applied"
+  },
+  "cv": {
+    "title": "CV Builder",
+    "myResumes": "My CVs",
+    "createNew": "Create new CV",
+    "template": "Template",
+    "changeTemplate": "Change template",
+    "customizeColors": "Customize colors",
+    "exportPdf": "Export PDF",
+    "analyzeAi": "Analyze with AI",
+    "save": "Save",
+    "saving": "Saving...",
+    "history": "History",
+    "compare": "Compare",
+    "personalInfo": "Personal information",
+    "education": "Education",
+    "experience": "Experience",
+    "skills": "Skills",
+    "languages": "Languages",
+    "projects": "Projects",
+    "certifications": "Certifications",
+    "summary": "Professional summary"
+  },
+  "interviews": {
+    "title": "Interview Practice",
+    "subtitle": "Improve your interview skills with AI",
+    "startPractice": "Start practice",
+    "history": "Interview history",
+    "setup": {
+      "title": "AI Interview Practice",
+      "subtitle": "Simulate a real interview and get feedback to improve",
+      "role": "Your Position",
+      "rolePlaceholder": "E.g.: Digital Marketing, Product Manager, Frontend Developer",
+      "experience": "Experience Level",
+      "experienceLevels": {
+        "junior": "Little/No experience (0-2 years)",
+        "mid": "Some experience (3-5 years)",
+        "senior": "Extensive experience (6+ years)"
+      },
+      "jobDescription": "Job Description",
+      "jobDescriptionPlaceholder": "Paste the job description here to customize the questions...",
+      "jobDescriptionHint": "Including the job description generates more relevant and specific questions",
+      "responseMode": "Response mode",
+      "textMode": "Text",
+      "videoMode": "Video",
+      "generateQuestions": "Generate Interview Questions",
+      "generating": "Generating Interview Questions...",
+      "questionsNote": "10 personalized questions will be generated based on your profile"
+    },
+    "session": {
+      "progress": "Progress",
+      "questions": "questions",
+      "question": "Question",
+      "yourAnswer": "Your answer",
+      "answerPlaceholder": "Type your answer here...",
+      "submit": "Submit answer",
+      "analyzing": "Analyzing...",
+      "finish": "Finish interview",
+      "emptyAnswer": "Empty answer",
+      "emptyAnswerDesc": "Please write an answer before continuing"
+    },
+    "results": {
+      "title": "Interview Results",
+      "score": "Score",
+      "feedback": "Feedback",
+      "strengths": "Strengths",
+      "improvements": "Areas for improvement",
+      "recommendations": "Recommendations",
+      "tryAgain": "Practice again",
+      "backToInterviews": "Back to interviews"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account and customize your Clovely experience",
+    "profile": {
+      "title": "Profile",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "avatar": "Profile picture"
+    },
+    "role": {
+      "title": "Professional Role",
+      "current": "Current role",
+      "industry": "Industry",
+      "experience": "Experience"
+    },
+    "security": {
+      "title": "Security",
+      "password": "Password",
+      "changePassword": "Change password",
+      "twoFactor": "Two-factor authentication"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email notifications",
+      "push": "Push notifications",
+      "opportunities": "New opportunities",
+      "interviews": "Interview reminders"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "subtitle": "Select the interface language",
+      "appLanguage": "Application language",
+      "availableLanguages": "Available languages",
+      "comingSoon": "Coming soon: More languages available",
+      "expanding": "We are working to expand to more regions",
+      "updated": "Language updated",
+      "updatedDesc": "The language has been changed to"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "currentPlan": "Current plan",
+      "upgrade": "Upgrade plan"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "dataUsage": "Data usage",
+      "deleteAccount": "Delete account"
+    },
+    "integrations": {
+      "title": "Integrations",
+      "connected": "Connected",
+      "available": "Available"
+    },
+    "account": {
+      "title": "Account",
+      "export": "Export data",
+      "delete": "Delete account"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "subtitle": "Welcome back to Clovely",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Log in",
+      "noAccount": "Don't have an account?",
+      "register": "Sign up"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Join Clovely and boost your career",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "login": "Log in"
+    },
+    "forgotPassword": {
+      "title": "Recover password",
+      "subtitle": "We will send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send link",
+      "backToLogin": "Back to login"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Your AI Career Coach",
+      "subtitle": "Optimize your CV, practice interviews and find perfect opportunities for you",
+      "cta": "Start for free",
+      "ctaSecondary": "View demo"
+    },
+    "features": {
+      "title": "Everything you need for your career",
+      "cv": {
+        "title": "AI CV Builder",
+        "description": "Create professional CVs optimized for ATS"
+      },
+      "interviews": {
+        "title": "Interview Practice",
+        "description": "Simulate real interviews and get instant feedback"
+      },
+      "opportunities": {
+        "title": "Personalized Opportunities",
+        "description": "Find jobs that match your profile"
+      }
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to Clovely!",
+      "subtitle": "Let's get to know you better to personalize your experience"
+    },
+    "quiz": {
+      "title": "Discover your professional profile",
+      "subtitle": "Answer these questions to identify your interests",
+      "like": "I like it",
+      "neutral": "Neutral",
+      "dislike": "I don't like it"
+    },
+    "results": {
+      "title": "Your RIASEC profile",
+      "subtitle": "Based on your answers, these are your main interests",
+      "careers": "Recommended careers",
+      "continue": "Continue to dashboard"
+    }
+  },
+  "errors": {
+    "generic": "An error has occurred",
+    "network": "Connection error",
+    "notFound": "Page not found",
+    "unauthorized": "Unauthorized",
+    "validation": "Validation error"
+  }
+}

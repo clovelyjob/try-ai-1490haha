@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { 
   User, Lock, Bell, Palette, CreditCard, Shield, 
-  Link as LinkIcon, Bot, Download, Trash2, Briefcase, Globe 
+  Link as LinkIcon, Download, Briefcase, Globe 
 } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -32,21 +32,22 @@ type SettingSection =
   | 'integrations' 
   | 'account';
 
-const navigation = [
-  { id: 'profile', label: 'Perfil', icon: User },
-  { id: 'role', label: 'Rol Profesional', icon: Briefcase },
-  { id: 'security', label: 'Seguridad', icon: Lock },
-  { id: 'notifications', label: 'Notificaciones', icon: Bell },
-  { id: 'appearance', label: 'Apariencia', icon: Palette },
-  { id: 'language', label: 'Idioma', icon: Globe },
-  { id: 'subscription', label: 'Suscripción', icon: CreditCard },
-  { id: 'privacy', label: 'Privacidad', icon: Shield },
-  { id: 'integrations', label: 'Integraciones', icon: LinkIcon },
-] as const;
-
 export default function Settings() {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState<SettingSection>('profile');
   const isMobile = useIsMobile();
+
+  const navigation = [
+    { id: 'profile', label: t('settings.profile.title'), icon: User },
+    { id: 'role', label: t('settings.role.title'), icon: Briefcase },
+    { id: 'security', label: t('settings.security.title'), icon: Lock },
+    { id: 'notifications', label: t('settings.notifications.title'), icon: Bell },
+    { id: 'appearance', label: t('settings.appearance.title'), icon: Palette },
+    { id: 'language', label: t('settings.language.title'), icon: Globe },
+    { id: 'subscription', label: t('settings.subscription.title'), icon: CreditCard },
+    { id: 'privacy', label: t('settings.privacy.title'), icon: Shield },
+    { id: 'integrations', label: t('settings.integrations.title'), icon: LinkIcon },
+  ] as const;
 
   const renderContent = () => {
     switch (activeSection) {
@@ -84,9 +85,9 @@ export default function Settings() {
     <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
       {/* Header */}
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">Configuración</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{t('settings.title')}</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Administra tu cuenta y personaliza tu experiencia en Clovely
+          {t('settings.subtitle')}
         </p>
       </div>
 
@@ -114,7 +115,7 @@ export default function Settings() {
                   className="min-h-[44px] px-3 sm:px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
                   <Download className="h-4 w-4 mr-2" />
-                  <span className="text-xs sm:text-sm">Cuenta</span>
+                  <span className="text-xs sm:text-sm">{t('settings.account.title')}</span>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -161,7 +162,7 @@ export default function Settings() {
                 }`}
               >
                 <Download className="h-5 w-5" />
-                <span className="font-medium">Cuenta</span>
+                <span className="font-medium">{t('settings.account.title')}</span>
               </button>
             </nav>
           </aside>
