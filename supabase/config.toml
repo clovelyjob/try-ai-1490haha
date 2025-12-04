@@ -14,3 +14,15 @@ verify_jwt = false
 
 [functions.search-jobs]
 verify_jwt = false
+
+[functions.transcribe-audio]
+verify_jwt = false
+
+[functions.interview-analyze-response]
+verify_jwt = false
+
+[functions.interview-generate-questions]
+verify_jwt = false
+
+[functions.cv-generate-suggestions]
+verify_jwt = false
