@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -9,7 +10,97 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [
+    react(),
+    mode === "development" && componentTagger(),
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "clovely-logo-icon.png", "clovely-logo.png"],
+      manifest: {
+        name: "Clovely - Tu Coach de Carrera con IA",
+        short_name: "Clovely",
+        description: "Practica entrevistas con IA, crea tu CV profesional y encuentra tu trabajo ideal con matching inteligente",
+        theme_color: "#FF7A00",
+        background_color: "#ffffff",
+        display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          {
+            src: "/clovely-logo-icon.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any maskable"
+          },
+          {
+            src: "/clovely-logo.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable"
+          }
+        ],
+        categories: ["productivity", "education", "business"],
+        screenshots: [],
+        shortcuts: [
+          {
+            name: "Practicar Entrevista",
+            short_name: "Entrevistas",
+            description: "Inicia una sesión de práctica de entrevista",
+            url: "/dashboard/interviews",
+            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+          },
+          {
+            name: "Crear CV",
+            short_name: "CV",
+            description: "Crea o edita tu CV profesional",
+            url: "/dashboard/cv",
+            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+          },
+          {
+            name: "Oportunidades",
+            short_name: "Jobs",
+            description: "Explora oportunidades de trabajo",
+            url: "/dashboard/opportunities",
+            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+          }
+        ]
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "gstatic-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
+      }
+    })
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
