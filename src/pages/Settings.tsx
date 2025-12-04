@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   User, Lock, Bell, Palette, CreditCard, Shield, 
-  Link as LinkIcon, Bot, Download, Trash2, Briefcase 
+  Link as LinkIcon, Bot, Download, Trash2, Briefcase, Globe 
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -16,7 +16,7 @@ import { AppearanceSection } from '@/components/settings/AppearanceSection';
 import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
 import { PrivacySection } from '@/components/settings/PrivacySection';
 import { IntegrationsSection } from '@/components/settings/IntegrationsSection';
-
+import { LanguageSection } from '@/components/settings/LanguageSection';
 import { AccountSection } from '@/components/settings/AccountSection';
 import { RoleSection } from '@/components/settings/RoleSection';
 
@@ -26,10 +26,10 @@ type SettingSection =
   | 'security' 
   | 'notifications' 
   | 'appearance' 
+  | 'language'
   | 'subscription' 
   | 'privacy' 
   | 'integrations' 
-  
   | 'account';
 
 const navigation = [
@@ -38,10 +38,10 @@ const navigation = [
   { id: 'security', label: 'Seguridad', icon: Lock },
   { id: 'notifications', label: 'Notificaciones', icon: Bell },
   { id: 'appearance', label: 'Apariencia', icon: Palette },
+  { id: 'language', label: 'Idioma', icon: Globe },
   { id: 'subscription', label: 'Suscripción', icon: CreditCard },
   { id: 'privacy', label: 'Privacidad', icon: Shield },
   { id: 'integrations', label: 'Integraciones', icon: LinkIcon },
-  
 ] as const;
 
 export default function Settings() {
@@ -65,6 +65,8 @@ export default function Settings() {
         );
       case 'appearance':
         return <AppearanceSection />;
+      case 'language':
+        return <LanguageSection />;
       case 'subscription':
         return <SubscriptionSection />;
       case 'privacy':
