@@ -6,10 +6,7 @@ import type {
   InterviewResponse,
   InterviewRecommendation,
   InterviewLevel,
-  InterviewTone,
-  InterviewType,
   ResponseScore,
-  QuestionType,
   InterviewMetrics,
 } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
@@ -28,11 +25,8 @@ interface InterviewState {
     userId: string;
     role: string;
     level: InterviewLevel;
-    interviewType: InterviewType;
-    tone: InterviewTone;
     jobDescription?: string;
     cvVersionId?: string;
-    responseMode?: 'text' | 'video';
   }) => void;
   endSession: () => void;
   saveSession: () => void;
@@ -52,7 +46,7 @@ interface InterviewState {
   generateRecommendations: () => InterviewRecommendation[];
 
   // Utilities
-  seedQuestions: (role?: string, level?: string) => Promise<void>;
+  seedQuestions: (role?: string, level?: string, jobDescription?: string) => Promise<void>;
 }
 
 // Mock question bank
@@ -138,10 +132,10 @@ export const useInterviewStore = create<InterviewState>()(
           userId: config.userId,
           role: config.role,
           level: config.level,
-          interviewType: config.interviewType,
+          interviewType: 'screening',
           jobDescription: config.jobDescription,
           cvVersionId: config.cvVersionId,
-          tone: config.tone,
+          tone: 'empatico',
           startedAt: new Date().toISOString(),
           responses: [],
           finalScore: 0,
@@ -399,38 +393,37 @@ export const useInterviewStore = create<InterviewState>()(
         return recommendations;
       },
 
-      seedQuestions: async (role = 'general', level = 'junior') => {
+      seedQuestions: async (role = 'general', level = 'junior', jobDescription?: string) => {
         try {
-          // Intentar generar preguntas con IA
+          // Generar preguntas con IA
           const { data, error } = await supabase.functions.invoke('interview-generate-questions', {
             body: { 
               role, 
               level,
-              count: 7
+              jobDescription,
+              count: 10
             },
           });
 
           if (error) {
             console.error('Error generating questions:', error);
-            // Usar preguntas mock como fallback
             set({ questionBank: MOCK_QUESTIONS });
             return;
           }
 
           const aiQuestions: InterviewQuestion[] = data.questions.map((q: any, index: number) => ({
             id: `q_ai_${index + 1}`,
-            text: q.question,
+            text: q.text || q.question,
             type: q.type || 'comportamiento',
             difficulty: q.difficulty || 'medio',
             roles: [role],
             tags: q.tags || [],
-            sampleAnswer: q.sampleAnswer,
+            sampleAnswer: q.tip,
           }));
 
           set({ questionBank: aiQuestions.length > 0 ? aiQuestions : MOCK_QUESTIONS });
         } catch (error) {
           console.error('Error seeding questions:', error);
-          // Usar preguntas mock como fallback
           set({ questionBank: MOCK_QUESTIONS });
         }
       },
