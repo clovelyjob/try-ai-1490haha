@@ -32,6 +32,7 @@ interface InterviewState {
     tone: InterviewTone;
     jobDescription?: string;
     cvVersionId?: string;
+    responseMode?: 'text' | 'video';
   }) => void;
   endSession: () => void;
   saveSession: () => void;
