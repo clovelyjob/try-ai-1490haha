@@ -15,7 +15,7 @@ type ResponseMode = 'text' | 'video';
 export default function InterviewSession() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { currentSession, getNextQuestion, submitResponse, isAnalyzing, endSession } = useInterviewStore();
+  const { currentSession, getNextQuestion, submitResponse, isAnalyzing, endSession, questionBank } = useInterviewStore();
   
   const [answer, setAnswer] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(getNextQuestion());
@@ -39,7 +39,7 @@ export default function InterviewSession() {
 
   if (!currentSession) return null;
 
-  const totalQuestions = 7;
+  const totalQuestions = questionBank.length || 10;
   const answeredCount = currentSession.responses.length;
   const progress = (answeredCount / totalQuestions) * 100;
 
