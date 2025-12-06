@@ -1,28 +1,28 @@
 project_id = "otjnaalbstgxoodczqak"
 
 [functions.career-coach-chat]
-verify_jwt = false
+verify_jwt = true
 
 [functions.cv-improve-text]
-verify_jwt = false
+verify_jwt = true
 
 [functions.diagnostic-generate-questions]
-verify_jwt = false
+verify_jwt = true
 
 [functions.diagnostic-analyze-profile]
-verify_jwt = false
+verify_jwt = true
 
 [functions.search-jobs]
-verify_jwt = false
+verify_jwt = true
 
 [functions.transcribe-audio]
-verify_jwt = false
+verify_jwt = true
 
 [functions.interview-analyze-response]
-verify_jwt = false
+verify_jwt = true
 
 [functions.interview-generate-questions]
-verify_jwt = false
+verify_jwt = true
 
 [functions.cv-generate-suggestions]
-verify_jwt = false
+verify_jwt = true
