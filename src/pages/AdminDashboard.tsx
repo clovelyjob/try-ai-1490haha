@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Users, Target, TrendingUp, Award, Calendar, Activity } from 'lucide-react';
+import { Users, Target, TrendingUp, Activity } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
-import { 
+import {
   BarChart, 
   Bar, 
   XAxis, 
@@ -35,8 +33,6 @@ interface AnalyticsData {
 const COLORS = ['#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
-  const { user } = useAuthStore();
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState<AnalyticsData>({
     totalUsers: 0,
@@ -48,32 +44,8 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
-    checkAdminAccess();
     loadAnalytics();
   }, []);
-
-  const checkAdminAccess = async () => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .single();
-
-      if (error || data?.role !== 'admin') {
-        toast.error('No tienes permisos de administrador');
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      console.error('Error checking admin access:', error);
-      navigate('/dashboard');
-    }
-  };
 
   const loadAnalytics = async () => {
     setLoading(true);
