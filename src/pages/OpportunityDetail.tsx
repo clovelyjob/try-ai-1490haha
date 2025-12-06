@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -318,7 +319,9 @@ export default function OpportunityDetail() {
                 <h2 className="text-xl font-semibold mb-4">Descripción</h2>
                 <div 
                   className="text-muted-foreground prose prose-sm max-w-none dark:prose-invert"
-                  dangerouslySetInnerHTML={{ __html: opportunity.description.replace(/\n/g, '<br/>') }}
+                  dangerouslySetInnerHTML={{ 
+                    __html: DOMPurify.sanitize(opportunity.description.replace(/\n/g, '<br/>')) 
+                  }}
                 />
               </Card>
 
