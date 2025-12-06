@@ -27,6 +27,7 @@ import Terms from "./pages/Terms";
 const Install = lazy(() => import("./pages/Install"));
 import DashboardLayout from "./layouts/DashboardLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AdminRoute } from "./components/AdminRoute";
 
 // Lazy load heavy components for code splitting
 const Onboarding = lazy(() => import("./pages/Onboarding"));
@@ -89,7 +90,7 @@ const App = () => (
                   </ProtectedRoute>
                 }>
                   <Route index element={<Dashboard />} />
-                  <Route path="admin" element={<AdminDashboard />} />
+                  <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
                   <Route path="cvs" element={<CVList />} />
                   <Route path="cvs/:id" element={<CVBuilder />} />
                   <Route path="interviews" element={<InterviewLanding />} />
