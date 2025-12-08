@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -8,11 +8,9 @@ import { Input } from '@/components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Link } from 'react-router-dom';
 import { Search, MessageCircle, Mail, FileText, Target, Sparkles, HelpCircle, ArrowRight, BookOpen, Video, Users } from 'lucide-react';
-import { LiveChatWidget } from '@/components/help/LiveChatWidget';
 import { ElevenLabsWidget } from '@/components/help/ElevenLabsWidget';
 
 const Help = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const categories = [{
     icon: Target,
     title: 'Diagnóstico de Carrera',
@@ -75,6 +73,18 @@ const Help = () => {
     description: 'Conecta con otros profesionales',
     href: '#'
   }];
+
+  const openElevenLabsWidget = () => {
+    // Find and click the Eleven Labs widget button to open it
+    const widget = document.querySelector('elevenlabs-convai');
+    if (widget?.shadowRoot) {
+      const button = widget.shadowRoot.querySelector('button');
+      if (button) {
+        button.click();
+      }
+    }
+  };
+
   return <div className="min-h-screen bg-background">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
@@ -201,8 +211,8 @@ const Help = () => {
                 <MessageCircle className="h-7 w-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-2">Chat en vivo</h3>
-              <p className="text-muted-foreground mb-6">Habla con nuestro equipo de soporte en tiempo real. Disponible Lun-Vie, 9am-6pm.</p>
-              <Button className="w-full" onClick={() => setIsChatOpen(true)}>
+              <p className="text-muted-foreground mb-6">Habla con nuestro asistente de voz con IA. Disponible 24/7.</p>
+              <Button className="w-full" onClick={openElevenLabsWidget}>
                 Iniciar chat
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -232,9 +242,6 @@ const Help = () => {
           </Link>
         </div>
       </footer>
-
-      {/* Live Chat Widget */}
-      <LiveChatWidget open={isChatOpen} onOpenChange={setIsChatOpen} />
       
       {/* ElevenLabs Voice Widget */}
       <ElevenLabsWidget />
