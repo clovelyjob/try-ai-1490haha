@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -7,7 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Link } from 'react-router-dom';
 import { Search, MessageCircle, Mail, FileText, Target, Sparkles, HelpCircle, ArrowRight, BookOpen, Video, Users } from 'lucide-react';
+import { LiveChatWidget } from '@/components/help/LiveChatWidget';
+
 const Help = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const categories = [{
     icon: Target,
     title: 'Diagnóstico de Carrera',
@@ -197,7 +201,7 @@ const Help = () => {
               </div>
               <h3 className="text-xl font-bold mb-2">Chat en vivo</h3>
               <p className="text-muted-foreground mb-6">Habla con nuestro equipo de soporte en tiempo real. Disponible Lun-Vie, 9am-6pm.</p>
-              <Button className="w-full">
+              <Button className="w-full" onClick={() => setIsChatOpen(true)}>
                 Iniciar chat
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -227,6 +231,9 @@ const Help = () => {
           </Link>
         </div>
       </footer>
+
+      {/* Live Chat Widget */}
+      <LiveChatWidget open={isChatOpen} onOpenChange={setIsChatOpen} />
     </div>;
 };
 export default Help;
