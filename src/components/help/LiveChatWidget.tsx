@@ -6,7 +6,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { cn } from '@/lib/utils';
-import { VoiceChatButton } from './VoiceChatButton';
 
 interface ChatMessage {
   id: string;
@@ -110,15 +109,12 @@ export function LiveChatWidget({ open, onOpenChange }: LiveChatWidgetProps) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full sm:max-w-md p-0 flex flex-col">
         <SheetHeader className="p-4 border-b bg-primary/5">
-          <div className="flex items-center justify-between">
-            <SheetTitle className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <Bot className="h-4 w-4 text-primary" />
-              </div>
-              Asistente de Clovely
-            </SheetTitle>
-            <VoiceChatButton />
-          </div>
+          <SheetTitle className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <Bot className="h-4 w-4 text-primary" />
+            </div>
+            Asistente de Clovely
+          </SheetTitle>
         </SheetHeader>
 
         {/* Messages area */}
