@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Link } from 'react-router-dom';
 import { Search, MessageCircle, Mail, FileText, Target, Sparkles, HelpCircle, ArrowRight, BookOpen, Video, Users } from 'lucide-react';
 import { LiveChatWidget } from '@/components/help/LiveChatWidget';
+import { ElevenLabsWidget } from '@/components/help/ElevenLabsWidget';
 
 const Help = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -234,6 +235,9 @@ const Help = () => {
 
       {/* Live Chat Widget */}
       <LiveChatWidget open={isChatOpen} onOpenChange={setIsChatOpen} />
+      
+      {/* ElevenLabs Voice Widget */}
+      <ElevenLabsWidget />
     </div>;
 };
 export default Help;
