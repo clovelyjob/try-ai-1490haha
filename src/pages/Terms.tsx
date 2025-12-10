@@ -3,29 +3,20 @@ import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
 import { FileText, CheckCircle, AlertCircle, Scale, Mail } from 'lucide-react';
-
 const Terms = () => {
-  const keyPoints = [
-    'Debes tener 16+ años para usar Clovely',
-    'Eres responsable de mantener tu cuenta segura',
-    'No garantizamos resultados específicos de empleo',
-    'Puedes cancelar en cualquier momento'
-  ];
-
-  const sections = [
-    {
-      title: '1. Aceptación de términos',
-      content: `
+  const keyPoints = ['Debes tener 16+ años para usar Clovely', 'Eres responsable de mantener tu cuenta segura', 'No garantizamos resultados específicos de empleo', 'Puedes cancelar en cualquier momento'];
+  const sections = [{
+    title: '1. Aceptación de términos',
+    content: `
 Al acceder o utilizar Clovely (la "Plataforma"), aceptas estar legalmente vinculado por estos Términos y Condiciones ("Términos"). Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
 
 Estos Términos constituyen un acuerdo legal entre tú ("Usuario") y Clovely Inc. ("Clovely", "nosotros", "nuestro").
 
 Nos reservamos el derecho de modificar estos Términos en cualquier momento. Te notificaremos de cambios significativos por correo electrónico o mediante un aviso en la Plataforma. El uso continuado después de dichos cambios constituye tu aceptación de los nuevos Términos.
       `
-    },
-    {
-      title: '2. Descripción del servicio',
-      content: `
+  }, {
+    title: '2. Descripción del servicio',
+    content: `
 Clovely proporciona una plataforma de desarrollo profesional que incluye:
 
 **Servicios principales:**
@@ -41,10 +32,9 @@ Nos esforzamos por mantener la Plataforma disponible 24/7, pero no garantizamos 
 **Modificaciones:**
 Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento, con o sin previo aviso.
       `
-    },
-    {
-      title: '3. Registro y cuentas',
-      content: `
+  }, {
+    title: '3. Registro y cuentas',
+    content: `
 **Elegibilidad:**
 Debes tener al menos 16 años para crear una cuenta. Si eres menor de 18, necesitas el consentimiento de un padre o tutor legal.
 
@@ -59,10 +49,9 @@ Cada usuario puede tener solo una cuenta. Está prohibido crear múltiples cuent
 **Suspensión y terminación:**
 Nos reservamos el derecho de suspender o terminar cuentas que violen estos Términos, sin previo aviso ni responsabilidad.
       `
-    },
-    {
-      title: '4. Uso aceptable',
-      content: `
+  }, {
+    title: '4. Uso aceptable',
+    content: `
 Te comprometes a utilizar Clovely de manera responsable y legal.
 
 **Está permitido:**
@@ -81,10 +70,9 @@ Te comprometes a utilizar Clovely de manera responsable y legal.
 - Revender o sublicenciar el acceso a la Plataforma
 - Violar derechos de propiedad intelectual de terceros
       `
-    },
-    {
-      title: '5. Contenido del usuario',
-      content: `
+  }, {
+    title: '5. Contenido del usuario',
+    content: `
 **Tu contenido:**
 Mantienes la propiedad de todo el contenido que subes (CV, información de perfil, respuestas de entrevista). Sin embargo, nos otorgas una licencia limitada para:
 - Almacenar y procesar tu contenido para proporcionar el servicio
@@ -100,10 +88,9 @@ Eres responsable de asegurar que tu contenido:
 **Eliminación:**
 Puedes eliminar tu contenido en cualquier momento. Tras la eliminación, haremos esfuerzos razonables para removerlo de nuestros sistemas, aunque algunas copias pueden persistir temporalmente en backups.
       `
-    },
-    {
-      title: '6. Propiedad intelectual',
-      content: `
+  }, {
+    title: '6. Propiedad intelectual',
+    content: `
 **Nuestra propiedad:**
 Todo el contenido de Clovely, incluyendo pero no limitado a:
 - Diseño, logos y marca
@@ -119,10 +106,9 @@ Te otorgamos una licencia personal, no exclusiva, no transferible y revocable pa
 **Feedback:**
 Cualquier sugerencia o feedback que proporciones puede ser utilizado por nosotros sin obligación de compensación.
       `
-    },
-    {
-      title: '7. Planes y pagos',
-      content: `
+  }, {
+    title: '7. Planes y pagos',
+    content: `
 **Planes disponibles:**
 Ofrecemos planes gratuitos y de pago con diferentes niveles de funcionalidad. Los detalles específicos están disponibles en nuestra página de Precios.
 
@@ -142,10 +128,9 @@ Las suscripciones se renuevan automáticamente. Puedes cancelar antes de la fech
 **Cancelación:**
 Puedes cancelar en cualquier momento desde Configuración > Suscripción. Mantendrás acceso hasta el final de tu período de facturación.
       `
-    },
-    {
-      title: '8. Limitación de responsabilidad',
-      content: `
+  }, {
+    title: '8. Limitación de responsabilidad',
+    content: `
 **Exención de garantías:**
 La Plataforma se proporciona "tal cual" y "según disponibilidad". No garantizamos que:
 - El servicio será ininterrumpido o libre de errores
@@ -164,10 +149,9 @@ No somos responsables de las decisiones de contratación tomadas por empleadores
 **Fuerza mayor:**
 No seremos responsables por incumplimientos causados por eventos fuera de nuestro control razonable.
       `
-    },
-    {
-      title: '9. Indemnización',
-      content: `
+  }, {
+    title: '9. Indemnización',
+    content: `
 Aceptas indemnizar y mantener indemne a Clovely, sus directores, empleados y agentes, de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales razonables) que surja de:
 
 - Tu uso de la Plataforma
@@ -178,10 +162,9 @@ Aceptas indemnizar y mantener indemne a Clovely, sus directores, empleados y age
 
 Esta obligación de indemnización sobrevive la terminación de estos Términos.
       `
-    },
-    {
-      title: '10. Resolución de disputas',
-      content: `
+  }, {
+    title: '10. Resolución de disputas',
+    content: `
 **Resolución amistosa:**
 Antes de iniciar cualquier acción legal, te comprometes a contactarnos e intentar resolver la disputa de buena fe durante al menos 30 días.
 
@@ -194,10 +177,9 @@ Para disputas que no puedan resolverse amistosamente, ambas partes acuerdan some
 **Renuncia a acciones colectivas:**
 Aceptas resolver disputas de manera individual y renuncias a participar en demandas colectivas o representativas.
       `
-    },
-    {
-      title: '11. Disposiciones generales',
-      content: `
+  }, {
+    title: '11. Disposiciones generales',
+    content: `
 **Acuerdo completo:**
 Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y Clovely.
 
@@ -213,10 +195,9 @@ No puedes ceder tus derechos u obligaciones sin nuestro consentimiento previo. N
 **Supervivencia:**
 Las secciones sobre propiedad intelectual, limitación de responsabilidad, indemnización y resolución de disputas sobreviven la terminación.
       `
-    },
-    {
-      title: '12. Contacto',
-      content: `
+  }, {
+    title: '12. Contacto',
+    content: `
 Si tienes preguntas sobre estos Términos y Condiciones:
 
 **Email:** legal@clovely.com
@@ -224,11 +205,8 @@ Si tienes preguntas sobre estos Términos y Condiciones:
 
 Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@clovely.com
       `
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  }];
+  return <div className="min-h-screen bg-background">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between max-w-7xl">
@@ -240,11 +218,13 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@cl
       {/* Hero */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container mx-auto px-6 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} className="text-center">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <Scale className="h-8 w-8 text-primary" />
             </div>
@@ -263,18 +243,18 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@cl
         <div className="container mx-auto px-6 max-w-3xl">
           <h2 className="text-xl font-bold mb-6 text-center">Puntos clave</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            {keyPoints.map((point, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-3 p-4 rounded-xl bg-muted/30"
-              >
+            {keyPoints.map((point, i) => <motion.div key={i} initial={{
+            opacity: 0,
+            x: -10
+          }} animate={{
+            opacity: 1,
+            x: 0
+          }} transition={{
+            delay: i * 0.1
+          }} className="flex items-center gap-3 p-4 rounded-xl bg-muted/30">
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
                 <span className="text-sm">{point}</span>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -287,29 +267,29 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@cl
               Estos términos establecen las reglas de uso de Clovely. Están escritos en lenguaje claro para que entiendas exactamente tus derechos y responsabilidades. Si tienes alguna pregunta, no dudes en contactarnos.
             </p>
 
-            {sections.map((section, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-12"
-              >
+            {sections.map((section, i) => <motion.div key={i} initial={{
+            opacity: 0,
+            y: 20
+          }} whileInView={{
+            opacity: 1,
+            y: 0
+          }} viewport={{
+            once: true
+          }} className="mb-12">
                 <h2 className="text-2xl font-bold mb-6 text-foreground">{section.title}</h2>
                 <div className="text-muted-foreground leading-relaxed whitespace-pre-line">
                   {section.content.split('\n').map((line, j) => {
-                    if (line.startsWith('**') && line.endsWith('**')) {
-                      return <p key={j} className="font-semibold text-foreground mt-4 mb-2">{line.replace(/\*\*/g, '')}</p>;
-                    }
-                    if (line.startsWith('- ')) {
-                      return <li key={j} className="ml-4">{line.replace('- ', '')}</li>;
-                    }
-                    if (line.trim() === '') return <br key={j} />;
-                    return <span key={j}>{line}</span>;
-                  })}
+                if (line.startsWith('**') && line.endsWith('**')) {
+                  return <p key={j} className="font-semibold text-foreground mt-4 mb-2">{line.replace(/\*\*/g, '')}</p>;
+                }
+                if (line.startsWith('- ')) {
+                  return <li key={j} className="ml-4">{line.replace('- ', '')}</li>;
+                }
+                if (line.trim() === '') return <br key={j} />;
+                return <span key={j}>{line}</span>;
+              })}
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -339,11 +319,8 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@cl
           <p className="text-muted-foreground mb-6">
             Nuestro equipo legal está aquí para ayudarte
           </p>
-          <a 
-            href="mailto:legal@clovely.com"
-            className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
-          >
-            legal@clovely.com
+          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:clovely.job@gmail.com">
+            clovely.job@gmail.com
           </a>
         </div>
       </section>
@@ -356,8 +333,6 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: seguridad@cl
           </Link>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Terms;
