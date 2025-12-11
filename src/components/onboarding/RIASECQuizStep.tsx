@@ -24,9 +24,16 @@ export function RIASECQuizStep({ onComplete, initialAnswers = {} }: RIASECQuizSt
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>(initialAnswers);
   const [direction, setDirection] = useState(0);
 
-  const currentQuestion = questions[currentIndex];
+  const currentQuestion = questions[currentIndex] || questions[0];
   const progress = (Object.keys(answers).length / questions.length) * 100;
   const isComplete = Object.keys(answers).length === questions.length;
+  
+  // Safety check - ensure currentIndex is within bounds
+  useEffect(() => {
+    if (currentIndex >= questions.length) {
+      setCurrentIndex(questions.length - 1);
+    }
+  }, [currentIndex, questions.length]);
 
   const handleAnswer = (value: AnswerValue) => {
     setAnswers(prev => ({
