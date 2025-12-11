@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mic, TrendingUp, Target, Clock } from "lucide-react";
+import { Mic, TrendingUp, Target, Clock, Bot, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "@/store/useInterviewStore";
 
@@ -21,9 +21,29 @@ export default function InterviewLanding() {
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada
         </p>
-        <Button size="lg" onClick={() => navigate('/dashboard/interviews/setup')} variant="premium" className="min-h-[44px] mt-4 shadow-clovely-glow">
-          Comenzar Nueva Práctica
-        </Button>
+        
+        {/* Two CTA buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
+          <Button 
+            size="lg" 
+            onClick={() => navigate('/dashboard/interviews/ai')} 
+            variant="premium" 
+            className="min-h-[52px] gap-2 shadow-clovely-glow"
+          >
+            <Bot className="w-5 h-5" />
+            Entrevista con Voz IA
+            <Sparkles className="w-4 h-4" />
+          </Button>
+          <Button 
+            size="lg" 
+            onClick={() => navigate('/dashboard/interviews/setup')} 
+            variant="outline"
+            className="min-h-[52px] gap-2"
+          >
+            <Mic className="w-5 h-5" />
+            Práctica con Texto
+          </Button>
+        </div>
       </div>
 
       {/* Stats */}
