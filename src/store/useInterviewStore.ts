@@ -46,7 +46,7 @@ interface InterviewState {
   generateRecommendations: () => InterviewRecommendation[];
 
   // Utilities
-  seedQuestions: (role?: string, level?: string, jobDescription?: string) => Promise<void>;
+  seedQuestions: (role?: string, level?: string, jobDescription?: string, cvContent?: string) => Promise<void>;
 }
 
 // Mock question bank
@@ -393,7 +393,7 @@ export const useInterviewStore = create<InterviewState>()(
         return recommendations;
       },
 
-      seedQuestions: async (role = 'general', level = 'junior', jobDescription?: string) => {
+      seedQuestions: async (role = 'general', level = 'junior', jobDescription?: string, cvContent?: string) => {
         try {
           // Generar preguntas con IA
           const { data, error } = await supabase.functions.invoke('interview-generate-questions', {
@@ -401,6 +401,7 @@ export const useInterviewStore = create<InterviewState>()(
               role, 
               level,
               jobDescription,
+              cvContent,
               count: 10
             },
           });
