@@ -12,9 +12,10 @@ serve(async (req) => {
   }
 
   try {
-    const { audio } = await req.json();
+    const { audio, mimeType = 'video/webm' } = await req.json();
 
     if (!audio) {
+      console.error('No audio data provided');
       return new Response(
         JSON.stringify({ error: 'No audio data provided' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -30,8 +31,9 @@ serve(async (req) => {
       );
     }
 
-    // Use Lovable AI Gateway for transcription via Gemini
-    // Note: If audio transcription is not supported, we return a helpful message
+    console.log('Sending audio to Gemini for transcription, mimeType:', mimeType);
+
+    // Use Lovable AI Gateway with Gemini for transcription
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -42,32 +44,56 @@ serve(async (req) => {
         model: 'google/gemini-2.5-flash',
         messages: [
           {
-            role: 'system',
-            content: 'You are a transcription assistant. Transcribe the user audio accurately in Spanish. Return ONLY the transcribed text, nothing else.'
-          },
-          {
             role: 'user',
-            content: 'Please transcribe this audio recording of an interview response in Spanish. The audio is a video/webm file.'
+            content: [
+              {
+                type: 'text',
+                text: 'Transcribe exactamente lo que dice la persona en este video/audio. Devuelve SOLO el texto transcrito, sin explicaciones, comentarios, ni formato adicional. Si no puedes entender algo, escribe [inaudible]. Si el audio está vacío o no hay habla, responde con texto vacío.'
+              },
+              {
+                type: 'file',
+                file: {
+                  filename: 'recording.webm',
+                  file_data: `data:${mimeType};base64,${audio}`
+                }
+              }
+            ]
           }
         ]
       }),
     });
 
     if (!response.ok) {
-      // If transcription fails, return a message to use text mode
-      console.log('Audio transcription not supported via current API');
+      const errorText = await response.text();
+      console.error('Gemini API error:', response.status, errorText);
+      
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: 'Límite de solicitudes excedido. Intenta de nuevo en unos segundos.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ error: 'Créditos insuficientes. Por favor contacta al administrador.' }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
       
       return new Response(
         JSON.stringify({ 
           text: '',
-          message: 'La transcripción automática no está disponible actualmente. Por favor, escribe tu respuesta manualmente después de grabar.'
+          message: 'No se pudo transcribir el audio. Por favor escribe tu respuesta manualmente.'
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const result = await response.json();
-    const transcribedText = result.choices?.[0]?.message?.content || '';
+    const transcribedText = result.choices?.[0]?.message?.content?.trim() || '';
+
+    console.log('Transcription successful, text length:', transcribedText.length);
 
     return new Response(
       JSON.stringify({ text: transcribedText }),
