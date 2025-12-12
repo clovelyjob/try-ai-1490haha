@@ -44,16 +44,36 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
       streamRef.current = stream;
       setCameraEnabled(true);
       
+      // Safety timeout - force ready after 3 seconds
+      const timeoutId = setTimeout(() => {
+        console.warn('Camera timeout - forcing ready state');
+        setIsCameraReady(true);
+      }, 3000);
+      
       if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current?.play().then(() => {
-            setIsCameraReady(true);
-          }).catch((err) => {
-            console.error('Video play error:', err);
-            setIsCameraReady(true);
-          });
+        const videoElement = videoRef.current;
+        
+        // Configure handler BEFORE assigning srcObject
+        const handleCanPlay = () => {
+          clearTimeout(timeoutId);
+          videoElement.play()
+            .then(() => {
+              setIsCameraReady(true);
+            })
+            .catch(() => {
+              setIsCameraReady(true);
+            });
         };
+        
+        videoElement.addEventListener('canplay', handleCanPlay, { once: true });
+        videoElement.srcObject = stream;
+        
+        // Edge case: video already ready
+        if (videoElement.readyState >= 3) {
+          clearTimeout(timeoutId);
+          setIsCameraReady(true);
+          videoElement.play().catch(() => {});
+        }
       }
     } catch (err) {
       console.error('Camera access error:', err);
