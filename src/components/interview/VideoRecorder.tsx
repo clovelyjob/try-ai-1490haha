@@ -13,13 +13,13 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
   const [isPaused, setIsPaused] = useState(false);
   const [hasRecording, setHasRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [cameraEnabled, setCameraEnabled] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recordingTime, setRecordingTime] = useState(0);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const previewRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -123,10 +123,9 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
       setRecordedBlob(blob);
       setHasRecording(true);
       
-      // Create preview URL
-      if (previewRef.current) {
-        previewRef.current.src = URL.createObjectURL(blob);
-      }
+      // Create preview URL usando estado
+      const url = URL.createObjectURL(blob);
+      setPreviewUrl(url);
     };
 
     mediaRecorderRef.current = mediaRecorder;
@@ -172,10 +171,13 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
     setHasRecording(false);
     setRecordedBlob(null);
     setRecordingTime(0);
-    if (previewRef.current) {
-      previewRef.current.src = '';
+    
+    // Revocar URL para liberar memoria
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
     }
-  }, []);
+  }, [previewUrl]);
 
   const submitRecording = useCallback(() => {
     if (recordedBlob) {
@@ -190,8 +192,12 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
       if (timerRef.current) {
         clearInterval(timerRef.current);
       }
+      // Limpiar URL del preview
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
     };
-  }, [disableCamera]);
+  }, [disableCamera, previewUrl]);
 
   return (
     <Card className="p-4 space-y-4 rounded-xl border-2 border-primary/10">
@@ -234,9 +240,9 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
           </>
         )}
 
-        {hasRecording && (
+        {hasRecording && previewUrl && (
           <video
-            ref={previewRef}
+            src={previewUrl}
             controls
             playsInline
             className="w-full h-full object-cover"
