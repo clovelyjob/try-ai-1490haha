@@ -199,7 +199,7 @@ export function DailyJob() {
           )}
         </div>
 
-        <Link to={`/dashboard/opportunities/${dailyJob.id}`}>
+        <Link to={`/dashboard/opportunities/${dailyJob.id}`} className="mt-2">
           <Button variant="premium" className="w-full shadow-clovely-glow">
             Ver Detalles
             <ExternalLink className="w-4 h-4 ml-2" />
