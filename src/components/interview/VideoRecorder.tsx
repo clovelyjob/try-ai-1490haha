@@ -31,6 +31,7 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // enableCamera SOLO obtiene el stream - el useEffect se encarga del resto
   const enableCamera = useCallback(async () => {
     try {
       setError(null);
@@ -42,44 +43,50 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
       });
       
       streamRef.current = stream;
-      setCameraEnabled(true);
-      
-      // Safety timeout - force ready after 3 seconds
-      const timeoutId = setTimeout(() => {
-        console.warn('Camera timeout - forcing ready state');
-        setIsCameraReady(true);
-      }, 3000);
-      
-      if (videoRef.current) {
-        const videoElement = videoRef.current;
-        
-        // Configure handler BEFORE assigning srcObject
-        const handleCanPlay = () => {
-          clearTimeout(timeoutId);
-          videoElement.play()
-            .then(() => {
-              setIsCameraReady(true);
-            })
-            .catch(() => {
-              setIsCameraReady(true);
-            });
-        };
-        
-        videoElement.addEventListener('canplay', handleCanPlay, { once: true });
-        videoElement.srcObject = stream;
-        
-        // Edge case: video already ready
-        if (videoElement.readyState >= 3) {
-          clearTimeout(timeoutId);
-          setIsCameraReady(true);
-          videoElement.play().catch(() => {});
-        }
-      }
+      setCameraEnabled(true); // Esto dispara el render del <video>, luego el useEffect lo conecta
     } catch (err) {
       console.error('Camera access error:', err);
       setError('No se pudo acceder a la cámara. Verifica los permisos.');
     }
   }, []);
+
+  // Este useEffect conecta el stream al video DESPUÉS de que React renderice el elemento
+  useEffect(() => {
+    if (!cameraEnabled || !streamRef.current || isCameraReady) return;
+    
+    // Esperar al próximo frame para asegurar que el video está en el DOM
+    const frameId = requestAnimationFrame(() => {
+      const videoElement = videoRef.current;
+      if (!videoElement || !streamRef.current) return;
+      
+      console.log('Connecting stream to video element...');
+      
+      // Safety timeout
+      const timeoutId = setTimeout(() => {
+        console.warn('Camera timeout - forcing ready state');
+        setIsCameraReady(true);
+      }, 3000);
+      
+      const handleCanPlay = () => {
+        console.log('Video canplay event fired');
+        clearTimeout(timeoutId);
+        setIsCameraReady(true);
+      };
+      
+      videoElement.addEventListener('canplay', handleCanPlay, { once: true });
+      videoElement.srcObject = streamRef.current;
+      videoElement.play().catch(() => {});
+      
+      // Si ya está listo
+      if (videoElement.readyState >= 3) {
+        console.log('Video already ready');
+        clearTimeout(timeoutId);
+        setIsCameraReady(true);
+      }
+    });
+    
+    return () => cancelAnimationFrame(frameId);
+  }, [cameraEnabled, isCameraReady]);
 
   const disableCamera = useCallback(() => {
     if (streamRef.current) {
