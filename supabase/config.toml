@@ -26,3 +26,6 @@ verify_jwt = true
 
 [functions.cv-generate-suggestions]
 verify_jwt = true
+
+[functions.parse-cv-pdf]
+verify_jwt = true

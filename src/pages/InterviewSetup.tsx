@@ -11,8 +11,10 @@ import { useInterviewStore } from "@/store/useInterviewStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCVStore } from "@/store/useCVStore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Briefcase, FileText, Check } from "lucide-react";
+import { Loader2, Briefcase, FileText, Check, Upload, X } from "lucide-react";
 import { ResponseModeSelector, type ResponseMode } from "@/components/interview/ResponseModeSelector";
+import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 import type { InterviewLevel, CVData } from "@/types";
 
 // Helper to convert CV data to text for AI context
@@ -76,6 +78,20 @@ const cvToText = (cv: CVData): string => {
   return text;
 };
 
+// Helper to convert file to base64
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove the prefix "data:application/pdf;base64,"
+      resolve(result.split(',')[1]);
+    };
+    reader.onerror = reject;
+  });
+};
+
 export default function InterviewSetup() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -90,6 +106,69 @@ export default function InterviewSetup() {
   const [responseMode, setResponseMode] = useState<ResponseMode>("text");
   const [selectedCVId, setSelectedCVId] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  // PDF upload state
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedCVContent, setUploadedCVContent] = useState<string | null>(null);
+  const [isParsingPDF, setIsParsingPDF] = useState(false);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    
+    if (file.type !== 'application/pdf') {
+      toast({ 
+        title: t('common.error'), 
+        description: t('interviews.setup.pdfOnly'), 
+        variant: 'destructive' 
+      });
+      return;
+    }
+    
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ 
+        title: t('common.error'), 
+        description: t('interviews.setup.fileTooLarge'), 
+        variant: 'destructive' 
+      });
+      return;
+    }
+    
+    setUploadedFile(file);
+    setSelectedCVId(null);
+    setIsParsingPDF(true);
+    
+    try {
+      const base64 = await fileToBase64(file);
+      
+      const { data, error } = await supabase.functions.invoke('parse-cv-pdf', {
+        body: { pdfBase64: base64, fileName: file.name }
+      });
+      
+      if (error) throw error;
+      
+      setUploadedCVContent(data.cvContent);
+      toast({ 
+        title: t('interviews.setup.cvProcessed'),
+        description: t('interviews.setup.cvProcessedDesc')
+      });
+    } catch (err) {
+      console.error('Error parsing PDF:', err);
+      toast({ 
+        title: t('common.error'), 
+        description: t('interviews.setup.pdfError'), 
+        variant: 'destructive' 
+      });
+      setUploadedFile(null);
+    } finally {
+      setIsParsingPDF(false);
+    }
+  };
+
+  const clearUploadedFile = () => {
+    setUploadedFile(null);
+    setUploadedCVContent(null);
+  };
 
   const handleStart = async () => {
     if (!role || !user) return;
@@ -97,19 +176,19 @@ export default function InterviewSetup() {
     setIsGenerating(true);
     
     try {
-      // Extract CV content if a CV is selected
+      // Priority: Uploaded PDF > Selected CV
       let cvContent: string | undefined;
-      if (selectedCVId) {
+      if (uploadedCVContent) {
+        cvContent = uploadedCVContent;
+      } else if (selectedCVId) {
         const selectedCV = cvs.find(cv => cv.id === selectedCVId);
         if (selectedCV) {
           cvContent = cvToText(selectedCV);
         }
       }
       
-      // Generate questions with AI based on role, level, description and CV
       await seedQuestions(role, level, jobDescription || undefined, cvContent);
       
-      // Store response mode in localStorage
       localStorage.setItem('clovely_interview_response_mode', responseMode);
       
       startSession({
@@ -192,14 +271,20 @@ export default function InterviewSetup() {
             </p>
           </div>
 
-          {/* Selección de CV */}
-          <div className="space-y-2">
-            <Label htmlFor="cv">{t('interviews.setup.selectCV')} ({t('common.optional')})</Label>
+          {/* CV Section - Select saved CV OR Upload PDF */}
+          <div className="space-y-3">
+            <Label>{t('interviews.setup.selectCV')} ({t('common.optional')})</Label>
+            
+            {/* Saved CVs Selector */}
             <Select 
               value={selectedCVId || "none"} 
-              onValueChange={(v) => setSelectedCVId(v === "none" ? null : v)}
+              onValueChange={(v) => {
+                setSelectedCVId(v === "none" ? null : v);
+                clearUploadedFile();
+              }}
+              disabled={!!uploadedFile}
             >
-              <SelectTrigger id="cv" className="min-h-[48px] rounded-xl">
+              <SelectTrigger className="min-h-[48px] rounded-xl">
                 <SelectValue placeholder={t('interviews.setup.selectCVPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
@@ -214,12 +299,66 @@ export default function InterviewSetup() {
                 ))}
               </SelectContent>
             </Select>
+            
             {selectedCVId && (
               <div className="flex items-center gap-2 text-xs text-primary">
                 <Check className="w-3 h-3" />
                 <span>{t('interviews.setup.cvSelected')}</span>
               </div>
             )}
+            
+            {/* Separator */}
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex-1 h-px bg-border" />
+              <span>{t('common.or')}</span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+            
+            {/* PDF Upload Zone */}
+            <div className="relative">
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleFileUpload}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                disabled={isParsingPDF || !!selectedCVId}
+              />
+              <div className={cn(
+                "border-2 border-dashed rounded-xl p-4 text-center transition-colors",
+                uploadedFile ? "border-primary bg-primary/5" : "border-muted-foreground/25 hover:border-primary/50",
+                (isParsingPDF || !!selectedCVId) && "opacity-50 cursor-not-allowed"
+              )}>
+                {isParsingPDF ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin text-primary" />
+                    <span className="text-sm">{t('interviews.setup.processingPDF')}</span>
+                  </div>
+                ) : uploadedFile ? (
+                  <div className="flex items-center justify-center gap-2 text-primary">
+                    <Check className="w-5 h-5" />
+                    <span className="text-sm font-medium">{uploadedFile.name}</span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="h-6 w-6 p-0 ml-1"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        clearUploadedFile();
+                      }}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-1">
+                    <Upload className="w-6 h-6 text-muted-foreground" />
+                    <span className="text-sm">{t('interviews.setup.uploadCV')}</span>
+                    <span className="text-xs text-muted-foreground">{t('interviews.setup.maxFileSize')}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+            
             <p className="text-xs text-muted-foreground">
               {t('interviews.setup.cvHint')}
             </p>
@@ -231,7 +370,7 @@ export default function InterviewSetup() {
 
         <Button 
           onClick={handleStart} 
-          disabled={!role || isGenerating} 
+          disabled={!role || isGenerating || isParsingPDF} 
           size="lg"
           className="w-full min-h-[52px] text-base font-semibold rounded-xl"
         >
