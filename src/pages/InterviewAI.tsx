@@ -22,7 +22,7 @@ declare global {
   }
 }
 
-const INTERVIEWER_AGENT_ID = 'agent_3301kc7wq2the5y8j9edv17an529';
+const INTERVIEWER_AGENT_ID = 'agent_0401kc7ye4zyeecsx8v92kg4cv46';
 
 type ChatMessage = {
   id: string;
