@@ -19,7 +19,8 @@
     "all": "All",
     "none": "None",
     "optional": "Optional",
-    "required": "Required"
+    "required": "Required",
+    "or": "or"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -110,6 +111,14 @@
       "noCV": "No CV",
       "cvSelected": "CV selected - questions will be personalized",
       "cvHint": "Including your CV allows generating questions about your specific experience",
+      "uploadCV": "Upload CV (PDF)",
+      "maxFileSize": "Maximum 5MB",
+      "processingPDF": "Processing PDF...",
+      "cvProcessed": "CV processed",
+      "cvProcessedDesc": "AI has extracted the information from your CV",
+      "pdfOnly": "Only PDF files are accepted",
+      "fileTooLarge": "File is too large (max 5MB)",
+      "pdfError": "Could not process the PDF",
       "generateQuestions": "Generate Interview Questions",
       "generating": "Generating Interview Questions...",
       "questionsNote": "10 personalized questions will be generated based on your profile"
