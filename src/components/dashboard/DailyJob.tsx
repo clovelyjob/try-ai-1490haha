@@ -25,27 +25,33 @@ export function DailyJob() {
 
   useEffect(() => {
     const fetchDailyJob = async () => {
-      // Check cache first
-      const cached = localStorage.getItem(DAILY_JOB_CACHE_KEY);
-      if (cached) {
-        const parsedCache: CachedDailyJob = JSON.parse(cached);
-        const isValid = Date.now() - parsedCache.timestamp < CACHE_DURATION;
-        if (isValid && parsedCache.job) {
-          setDailyJob(parsedCache.job);
-          setIsLoading(false);
-          return;
-        }
-      }
-
       try {
-        // Load opportunities if not loaded
+        // Load opportunities first if not loaded
         if (opportunities.length === 0) {
           await loadOpportunities({ query: 'software developer', page: 1 });
         }
 
-        // Get loaded opportunities
         const currentOpportunities = useOpportunitiesStore.getState().opportunities;
         
+        // Check cache and validate it still exists in store
+        const cached = localStorage.getItem(DAILY_JOB_CACHE_KEY);
+        if (cached) {
+          const parsedCache: CachedDailyJob = JSON.parse(cached);
+          const isValid = Date.now() - parsedCache.timestamp < CACHE_DURATION;
+          
+          // Verify the cached job still exists in current opportunities
+          const cachedJobExists = currentOpportunities.some(opp => opp.id === parsedCache.job.id);
+          
+          if (isValid && parsedCache.job && cachedJobExists) {
+            setDailyJob(parsedCache.job);
+            setIsLoading(false);
+            return;
+          } else {
+            // Clear invalid cache
+            localStorage.removeItem(DAILY_JOB_CACHE_KEY);
+          }
+        }
+
         if (currentOpportunities.length > 0) {
           // Calculate match scores and get highest
           let bestJob: Opportunity & { matchScore?: number } = currentOpportunities[0];
@@ -68,29 +74,14 @@ export function DailyJob() {
           localStorage.setItem(DAILY_JOB_CACHE_KEY, JSON.stringify(cacheData));
           
           setDailyJob(bestJob);
+        } else {
+          // No opportunities available
+          setDailyJob(null);
         }
       } catch (error) {
         console.error('Error fetching daily job:', error);
-        // Use fallback mock data
-        setDailyJob({
-          id: 'mock_daily',
-          title: 'Software Engineer',
-          company: 'Tech Company',
-          location: 'Remote',
-          matchScore: 85,
-          publishedAt: new Date().toISOString(),
-          tags: ['React', 'TypeScript', 'Node.js'],
-          contractType: 'full-time',
-          modality: 'remote',
-          category: 'technology',
-          description: 'Great opportunity for a software engineer',
-          requirements: [],
-          benefits: [],
-          expiresAt: null,
-          source: 'Clovely',
-          views: 0,
-          applicantsCount: 0
-        });
+        // On error, show null instead of fake data
+        setDailyJob(null);
       } finally {
         setIsLoading(false);
       }
@@ -137,7 +128,19 @@ export function DailyJob() {
   }
 
   if (!dailyJob) {
-    return null;
+    return (
+      <Card className="p-6 border-2 border-primary/10 rounded-2xl shadow-clovely-lg">
+        <div className="text-center py-4">
+          <Briefcase className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+          <p className="text-muted-foreground mb-3">No hay oportunidades disponibles</p>
+          <Link to="/dashboard/opportunities">
+            <Button variant="outline" className="rounded-xl">
+              Ver todas las oportunidades
+            </Button>
+          </Link>
+        </div>
+      </Card>
+    );
   }
 
   return (
