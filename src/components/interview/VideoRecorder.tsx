@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Video, Square, Play, RotateCcw, Pause, Camera, CameraOff } from 'lucide-react';
+import { Video, Square, Play, RotateCcw, Pause, Camera, CameraOff, Loader2 } from 'lucide-react';
 
 interface VideoRecorderProps {
   onRecordingComplete: (blob: Blob) => void;
@@ -14,6 +14,7 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
   const [hasRecording, setHasRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null);
   const [cameraEnabled, setCameraEnabled] = useState(false);
+  const [isCameraReady, setIsCameraReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recordingTime, setRecordingTime] = useState(0);
 
@@ -33,16 +34,27 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
   const enableCamera = useCallback(async () => {
     try {
       setError(null);
+      setIsCameraReady(false);
+      
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
         audio: true
       });
       
       streamRef.current = stream;
+      setCameraEnabled(true);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play().then(() => {
+            setIsCameraReady(true);
+          }).catch((err) => {
+            console.error('Video play error:', err);
+            setIsCameraReady(true);
+          });
+        };
       }
-      setCameraEnabled(true);
     } catch (err) {
       console.error('Camera access error:', err);
       setError('No se pudo acceder a la cámara. Verifica los permisos.');
@@ -58,6 +70,7 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
       videoRef.current.srcObject = null;
     }
     setCameraEnabled(false);
+    setIsCameraReady(false);
     setIsRecording(false);
     setIsPaused(false);
   }, []);
@@ -173,13 +186,25 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
         )}
 
         {cameraEnabled && !hasRecording && (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          />
+          <>
+            {/* Loading overlay while camera initializes */}
+            {!isCameraReady && (
+              <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
+                <div className="flex flex-col items-center gap-3">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <p className="text-sm text-muted-foreground">Iniciando cámara...</p>
+                </div>
+              </div>
+            )}
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              style={{ transform: 'scaleX(-1)' }}
+            />
+          </>
         )}
 
         {hasRecording && (
@@ -210,7 +235,7 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
         {cameraEnabled && !hasRecording && (
           <>
             {!isRecording ? (
-              <Button onClick={startRecording} variant="premium" disabled={disabled}>
+              <Button onClick={startRecording} variant="premium" disabled={disabled || !isCameraReady}>
                 <Video className="w-4 h-4 mr-2" />
                 Iniciar Grabación
               </Button>

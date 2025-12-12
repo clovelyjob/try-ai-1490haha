@@ -80,9 +80,12 @@ export default function InterviewSession() {
       reader.readAsDataURL(blob);
       const base64Audio = await base64Promise;
 
-      // Call transcription edge function
+      // Call transcription edge function with mimeType
       const { data, error } = await supabase.functions.invoke('transcribe-audio', {
-        body: { audio: base64Audio }
+        body: { 
+          audio: base64Audio,
+          mimeType: blob.type || 'video/webm'
+        }
       });
 
       if (error) throw error;
@@ -90,11 +93,10 @@ export default function InterviewSession() {
       if (data?.text) {
         setAnswer(data.text);
         toast({
-          title: "Transcripción completada",
+          title: "✅ Transcripción completada",
           description: "Tu respuesta ha sido transcrita. Revísala y envíala.",
         });
       } else if (data?.message) {
-        // No transcription available, prompt user to type
         toast({
           title: "Grabación guardada",
           description: data.message,
@@ -103,8 +105,9 @@ export default function InterviewSession() {
     } catch (error) {
       console.error('Transcription error:', error);
       toast({
-        title: "Grabación completada",
-        description: "Escribe tu respuesta basándote en lo que dijiste en el video.",
+        title: "Error de transcripción",
+        description: "Escribe tu respuesta basándote en lo que dijiste.",
+        variant: "destructive",
       });
     } finally {
       setIsTranscribing(false);
