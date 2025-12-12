@@ -105,6 +105,11 @@
       "responseMode": "Response mode",
       "textMode": "Text",
       "videoMode": "Video",
+      "selectCV": "Your CV",
+      "selectCVPlaceholder": "Select a CV...",
+      "noCV": "No CV",
+      "cvSelected": "CV selected - questions will be personalized",
+      "cvHint": "Including your CV allows generating questions about your specific experience",
       "generateQuestions": "Generate Interview Questions",
       "generating": "Generating Interview Questions...",
       "questionsNote": "10 personalized questions will be generated based on your profile"

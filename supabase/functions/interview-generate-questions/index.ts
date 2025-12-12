@@ -42,6 +42,13 @@ serve(async (req) => {
       );
     }
 
+    if (body.cvContent && (typeof body.cvContent !== 'string' || body.cvContent.length > 10000)) {
+      return new Response(
+        JSON.stringify({ error: "cvContent must be a string with max 10000 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const count = body.count || 10;
     if (typeof count !== 'number' || count < 1 || count > 20) {
       return new Response(
@@ -50,7 +57,7 @@ serve(async (req) => {
       );
     }
 
-    const { role, level, jobDescription } = body;
+    const { role, level, jobDescription, cvContent } = body;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -87,6 +94,22 @@ DESCRIPCIÓN DEL PUESTO (usa esto para personalizar las preguntas):
 ${jobDescription}
 
 Asegúrate de que las preguntas sean MUY específicas para esta descripción del puesto. Incluye preguntas sobre las responsabilidades, habilidades y requisitos mencionados.`;
+    }
+
+    if (cvContent) {
+      userPrompt += `
+
+INFORMACIÓN DEL CV DEL CANDIDATO:
+${cvContent}
+
+Usa esta información para hacer preguntas MÁS PERSONALIZADAS sobre:
+- Su experiencia laboral específica mencionada en el CV
+- Los proyectos que ha realizado
+- Las habilidades técnicas que domina
+- Logros cuantificables que menciona
+- Cómo su experiencia previa se relaciona con el puesto
+
+Haz preguntas que profundicen en detalles de su experiencia real.`;
     }
 
     userPrompt += `
