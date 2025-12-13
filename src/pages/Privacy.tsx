@@ -135,7 +135,7 @@ Tienes control total sobre tus datos:
 
 **Retiro de consentimiento:** Puedes retirar tu consentimiento para comunicaciones de marketing en cualquier momento.
 
-Para ejercer cualquiera de estos derechos, contáctanos en privacidad@clovely.com. Responderemos en un máximo de 30 días.
+Para ejercer cualquiera de estos derechos, contáctanos en clovely.job@gmail.com. Responderemos en un máximo de 30 días.
       `
   }, {
     title: '6. Retención de datos',
@@ -193,7 +193,7 @@ Te recomendamos revisar esta página periódicamente.
     content: `
 Si tienes preguntas sobre esta política o el manejo de tus datos:
 
-**Email:** privacidad@clovely.com
+**Email:** clovely.job@gmail.com
 **Correo postal:** Clovely Inc., Ciudad de México, México
 
 Responderemos a todas las consultas en un máximo de 5 días hábiles.
