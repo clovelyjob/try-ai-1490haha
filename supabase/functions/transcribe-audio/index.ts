@@ -23,6 +23,18 @@ serve(async (req) => {
       );
     }
 
+    // Validate audio size (max 10MB)
+    const MAX_AUDIO_SIZE = 10 * 1024 * 1024;
+    const audioBytes = new TextEncoder().encode(audio).length;
+
+    if (audioBytes > MAX_AUDIO_SIZE) {
+      console.error('Audio file too large:', audioBytes, 'bytes');
+      return new Response(
+        JSON.stringify({ error: 'Audio file too large. Maximum size is 10MB.' }),
+        { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
     if (!OPENAI_API_KEY) {
       console.error('API_KEY_CHATGPT not configured');
