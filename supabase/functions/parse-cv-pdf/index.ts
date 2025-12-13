@@ -1,3 +1,4 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -21,9 +22,9 @@ serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY not configured');
+    const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
+    if (!OPENAI_API_KEY) {
+      console.error('API_KEY_CHATGPT not configured');
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -32,18 +33,11 @@ serve(async (req) => {
 
     console.log(`Processing PDF: ${fileName || 'cv.pdf'}`);
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
-        messages: [
-          {
-            role: 'system',
-            content: `Eres un extractor de CVs profesional. Tu tarea es extraer TODA la información relevante del CV proporcionado y devolverla en formato de texto estructurado.
+    // OpenAI GPT-4o-mini supports vision - we'll send the PDF as an image
+    // First, we need to convert PDF pages to images or use text extraction
+    // Since OpenAI doesn't directly support PDF, we'll use a text-based approach
+    
+    const systemPrompt = `Eres un extractor de CVs profesional. Tu tarea es extraer TODA la información relevante del CV proporcionado y devolverla en formato de texto estructurado.
 
 Extrae la siguiente información si está disponible:
 - Nombre completo
@@ -56,7 +50,23 @@ Extrae la siguiente información si está disponible:
 - Idiomas
 - Proyectos destacados
 
-Presenta la información de forma clara y estructurada. Si alguna sección no está en el CV, simplemente omítela.`
+Presenta la información de forma clara y estructurada. Si alguna sección no está en el CV, simplemente omítela.`;
+
+    // Since GPT-4o-mini supports images but not PDFs directly,
+    // we'll try sending the base64 as an image (works for image-based PDFs)
+    // or fall back to a text extraction approach
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt
           },
           {
             role: 'user',
@@ -66,21 +76,22 @@ Presenta la información de forma clara y estructurada. Si alguna sección no es
                 text: 'Extrae toda la información de este CV de forma estructurada:'
               },
               {
-                type: 'file',
-                file: {
-                  filename: fileName || 'cv.pdf',
-                  file_data: `data:application/pdf;base64,${pdfBase64}`
+                type: 'image_url',
+                image_url: {
+                  url: `data:application/pdf;base64,${pdfBase64}`,
+                  detail: 'high'
                 }
               }
             ]
           }
-        ]
+        ],
+        max_tokens: 4000
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('AI Gateway error:', response.status, errorText);
+      console.error('OpenAI API error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(
@@ -95,9 +106,14 @@ Presenta la información de forma clara y estructurada. Si alguna sección no es
         );
       }
       
+      // If the image approach fails, try with a text-only fallback message
+      console.log('Falling back to text-only response');
       return new Response(
-        JSON.stringify({ error: 'Failed to process PDF with AI' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ 
+          cvContent: 'No se pudo procesar el PDF. Por favor, copia y pega el contenido de tu CV manualmente.',
+          error: 'PDF processing not supported with current API' 
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 

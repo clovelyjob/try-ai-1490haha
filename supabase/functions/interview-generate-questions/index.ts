@@ -1,3 +1,4 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -59,9 +60,9 @@ serve(async (req) => {
 
     const { role, level, jobDescription, cvContent } = body;
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
+    if (!OPENAI_API_KEY) {
+      throw new Error("API_KEY_CHATGPT is not configured");
     }
 
     const levelText = level === 'junior' ? 'sin experiencia o junior' : level === 'senior' ? 'senior con mucha experiencia' : 'con algo de experiencia';
@@ -116,14 +117,14 @@ Haz preguntas que profundicen en detalles de su experiencia real.`;
 
 Genera preguntas variadas y progresivamente más desafiantes. Cada pregunta debe tener un consejo útil para que el candidato la responda bien.`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "gpt-4o-mini",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt }
@@ -189,7 +190,7 @@ Genera preguntas variadas y progresivamente más desafiantes. Cada pregunta debe
       }
       
       const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
+      console.error("OpenAI API error:", response.status, errorText);
       return new Response(
         JSON.stringify({ error: "Error al generar preguntas" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }

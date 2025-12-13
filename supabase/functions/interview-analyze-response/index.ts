@@ -1,3 +1,4 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -58,9 +59,9 @@ serve(async (req) => {
 
     const { question, answer, role, context } = body;
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
+    if (!OPENAI_API_KEY) {
+      throw new Error("API_KEY_CHATGPT is not configured");
     }
 
     const systemPrompt = `Eres un experto en recursos humanos y entrevistas de trabajo. Analizas respuestas de candidatos y proporcionas feedback constructivo, específico y accionable.`;
@@ -81,14 +82,14 @@ Proporciona un análisis en formato JSON con:
   "suggestedAnswer": "Ejemplo de una respuesta mejorada basada en lo que dijo el candidato"
 }`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "gpt-4o-mini",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt }
@@ -150,7 +151,7 @@ Proporciona un análisis en formato JSON con:
       }
       
       const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
+      console.error("OpenAI API error:", response.status, errorText);
       return new Response(
         JSON.stringify({ error: "Error al analizar la respuesta" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }

@@ -1,3 +1,4 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -12,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { audio, mimeType = 'video/webm' } = await req.json();
+    const { audio, mimeType = 'audio/webm' } = await req.json();
 
     if (!audio) {
       console.error('No audio data provided');
@@ -22,50 +23,46 @@ serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY not configured');
+    const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
+    if (!OPENAI_API_KEY) {
+      console.error('API_KEY_CHATGPT not configured');
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Sending audio to Gemini for transcription, mimeType:', mimeType);
+    console.log('Sending audio to OpenAI Whisper for transcription, mimeType:', mimeType);
 
-    // Use Lovable AI Gateway with Gemini for transcription
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    // Convert base64 to binary for Whisper API
+    const binaryAudio = Uint8Array.from(atob(audio), c => c.charCodeAt(0));
+    
+    // Determine file extension based on mimeType
+    let fileExtension = 'webm';
+    if (mimeType.includes('mp4')) fileExtension = 'mp4';
+    else if (mimeType.includes('mp3')) fileExtension = 'mp3';
+    else if (mimeType.includes('wav')) fileExtension = 'wav';
+    else if (mimeType.includes('m4a')) fileExtension = 'm4a';
+
+    // Create form data for Whisper API
+    const formData = new FormData();
+    const blob = new Blob([binaryAudio], { type: mimeType });
+    formData.append('file', blob, `audio.${fileExtension}`);
+    formData.append('model', 'whisper-1');
+    formData.append('language', 'es'); // Spanish language
+    formData.append('response_format', 'text');
+
+    const response = await fetch('https://api.openai.com/v1/audio/transcriptions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
       },
-      body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: 'Transcribe exactamente lo que dice la persona en este video/audio. Devuelve SOLO el texto transcrito, sin explicaciones, comentarios, ni formato adicional. Si no puedes entender algo, escribe [inaudible]. Si el audio está vacío o no hay habla, responde con texto vacío.'
-              },
-              {
-                type: 'file',
-                file: {
-                  filename: 'recording.webm',
-                  file_data: `data:${mimeType};base64,${audio}`
-                }
-              }
-            ]
-          }
-        ]
-      }),
+      body: formData,
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Gemini API error:', response.status, errorText);
+      console.error('OpenAI Whisper API error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(
@@ -90,13 +87,12 @@ serve(async (req) => {
       );
     }
 
-    const result = await response.json();
-    const transcribedText = result.choices?.[0]?.message?.content?.trim() || '';
+    const transcribedText = await response.text();
 
     console.log('Transcription successful, text length:', transcribedText.length);
 
     return new Response(
-      JSON.stringify({ text: transcribedText }),
+      JSON.stringify({ text: transcribedText.trim() }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
