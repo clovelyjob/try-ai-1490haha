@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star } from 'lucide-react';
+import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram } from 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
 const Landing = () => {
@@ -431,10 +431,10 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer - Simple y elegante */}
-      <footer className="py-16 bg-white dark:bg-background border-t">
+      {/* Footer Links Section */}
+      <section className="py-12 bg-background border-t">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col items-center justify-center space-y-8">
+          <div className="flex flex-col items-center justify-center space-y-6">
             <OfficialLogo size="lg" animated={false} fullVersion={true} />
             
             <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
@@ -445,10 +445,29 @@ const Landing = () => {
               <Link to="/privacy" className="hover:text-foreground transition-colors">Privacidad</Link>
               <Link to="/terms" className="hover:text-foreground transition-colors">Términos</Link>
             </div>
+          </div>
+        </div>
+      </section>
 
+      {/* Footer - Premium Minimal */}
+      <footer className="py-6 bg-muted/30 border-t border-border/50">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
               © 2025 Clovely. Todos los derechos reservados.
             </p>
+            
+            <div className="flex items-center gap-5">
+              <a 
+                href="https://www.instagram.com/clovelyia" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
