@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram, Github, Twitter, MessageCircle } from 'lucide-react';
+import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram } from 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
 const Landing = () => {
@@ -456,24 +456,6 @@ const Landing = () => {
             {/* Social Icons - First on mobile, last on desktop */}
             <div className="flex items-center gap-5 order-first sm:order-last">
               <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="X/Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Discord"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </a>
-              <a 
                 href="https://www.instagram.com/clovelyia" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -481,15 +463,6 @@ const Landing = () => {
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
               </a>
             </div>
             
@@ -500,6 +473,7 @@ const Landing = () => {
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
 export default Landing;
