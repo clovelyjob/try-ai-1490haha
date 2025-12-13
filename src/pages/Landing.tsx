@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram } from 'lucide-react';
+import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram, Github, Twitter, MessageCircle } from 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
 const Landing = () => {
@@ -453,11 +453,26 @@ const Landing = () => {
       <footer className="py-6 bg-muted/30 border-t border-border/50">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">
-              © 2025 Clovely. Todos los derechos reservados.
-            </p>
-            
-            <div className="flex items-center gap-5">
+            {/* Social Icons - First on mobile, last on desktop */}
+            <div className="flex items-center gap-5 order-first sm:order-last">
+              <a 
+                href="#" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="X/Twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a 
+                href="#" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="Discord"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </a>
               <a 
                 href="https://www.instagram.com/clovelyia" 
                 target="_blank" 
@@ -467,7 +482,21 @@ const Landing = () => {
               >
                 <Instagram className="h-5 w-5" />
               </a>
+              <a 
+                href="#" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                aria-label="GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </a>
             </div>
+            
+            {/* Copyright - Last on mobile, first on desktop */}
+            <p className="text-sm text-muted-foreground order-last sm:order-first">
+              © 2025 Clovely. Todos los derechos reservados.
+            </p>
           </div>
         </div>
       </footer>
