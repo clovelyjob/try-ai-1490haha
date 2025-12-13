@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Video, ExternalLink, Award, Globe, DollarSign } from 'lucide-react';
+import { BookOpen, Video, ExternalLink, Award, Globe, DollarSign, ChevronDown, ChevronUp } from 'lucide-react';
 import type { ProfessionalRole } from '@/types';
 
 interface Resource {
@@ -541,11 +542,17 @@ interface RecommendedResourcesProps {
 }
 
 export function RecommendedResources({ role }: RecommendedResourcesProps) {
+  const [expanded, setExpanded] = useState(false);
+  
   // Find the correct resource key for the role
   const resourceKey = role ? (ROLE_MAPPING[role] || ROLE_MAPPING[role as string]) : null;
   const resources = resourceKey && RESOURCES_BY_ROLE[resourceKey] 
     ? RESOURCES_BY_ROLE[resourceKey] 
     : RESOURCES_BY_ROLE.default;
+
+  const displayedResources = expanded ? resources : resources.slice(0, 3);
+  const hasMore = resources.length > 3;
+  const remainingCount = resources.length - 3;
 
   return (
     <Card className="p-6 rounded-2xl shadow-clovely-md">
@@ -565,7 +572,7 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
         </div>
 
         <div className="space-y-3">
-          {resources.map((resource) => {
+          {displayedResources.map((resource) => {
             const Icon = getResourceIcon(resource.type);
             const badgeColors = {
               course: 'bg-primary text-primary-foreground',
@@ -635,6 +642,26 @@ export function RecommendedResources({ role }: RecommendedResourcesProps) {
             );
           })}
         </div>
+
+        {hasMore && (
+          <Button
+            variant="ghost"
+            className="w-full text-sm hover:bg-primary/5"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? (
+              <>
+                Ver menos
+                <ChevronUp className="h-4 w-4 ml-2" />
+              </>
+            ) : (
+              <>
+                Ver más ({remainingCount} recurso{remainingCount > 1 ? 's' : ''} más)
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </>
+            )}
+          </Button>
+        )}
       </div>
     </Card>
   );
