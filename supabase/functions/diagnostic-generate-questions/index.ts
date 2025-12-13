@@ -18,9 +18,9 @@ serve(async (req) => {
       throw new Error('previousAnswers is required');
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY not configured');
+    const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
+    if (!OPENAI_API_KEY) {
+      throw new Error('API_KEY_CHATGPT not configured');
     }
 
     // Construir el contexto de las respuestas previas
@@ -51,14 +51,14 @@ Genera también 6 sugerencias de respuestas rápidas que sean relevantes a la pr
       ? `Basándote en estos intereses del usuario: ${previousAnswers.intereses?.join(', ') || 'no especificados'}, genera una pregunta para entender mejor sus objetivos profesionales.`
       : `Basándote en esta información del usuario:\n${context}\nGenera una pregunta final para entender qué herramientas, tecnologías o metodologías le interesan o domina.`;
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
+        model: 'gpt-4o-mini',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
@@ -100,7 +100,7 @@ Genera también 6 sugerencias de respuestas rápidas que sean relevantes a la pr
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('AI Gateway error:', response.status, errorText);
+      console.error('OpenAI API error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(
@@ -116,7 +116,7 @@ Genera también 6 sugerencias de respuestas rápidas que sean relevantes a la pr
         );
       }
 
-      throw new Error(`AI Gateway error: ${response.status}`);
+      throw new Error(`OpenAI API error: ${response.status}`);
     }
 
     const data = await response.json();
