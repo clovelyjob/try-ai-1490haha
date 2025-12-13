@@ -452,24 +452,19 @@ const Landing = () => {
       {/* Footer - Premium Minimal */}
       <footer className="py-6 bg-muted/30 border-t border-border/50">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            {/* Social Icons - First on mobile, last on desktop */}
-            <div className="flex items-center order-first sm:order-last">
-              <a 
-                href="https://www.instagram.com/clovelyia" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-            
-            {/* Copyright - Last on mobile, first on desktop */}
-            <p className="text-sm text-muted-foreground order-last sm:order-first">
+          <div className="flex items-center justify-between">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               © 2025 Clovely. Todos los derechos reservados.
             </p>
+            <a 
+              href="https://www.instagram.com/clovelyia" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
           </div>
         </div>
       </footer>
