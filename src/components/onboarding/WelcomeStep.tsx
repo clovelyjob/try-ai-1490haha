@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ClipboardList, Brain, Rocket } from 'lucide-react';
 import Confetti from 'react-confetti';
 import { useEffect, useState } from 'react';
 interface WelcomeStepProps {
@@ -86,8 +86,8 @@ export const WelcomeStep = ({
             }} transition={{
               delay: 0.6
             }} className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center shrink-0 shadow-md">
-                  <span className="text-white font-bold text-lg">1</span>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 shadow-md ring-2 ring-primary/20">
+                  <ClipboardList className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-semibold text-lg">Diagnóstico personalizado</p>
@@ -106,8 +106,8 @@ export const WelcomeStep = ({
             }} transition={{
               delay: 0.7
             }} className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center shrink-0 shadow-md">
-                  <span className="text-white font-bold text-lg">2</span>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 shadow-md ring-2 ring-primary/20">
+                  <Brain className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-semibold text-lg">Análisis con IA</p>
@@ -126,8 +126,8 @@ export const WelcomeStep = ({
             }} transition={{
               delay: 0.8
             }} className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center shrink-0 shadow-md">
-                  <span className="text-white font-bold text-lg">3</span>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 shadow-md ring-2 ring-primary/20">
+                  <Rocket className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-semibold text-lg">Tu ruta personalizada</p>
