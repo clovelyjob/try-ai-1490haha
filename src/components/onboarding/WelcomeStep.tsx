@@ -154,16 +154,7 @@ export const WelcomeStep = ({
           </Card>
         </motion.div>
 
-        <motion.p initial={{
-        opacity: 0
-      }} animate={{
-        opacity: 1
-      }} transition={{
-        delay: 1
-      }} className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-          <span className="text-xl">⏱️</span>
-          <span>Tiempo estimado: <span className="font-semibold text-primary">10 minutos</span></span>
-        </motion.p>
+        
       </motion.div>
     </>;
 };
