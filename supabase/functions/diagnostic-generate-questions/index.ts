@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,15 +13,41 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { previousAnswers, currentStep } = await req.json();
     
     if (!previousAnswers) {
-      throw new Error('previousAnswers is required');
+      return new Response(
+        JSON.stringify({ error: 'previousAnswers is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
     if (!OPENAI_API_KEY) {
-      throw new Error('API_KEY_CHATGPT not configured');
+      console.error('[Internal] API key not configured');
+      return new Response(
+        JSON.stringify({ error: 'Error de configuración del servicio.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Construir el contexto de las respuestas previas
@@ -99,45 +126,53 @@ Genera también 6 sugerencias de respuestas rápidas que sean relevantes a la pr
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('OpenAI API error:', response.status, errorText);
+      const statusCode = response.status;
+      console.error('[Internal] AI API error:', statusCode);
       
-      if (response.status === 429) {
+      if (statusCode === 429) {
         return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again in a few moments.' }),
+          JSON.stringify({ error: 'Demasiadas solicitudes. Por favor espera unos momentos.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
-      if (response.status === 402) {
+      if (statusCode === 402) {
         return new Response(
-          JSON.stringify({ error: 'Insufficient credits. Please add credits to continue.' }),
+          JSON.stringify({ error: 'Límite de uso alcanzado.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
-      throw new Error(`OpenAI API error: ${response.status}`);
+      return new Response(
+        JSON.stringify({ error: 'Error al generar preguntas. Por favor intenta de nuevo.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const data = await response.json();
-    console.log('AI Response:', JSON.stringify(data, null, 2));
 
     const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
     if (!toolCall) {
-      throw new Error('No tool call in AI response');
+      console.error('[Internal] No tool call in AI response');
+      return new Response(
+        JSON.stringify({ error: 'Error al generar preguntas. Por favor intenta de nuevo.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const result = JSON.parse(toolCall.function.arguments);
+
+    console.log(`[${user.id}] Diagnostic question generated successfully`);
 
     return new Response(
       JSON.stringify(result),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
-  } catch (error: any) {
-    console.error('Error in diagnostic-generate-questions:', error);
+  } catch (error) {
+    console.error('[Internal] Error in diagnostic-generate-questions:', error);
     return new Response(
-      JSON.stringify({ error: error.message || 'Internal server error' }),
+      JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

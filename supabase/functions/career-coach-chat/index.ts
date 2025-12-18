@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,6 +13,25 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const body = await req.json();
     
     // Input validation
@@ -49,7 +69,11 @@ serve(async (req) => {
     const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
     
     if (!OPENAI_API_KEY) {
-      throw new Error("API_KEY_CHATGPT is not configured");
+      console.error("[Internal] API key not configured");
+      return new Response(
+        JSON.stringify({ error: "Error de configuración del servicio." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const systemPrompt = `Eres un Career Coach experto de Clovely, una plataforma de desarrollo profesional cálida y humana. Tu misión es ayudar a profesionales a crecer en sus carreras con empatía, motivación y consejos prácticos.
@@ -102,50 +126,50 @@ El usuario tiene acceso a:
     });
 
     if (!response.ok) {
-      if (response.status === 429) {
+      const statusCode = response.status;
+      console.error("[Internal] AI API error:", statusCode);
+      
+      if (statusCode === 429) {
         return new Response(
-          JSON.stringify({ error: "Rate limit alcanzado. Por favor intenta en unos momentos." }),
-          {
-            status: 429,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-          }
+          JSON.stringify({ error: "Demasiadas solicitudes. Por favor espera unos momentos." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      if (response.status === 402) {
+      if (statusCode === 402) {
         return new Response(
-          JSON.stringify({ error: "Límite de créditos alcanzado. Por favor contacta al administrador." }),
-          {
-            status: 402,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-          }
+          JSON.stringify({ error: "Límite de uso alcanzado." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      const errorText = await response.text();
-      console.error("OpenAI API error:", response.status, errorText);
-      throw new Error("Error en la IA. Por favor intenta de nuevo.");
+      
+      return new Response(
+        JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const data = await response.json();
     const assistantMessage = data.choices?.[0]?.message?.content;
 
     if (!assistantMessage) {
-      throw new Error("No se recibió respuesta de la IA");
+      console.error("[Internal] No response content from AI");
+      return new Response(
+        JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
+
+    console.log(`[${user.id}] Career coach chat successful`);
 
     return new Response(
       JSON.stringify({ message: assistantMessage }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Career coach error:", error);
+    console.error("[Internal] Career coach error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Error desconocido" }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
