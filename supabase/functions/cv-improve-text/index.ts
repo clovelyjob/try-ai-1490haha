@@ -6,6 +6,24 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Function to clean quotes from AI response
+function cleanQuotes(text: string): string {
+  let cleaned = text.trim();
+  // Remove double quotes at start and end
+  if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
+    cleaned = cleaned.slice(1, -1);
+  }
+  // Remove single quotes at start and end
+  if (cleaned.startsWith("'") && cleaned.endsWith("'")) {
+    cleaned = cleaned.slice(1, -1);
+  }
+  // Remove backticks at start and end
+  if (cleaned.startsWith('`') && cleaned.endsWith('`')) {
+    cleaned = cleaned.slice(1, -1);
+  }
+  return cleaned.trim();
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -67,7 +85,9 @@ FORMATO PROFESIONAL:
 5. Usa lenguaje profesional y confiado
 
 EJEMPLO:
-"Product Manager orientado a resultados con más de 5 años impulsando crecimiento en startups SaaS. Lideré lanzamientos de productos que generaron $3M en ARR y mejoré la retención de usuarios en 40% mediante optimización basada en datos. Apasionado por construir productos que resuelven problemas reales de clientes a escala."`
+Product Manager orientado a resultados con más de 5 años impulsando crecimiento en startups SaaS. Lideré lanzamientos de productos que generaron $3M en ARR y mejoré la retención de usuarios en 40% mediante optimización basada en datos. Apasionado por construir productos que resuelven problemas reales de clientes a escala.
+
+IMPORTANTE: Devuelve SOLO el texto mejorado, sin comillas, sin caracteres especiales alrededor.`
           : `You are a professional advisor specializing in professional summaries. You craft compelling 2-3 sentence summaries that highlight achievements and value proposition.
 
 PROFESSIONAL FORMAT:
@@ -78,21 +98,31 @@ PROFESSIONAL FORMAT:
 5. Use confident, professional language
 
 EXAMPLE:
-"Results-driven Product Manager with 5+ years driving growth in SaaS startups. Led product launches generating $3M in ARR and improved user retention by 40% through data-driven feature optimization. Passionate about building products that solve real customer problems at scale."`;
+Results-driven Product Manager with 5+ years driving growth in SaaS startups. Led product launches generating $3M in ARR and improved user retention by 40% through data-driven feature optimization. Passionate about building products that solve real customer problems at scale.
+
+IMPORTANT: Return ONLY the improved text, without quotes or special characters around it.`;
 
         userPrompt = language === 'es'
           ? `Transforma este resumen profesional en un resumen de estilo profesional (máximo 2-3 oraciones).
 
-ORIGINAL: "${text}"
+TEXTO ORIGINAL:
+---
+${text}
+---
+
 CONTEXTO: ${context || 'CV Profesional'}
 
-Enfócalo en logros, incluye métricas si es posible, y muestra una propuesta de valor clara. Devuelve SOLO el resumen mejorado EN ESPAÑOL.`
+Enfócalo en logros, incluye métricas si es posible, y muestra una propuesta de valor clara. Devuelve SOLO el resumen mejorado EN ESPAÑOL, sin comillas ni caracteres especiales alrededor del resultado.`
           : `Transform this professional summary into a professional-style summary (2-3 sentences max).
 
-ORIGINAL: "${text}"
+ORIGINAL TEXT:
+---
+${text}
+---
+
 CONTEXT: ${context || 'Professional CV'}
 
-Make it achievement-focused, include metrics if possible, and show clear value proposition. Return ONLY the improved summary IN ENGLISH.`;
+Make it achievement-focused, include metrics if possible, and show clear value proposition. Return ONLY the improved summary IN ENGLISH, without quotes or special characters around the result.`;
         break;
       
       case "experience":
@@ -136,11 +166,13 @@ REGLAS CRÍTICAS:
 FORMATO: "Verbo de Acción + Tarea + Resultado Cuantificable"
 
 EJEMPLOS:
-✓ "Supervisé equipo de 8 personas para completar proyecto 3 semanas antes de lo programado"
-✓ "Incrementé ingresos por ventas en 25% mediante alcance estratégico a clientes"
-✓ "Analicé datos de más de 500 encuestas para identificar tendencias clave de clientes"
-✗ "Ayudé con proyectos del equipo"
-✗ "Responsable de ventas"`
+✓ Supervisé equipo de 8 personas para completar proyecto 3 semanas antes de lo programado
+✓ Incrementé ingresos por ventas en 25% mediante alcance estratégico a clientes
+✓ Analicé datos de más de 500 encuestas para identificar tendencias clave de clientes
+✗ Ayudé con proyectos del equipo
+✗ Responsable de ventas
+
+IMPORTANTE: Devuelve SOLO el texto mejorado, sin comillas, sin caracteres especiales alrededor.`
           : `You are a professional career advisor. Transform experience descriptions into professional achievement bullets following official guidelines.
 
 OFFICIAL PROFESSIONAL GUIDELINES:
@@ -179,16 +211,22 @@ CRITICAL RULES:
 - 1-2 lines maximum
 
 EXAMPLES:
-❌ BAD: "I was responsible for managing team"
-✅ GOOD: "Supervised team of 8 to complete project 3 weeks ahead of schedule"
+❌ BAD: I was responsible for managing team
+✅ GOOD: Supervised team of 8 to complete project 3 weeks ahead of schedule
 
-❌ BAD: "Worked on marketing"  
-✅ GOOD: "Developed 5 campaigns increasing engagement 40% and generating 200+ leads"`;
+❌ BAD: Worked on marketing  
+✅ GOOD: Developed 5 campaigns increasing engagement 40% and generating 200+ leads
+
+IMPORTANT: Return ONLY the improved text, without quotes or special characters around it.`;
 
         userPrompt = language === 'es'
           ? `Transforma este bullet de experiencia en un bullet de logro de estilo profesional oficial.
 
-ORIGINAL: "${text}"
+TEXTO ORIGINAL:
+---
+${text}
+---
+
 CONTEXTO: ${context || 'Experiencia Profesional'}
 
 REQUISITOS:
@@ -199,10 +237,14 @@ REQUISITOS:
 - Sin abreviaturas
 - Basado en hechos
 
-Devuelve SOLO el bullet point mejorado EN ESPAÑOL.`
+Devuelve SOLO el bullet point mejorado EN ESPAÑOL, sin comillas ni caracteres especiales alrededor del resultado.`
           : `Transform this experience bullet into an official professional-style achievement bullet.
 
-ORIGINAL: "${text}"
+ORIGINAL TEXT:
+---
+${text}
+---
+
 CONTEXT: ${context || 'Professional Experience'}
 
 REQUIREMENTS:
@@ -213,18 +255,36 @@ REQUIREMENTS:
 - No abbreviations
 - Fact-based
 
-Return ONLY the improved bullet point IN ENGLISH.`;
+Return ONLY the improved bullet point IN ENGLISH, without quotes or special characters around the result.`;
         break;
       
       case "education":
       case "general":
       default:
         systemPrompt = language === 'es'
-          ? `Eres un experto profesional en redacción de CVs. Mejora el texto para que sea claro, conciso y profesional manteniendo la precisión.`
-          : `You are a professional CV writing expert. Improve the text to be clear, concise, and professional while maintaining accuracy.`;
+          ? `Eres un experto profesional en redacción de CVs. Mejora el texto para que sea claro, conciso y profesional manteniendo la precisión.
+
+IMPORTANTE: Devuelve SOLO el texto mejorado, sin comillas, sin caracteres especiales alrededor.`
+          : `You are a professional CV writing expert. Improve the text to be clear, concise, and professional while maintaining accuracy.
+
+IMPORTANT: Return ONLY the improved text, without quotes or special characters around it.`;
         userPrompt = language === 'es'
-          ? `Mejora este texto para un CV profesional:\n\n"${text}"\n\nDevuelve SOLO el texto mejorado EN ESPAÑOL.`
-          : `Improve this text for a professional CV:\n\n"${text}"\n\nReturn ONLY the improved text IN ENGLISH.`;
+          ? `Mejora este texto para un CV profesional:
+
+TEXTO ORIGINAL:
+---
+${text}
+---
+
+Devuelve SOLO el texto mejorado EN ESPAÑOL, sin comillas ni caracteres especiales alrededor del resultado.`
+          : `Improve this text for a professional CV:
+
+ORIGINAL TEXT:
+---
+${text}
+---
+
+Return ONLY the improved text IN ENGLISH, without quotes or special characters around the result.`;
     }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -266,7 +326,8 @@ Return ONLY the improved bullet point IN ENGLISH.`;
     }
 
     const data = await response.json();
-    const improvedText = data.choices[0].message.content;
+    // Clean quotes from AI response
+    const improvedText = cleanQuotes(data.choices[0].message.content);
 
     console.log("Text improved successfully");
 
