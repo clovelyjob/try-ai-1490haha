@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,10 +13,28 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { pdfBase64, fileName } = await req.json();
     
     if (!pdfBase64) {
-      console.error('No PDF provided');
       return new Response(
         JSON.stringify({ error: 'No PDF provided' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -24,19 +43,15 @@ serve(async (req) => {
 
     const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
     if (!OPENAI_API_KEY) {
-      console.error('API_KEY_CHATGPT not configured');
+      console.error('[Internal] API key not configured');
       return new Response(
-        JSON.stringify({ error: 'API key not configured' }),
+        JSON.stringify({ error: 'Error de configuración del servicio.' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log(`Processing PDF: ${fileName || 'cv.pdf'}`);
+    console.log(`[${user.id}] Processing PDF: ${fileName || 'cv.pdf'}`);
 
-    // OpenAI GPT-4o-mini supports vision - we'll send the PDF as an image
-    // First, we need to convert PDF pages to images or use text extraction
-    // Since OpenAI doesn't directly support PDF, we'll use a text-based approach
-    
     const systemPrompt = `Eres un extractor de CVs profesional. Tu tarea es extraer TODA la información relevante del CV proporcionado y devolverla en formato de texto estructurado.
 
 Extrae la siguiente información si está disponible:
@@ -52,9 +67,6 @@ Extrae la siguiente información si está disponible:
 
 Presenta la información de forma clara y estructurada. Si alguna sección no está en el CV, simplemente omítela.`;
 
-    // Since GPT-4o-mini supports images but not PDFs directly,
-    // we'll try sending the base64 as an image (works for image-based PDFs)
-    // or fall back to a text extraction approach
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -90,28 +102,28 @@ Presenta la información de forma clara y estructurada. Si alguna sección no es
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('OpenAI API error:', response.status, errorText);
+      const statusCode = response.status;
+      console.error('[Internal] AI API error:', statusCode);
       
-      if (response.status === 429) {
+      if (statusCode === 429) {
         return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }),
+          JSON.stringify({ error: 'Demasiadas solicitudes. Por favor espera unos momentos.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
-      if (response.status === 402) {
+      if (statusCode === 402) {
         return new Response(
-          JSON.stringify({ error: 'Payment required. Please add credits.' }),
+          JSON.stringify({ error: 'Límite de uso alcanzado.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
-      // If the image approach fails, try with a text-only fallback message
-      console.log('Falling back to text-only response');
+      // Fallback response
+      console.log(`[${user.id}] PDF processing failed, returning fallback`);
       return new Response(
         JSON.stringify({ 
           cvContent: 'No se pudo procesar el PDF. Por favor, copia y pega el contenido de tu CV manualmente.',
-          error: 'PDF processing not supported with current API' 
+          error: 'Error al procesar el documento' 
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -120,7 +132,7 @@ Presenta la información de forma clara y estructurada. Si alguna sección no es
     const result = await response.json();
     const extractedText = result.choices?.[0]?.message?.content || '';
 
-    console.log('Successfully extracted CV content');
+    console.log(`[${user.id}] Successfully extracted CV content`);
 
     return new Response(
       JSON.stringify({ cvContent: extractedText }),
@@ -128,9 +140,9 @@ Presenta la información de forma clara y estructurada. Si alguna sección no es
     );
 
   } catch (err) {
-    console.error('Error parsing PDF:', err);
+    console.error('[Internal] Error parsing PDF:', err);
     return new Response(
-      JSON.stringify({ error: 'Failed to parse PDF' }),
+      JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

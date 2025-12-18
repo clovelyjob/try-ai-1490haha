@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RAPIDAPI_KEY = Deno.env.get('RAPIDAPI_KEY');
 
@@ -54,6 +55,16 @@ interface TransformedOpportunity {
   views: number;
   applicantsCount: number;
   applyUrl?: string;
+}
+
+// Input sanitization function
+function sanitizeSearchInput(input: string): string {
+  if (!input || typeof input !== 'string') return '';
+  // Remove special characters, keep only alphanumeric, spaces, hyphens, and common punctuation
+  return input
+    .trim()
+    .slice(0, 100) // Maximum 100 characters
+    .replace(/[^a-zA-Z0-9\s\-.,áéíóúñÁÉÍÓÚÑüÜ]/g, '');
 }
 
 function mapEmploymentType(type: string): 'internship' | 'part-time' | 'full-time' | 'contract' {
@@ -141,18 +152,41 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión.", data: [] }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const url = new URL(req.url);
-    const query = url.searchParams.get('query') || 'developer';
-    const location = url.searchParams.get('location') || '';
-    const page = parseInt(url.searchParams.get('page') || '1');
-    const employment_types = url.searchParams.get('employment_types') || '';
+    
+    // Sanitize and validate inputs
+    const query = sanitizeSearchInput(url.searchParams.get('query') || 'developer') || 'developer';
+    const location = sanitizeSearchInput(url.searchParams.get('location') || '');
+    const page = Math.min(Math.max(parseInt(url.searchParams.get('page') || '1') || 1, 1), 10); // Limit pages 1-10
+    const employment_types = sanitizeSearchInput(url.searchParams.get('employment_types') || '');
     const remote_only = url.searchParams.get('remote_only') === 'true';
-    const date_posted = url.searchParams.get('date_posted') || 'all';
+    const date_posted = ['all', 'today', '3days', 'week', 'month'].includes(url.searchParams.get('date_posted') || 'all') 
+      ? url.searchParams.get('date_posted') 
+      : 'all';
 
     if (!RAPIDAPI_KEY) {
-      console.error('RAPIDAPI_KEY not configured');
+      console.error('[Internal] API key not configured');
       return new Response(
-        JSON.stringify({ error: 'API key not configured', data: [] }),
+        JSON.stringify({ error: 'Error de configuración del servicio.', data: [] }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -174,7 +208,7 @@ serve(async (req) => {
       searchParams.set('date_posted', date_posted);
     }
 
-    console.log(`Searching jobs: query="${query}", location="${location}", page=${page}`);
+    console.log(`[${user.id}] Searching jobs: query="${query}", location="${location}", page=${page}`);
 
     const response = await fetch(
       `https://jsearch.p.rapidapi.com/search?${searchParams.toString()}`,
@@ -188,13 +222,13 @@ serve(async (req) => {
     );
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`JSearch API error: ${response.status} - ${errorText}`);
+      const statusCode = response.status;
+      console.error(`[Internal] External API error: ${statusCode}`);
       
-      if (response.status === 429) {
+      if (statusCode === 429) {
         return new Response(
           JSON.stringify({ 
-            error: 'Rate limit exceeded. Please try again later.',
+            error: 'Demasiadas solicitudes. Por favor espera unos momentos.',
             data: []
           }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -202,24 +236,24 @@ serve(async (req) => {
       }
       
       return new Response(
-        JSON.stringify({ error: `API error: ${response.status}`, data: [] }),
-        { status: response.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Error al buscar oportunidades. Por favor intenta de nuevo.', data: [] }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const result = await response.json();
     
     if (result.status !== 'OK' || !result.data) {
-      console.error('JSearch API returned error:', result);
+      console.error('[Internal] External API returned invalid response');
       return new Response(
-        JSON.stringify({ error: result.error?.message || 'Unknown error', data: [] }),
+        JSON.stringify({ error: 'Error al procesar resultados.', data: [] }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const transformedJobs = result.data.map(transformJob);
     
-    console.log(`Found ${transformedJobs.length} jobs`);
+    console.log(`[${user.id}] Found ${transformedJobs.length} jobs`);
 
     return new Response(
       JSON.stringify({ 
@@ -232,10 +266,9 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Error in search-jobs function:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[Internal] Error in search-jobs function:', error);
     return new Response(
-      JSON.stringify({ error: errorMessage, data: [] }),
+      JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.', data: [] }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

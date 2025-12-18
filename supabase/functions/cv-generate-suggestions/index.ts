@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,11 +13,34 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { cvData, targetRole } = await req.json();
 
     const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
     if (!OPENAI_API_KEY) {
-      throw new Error("API_KEY_CHATGPT is not configured");
+      console.error("[Internal] API key not configured");
+      return new Response(
+        JSON.stringify({ error: "Error de configuración del servicio." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const systemPrompt = `Eres un experto en recursos humanos y career coaching. Analizas CVs y proporcionas sugerencias específicas y accionables para mejorarlos.`;
@@ -97,23 +121,24 @@ Responde en formato JSON con esta estructura:
     });
 
     if (!response.ok) {
-      if (response.status === 429) {
+      const statusCode = response.status;
+      console.error("[Internal] AI API error:", statusCode);
+      
+      if (statusCode === 429) {
         return new Response(
-          JSON.stringify({ error: "Límite de solicitudes alcanzado. Intenta de nuevo en unos minutos." }),
+          JSON.stringify({ error: "Demasiadas solicitudes. Por favor espera unos momentos." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      if (response.status === 402) {
+      if (statusCode === 402) {
         return new Response(
-          JSON.stringify({ error: "Créditos insuficientes." }),
+          JSON.stringify({ error: "Límite de uso alcanzado." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
       
-      const errorText = await response.text();
-      console.error("OpenAI API error:", response.status, errorText);
       return new Response(
-        JSON.stringify({ error: "Error al analizar el CV" }),
+        JSON.stringify({ error: "Error al analizar el CV. Por favor intenta de nuevo." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -122,21 +147,25 @@ Responde en formato JSON con esta estructura:
     const toolCall = data.choices[0].message.tool_calls?.[0];
     
     if (!toolCall) {
-      throw new Error("No se recibió análisis estructurado");
+      console.error("[Internal] No tool call in AI response");
+      return new Response(
+        JSON.stringify({ error: "Error al analizar el CV. Por favor intenta de nuevo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const analysis = JSON.parse(toolCall.function.arguments);
 
-    console.log("CV analyzed successfully");
+    console.log(`[${user.id}] CV analyzed successfully`);
 
     return new Response(
       JSON.stringify(analysis),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error in cv-generate-suggestions:", error);
+    console.error("[Internal] Error in cv-generate-suggestions:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Error desconocido" }),
+      JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,10 +14,28 @@ serve(async (req) => {
   }
 
   try {
+    // Authenticate user
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: req.headers.get("Authorization")! },
+        },
+      }
+    );
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { audio, mimeType = 'audio/webm' } = await req.json();
 
     if (!audio) {
-      console.error('No audio data provided');
       return new Response(
         JSON.stringify({ error: 'No audio data provided' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -28,7 +47,6 @@ serve(async (req) => {
     const audioBytes = new TextEncoder().encode(audio).length;
 
     if (audioBytes > MAX_AUDIO_SIZE) {
-      console.error('Audio file too large:', audioBytes, 'bytes');
       return new Response(
         JSON.stringify({ error: 'Audio file too large. Maximum size is 10MB.' }),
         { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -37,14 +55,14 @@ serve(async (req) => {
 
     const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
     if (!OPENAI_API_KEY) {
-      console.error('API_KEY_CHATGPT not configured');
+      console.error('[Internal] API key not configured');
       return new Response(
-        JSON.stringify({ error: 'API key not configured' }),
+        JSON.stringify({ error: 'Error de configuración del servicio.' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Sending audio to OpenAI Whisper for transcription, mimeType:', mimeType);
+    console.log(`[${user.id}] Transcribing audio, mimeType: ${mimeType}`);
 
     // Convert base64 to binary for Whisper API
     const binaryAudio = Uint8Array.from(atob(audio), c => c.charCodeAt(0));
@@ -73,19 +91,19 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('OpenAI Whisper API error:', response.status, errorText);
+      const statusCode = response.status;
+      console.error('[Internal] AI API error:', statusCode);
       
-      if (response.status === 429) {
+      if (statusCode === 429) {
         return new Response(
-          JSON.stringify({ error: 'Límite de solicitudes excedido. Intenta de nuevo en unos segundos.' }),
+          JSON.stringify({ error: 'Demasiadas solicitudes. Por favor espera unos momentos.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
-      if (response.status === 402) {
+      if (statusCode === 402) {
         return new Response(
-          JSON.stringify({ error: 'Créditos insuficientes. Por favor contacta al administrador.' }),
+          JSON.stringify({ error: 'Límite de uso alcanzado.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -101,7 +119,7 @@ serve(async (req) => {
 
     const transcribedText = await response.text();
 
-    console.log('Transcription successful, text length:', transcribedText.length);
+    console.log(`[${user.id}] Transcription successful, text length: ${transcribedText.length}`);
 
     return new Response(
       JSON.stringify({ text: transcribedText.trim() }),
@@ -109,10 +127,9 @@ serve(async (req) => {
     );
 
   } catch (err: unknown) {
-    const errorMessage = err instanceof Error ? err.message : 'Transcription failed';
-    console.error('Transcription error:', errorMessage);
+    console.error('[Internal] Transcription error:', err);
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
