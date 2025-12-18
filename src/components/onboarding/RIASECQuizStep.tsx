@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { RIASEC_QUESTIONS, getShuffledQuestions, RIASECQuestion } from '@/lib/riasecQuestions';
 import { AnswerValue } from '@/lib/riasecScoring';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 interface RIASECQuizStepProps {
   onComplete: (answers: Record<string, AnswerValue>) => void;
@@ -34,6 +35,16 @@ export function RIASECQuizStep({ onComplete, initialAnswers = {} }: RIASECQuizSt
       setCurrentIndex(questions.length - 1);
     }
   }, [currentIndex, questions.length]);
+
+  // Find first unanswered question index
+  const findFirstUnanswered = (): number => {
+    for (let i = 0; i < questions.length; i++) {
+      if (answers[questions[i].id] === undefined) {
+        return i;
+      }
+    }
+    return -1;
+  };
 
   const handleAnswer = (value: AnswerValue) => {
     setAnswers(prev => ({
@@ -64,9 +75,21 @@ export function RIASECQuizStep({ onComplete, initialAnswers = {} }: RIASECQuizSt
     }
   };
 
-  const handleComplete = () => {
+  const handleTryComplete = () => {
     if (isComplete) {
       onComplete(answers);
+    } else {
+      const firstUnanswered = findFirstUnanswered();
+      const missing = questions.length - Object.keys(answers).length;
+      
+      toast.error(`Te faltan ${missing} preguntas`, {
+        description: 'Responde todas las preguntas para ver tus resultados'
+      });
+      
+      if (firstUnanswered !== -1) {
+        setDirection(firstUnanswered > currentIndex ? 1 : -1);
+        setCurrentIndex(firstUnanswered);
+      }
     }
   };
 
@@ -182,14 +205,7 @@ export function RIASECQuizStep({ onComplete, initialAnswers = {} }: RIASECQuizSt
 
 {currentIndex === questions.length - 1 ? (
           <Button
-            onClick={() => {
-              if (isComplete) {
-                onComplete(answers);
-              } else {
-                const missing = questions.length - Object.keys(answers).length;
-                alert(`Faltan ${missing} preguntas por responder. Revisa las preguntas anteriores.`);
-              }
-            }}
+            onClick={handleTryComplete}
             className={!isComplete ? 'opacity-70' : ''}
           >
             Ver Resultados {!isComplete && `(${Object.keys(answers).length}/${questions.length})`}

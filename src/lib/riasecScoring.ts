@@ -1,5 +1,5 @@
 // Holland RIASEC Scoring Algorithm
-import { RIASECType, RIASEC_TYPE_INFO } from './riasecQuestions';
+import { RIASECType, RIASEC_TYPE_INFO, RIASEC_QUESTIONS } from './riasecQuestions';
 
 export interface RIASECScores {
   R: number;
@@ -21,6 +21,15 @@ export interface RIASECResult {
 // Answer values: 2 = Like, 1 = Neutral, 0 = Dislike
 export type AnswerValue = 0 | 1 | 2;
 
+// Calculate questions per type dynamically
+function getQuestionsPerType(): Record<RIASECType, number> {
+  const counts: Record<RIASECType, number> = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  RIASEC_QUESTIONS.forEach(q => {
+    counts[q.type]++;
+  });
+  return counts;
+}
+
 // Calculate raw scores by summing answers for each type
 export function calculateRIASECScores(
   answers: Record<string, AnswerValue>
@@ -37,16 +46,16 @@ export function calculateRIASECScores(
   return scores;
 }
 
-// Convert raw scores to percentages (max possible per type = 14)
+// Convert raw scores to percentages (dynamic based on actual question count per type)
 export function scoresToPercentages(scores: RIASECScores): RIASECScores {
-  const maxScore = 14; // 7 questions × 2 points max
+  const questionsPerType = getQuestionsPerType();
   return {
-    R: Math.round((scores.R / maxScore) * 100),
-    I: Math.round((scores.I / maxScore) * 100),
-    A: Math.round((scores.A / maxScore) * 100),
-    S: Math.round((scores.S / maxScore) * 100),
-    E: Math.round((scores.E / maxScore) * 100),
-    C: Math.round((scores.C / maxScore) * 100),
+    R: Math.round((scores.R / (questionsPerType.R * 2)) * 100),
+    I: Math.round((scores.I / (questionsPerType.I * 2)) * 100),
+    A: Math.round((scores.A / (questionsPerType.A * 2)) * 100),
+    S: Math.round((scores.S / (questionsPerType.S * 2)) * 100),
+    E: Math.round((scores.E / (questionsPerType.E * 2)) * 100),
+    C: Math.round((scores.C / (questionsPerType.C * 2)) * 100),
   };
 }
 

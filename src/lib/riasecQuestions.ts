@@ -1,5 +1,5 @@
 // Holland RIASEC Vocational Assessment Questions
-// 42 questions total - 7 per personality type
+// 40 questions total - 6 for R and C types, 7 for I, A, S, E types
 
 export type RIASECType = 'R' | 'I' | 'A' | 'S' | 'E' | 'C';
 
@@ -43,14 +43,13 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
 };
 
 export const RIASEC_QUESTIONS: RIASECQuestion[] = [
-  // Realistic (R) - 7 questions
+  // Realistic (R) - 6 questions
   { id: 'R1', text: 'Reparar electrodomésticos o aparatos electrónicos', type: 'R' },
   { id: 'R2', text: 'Construir o armar cosas con mis manos', type: 'R' },
   { id: 'R3', text: 'Trabajar con herramientas mecánicas', type: 'R' },
   { id: 'R4', text: 'Operar maquinaria o equipos técnicos', type: 'R' },
   { id: 'R5', text: 'Realizar trabajo físico al aire libre', type: 'R' },
   { id: 'R6', text: 'Instalar o configurar sistemas tecnológicos', type: 'R' },
-  { id: 'R7', text: 'Resolver problemas prácticos del día a día', type: 'R' },
 
   // Investigative (I) - 7 questions
   { id: 'I1', text: 'Investigar y analizar datos para encontrar patrones', type: 'I' },
@@ -88,14 +87,13 @@ export const RIASEC_QUESTIONS: RIASECQuestion[] = [
   { id: 'E6', text: 'Hablar en público o hacer presentaciones', type: 'E' },
   { id: 'E7', text: 'Competir para alcanzar metas ambiciosas', type: 'E' },
 
-  // Conventional (C) - 7 questions
+  // Conventional (C) - 6 questions
   { id: 'C1', text: 'Organizar archivos, datos o información', type: 'C' },
   { id: 'C2', text: 'Seguir procedimientos y reglas establecidas', type: 'C' },
   { id: 'C3', text: 'Trabajar con hojas de cálculo y bases de datos', type: 'C' },
   { id: 'C4', text: 'Revisar documentos en busca de errores', type: 'C' },
   { id: 'C5', text: 'Planificar y crear cronogramas detallados', type: 'C' },
   { id: 'C6', text: 'Mantener registros precisos y actualizados', type: 'C' },
-  { id: 'C7', text: 'Trabajar con números y cálculos financieros', type: 'C' },
 ];
 
 // Shuffle questions for a more natural flow (mixing types)
