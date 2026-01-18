@@ -30,15 +30,6 @@ export default function CodeAuth() {
   const role = searchParams.get('role') || 'user';
   const isUniversityAdmin = role === 'university_admin';
 
-  // Check if already authenticated
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        redirectBasedOnRole(session.user.id);
-      }
-    });
-  }, []);
-
   // Countdown timer for resend
   useEffect(() => {
     if (countdown > 0) {
@@ -47,8 +38,27 @@ export default function CodeAuth() {
     }
   }, [countdown]);
 
-  const redirectBasedOnRole = async (userId: string) => {
+  const redirectBasedOnRole = async (userId: string, isNewUser: boolean = false) => {
     try {
+      // For new users, always go to onboarding (unless university admin)
+      if (isNewUser && !isUniversityAdmin) {
+        navigate('/onboarding');
+        return;
+      }
+
+      // Check if university admin
+      const { data: universityAdmin } = await supabase
+        .from('university_admins')
+        .select('id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (universityAdmin) {
+        navigate('/universidad/dashboard');
+        return;
+      }
+
+      // Check profile for role and diagnostic completion
       const { data: profile } = await supabase
         .from('profiles')
         .select('user_role, rol_profesional')
@@ -60,12 +70,19 @@ export default function CodeAuth() {
       } else if (profile?.user_role === 'admin') {
         navigate('/dashboard/admin');
       } else if (profile?.rol_profesional) {
+        // Diagnostic completed → dashboard
         navigate('/dashboard');
       } else {
+        // Diagnostic not completed → onboarding
         navigate('/onboarding');
       }
     } catch {
-      navigate('/onboarding');
+      // Safe default: students go to onboarding, university admins to their dashboard
+      if (isUniversityAdmin) {
+        navigate('/universidad/dashboard');
+      } else {
+        navigate('/onboarding');
+      }
     }
   };
 
@@ -188,11 +205,7 @@ export default function CodeAuth() {
       
       // Redirect after brief delay
       setTimeout(() => {
-        if (data.isNewUser) {
-          navigate('/onboarding');
-        } else {
-          redirectBasedOnRole(authData.user!.id);
-        }
+        redirectBasedOnRole(authData.user!.id, data.isNewUser);
       }, 1500);
     } catch (error: any) {
       console.error('Error verifying code:', error);
