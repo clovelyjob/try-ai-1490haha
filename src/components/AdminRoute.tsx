@@ -62,9 +62,9 @@ export function AdminRoute({ children }: AdminRouteProps) {
     );
   }
 
-  // Not authenticated - redirect to login
+  // Not authenticated - redirect to code auth
   if (!isAuthenticated || !user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/code-auth" replace />;
   }
 
   // Not admin - redirect to dashboard
