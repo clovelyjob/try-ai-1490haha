@@ -11,11 +11,7 @@ import { useSmartReminders } from "@/hooks/useSmartReminders";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import { SkeletonDashboard } from "@/components/ui/skeleton-loader";
 import Landing from "./pages/Landing";
-import Auth from "./pages/Auth";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+import CodeAuth from "./pages/CodeAuth";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import Pricing from "./pages/Pricing";
@@ -48,8 +44,6 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 // Universidad pages
 const UniversidadesLanding = lazy(() => import("./pages/UniversidadesLanding"));
-const UniversidadLogin = lazy(() => import("./pages/universidad/UniversidadLogin"));
-const UniversidadRegistro = lazy(() => import("./pages/universidad/UniversidadRegistro"));
 const UniversidadDashboardLayout = lazy(() => import("./layouts/UniversidadDashboardLayout"));
 const UniversidadDashboard = lazy(() => import("./pages/universidad/UniversidadDashboard"));
 const EstudiantesPage = lazy(() => import("./pages/universidad/EstudiantesPage"));
@@ -79,11 +73,12 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/install" element={<Suspense fallback={<SkeletonDashboard />}><Install /></Suspense>} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/registro" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/auth" element={<CodeAuth />} />
+                <Route path="/login" element={<CodeAuth />} />
+                <Route path="/code-auth" element={<CodeAuth />} />
+                <Route path="/registro" element={<CodeAuth />} />
+                <Route path="/forgot-password" element={<CodeAuth />} />
+                <Route path="/reset-password" element={<CodeAuth />} />
                 <Route path="/guest-start" element={<GuestStart />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/about" element={<About />} />
@@ -120,8 +115,8 @@ const App = () => (
 
                 {/* Universidad routes */}
                 <Route path="/universidades" element={<UniversidadesLanding />} />
-                <Route path="/universidad/login" element={<UniversidadLogin />} />
-                <Route path="/universidad/registro" element={<UniversidadRegistro />} />
+                <Route path="/universidad/login" element={<Suspense fallback={<SkeletonDashboard />}><CodeAuth /></Suspense>} />
+                <Route path="/universidad/registro" element={<Suspense fallback={<SkeletonDashboard />}><CodeAuth /></Suspense>} />
                 <Route path="/universidad/dashboard" element={
                   <UniversidadRoute>
                     <UniversidadDashboardLayout />

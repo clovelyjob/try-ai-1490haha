@@ -116,7 +116,7 @@ export function UniversidadRoute({ children }: UniversidadRouteProps) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/universidad/login" state={{ from: location }} replace />;
+    return <Navigate to="/code-auth?role=university_admin" state={{ from: location }} replace />;
   }
 
   if (!hasAccess) {
