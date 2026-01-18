@@ -1,11 +1,7 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { getCorsHeaders, handleCorsPreflightRequest, jsonResponse, errorResponse, validatePayloadSize } from "../_shared/cors.ts";
 
 // Function to clean quotes from AI response
 function cleanQuotes(text: string): string {
@@ -23,11 +19,19 @@ function cleanQuotes(text: string): string {
 }
 
 serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
+  // Handle CORS preflight
+  const preflightResponse = handleCorsPreflightRequest(req);
+  if (preflightResponse) return preflightResponse;
 
   try {
+    // Check payload size before parsing
+    const bodyText = await req.text();
+    if (!validatePayloadSize(bodyText, 50000)) { // 50KB limit
+      return errorResponse("Payload too large", req, 413);
+    }
+
+    const body = JSON.parse(bodyText);
+
     // Authenticate user
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -41,41 +45,24 @@ serve(async (req) => {
 
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("No autorizado. Por favor inicia sesión.", req, 401);
     }
 
-    const body = await req.json();
-    
     // Input validation
     if (!body.text || typeof body.text !== 'string') {
-      return new Response(
-        JSON.stringify({ error: "text (string) is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("text (string) is required", req, 400);
     }
     
     if (body.text.length > 10000) {
-      return new Response(
-        JSON.stringify({ error: "Text too long. Maximum 10000 characters allowed." }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Text too long. Maximum 10000 characters allowed.", req, 400);
     }
     
     if (body.type && !['summary', 'experience', 'education', 'general'].includes(body.type)) {
-      return new Response(
-        JSON.stringify({ error: "type must be one of: summary, experience, education, general" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("type must be one of: summary, experience, education, general", req, 400);
     }
     
     if (body.context && (typeof body.context !== 'string' || body.context.length > 500)) {
-      return new Response(
-        JSON.stringify({ error: "context must be a string with max 500 characters" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("context must be a string with max 500 characters", req, 400);
     }
     
     const { text, type, context, language = 'es' } = body;
@@ -83,10 +70,7 @@ serve(async (req) => {
     const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
     if (!OPENAI_API_KEY) {
       console.error("[Internal] API key not configured");
-      return new Response(
-        JSON.stringify({ error: "Error de configuración del servicio." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Error de configuración del servicio.", req, 500);
     }
 
     // Construir prompt según el tipo de texto
@@ -160,38 +144,15 @@ El Lenguaje del CV Debe Ser:
 - Basado en hechos (cuantificar y calificar)
 - Escrito para personas/sistemas que escanean rápidamente
 
-VERBOS DE ACCIÓN OFICIALES POR CATEGORÍA:
-
-LIDERAZGO: Logré, Alcancé, Administré, Coordiné, Delegué, Dirigí, Ejecuté, Encabecé, Mejoré, Incrementé, Lideré, Organicé, Supervisé, Planifiqué, Produje, Impulsé
-
-COMUNICACIÓN: Me dirigí, Redacté, Colaboré, Convencí, Edité, Formulé, Negocié, Persuadí, Presenté, Promovió, Reporté, Escribí
-
-INVESTIGACIÓN: Analicé, Recopilé, Conduje, Evalué, Examiné, Identifiqué, Investigué, Revisé, Resumí, Probé
-
-TÉCNICO: Construí, Calculé, Diseñé, Desarrollé, Ingenié, Implementé, Instalé, Mantuve, Programé, Resolví, Actualicé
-
-CUANTITATIVO: Asigné, Evalué, Audité, Presupuesté, Pronostiqué, Medí, Proyecté, Reduje
-
-CREATIVO: Conceptualicé, Creé, Diseñé, Ilustré, Inicié, Fui pionero, Visualicé
-
-ORGANIZACIONAL: Catalogué, Documenté, Archivé, Mantuve, Organicé, Preparé, Actualicé
-
 REGLAS CRÍTICAS:
 - SIN pronombres personales (yo, mi, me)
 - SIN abreviaturas
 - Basado en hechos (cuantificar y calificar)
-- Comenzar con verbo de acción fuerte de la lista oficial anterior
+- Comenzar con verbo de acción fuerte
 - Incluir métricas específicas e impacto
 - Máximo 2 líneas por bullet
 
 FORMATO: "Verbo de Acción + Tarea + Resultado Cuantificable"
-
-EJEMPLOS:
-✓ Supervisé equipo de 8 personas para completar proyecto 3 semanas antes de lo programado
-✓ Incrementé ingresos por ventas en 25% mediante alcance estratégico a clientes
-✓ Analicé datos de más de 500 encuestas para identificar tendencias clave de clientes
-✗ Ayudé con proyectos del equipo
-✗ Responsable de ventas
 
 IMPORTANTE: Devuelve SOLO el texto mejorado, sin comillas, sin caracteres especiales alrededor.`
           : `You are a professional career advisor. Transform experience descriptions into professional achievement bullets following official guidelines.
@@ -206,22 +167,6 @@ Resume Language Must Be:
 - Fact-based (quantify and qualify)
 - Written for people/systems that scan quickly
 
-OFFICIAL ACTION VERBS BY CATEGORY:
-
-LEADERSHIP: Accomplished, Achieved, Administered, Coordinated, Delegated, Directed, Executed, Headed, Improved, Increased, Led, Organized, Oversaw, Planned, Produced, Spearheaded, Supervised
-
-COMMUNICATION: Addressed, Authored, Collaborated, Convinced, Drafted, Edited, Formulated, Negotiated, Persuaded, Presented, Promoted, Reported, Wrote
-
-RESEARCH: Analyzed, Collected, Conducted, Evaluated, Examined, Identified, Investigated, Reviewed, Summarized, Tested
-
-TECHNICAL: Assembled, Built, Calculated, Designed, Engineered, Installed, Optimized, Programmed, Solved, Streamlined, Upgraded
-
-QUANTITATIVE: Administered, Analyzed, Budgeted, Forecasted, Managed, Maximized, Minimized, Projected
-
-CREATIVE: Conceived, Created, Designed, Developed, Established, Founded, Initiated, Invented, Launched
-
-ORGANIZATIONAL: Arranged, Implemented, Launched, Monitored, Organized, Prepared, Simplified, Streamlined
-
 CRITICAL RULES:
 - NO personal pronouns (I, We, My)
 - NO abbreviations
@@ -230,13 +175,6 @@ CRITICAL RULES:
 - Quantify results when possible
 - Focus on ACHIEVEMENTS not responsibilities
 - 1-2 lines maximum
-
-EXAMPLES:
-❌ BAD: I was responsible for managing team
-✅ GOOD: Supervised team of 8 to complete project 3 weeks ahead of schedule
-
-❌ BAD: Worked on marketing  
-✅ GOOD: Developed 5 campaigns increasing engagement 40% and generating 200+ leads
 
 IMPORTANT: Return ONLY the improved text, without quotes or special characters around it.`;
 
@@ -250,14 +188,6 @@ ${text}
 
 CONTEXTO: ${context || 'Experiencia Profesional'}
 
-REQUISITOS:
-- Comenzar con verbo de acción fuerte de la lista oficial
-- Incluir métricas específicas e impacto cuantificable
-- Máximo 2 líneas
-- Sin pronombres personales
-- Sin abreviaturas
-- Basado en hechos
-
 Devuelve SOLO el bullet point mejorado EN ESPAÑOL, sin comillas ni caracteres especiales alrededor del resultado.`
           : `Transform this experience bullet into an official professional-style achievement bullet.
 
@@ -267,14 +197,6 @@ ${text}
 ---
 
 CONTEXT: ${context || 'Professional Experience'}
-
-REQUIREMENTS:
-- Begin with strong action verb from official list
-- Include specific metrics and quantifiable impact
-- Maximum 2 lines
-- No personal pronouns
-- No abbreviations
-- Fact-based
 
 Return ONLY the improved bullet point IN ENGLISH, without quotes or special characters around the result.`;
         break;
@@ -329,22 +251,13 @@ Return ONLY the improved text IN ENGLISH, without quotes or special characters a
       console.error("[Internal] AI API error:", statusCode);
       
       if (statusCode === 429) {
-        return new Response(
-          JSON.stringify({ error: "Demasiadas solicitudes. Por favor espera unos momentos." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return errorResponse("Demasiadas solicitudes. Por favor espera unos momentos.", req, 429);
       }
       if (statusCode === 402) {
-        return new Response(
-          JSON.stringify({ error: "Límite de uso alcanzado." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return errorResponse("Límite de uso alcanzado.", req, 402);
       }
       
-      return new Response(
-        JSON.stringify({ error: "Error al mejorar el texto. Por favor intenta de nuevo." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Error al mejorar el texto. Por favor intenta de nuevo.", req, 500);
     }
 
     const data = await response.json();
@@ -352,15 +265,9 @@ Return ONLY the improved text IN ENGLISH, without quotes or special characters a
 
     console.log(`[${user.id}] Text improved successfully`);
 
-    return new Response(
-      JSON.stringify({ improvedText }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return jsonResponse({ improvedText }, req);
   } catch (error) {
     console.error("[Internal] Error in cv-improve-text:", error);
-    return new Response(
-      JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return errorResponse("Error en el servicio. Por favor intenta de nuevo.", req, 500);
   }
 });

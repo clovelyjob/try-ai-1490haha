@@ -1,51 +1,65 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { getCorsHeaders, handleCorsPreflightRequest, jsonResponse, errorResponse } from '../_shared/cors.ts';
 
 // Generate 8-digit numeric code
 function generateCode(): string {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
 }
 
+// Rate limiting constants
+const MAX_CODES_PER_HOUR = 5;
+const LOCKOUT_PERIOD_MS = 60 * 60 * 1000; // 1 hour
+
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  // Handle CORS preflight
+  const preflightResponse = handleCorsPreflightRequest(req);
+  if (preflightResponse) return preflightResponse;
 
   try {
     const { email, role = 'user' } = await req.json();
 
     if (!email) {
-      return new Response(
-        JSON.stringify({ error: 'Email is required' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return errorResponse('Email is required', req, 400);
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid email format' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return errorResponse('Invalid email format', req, 400);
+    }
+
+    // Validate email length
+    if (email.length > 254) {
+      return errorResponse('Email too long', req, 400);
     }
 
     // Validate role
     const validRoles = ['user', 'university_admin', 'admin'];
     if (!validRoles.includes(role)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid role' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return errorResponse('Invalid role', req, 400);
     }
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Rate limiting: Check how many codes were generated in the last hour
+    const oneHourAgo = new Date(Date.now() - LOCKOUT_PERIOD_MS).toISOString();
+    const { count: recentCodeCount, error: countError } = await supabase
+      .from('verification_codes')
+      .select('*', { count: 'exact', head: true })
+      .eq('email', normalizedEmail)
+      .gte('created_at', oneHourAgo);
+
+    if (countError) {
+      console.error('Error checking rate limit:', countError);
+    }
+
+    if (recentCodeCount && recentCodeCount >= MAX_CODES_PER_HOUR) {
+      return errorResponse('Too many verification code requests. Please try again in 1 hour.', req, 429);
+    }
 
     // Generate verification code
     const code = generateCode();
@@ -55,14 +69,14 @@ Deno.serve(async (req) => {
     await supabase
       .from('verification_codes')
       .update({ used: true })
-      .eq('email', email.toLowerCase())
+      .eq('email', normalizedEmail)
       .eq('used', false);
 
     // Insert new verification code
     const { error: insertError } = await supabase
       .from('verification_codes')
       .insert({
-        email: email.toLowerCase(),
+        email: normalizedEmail,
         code,
         expires_at: expiresAt.toISOString(),
         used: false,
@@ -70,13 +84,10 @@ Deno.serve(async (req) => {
 
     if (insertError) {
       console.error('Error inserting verification code:', insertError);
-      return new Response(
-        JSON.stringify({ error: 'Failed to generate verification code' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return errorResponse('Failed to generate verification code', req, 500);
     }
 
-    // Check if RESEND_API_KEY is available
+    // Check if RESEND_API_KEY is available for email sending
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
     
     if (resendApiKey) {
@@ -90,7 +101,7 @@ Deno.serve(async (req) => {
           },
           body: JSON.stringify({
             from: 'Clovely <noreply@clovely.app>',
-            to: [email],
+            to: [normalizedEmail],
             subject: 'Tu código de verificación - Clovely',
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -115,28 +126,26 @@ Deno.serve(async (req) => {
         console.error('Email sending error:', emailError);
         // Continue - code is still valid, just not sent via email
       }
+
+      // Production mode: Email sent, don't expose code
+      return jsonResponse({
+        success: true,
+        message: 'Verification code sent to your email',
+        expiresAt: expiresAt.toISOString(),
+      }, req);
     }
 
-    // Return response - in dev mode, include the code for testing
-    const isDev = !resendApiKey;
-    
-    return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: isDev 
-          ? 'Verification code generated (DEV MODE - check response)' 
-          : 'Verification code sent to your email',
-        expiresAt: expiresAt.toISOString(),
-        // Only include code in dev mode (no email service)
-        ...(isDev && { devCode: code }),
-      }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    // Development mode: Show code in UI since email isn't configured
+    // IMPORTANT: Only for development/testing, never expose in production
+    return jsonResponse({
+      success: true,
+      message: 'Verification code generated (Development Mode - Email not configured)',
+      expiresAt: expiresAt.toISOString(),
+      devCode: code, // Only included when email service is not configured
+    }, req);
+
   } catch (error) {
     console.error('Error in send-verification-code:', error);
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    return errorResponse('Internal server error', req, 500);
   }
 });

@@ -1,18 +1,22 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { getCorsHeaders, handleCorsPreflightRequest, jsonResponse, errorResponse, validatePayloadSize } from "../_shared/cors.ts";
 
 serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
+  // Handle CORS preflight
+  const preflightResponse = handleCorsPreflightRequest(req);
+  if (preflightResponse) return preflightResponse;
 
   try {
+    // Check payload size before parsing
+    const bodyText = await req.text();
+    if (!validatePayloadSize(bodyText, 50000)) { // 50KB limit
+      return errorResponse("Payload too large", req, 413);
+    }
+
+    const body = JSON.parse(bodyText);
+
     // Authenticate user
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -26,56 +30,33 @@ serve(async (req) => {
 
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("No autorizado. Por favor inicia sesión.", req, 401);
     }
 
-    const body = await req.json();
-    
     // Input validation
     if (!body.role || typeof body.role !== 'string') {
-      return new Response(
-        JSON.stringify({ error: "role (string) is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("role (string) is required", req, 400);
     }
 
     if (body.role.length > 100) {
-      return new Response(
-        JSON.stringify({ error: "Role too long. Maximum 100 characters allowed." }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Role too long. Maximum 100 characters allowed.", req, 400);
     }
 
     if (body.level && (typeof body.level !== 'string' || body.level.length > 50)) {
-      return new Response(
-        JSON.stringify({ error: "level must be a string with max 50 characters" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("level must be a string with max 50 characters", req, 400);
     }
 
     if (body.jobDescription && (typeof body.jobDescription !== 'string' || body.jobDescription.length > 5000)) {
-      return new Response(
-        JSON.stringify({ error: "jobDescription must be a string with max 5000 characters" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("jobDescription must be a string with max 5000 characters", req, 400);
     }
 
     if (body.cvContent && (typeof body.cvContent !== 'string' || body.cvContent.length > 10000)) {
-      return new Response(
-        JSON.stringify({ error: "cvContent must be a string with max 10000 characters" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("cvContent must be a string with max 10000 characters", req, 400);
     }
 
     const count = body.count || 10;
     if (typeof count !== 'number' || count < 1 || count > 20) {
-      return new Response(
-        JSON.stringify({ error: "count must be a number between 1 and 20" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("count must be a number between 1 and 20", req, 400);
     }
 
     const { role, level, jobDescription, cvContent } = body;
@@ -83,10 +64,7 @@ serve(async (req) => {
     const OPENAI_API_KEY = Deno.env.get("API_KEY_CHATGPT");
     if (!OPENAI_API_KEY) {
       console.error("[Internal] API key not configured");
-      return new Response(
-        JSON.stringify({ error: "Error de configuración del servicio." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Error de configuración del servicio.", req, 500);
     }
 
     const levelText = level === 'junior' ? 'sin experiencia o junior' : level === 'senior' ? 'senior con mucha experiencia' : 'con algo de experiencia';
@@ -113,28 +91,25 @@ Las preguntas deben incluir:
 7. Preguntas sobre resolución de problemas`;
 
     if (jobDescription) {
+      // Truncate job description for safety
+      const safeJobDescription = jobDescription.slice(0, 3000);
       userPrompt += `
 
 DESCRIPCIÓN DEL PUESTO (usa esto para personalizar las preguntas):
-${jobDescription}
+${safeJobDescription}
 
-Asegúrate de que las preguntas sean MUY específicas para esta descripción del puesto. Incluye preguntas sobre las responsabilidades, habilidades y requisitos mencionados.`;
+Asegúrate de que las preguntas sean MUY específicas para esta descripción del puesto.`;
     }
 
     if (cvContent) {
+      // Truncate CV content for safety
+      const safeCvContent = cvContent.slice(0, 5000);
       userPrompt += `
 
 INFORMACIÓN DEL CV DEL CANDIDATO:
-${cvContent}
+${safeCvContent}
 
-Usa esta información para hacer preguntas MÁS PERSONALIZADAS sobre:
-- Su experiencia laboral específica mencionada en el CV
-- Los proyectos que ha realizado
-- Las habilidades técnicas que domina
-- Logros cuantificables que menciona
-- Cómo su experiencia previa se relaciona con el puesto
-
-Haz preguntas que profundicen en detalles de su experiencia real.`;
+Usa esta información para hacer preguntas MÁS PERSONALIZADAS sobre su experiencia.`;
     }
 
     userPrompt += `
@@ -204,22 +179,13 @@ Genera preguntas variadas y progresivamente más desafiantes. Cada pregunta debe
       console.error("[Internal] AI API error:", statusCode);
       
       if (statusCode === 429) {
-        return new Response(
-          JSON.stringify({ error: "Demasiadas solicitudes. Por favor espera unos momentos." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return errorResponse("Demasiadas solicitudes. Por favor espera unos momentos.", req, 429);
       }
       if (statusCode === 402) {
-        return new Response(
-          JSON.stringify({ error: "Límite de uso alcanzado." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return errorResponse("Límite de uso alcanzado.", req, 402);
       }
       
-      return new Response(
-        JSON.stringify({ error: "Error al generar preguntas. Por favor intenta de nuevo." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Error al generar preguntas. Por favor intenta de nuevo.", req, 500);
     }
 
     const data = await response.json();
@@ -227,25 +193,16 @@ Genera preguntas variadas y progresivamente más desafiantes. Cada pregunta debe
     
     if (!toolCall) {
       console.error("[Internal] No tool call in AI response");
-      return new Response(
-        JSON.stringify({ error: "Error al generar preguntas. Por favor intenta de nuevo." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return errorResponse("Error al generar preguntas. Por favor intenta de nuevo.", req, 500);
     }
 
     const result = JSON.parse(toolCall.function.arguments);
 
     console.log(`[${user.id}] Generated ${result.questions?.length || 0} interview questions for role: ${role}`);
 
-    return new Response(
-      JSON.stringify(result),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return jsonResponse(result, req);
   } catch (error) {
     console.error("[Internal] Error in interview-generate-questions:", error);
-    return new Response(
-      JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return errorResponse("Error en el servicio. Por favor intenta de nuevo.", req, 500);
   }
 });
