@@ -36,42 +36,40 @@ const Onboarding = () => {
     setCurrentStep(2);
   };
 
-  const handleComplete = () => {
-    // Navigate immediately
+  const handleComplete = async () => {
+    // Save to Supabase FIRST to ensure state is persisted before navigation
+    if (user?.id && riasecResult && !user.id.startsWith('guest_')) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({
+            rol_profesional: riasecResult.compatibleRoles[0]?.role || 'other',
+            preferencias_laborales: {
+              riasecScores: { ...riasecResult.percentages },
+              hollandCode: riasecResult.hollandCode,
+            },
+            progreso: {
+              cv_completado: false,
+              entrevistas_realizadas: 0,
+              oportunidades_guardadas: 0,
+              onboarding_completado: true,
+            }
+          })
+          .eq('id', user.id);
+
+        await trackEvent('onboarding_completed', {
+          hollandCode: riasecResult.hollandCode,
+          topRole: riasecResult.compatibleRoles[0]?.role,
+          completedAt: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Error saving profile:', error);
+      }
+    }
+
+    // Update local state and navigate
     updateUser({ onboardingCompleted: true });
     navigate('/dashboard');
-
-    // Save to Supabase in background
-    if (user?.id && riasecResult) {
-      (async () => {
-        try {
-          await trackEvent('onboarding_completed', {
-            hollandCode: riasecResult.hollandCode,
-            topRole: riasecResult.compatibleRoles[0]?.role,
-            completedAt: new Date().toISOString()
-          });
-
-          await supabase
-            .from('profiles')
-            .update({
-              rol_profesional: riasecResult.compatibleRoles[0]?.role || 'other',
-              preferencias_laborales: {
-                riasecScores: { ...riasecResult.percentages },
-                hollandCode: riasecResult.hollandCode,
-              },
-              progreso: {
-                cv_completado: false,
-                entrevistas_realizadas: 0,
-                oportunidades_guardadas: 0,
-                onboarding_completado: true,
-              }
-            })
-            .eq('id', user.id);
-        } catch (error) {
-          console.error('Error saving profile:', error);
-        }
-      })();
-    }
   };
 
   const steps = [

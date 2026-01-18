@@ -11,8 +11,6 @@ import { useSmartReminders } from "@/hooks/useSmartReminders";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import { SkeletonDashboard } from "@/components/ui/skeleton-loader";
 import Landing from "./pages/Landing";
-import CodeAuth from "./pages/CodeAuth";
-import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
@@ -21,13 +19,20 @@ import BlogPost from "./pages/BlogPost";
 import Help from "./pages/Help";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
-const Install = lazy(() => import("./pages/Install"));
 import DashboardLayout from "./layouts/DashboardLayout";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AdminRoute } from "./components/AdminRoute";
-import { UniversidadRoute } from "./components/UniversidadRoute";
+import { 
+  StudentRoute, 
+  DiagnosticRoute, 
+  UniversityAdminRoute, 
+  PublicOnlyRoute 
+} from "./components/routing";
+import { UniversidadDataLoader } from "./components/UniversidadDataLoader";
 
-// Lazy load heavy components for code splitting
+// Lazy load pages
+const Install = lazy(() => import("./pages/Install"));
+const CodeAuth = lazy(() => import("./pages/CodeAuth"));
+const GuestStart = lazy(() => import("./pages/GuestStart"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const CVList = lazy(() => import("./pages/CVList"));
@@ -71,15 +76,9 @@ const App = () => (
           <AuthSyncWrapper>
             <Suspense fallback={<SkeletonDashboard />}>
               <Routes>
+                {/* ============ PUBLIC ROUTES ============ */}
                 <Route path="/" element={<Landing />} />
-                <Route path="/install" element={<Suspense fallback={<SkeletonDashboard />}><Install /></Suspense>} />
-                <Route path="/auth" element={<CodeAuth />} />
-                <Route path="/login" element={<CodeAuth />} />
-                <Route path="/code-auth" element={<CodeAuth />} />
-                <Route path="/registro" element={<CodeAuth />} />
-                <Route path="/forgot-password" element={<CodeAuth />} />
-                <Route path="/reset-password" element={<CodeAuth />} />
-                <Route path="/guest-start" element={<GuestStart />} />
+                <Route path="/install" element={<Install />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/blog" element={<Blog />} />
@@ -87,17 +86,54 @@ const App = () => (
                 <Route path="/help" element={<Help />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                
+                {/* ============ AUTH ROUTES (Public Only - Redirect if authenticated) ============ */}
+                <Route path="/auth" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/login" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/code-auth" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/registro" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/forgot-password" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/reset-password" element={
+                  <PublicOnlyRoute>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                
+                {/* Guest mode entry */}
+                <Route path="/guest-start" element={<GuestStart />} />
+                
+                {/* ============ DIAGNOSTIC/ONBOARDING (Protected - Redirects if completed) ============ */}
                 <Route path="/onboarding" element={
-                  <ProtectedRoute>
+                  <DiagnosticRoute>
                     <Onboarding />
-                  </ProtectedRoute>
+                  </DiagnosticRoute>
                 } />
             
-                {/* Dashboard routes with shared sidebar layout */}
+                {/* ============ STUDENT DASHBOARD (Protected - Requires diagnostic) ============ */}
                 <Route path="/dashboard" element={
-                  <ProtectedRoute requireOnboarding={true}>
+                  <StudentRoute requireDiagnostic={true}>
                     <DashboardLayout />
-                  </ProtectedRoute>
+                  </StudentRoute>
                 }>
                   <Route index element={<Dashboard />} />
                   <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
@@ -113,14 +149,28 @@ const App = () => (
                   <Route path="settings" element={<Settings />} />
                 </Route>
 
-                {/* Universidad routes */}
+                {/* ============ UNIVERSITY PUBLIC ROUTES ============ */}
                 <Route path="/universidades" element={<UniversidadesLanding />} />
-                <Route path="/universidad/login" element={<Suspense fallback={<SkeletonDashboard />}><CodeAuth /></Suspense>} />
-                <Route path="/universidad/registro" element={<Suspense fallback={<SkeletonDashboard />}><CodeAuth /></Suspense>} />
+                
+                {/* University auth routes (redirect if authenticated university admin) */}
+                <Route path="/universidad/login" element={
+                  <PublicOnlyRoute universityFlow={true}>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                <Route path="/universidad/registro" element={
+                  <PublicOnlyRoute universityFlow={true}>
+                    <CodeAuth />
+                  </PublicOnlyRoute>
+                } />
+                
+                {/* ============ UNIVERSITY DASHBOARD (Protected - University admins only) ============ */}
                 <Route path="/universidad/dashboard" element={
-                  <UniversidadRoute>
-                    <UniversidadDashboardLayout />
-                  </UniversidadRoute>
+                  <UniversityAdminRoute>
+                    <UniversidadDataLoader>
+                      <UniversidadDashboardLayout />
+                    </UniversidadDataLoader>
+                  </UniversityAdminRoute>
                 }>
                   <Route index element={<UniversidadDashboard />} />
                   <Route path="estudiantes" element={<EstudiantesPage />} />
@@ -129,6 +179,7 @@ const App = () => (
                   <Route path="administradores" element={<AdministradoresPage />} />
                 </Route>
             
+                {/* ============ CATCH ALL ============ */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

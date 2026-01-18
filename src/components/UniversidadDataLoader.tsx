@@ -1,32 +1,46 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useUniversidadStore } from '@/store/useUniversidadStore';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useUniversidadStore } from '@/store/useUniversidadStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import { SkeletonDashboard } from '@/components/ui/skeleton-loader';
 
-interface UniversidadRouteProps {
+interface UniversidadDataLoaderProps {
   children: React.ReactNode;
 }
 
-export function UniversidadRoute({ children }: UniversidadRouteProps) {
-  const { isAuthenticated, user } = useAuthStore();
-  const { setUniversity, setCurrentAdmin, setAdmins, setStudents, setIsLoading } = useUniversidadStore();
-  const location = useLocation();
-  const [isChecking, setIsChecking] = useState(true);
-  const [hasAccess, setHasAccess] = useState(false);
+/**
+ * Loads university data for authenticated university admins
+ * This is separate from route guarding - only handles data fetching
+ */
+export function UniversidadDataLoader({ children }: UniversidadDataLoaderProps) {
+  const { user } = useAuthStore();
+  const { 
+    setUniversity, 
+    setCurrentAdmin, 
+    setAdmins, 
+    setStudents, 
+    setIsLoading,
+    currentAdmin 
+  } = useUniversidadStore();
+  const [isLoading, setLoadingState] = useState(!currentAdmin);
 
   useEffect(() => {
-    async function checkUniversityAccess() {
-      if (!isAuthenticated || !user) {
-        setIsChecking(false);
+    // If already have data, don't reload
+    if (currentAdmin) {
+      setLoadingState(false);
+      return;
+    }
+
+    async function loadUniversityData() {
+      if (!user?.id) {
+        setLoadingState(false);
         return;
       }
 
       setIsLoading(true);
 
       try {
-        // Check if user is a university admin
+        // Get admin data with university
         const { data: adminData, error: adminError } = await supabase
           .from('university_admins')
           .select('*, universities(*)')
@@ -34,13 +48,13 @@ export function UniversidadRoute({ children }: UniversidadRouteProps) {
           .single();
 
         if (adminError || !adminData) {
-          setHasAccess(false);
-          setIsChecking(false);
+          console.error('Error loading university admin data:', adminError);
+          setLoadingState(false);
           setIsLoading(false);
           return;
         }
 
-        // User is a university admin
+        // Set current admin
         setCurrentAdmin({
           id: adminData.id,
           university_id: adminData.university_id,
@@ -51,6 +65,7 @@ export function UniversidadRoute({ children }: UniversidadRouteProps) {
           created_at: adminData.created_at,
         });
 
+        // Set university
         if (adminData.universities) {
           const uni = adminData.universities as any;
           setUniversity({
@@ -81,7 +96,7 @@ export function UniversidadRoute({ children }: UniversidadRouteProps) {
           })));
         }
 
-        // Fetch students for this university
+        // Fetch students
         const { data: studentsData } = await supabase
           .from('university_students')
           .select('*')
@@ -97,30 +112,19 @@ export function UniversidadRoute({ children }: UniversidadRouteProps) {
             enrolled_at: s.enrolled_at,
           })));
         }
-
-        setHasAccess(true);
       } catch (error) {
-        console.error('Error checking university access:', error);
-        setHasAccess(false);
+        console.error('Error loading university data:', error);
       } finally {
-        setIsChecking(false);
+        setLoadingState(false);
         setIsLoading(false);
       }
     }
 
-    checkUniversityAccess();
-  }, [isAuthenticated, user, setUniversity, setCurrentAdmin, setAdmins, setStudents, setIsLoading]);
+    loadUniversityData();
+  }, [user?.id, currentAdmin, setUniversity, setCurrentAdmin, setAdmins, setStudents, setIsLoading]);
 
-  if (isChecking) {
+  if (isLoading) {
     return <SkeletonDashboard />;
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/code-auth?role=university_admin" state={{ from: location }} replace />;
-  }
-
-  if (!hasAccess) {
-    return <Navigate to="/universidades" replace />;
   }
 
   return <>{children}</>;
