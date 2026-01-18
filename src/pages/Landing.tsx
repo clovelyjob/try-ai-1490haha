@@ -61,6 +61,11 @@ const Landing = () => {
           
           <div className="flex items-center gap-4">
             <ThemeToggle />
+            <Link to="/universidades" className="hidden sm:block">
+              <Button variant="outline" size="sm" className="text-sm font-medium">
+                Universidad
+              </Button>
+            </Link>
             <Link to="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm" className="text-sm font-medium">
                 Iniciar sesión

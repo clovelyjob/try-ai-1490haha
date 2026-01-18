@@ -29,6 +29,7 @@ const Install = lazy(() => import("./pages/Install"));
 import DashboardLayout from "./layouts/DashboardLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AdminRoute } from "./components/AdminRoute";
+import { UniversidadRoute } from "./components/UniversidadRoute";
 
 // Lazy load heavy components for code splitting
 const Onboarding = lazy(() => import("./pages/Onboarding"));
@@ -44,6 +45,17 @@ const Opportunities = lazy(() => import("./pages/Opportunities"));
 const OpportunityDetail = lazy(() => import("./pages/OpportunityDetail"));
 const Settings = lazy(() => import("./pages/Settings"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+
+// Universidad pages
+const UniversidadesLanding = lazy(() => import("./pages/UniversidadesLanding"));
+const UniversidadLogin = lazy(() => import("./pages/universidad/UniversidadLogin"));
+const UniversidadRegistro = lazy(() => import("./pages/universidad/UniversidadRegistro"));
+const UniversidadDashboardLayout = lazy(() => import("./layouts/UniversidadDashboardLayout"));
+const UniversidadDashboard = lazy(() => import("./pages/universidad/UniversidadDashboard"));
+const EstudiantesPage = lazy(() => import("./pages/universidad/EstudiantesPage"));
+const ExportarPage = lazy(() => import("./pages/universidad/ExportarPage"));
+const ConfiguracionPage = lazy(() => import("./pages/universidad/ConfiguracionPage"));
+const AdministradoresPage = lazy(() => import("./pages/universidad/AdministradoresPage"));
 
 const queryClient = new QueryClient();
 
@@ -104,6 +116,22 @@ const App = () => (
                   <Route path="opportunities" element={<Opportunities />} />
                   <Route path="opportunities/:id" element={<OpportunityDetail />} />
                   <Route path="settings" element={<Settings />} />
+                </Route>
+
+                {/* Universidad routes */}
+                <Route path="/universidades" element={<UniversidadesLanding />} />
+                <Route path="/universidad/login" element={<UniversidadLogin />} />
+                <Route path="/universidad/registro" element={<UniversidadRegistro />} />
+                <Route path="/universidad/dashboard" element={
+                  <UniversidadRoute>
+                    <UniversidadDashboardLayout />
+                  </UniversidadRoute>
+                }>
+                  <Route index element={<UniversidadDashboard />} />
+                  <Route path="estudiantes" element={<EstudiantesPage />} />
+                  <Route path="exportar" element={<ExportarPage />} />
+                  <Route path="configuracion" element={<ConfiguracionPage />} />
+                  <Route path="administradores" element={<AdministradoresPage />} />
                 </Route>
             
                 <Route path="*" element={<NotFound />} />

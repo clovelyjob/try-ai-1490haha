@@ -206,6 +206,106 @@ export type Database = {
         }
         Relationships: []
       }
+      universities: {
+        Row: {
+          created_at: string
+          domain: string | null
+          id: string
+          logo_url: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          domain?: string | null
+          id?: string
+          logo_url?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string | null
+          id?: string
+          logo_url?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      university_admins: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          role: string
+          university_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          role?: string
+          university_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          role?: string
+          university_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_admins_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      university_students: {
+        Row: {
+          career: string | null
+          cohort: string | null
+          enrolled_at: string
+          id: string
+          student_user_id: string
+          university_id: string
+        }
+        Insert: {
+          career?: string | null
+          cohort?: string | null
+          enrolled_at?: string
+          id?: string
+          student_user_id: string
+          university_id: string
+        }
+        Update: {
+          career?: string | null
+          cohort?: string | null
+          enrolled_at?: string
+          id?: string
+          student_user_id?: string
+          university_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_students_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -239,7 +339,7 @@ export type Database = {
       is_admin: { Args: { user_id_param: string }; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "admin" | "user" | "university_admin"
       experience_level:
         | "sin_experiencia"
         | "junior"
@@ -373,7 +473,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["admin", "user", "university_admin"],
       experience_level: [
         "sin_experiencia",
         "junior",
