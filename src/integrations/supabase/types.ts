@@ -38,6 +38,53 @@ export type Database = {
         }
         Relationships: []
       }
+      applications: {
+        Row: {
+          cover_letter: string | null
+          created_at: string
+          cv_id: string | null
+          id: string
+          job_id: string | null
+          notes: string | null
+          opportunity_id: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cover_letter?: string | null
+          created_at?: string
+          cv_id?: string | null
+          id?: string
+          job_id?: string | null
+          notes?: string | null
+          opportunity_id?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cover_letter?: string | null
+          created_at?: string
+          cv_id?: string | null
+          id?: string
+          job_id?: string | null
+          notes?: string | null
+          opportunity_id?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cvs: {
         Row: {
           certificaciones: Json | null
@@ -131,6 +178,126 @@ export type Database = {
         }
         Relationships: []
       }
+      jobs: {
+        Row: {
+          applicants_count: number | null
+          benefits: string[] | null
+          category: string | null
+          company: string
+          contract_type: string | null
+          created_at: string
+          description: string | null
+          expires_at: string | null
+          external_url: string | null
+          id: string
+          is_active: boolean | null
+          location: string | null
+          modality: string | null
+          published_at: string | null
+          requirements: string[] | null
+          salary_currency: string | null
+          salary_max: number | null
+          salary_min: number | null
+          source: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          views: number | null
+        }
+        Insert: {
+          applicants_count?: number | null
+          benefits?: string[] | null
+          category?: string | null
+          company: string
+          contract_type?: string | null
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          external_url?: string | null
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          modality?: string | null
+          published_at?: string | null
+          requirements?: string[] | null
+          salary_currency?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          source?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          views?: number | null
+        }
+        Update: {
+          applicants_count?: number | null
+          benefits?: string[] | null
+          category?: string | null
+          company?: string
+          contract_type?: string | null
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          external_url?: string | null
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          modality?: string | null
+          published_at?: string | null
+          requirements?: string[] | null
+          salary_currency?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          source?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          views?: number | null
+        }
+        Relationships: []
+      }
+      microactions: {
+        Row: {
+          category: string | null
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string | null
+          title: string
+          user_id: string
+          xp_reward: number | null
+        }
+        Insert: {
+          category?: string | null
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          title: string
+          user_id: string
+          xp_reward?: number | null
+        }
+        Update: {
+          category?: string | null
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          title?: string
+          user_id?: string
+          xp_reward?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -145,6 +312,7 @@ export type Database = {
           progreso: Json | null
           rol_profesional: string | null
           updated_at: string
+          user_role: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -159,6 +327,7 @@ export type Database = {
           progreso?: Json | null
           rol_profesional?: string | null
           updated_at?: string
+          user_role?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -173,6 +342,7 @@ export type Database = {
           progreso?: Json | null
           rol_profesional?: string | null
           updated_at?: string
+          user_role?: string | null
         }
         Relationships: []
       }
@@ -203,6 +373,54 @@ export type Database = {
           status?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      student_profiles: {
+        Row: {
+          career_goal: string | null
+          created_at: string
+          diagnostic_results: Json | null
+          id: string
+          interests: string[] | null
+          lifestyle: string | null
+          riasec_code: string | null
+          riasec_scores: Json | null
+          skills: string[] | null
+          updated_at: string
+          user_id: string
+          values: string[] | null
+          work_style: Json | null
+        }
+        Insert: {
+          career_goal?: string | null
+          created_at?: string
+          diagnostic_results?: Json | null
+          id?: string
+          interests?: string[] | null
+          lifestyle?: string | null
+          riasec_code?: string | null
+          riasec_scores?: Json | null
+          skills?: string[] | null
+          updated_at?: string
+          user_id: string
+          values?: string[] | null
+          work_style?: Json | null
+        }
+        Update: {
+          career_goal?: string | null
+          created_at?: string
+          diagnostic_results?: Json | null
+          id?: string
+          interests?: string[] | null
+          lifestyle?: string | null
+          riasec_code?: string | null
+          riasec_scores?: Json | null
+          skills?: string[] | null
+          updated_at?: string
+          user_id?: string
+          values?: string[] | null
+          work_style?: Json | null
         }
         Relationships: []
       }
@@ -321,6 +539,33 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      verification_codes: {
+        Row: {
+          code: string
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          used: boolean
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+          used?: boolean
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          used?: boolean
         }
         Relationships: []
       }
