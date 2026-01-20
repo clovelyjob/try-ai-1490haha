@@ -1,22 +1,18 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getCorsHeaders, handleCorsPreflightRequest, jsonResponse, errorResponse, validatePayloadSize } from "../_shared/cors.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
 serve(async (req) => {
-  // Handle CORS preflight
-  const preflightResponse = handleCorsPreflightRequest(req);
-  if (preflightResponse) return preflightResponse;
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
 
   try {
-    // Check payload size before parsing
-    const bodyText = await req.text();
-    if (!validatePayloadSize(bodyText, 100000)) { // 100KB limit
-      return errorResponse("Payload too large", req, 413);
-    }
-
-    const body = JSON.parse(bodyText);
-
     // Authenticate user
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -30,25 +26,42 @@ serve(async (req) => {
 
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
     if (authError || !user) {
-      return errorResponse("No autorizado. Por favor inicia sesión.", req, 401);
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
+    const body = await req.json();
+    
     // Input validation
     if (!body.messages || !Array.isArray(body.messages)) {
-      return errorResponse("messages array is required", req, 400);
+      return new Response(
+        JSON.stringify({ error: "messages array is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
     
     if (body.messages.length > 50) {
-      return errorResponse("Too many messages. Maximum 50 messages allowed.", req, 400);
+      return new Response(
+        JSON.stringify({ error: "Too many messages. Maximum 50 messages allowed." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
     
     // Validate each message
     for (const msg of body.messages) {
       if (!msg.role || !msg.content) {
-        return errorResponse("Each message must have role and content", req, 400);
+        return new Response(
+          JSON.stringify({ error: "Each message must have role and content" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
       if (typeof msg.content !== 'string' || msg.content.length > 10000) {
-        return errorResponse("Message content must be a string with max 10000 characters", req, 400);
+        return new Response(
+          JSON.stringify({ error: "Message content must be a string with max 10000 characters" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
     }
     
@@ -57,7 +70,10 @@ serve(async (req) => {
     
     if (!OPENAI_API_KEY) {
       console.error("[Internal] API key not configured");
-      return errorResponse("Error de configuración del servicio.", req, 500);
+      return new Response(
+        JSON.stringify({ error: "Error de configuración del servicio." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const systemPrompt = `Eres un Career Coach experto de Clovely, una plataforma de desarrollo profesional cálida y humana. Tu misión es ayudar a profesionales a crecer en sus carreras con empatía, motivación y consejos prácticos.
@@ -114,13 +130,22 @@ El usuario tiene acceso a:
       console.error("[Internal] AI API error:", statusCode);
       
       if (statusCode === 429) {
-        return errorResponse("Demasiadas solicitudes. Por favor espera unos momentos.", req, 429);
+        return new Response(
+          JSON.stringify({ error: "Demasiadas solicitudes. Por favor espera unos momentos." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
       if (statusCode === 402) {
-        return errorResponse("Límite de uso alcanzado.", req, 402);
+        return new Response(
+          JSON.stringify({ error: "Límite de uso alcanzado." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
       
-      return errorResponse("Error en el servicio. Por favor intenta de nuevo.", req, 500);
+      return new Response(
+        JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const data = await response.json();
@@ -128,14 +153,23 @@ El usuario tiene acceso a:
 
     if (!assistantMessage) {
       console.error("[Internal] No response content from AI");
-      return errorResponse("Error en el servicio. Por favor intenta de nuevo.", req, 500);
+      return new Response(
+        JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     console.log(`[${user.id}] Career coach chat successful`);
 
-    return jsonResponse({ message: assistantMessage }, req);
+    return new Response(
+      JSON.stringify({ message: assistantMessage }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   } catch (error) {
     console.error("[Internal] Career coach error:", error);
-    return errorResponse("Error en el servicio. Por favor intenta de nuevo.", req, 500);
+    return new Response(
+      JSON.stringify({ error: "Error en el servicio. Por favor intenta de nuevo." }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 });

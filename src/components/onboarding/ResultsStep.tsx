@@ -14,7 +14,6 @@ interface ResultsStepProps {
   riasecResult: RIASECResult | null;
   values?: string[];
   experience?: string;
-  isLoading?: boolean;
 }
 
 const LOADING_MESSAGES = [
@@ -24,7 +23,7 @@ const LOADING_MESSAGES = [
   'Preparando recomendaciones personalizadas...',
 ];
 
-export const ResultsStep = ({ onComplete, riasecResult, values = [], experience = '', isLoading: externalLoading = false }: ResultsStepProps) => {
+export const ResultsStep = ({ onComplete, riasecResult, values = [], experience = '' }: ResultsStepProps) => {
   const [loading, setLoading] = useState(true);
   const [messageIndex, setMessageIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -225,9 +224,8 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
           size="lg"
           className="w-full"
           onClick={onComplete}
-          disabled={externalLoading}
         >
-          {externalLoading ? 'Guardando...' : 'Ir a mi dashboard'} <Sparkles className="ml-2 h-5 w-5" />
+          Ir a mi dashboard <Sparkles className="ml-2 h-5 w-5" />
         </Button>
       </Card>
     </motion.div>

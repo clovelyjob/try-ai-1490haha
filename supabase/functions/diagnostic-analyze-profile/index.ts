@@ -1,22 +1,18 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getCorsHeaders, handleCorsPreflightRequest, jsonResponse, errorResponse, validatePayloadSize, sanitizeForAI } from "../_shared/cors.ts";
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 serve(async (req) => {
-  // Handle CORS preflight
-  const preflightResponse = handleCorsPreflightRequest(req);
-  if (preflightResponse) return preflightResponse;
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
 
   try {
-    // Check payload size before parsing
-    const bodyText = await req.text();
-    if (!validatePayloadSize(bodyText, 50000)) { // 50KB limit
-      return errorResponse("Payload too large", req, 413);
-    }
-
-    const body = JSON.parse(bodyText);
-
     // Authenticate user
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -30,35 +26,28 @@ serve(async (req) => {
 
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
     if (authError || !user) {
-      return errorResponse("No autorizado. Por favor inicia sesión.", req, 401);
+      return new Response(
+        JSON.stringify({ error: "No autorizado. Por favor inicia sesión." }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    const { preferences } = body;
+    const { preferences } = await req.json();
     
-    if (!preferences || typeof preferences !== 'object') {
-      return errorResponse('preferences object is required', req, 400);
+    if (!preferences) {
+      return new Response(
+        JSON.stringify({ error: 'preferences is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
-
-    // Validate and sanitize preferences
-    const validateArray = (arr: unknown, maxLength: number): string[] => {
-      if (!Array.isArray(arr)) return [];
-      return arr
-        .filter((item): item is string => typeof item === 'string')
-        .slice(0, maxLength)
-        .map(s => s.slice(0, 200));
-    };
-
-    const safePreferences = {
-      intereses: validateArray(preferences.intereses, 20),
-      objetivos: validateArray(preferences.objetivos, 20),
-      herramientas: validateArray(preferences.herramientas, 20),
-      experiencia: typeof preferences.experiencia === 'string' ? preferences.experiencia.slice(0, 50) : undefined,
-    };
 
     const OPENAI_API_KEY = Deno.env.get('API_KEY_CHATGPT');
     if (!OPENAI_API_KEY) {
       console.error('[Internal] API key not configured');
-      return errorResponse('Error de configuración del servicio.', req, 500);
+      return new Response(
+        JSON.stringify({ error: 'Error de configuración del servicio.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const systemPrompt = `Eres un experto en orientación profesional con años de experiencia ayudando a personas a identificar sus roles ideales en tecnología y negocios.
@@ -94,10 +83,10 @@ Para cada rol recomendado, proporciona:
 
     const userPrompt = `Analiza este perfil profesional:
 
-Intereses: ${safePreferences.intereses.join(', ') || 'No especificados'}
-Objetivos: ${safePreferences.objetivos.join(', ') || 'No especificados'}
-Herramientas: ${safePreferences.herramientas.join(', ') || 'No especificadas'}
-Nivel de experiencia: ${safePreferences.experiencia || 'No especificado'}
+Intereses: ${preferences.intereses?.join(', ') || 'No especificados'}
+Objetivos: ${preferences.objetivos?.join(', ') || 'No especificados'}
+Herramientas: ${preferences.herramientas?.join(', ') || 'No especificadas'}
+Nivel de experiencia: ${preferences.experiencia || 'No especificado'}
 
 Recomienda los 3 roles más adecuados con confianza y razones específicas.`;
 
@@ -170,14 +159,23 @@ Recomienda los 3 roles más adecuados con confianza y razones específicas.`;
       console.error('[Internal] AI API error:', statusCode);
       
       if (statusCode === 429) {
-        return errorResponse('Demasiadas solicitudes. Por favor espera unos momentos.', req, 429);
+        return new Response(
+          JSON.stringify({ error: 'Demasiadas solicitudes. Por favor espera unos momentos.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
       }
       
       if (statusCode === 402) {
-        return errorResponse('Límite de uso alcanzado.', req, 402);
+        return new Response(
+          JSON.stringify({ error: 'Límite de uso alcanzado.' }),
+          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
       }
 
-      return errorResponse('Error al analizar el perfil. Por favor intenta de nuevo.', req, 500);
+      return new Response(
+        JSON.stringify({ error: 'Error al analizar el perfil. Por favor intenta de nuevo.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const data = await response.json();
@@ -185,17 +183,26 @@ Recomienda los 3 roles más adecuados con confianza y razones específicas.`;
     const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
     if (!toolCall) {
       console.error('[Internal] No tool call in AI response');
-      return errorResponse('Error al analizar el perfil. Por favor intenta de nuevo.', req, 500);
+      return new Response(
+        JSON.stringify({ error: 'Error al analizar el perfil. Por favor intenta de nuevo.' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const result = JSON.parse(toolCall.function.arguments);
 
     console.log(`[${user.id}] Profile analyzed successfully`);
 
-    return jsonResponse(result, req);
+    return new Response(
+      JSON.stringify(result),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
 
   } catch (error) {
     console.error('[Internal] Error in diagnostic-analyze-profile:', error);
-    return errorResponse('Error en el servicio. Por favor intenta de nuevo.', req, 500);
+    return new Response(
+      JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.' }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
   }
 });

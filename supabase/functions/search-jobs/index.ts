@@ -1,9 +1,13 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getCorsHeaders, handleCorsPreflightRequest } from "../_shared/cors.ts";
 
 const RAPIDAPI_KEY = Deno.env.get('RAPIDAPI_KEY');
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 interface JSearchJob {
   job_id: string;
@@ -143,8 +147,9 @@ function transformJob(job: JSearchJob): TransformedOpportunity {
 
 serve(async (req) => {
   // Handle CORS preflight
-  const preflightResponse = handleCorsPreflightRequest(req);
-  if (preflightResponse) return preflightResponse;
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
 
   try {
     // Authenticate user
@@ -162,7 +167,7 @@ serve(async (req) => {
     if (authError || !user) {
       return new Response(
         JSON.stringify({ error: "No autorizado. Por favor inicia sesión.", data: [] }),
-        { status: 401, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -182,7 +187,7 @@ serve(async (req) => {
       console.error('[Internal] API key not configured');
       return new Response(
         JSON.stringify({ error: 'Error de configuración del servicio.', data: [] }),
-        { status: 500, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -226,13 +231,13 @@ serve(async (req) => {
             error: 'Demasiadas solicitudes. Por favor espera unos momentos.',
             data: []
           }),
-          { status: 429, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
       return new Response(
         JSON.stringify({ error: 'Error al buscar oportunidades. Por favor intenta de nuevo.', data: [] }),
-        { status: 500, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -242,7 +247,7 @@ serve(async (req) => {
       console.error('[Internal] External API returned invalid response');
       return new Response(
         JSON.stringify({ error: 'Error al procesar resultados.', data: [] }),
-        { status: 400, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -257,14 +262,14 @@ serve(async (req) => {
         page,
         hasMore: result.data.length >= 10
       }),
-      { headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
     console.error('[Internal] Error in search-jobs function:', error);
     return new Response(
       JSON.stringify({ error: 'Error en el servicio. Por favor intenta de nuevo.', data: [] }),
-      { status: 500, headers: { ...getCorsHeaders(req), 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });

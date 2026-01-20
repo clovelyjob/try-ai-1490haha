@@ -11,6 +11,12 @@ import { useSmartReminders } from "@/hooks/useSmartReminders";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import { SkeletonDashboard } from "@/components/ui/skeleton-loader";
 import Landing from "./pages/Landing";
+import Auth from "./pages/Auth";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import Pricing from "./pages/Pricing";
 import About from "./pages/About";
@@ -19,20 +25,12 @@ import BlogPost from "./pages/BlogPost";
 import Help from "./pages/Help";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
-import DashboardLayout from "./layouts/DashboardLayout";
-import { AdminRoute } from "./components/AdminRoute";
-import { 
-  StudentRoute, 
-  DiagnosticRoute, 
-  UniversityAdminRoute, 
-  PublicOnlyRoute 
-} from "./components/routing";
-import { UniversidadDataLoader } from "./components/UniversidadDataLoader";
-
-// Lazy load pages
 const Install = lazy(() => import("./pages/Install"));
-const CodeAuth = lazy(() => import("./pages/CodeAuth"));
-const GuestStart = lazy(() => import("./pages/GuestStart"));
+import DashboardLayout from "./layouts/DashboardLayout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AdminRoute } from "./components/AdminRoute";
+
+// Lazy load heavy components for code splitting
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const CVList = lazy(() => import("./pages/CVList"));
@@ -46,15 +44,6 @@ const Opportunities = lazy(() => import("./pages/Opportunities"));
 const OpportunityDetail = lazy(() => import("./pages/OpportunityDetail"));
 const Settings = lazy(() => import("./pages/Settings"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-
-// Universidad pages
-const UniversidadesLanding = lazy(() => import("./pages/UniversidadesLanding"));
-const UniversidadDashboardLayout = lazy(() => import("./layouts/UniversidadDashboardLayout"));
-const UniversidadDashboard = lazy(() => import("./pages/universidad/UniversidadDashboard"));
-const EstudiantesPage = lazy(() => import("./pages/universidad/EstudiantesPage"));
-const ExportarPage = lazy(() => import("./pages/universidad/ExportarPage"));
-const ConfiguracionPage = lazy(() => import("./pages/universidad/ConfiguracionPage"));
-const AdministradoresPage = lazy(() => import("./pages/universidad/AdministradoresPage"));
 
 const queryClient = new QueryClient();
 
@@ -76,9 +65,14 @@ const App = () => (
           <AuthSyncWrapper>
             <Suspense fallback={<SkeletonDashboard />}>
               <Routes>
-                {/* ============ PUBLIC ROUTES ============ */}
                 <Route path="/" element={<Landing />} />
-                <Route path="/install" element={<Install />} />
+                <Route path="/install" element={<Suspense fallback={<SkeletonDashboard />}><Install /></Suspense>} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registro" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/guest-start" element={<GuestStart />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/blog" element={<Blog />} />
@@ -86,54 +80,17 @@ const App = () => (
                 <Route path="/help" element={<Help />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
-                
-                {/* ============ AUTH ROUTES (Public Only - Redirect if authenticated) ============ */}
-                <Route path="/auth" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/login" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/code-auth" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/registro" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/forgot-password" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/reset-password" element={
-                  <PublicOnlyRoute>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                
-                {/* Guest mode entry */}
-                <Route path="/guest-start" element={<GuestStart />} />
-                
-                {/* ============ DIAGNOSTIC/ONBOARDING (Protected - Redirects if completed) ============ */}
                 <Route path="/onboarding" element={
-                  <DiagnosticRoute>
+                  <ProtectedRoute>
                     <Onboarding />
-                  </DiagnosticRoute>
+                  </ProtectedRoute>
                 } />
             
-                {/* ============ STUDENT DASHBOARD (Protected - Requires diagnostic) ============ */}
+                {/* Dashboard routes with shared sidebar layout */}
                 <Route path="/dashboard" element={
-                  <StudentRoute requireDiagnostic={true}>
+                  <ProtectedRoute requireOnboarding={true}>
                     <DashboardLayout />
-                  </StudentRoute>
+                  </ProtectedRoute>
                 }>
                   <Route index element={<Dashboard />} />
                   <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
@@ -148,38 +105,7 @@ const App = () => (
                   <Route path="opportunities/:id" element={<OpportunityDetail />} />
                   <Route path="settings" element={<Settings />} />
                 </Route>
-
-                {/* ============ UNIVERSITY PUBLIC ROUTES ============ */}
-                <Route path="/universidades" element={<UniversidadesLanding />} />
-                
-                {/* University auth routes (redirect if authenticated university admin) */}
-                <Route path="/universidad/login" element={
-                  <PublicOnlyRoute universityFlow={true}>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                <Route path="/universidad/registro" element={
-                  <PublicOnlyRoute universityFlow={true}>
-                    <CodeAuth />
-                  </PublicOnlyRoute>
-                } />
-                
-                {/* ============ UNIVERSITY DASHBOARD (Protected - University admins only) ============ */}
-                <Route path="/universidad/dashboard" element={
-                  <UniversityAdminRoute>
-                    <UniversidadDataLoader>
-                      <UniversidadDashboardLayout />
-                    </UniversidadDataLoader>
-                  </UniversityAdminRoute>
-                }>
-                  <Route index element={<UniversidadDashboard />} />
-                  <Route path="estudiantes" element={<EstudiantesPage />} />
-                  <Route path="exportar" element={<ExportarPage />} />
-                  <Route path="configuracion" element={<ConfiguracionPage />} />
-                  <Route path="administradores" element={<AdministradoresPage />} />
-                </Route>
             
-                {/* ============ CATCH ALL ============ */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
