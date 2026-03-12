@@ -3,71 +3,90 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Sparkles, Target, FileText, MessageSquare, Zap, CheckCircle2, ArrowRight, Star, Instagram } from 'lucide-react';
+import { Target, FileText, MessageSquare, Zap, ArrowRight, Star, Instagram, CheckCircle, Compass, BarChart3 } from 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { IntegrationsSection } from '@/components/integrations/IntegrationsSection';
+
 const Landing = () => {
-  const benefits = [{
-    icon: Sparkles,
-    title: 'Diagnóstico IA',
-    description: 'Descubre tu perfil profesional único'
-  }, {
-    icon: Target,
-    title: 'Ruta personalizada',
-    description: 'Un plan diseñado específicamente para ti'
-  }, {
-    icon: FileText,
-    title: 'CV optimizado con IA',
-    description: 'Tu mejor versión, lista para competir'
-  }, {
-    icon: MessageSquare,
-    title: 'Simulador de entrevistas',
-    description: 'Practica con IA, llega preparado'
-  }];
-  const transformations = [{
-    stat: 'Al instante',
-    label: 'Descubre tu potencial',
-    description: 'Diagnóstico completo'
-  }, {
-    stat: 'Tu plan',
-    label: 'IA diseña tu ruta',
-    description: 'Personalizado a tu medida'
-  }, {
-    stat: '30 días',
-    label: 'Primeros resultados',
-    description: 'Progreso constante'
-  }];
-  const testimonials = [{
-    name: 'Ana M.',
-    role: 'Contadora → UX Designer',
-    text: 'En 3 meses conseguí mi primer trabajo en UX',
-    rating: 5
-  }, {
-    name: 'Carlos R.',
-    role: 'Aumento salarial 40%',
-    text: 'Solo seguí el plan, funcionó perfectamente',
-    rating: 5
-  }, {
-    name: 'María F.',
-    role: 'Recién graduada',
-    text: 'Recibí 3 ofertas, el simulador me dio confianza',
-    rating: 5
-  }];
-  return <div className="min-h-screen bg-gradient-to-b from-blue-50/50 via-orange-50/30 to-white dark:from-gray-900 dark:via-gray-800 dark:to-background">
-      {/* Navbar - Ultra limpio */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-background/70 border-b border-border/50">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between max-w-7xl">
-          <OfficialLogo size="lg" to="/" />
-          
-          <div className="flex items-center gap-4">
+  const benefits = [
+    {
+      icon: Compass,
+      title: 'Diagnóstico IA',
+      description: 'Descubre tu perfil profesional único con un análisis inteligente de tus fortalezas y oportunidades.',
+    },
+    {
+      icon: Target,
+      title: 'Ruta personalizada',
+      description: 'Un plan diseñado específicamente para ti basado en tus objetivos, habilidades y mercado actual.',
+    },
+    {
+      icon: FileText,
+      title: 'CV optimizado con IA',
+      description: 'Tu mejor versión profesional, lista para competir en el mercado laboral moderno.',
+    },
+    {
+      icon: MessageSquare,
+      title: 'Simulador de entrevistas',
+      description: 'Practica con IA conversacional y llega preparado a cualquier entrevista.',
+    },
+  ];
+
+  const steps = [
+    {
+      number: '01',
+      title: 'Sube tu CV o crea uno nuevo',
+      description: 'Nuestro motor de IA analiza tu experiencia y habilidades en segundos.',
+    },
+    {
+      number: '02',
+      title: 'Recibe tu ruta personalizada',
+      description: 'Un plan de acción claro con microacciones diarias para avanzar.',
+    },
+    {
+      number: '03',
+      title: 'Conecta con oportunidades',
+      description: 'Encuentra ofertas que realmente encajan con tu perfil y objetivos.',
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: 'Ana M.',
+      role: 'Contadora → UX Designer',
+      text: 'En 3 meses conseguí mi primer trabajo en UX. Clovely me dio la claridad que necesitaba.',
+      rating: 5,
+    },
+    {
+      name: 'Carlos R.',
+      role: 'Aumento salarial 40%',
+      text: 'Solo seguí el plan paso a paso. Los resultados fueron increíbles.',
+      rating: 5,
+    },
+    {
+      name: 'María F.',
+      role: 'Recién graduada',
+      text: 'Recibí 3 ofertas laborales. El simulador de entrevistas me dio mucha confianza.',
+      rating: 5,
+    },
+  ];
+
+  const easeOut = [0.22, 1, 0.36, 1];
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/40">
+        <div className="container mx-auto px-6 h-16 flex items-center justify-between max-w-6xl">
+          <OfficialLogo size="md" to="/" />
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <Link to="/login" className="hidden sm:block">
-              <Button variant="ghost" size="sm" className="text-sm font-medium">
+              <Button variant="ghost" size="sm" className="text-sm">
                 Iniciar sesión
               </Button>
             </Link>
             <Link to="/registro">
-              <Button size="sm" className="gradient-orange text-white text-sm font-semibold px-6 hover:shadow-lg transition-all">
+              <Button size="sm" className="text-sm font-medium px-5">
                 Empieza gratis
               </Button>
             </Link>
@@ -75,368 +94,273 @@ const Landing = () => {
         </div>
       </nav>
 
-      {/* Hero - Impacto inmediato con animaciones secuenciales */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/40 via-orange-100/30 to-transparent dark:from-blue-950/20 dark:via-orange-950/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.03] via-transparent to-transparent pointer-events-none" />
         
-        <div className="container mx-auto px-6 py-40 md:py-48 max-w-6xl relative">
-          <div className="text-center space-y-12">
-            {/* Badge con animación de entrada */}
+        <div className="container mx-auto px-6 pt-24 pb-16 sm:pt-32 sm:pb-24 max-w-5xl relative">
+          <div className="text-center space-y-8">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
+              initial={{ opacity: 0, y: 16 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-primary/20 text-sm font-medium text-foreground shadow-clovely-md"
+              transition={{ delay: 0.1, duration: 0.5, ease: easeOut }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card text-sm text-muted-foreground"
             >
-              <Star className="h-4 w-4 text-primary fill-primary animate-pulse" />
-              <span>Más de 10,000 profesionales</span>
+              <Zap className="h-3.5 w-3.5 text-primary" />
+              <span>Más de 10,000 profesionales activos</span>
             </motion.div>
 
-            {/* Hero Title con reveal animado */}
             <motion.h1 
-              initial={{ opacity: 0, y: 30 }} 
+              initial={{ opacity: 0, y: 24 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold leading-[1.1] tracking-tight"
+              transition={{ delay: 0.2, duration: 0.7, ease: easeOut }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight"
             >
-              Encuentra el trabajo que{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-warm to-primary animate-gradient-x">
-                realmente mereces
+              Encuentra el trabajo
+              <br />
+              <span className="text-primary">
+                que realmente mereces
               </span>
             </motion.h1>
 
-            {/* Subtitle con fade suave */}
             <motion.p 
-              initial={{ opacity: 0, y: 20 }} 
+              initial={{ opacity: 0, y: 16 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed"
+              transition={{ delay: 0.35, duration: 0.6, ease: easeOut }}
+              className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Con Clovely, tu potencial deja de ser invisible: la IA te analiza, te muestra tu camino ideal y te conecta con oportunidades que realmente encajan contigo.
+              Clovely analiza tu perfil, diseña tu ruta ideal y te conecta con oportunidades que realmente encajan contigo.
             </motion.p>
 
-            {/* Video Demo con zoom-in y sombra dramática */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }} 
-              animate={{ opacity: 1, scale: 1, y: 0 }} 
-              transition={{ delay: 0.8, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-6xl mx-auto px-4"
-            >
-              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 p-2 shadow-clovely-glow hover:shadow-[0_30px_90px_-20px_rgba(255,122,0,0.5)] transition-all duration-500 group">
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-                  <video autoPlay loop muted playsInline className="w-full h-auto">
-                    <source src="/clovely-hero-video.mp4" type="video/mp4" />
-                    Tu navegador no soporta el elemento de video.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* CTA con bounce sutil */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
+              initial={{ opacity: 0, y: 16 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 1.0, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+              transition={{ delay: 0.5, duration: 0.5, ease: easeOut }}
+              className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2"
             >
-              <Link to="/guest-start" className="w-full sm:w-auto">
-                <Button 
-                  size="lg" 
-                  variant="premium"
-                  className="w-full sm:w-auto text-lg px-12 py-7 font-bold group"
-                >
+              <Link to="/guest-start">
+                <Button size="lg" className="text-base px-8 py-6 font-semibold group">
                   Sube tu CV y encuentra trabajo
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="outline" size="lg" className="text-base px-8 py-6">
+                  Iniciar sesión
                 </Button>
               </Link>
             </motion.div>
 
-            {/* Trust indicator con fade */}
-            <motion.p 
+            <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="text-sm text-muted-foreground pt-4"
+              transition={{ delay: 0.7, duration: 0.5 }}
+              className="flex items-center justify-center gap-6 text-sm text-muted-foreground pt-2"
             >
-              ✨ 7 días gratis • Sin tarjeta • Cancela cuando quieras
-            </motion.p>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="h-3.5 w-3.5 text-primary" />
+                7 días gratis
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="h-3.5 w-3.5 text-primary" />
+                Sin tarjeta
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="h-3.5 w-3.5 text-primary" />
+                Cancela cuando quieras
+              </span>
+            </motion.div>
           </div>
         </div>
+
+        {/* Video Demo */}
+        <motion.div 
+          initial={{ opacity: 0, y: 32 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 0.6, duration: 0.8, ease: easeOut }}
+          className="container mx-auto px-6 pb-24 max-w-5xl"
+        >
+          <div className="rounded-2xl overflow-hidden border border-border/60 shadow-clovely-lg bg-card">
+            <video autoPlay loop muted playsInline className="w-full h-auto">
+              <source src="/clovely-hero-video.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </motion.div>
       </section>
 
       {/* Integrations */}
       <IntegrationsSection />
 
-      {/* Por qué Clovely - Minimalista */}
-      <section className="py-32 bg-white dark:bg-background">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.8
-        }} className="space-y-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
-              Por qué miles aman Clovely
+      {/* Why Clovely */}
+      <section className="py-24 sm:py-32">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            whileInView={{ opacity: 1 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Todo lo que necesitas para avanzar
             </h2>
-            
-            <div className="space-y-6 text-2xl sm:text-3xl font-light text-muted-foreground">
-              <motion.p initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: 0.1
-            }} className="hover:text-foreground transition-colors cursor-default">
-                Porque sienten claridad.
-              </motion.p>
-              <motion.p initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: 0.2
-            }} className="hover:text-foreground transition-colors cursor-default">
-                Porque dejan de adivinar.
-              </motion.p>
-              <motion.p initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: 0.3
-            }} className="hover:text-foreground transition-colors cursor-default">
-                Porque ven resultados reales.
-              </motion.p>
-              <motion.p initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: 0.4
-            }} className="text-primary font-semibold text-4xl mt-8">
-                Porque funciona.
-              </motion.p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Benefits - Cards premium */}
-      <section className="py-32 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-6 tracking-tight">
-              Todo lo que necesitas
-            </h2>
-            <p className="text-center text-xl text-muted-foreground mb-16 max-w-2xl mx-auto">
-              Cuatro herramientas poderosas trabajando juntas
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              Cuatro herramientas inteligentes trabajando juntas para tu éxito profesional
             </p>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {benefits.map((benefit, i) => <motion.div key={i} initial={{
-              opacity: 0,
-              y: 30
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: i * 0.1,
-              duration: 0.6
-            }}>
-                  <Card className="p-10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800/50 border-gray-200/50 dark:border-gray-700/50 group cursor-pointer h-full">
-                    <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                      <benefit.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-heading font-bold text-2xl mb-3 group-hover:text-primary transition-colors">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-muted-foreground text-lg">
-                      {benefit.description}
-                    </p>
-                  </Card>
-                </motion.div>)}
-            </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Transformación - Timeline style */}
-      <section className="py-32 bg-white dark:bg-background">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-6 tracking-tight">
-              Tu transformación en 30 días
-            </h2>
-            <p className="text-center text-xl text-muted-foreground mb-20 max-w-2xl mx-auto">
-              Así es como Clovely te lleva de donde estás a donde quieres estar
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-12">
-              {transformations.map((item, i) => <motion.div key={i} initial={{
-              opacity: 0,
-              scale: 0.9
-            }} whileInView={{
-              opacity: 1,
-              scale: 1
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: i * 0.15,
-              duration: 0.5
-            }} className="text-center space-y-4">
-                  <div className="relative inline-block">
-                    <div className="text-6xl font-heading font-bold text-primary">
-                      {item.stat}
-                    </div>
-                    <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/10 to-orange-600/10 blur-xl -z-10 rounded-full" />
+          <div className="grid sm:grid-cols-2 gap-6">
+            {benefits.map((benefit, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+              >
+                <Card className="p-8 h-full border-border/50 hover:border-primary/20 hover:shadow-clovely-md transition-all duration-300 group">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
+                    <benefit.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-heading font-semibold">
-                    {item.label}
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                    {benefit.title}
                   </h3>
-                  <p className="text-muted-foreground text-lg">
-                    {item.description}
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {benefit.description}
                   </p>
-                </motion.div>)}
-            </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-24 sm:py-32 bg-muted/30">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            whileInView={{ opacity: 1 }} 
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Cómo funciona
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              Tres pasos simples para transformar tu carrera
+            </p>
           </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {steps.map((step, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.12, duration: 0.5 }}
+                className="relative"
+              >
+                <div className="text-5xl font-bold text-primary/15 mb-4 leading-none">
+                  {step.number}
+                </div>
+                <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-32 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-background">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-center mb-20 tracking-tight">
+      <section className="py-24 sm:py-32">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            whileInView={{ opacity: 1 }} 
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 tracking-tight">
               Historias de éxito
             </h2>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, i) => <motion.div key={i} initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              delay: i * 0.1,
-              duration: 0.6
-            }}>
-                  <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 bg-white dark:bg-gray-800/50">
-                    <div className="flex gap-1 mb-4">
-                      {Array.from({
-                    length: testimonial.rating
-                  }).map((_, j) => <Star key={j} className="h-5 w-5 fill-orange-500 text-orange-500" />)}
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((testimonial, i) => (
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 16 }} 
+                  whileInView={{ opacity: 1, y: 0 }} 
+                  viewport={{ once: true }} 
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                >
+                  <Card className="p-6 h-full border-border/50 hover:border-primary/20 hover:shadow-clovely-md transition-all duration-300">
+                    <div className="flex gap-0.5 mb-4">
+                      {Array.from({ length: testimonial.rating }).map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
                     </div>
-                    <p className="text-lg mb-6 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
-                    <div className="border-t pt-4">
-                      <p className="font-semibold text-lg">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <p className="text-sm mb-5 leading-relaxed text-foreground/90">
+                      &ldquo;{testimonial.text}&rdquo;
+                    </p>
+                    <div className="border-t border-border/50 pt-4">
+                      <p className="font-semibold text-sm">{testimonial.name}</p>
+                      <p className="text-xs text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </Card>
-                </motion.div>)}
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Pricing - Minimalista */}
-      
-
-      {/* Final CTA - Impactante */}
-      <section className="py-32 gradient-orange text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
+      {/* Final CTA */}
+      <section className="py-24 sm:py-32 bg-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
+            backgroundSize: '32px 32px',
+          }} />
+        </div>
         
-        <div className="container mx-auto px-6 text-center max-w-4xl relative">
-          <motion.div initial={{
-          opacity: 0,
-          y: 30
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.8
-        }} className="space-y-8">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold leading-tight tracking-tight">
-              Todo empieza subiendo<br />tu CV hoy
+        <div className="container mx-auto px-6 text-center max-w-3xl relative">
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.7 }}
+            className="space-y-6"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+              Empieza hoy y transforma tu carrera
             </h2>
-            
-            <p className="text-xl sm:text-2xl font-light opacity-95 max-w-2xl mx-auto">
-              Únete a los miles de profesionales que ya transformaron su carrera
+            <p className="text-lg opacity-90 max-w-xl mx-auto">
+              Únete a miles de profesionales que ya encontraron su camino ideal
             </p>
-            
-            <div className="pt-4">
+            <div className="pt-2">
               <Link to="/guest-start">
-                <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-50 text-lg px-12 py-7 font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  Empieza tu cambio
-                  <ArrowRight className="ml-2 h-6 w-6" />
+                <Button 
+                  size="lg" 
+                  className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-base px-10 py-6 font-semibold"
+                >
+                  Empieza gratis
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>
-
-            <p className="text-base opacity-90 pt-4">
-              7 días gratis • Sin compromiso • Cancela cuando quieras
+            <p className="text-sm opacity-75 pt-2">
+              7 días gratis · Sin compromiso · Cancela cuando quieras
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer Links Section */}
-      <section className="py-12 bg-background border-t">
-        <div className="container mx-auto px-6 max-w-7xl">
+      {/* Footer Links */}
+      <section className="py-12 border-t border-border/50">
+        <div className="container mx-auto px-6 max-w-5xl">
           <div className="flex flex-col items-center justify-center space-y-6">
-            <OfficialLogo size="lg" animated={false} fullVersion={true} />
-            
+            <OfficialLogo size="md" animated={false} />
             <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
               <Link to="/pricing" className="hover:text-foreground transition-colors">Precios</Link>
               <Link to="/about" className="hover:text-foreground transition-colors">Nosotros</Link>
@@ -449,25 +373,27 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer - Premium Minimal */}
-      <footer className="py-6 bg-muted/30 border-t border-border/50">
-        <div className="container mx-auto px-6 max-w-7xl">
+      {/* Footer */}
+      <footer className="py-6 border-t border-border/30">
+        <div className="container mx-auto px-6 max-w-5xl">
           <div className="flex items-center justify-between">
-            <p className="text-xs sm:text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               © 2025 Clovely. Todos los derechos reservados.
             </p>
             <a 
               href="https://www.instagram.com/clovelyia" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Instagram"
             >
-              <Instagram className="h-5 w-5" />
+              <Instagram className="h-4 w-4" />
             </a>
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Landing;

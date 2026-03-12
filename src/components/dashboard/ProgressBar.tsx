@@ -13,61 +13,33 @@ export function ProgressBar({
   opportunitiesSaved = 0 
 }: ProgressBarProps) {
   const metrics = [
-    {
-      icon: FileText,
-      label: 'CV Completado',
-      value: cvCompleted,
-      max: 100,
-    },
-    {
-      icon: Mic,
-      label: 'Entrevistas Practicadas',
-      value: interviewsPracticed,
-      max: 10,
-    },
-    {
-      icon: Bookmark,
-      label: 'Oportunidades Guardadas',
-      value: opportunitiesSaved,
-      max: 20,
-    },
+    { icon: FileText, label: 'CV Completado', value: cvCompleted, max: 100 },
+    { icon: Mic, label: 'Entrevistas', value: interviewsPracticed, max: 10 },
+    { icon: Bookmark, label: 'Guardadas', value: opportunitiesSaved, max: 20 },
   ];
 
-  const getProgressGradient = (percentage: number) => {
-    if (percentage <= 30) {
-      return 'bg-red-500';
-    } else if (percentage <= 70) {
-      return 'bg-yellow-500';
-    } else {
-      return 'bg-green-500';
-    }
-  };
-
   return (
-    <Card className="p-8 rounded-2xl shadow-clovely-md">
-      <h3 className="font-heading font-semibold text-xl mb-6">Tu Progreso</h3>
-      <div className="space-y-6">
+    <Card className="p-5 border-border/50">
+      <h3 className="font-semibold text-sm mb-4">Tu Progreso</h3>
+      <div className="space-y-4">
         {metrics.map((metric) => {
           const Icon = metric.icon;
           const percentage = Math.min((metric.value / metric.max) * 100, 100);
-          const gradientClass = getProgressGradient(percentage);
           
           return (
-            <div key={metric.label} className="space-y-3">
+            <div key={metric.label} className="space-y-2">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-primary/10 shadow-sm">
-                    <Icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <span className="text-sm font-medium">{metric.label}</span>
+                <div className="flex items-center gap-2">
+                  <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+                  <span className="text-xs font-medium">{metric.label}</span>
                 </div>
-                <span className="text-sm font-semibold text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {metric.value}/{metric.max}
                 </span>
               </div>
-              <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-secondary">
+              <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted">
                 <div 
-                  className={`h-full transition-all duration-500 ${gradientClass}`}
+                  className="h-full rounded-full bg-primary transition-all duration-500"
                   style={{ width: `${percentage}%` }}
                 />
               </div>

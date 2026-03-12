@@ -14,46 +14,43 @@ export function UserStats({ streak, applicationsSubmitted, role }: UserStatsProp
       value: streak,
       unit: streak === 1 ? 'día' : 'días',
       icon: Flame,
-      color: 'text-orange-500',
-      bgColor: 'bg-orange-500/10'
+      isText: false,
     },
     {
       label: 'Aplicaciones',
       value: applicationsSubmitted,
       unit: 'enviadas',
       icon: Send,
-      color: 'text-primary',
-      bgColor: 'bg-primary/10'
+      isText: false,
     },
     {
       label: 'Rol',
       value: role || 'Sin definir',
       unit: '',
       icon: Briefcase,
-      color: 'text-primary',
-      bgColor: 'bg-primary/10',
-      isText: true
-    }
+      isText: true,
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
       {stats.map((stat) => (
-        <Card key={stat.label} className="p-8 bg-card border-border/50 hover:border-primary/20 hover:-translate-y-1 hover:shadow-clovely-lg transition-all duration-300 group cursor-pointer">
-          <div className="flex items-center gap-4">
-            <div className={`p-4 rounded-2xl ${stat.bgColor} group-hover:scale-110 transition-transform shadow-clovely-md`}>
-              <stat.icon className={`h-7 w-7 ${stat.color}`} />
+        <Card 
+          key={stat.label} 
+          className="p-5 border-border/50 hover:border-primary/20 transition-all duration-200"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-primary/8">
+              <stat.icon className="h-4 w-4 text-primary" />
             </div>
-            <div className="flex-1">
-              <p className="text-sm text-muted-foreground font-medium mb-1">{stat.label}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-muted-foreground mb-0.5">{stat.label}</p>
               {stat.isText ? (
-                <p className="text-xl font-heading font-bold text-primary">{stat.value}</p>
+                <p className="text-sm font-semibold text-foreground truncate">{stat.value}</p>
               ) : (
                 <div className="flex items-baseline gap-1">
-                  <p className="text-3xl font-heading font-bold text-primary">{stat.value}</p>
-                  {stat.unit && (
-                    <span className="text-sm text-muted-foreground">{stat.unit}</span>
-                  )}
+                  <p className="text-lg font-bold text-foreground">{stat.value}</p>
+                  {stat.unit && <span className="text-xs text-muted-foreground">{stat.unit}</span>}
                 </div>
               )}
             </div>
