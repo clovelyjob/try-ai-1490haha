@@ -197,7 +197,6 @@
     letter-spacing: -0.02em;
   }
 
-  /* Smooth selection colors */
   ::selection {
     background-color: hsl(var(--primary) / 0.2);
     color: hsl(var(--foreground));
