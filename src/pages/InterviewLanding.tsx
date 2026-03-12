@@ -1,36 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mic, TrendingUp, Target, Clock, Bot, Sparkles } from "lucide-react";
+import { Mic, TrendingUp, Target, Clock, Bot, Sparkles, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "@/store/useInterviewStore";
+import { motion } from "framer-motion";
 
 export default function InterviewLanding() {
   const navigate = useNavigate();
   const { sessions, metrics } = useInterviewStore();
-
   const recentSessions = sessions.slice(-3).reverse();
 
+  const stats = [
+    { icon: Target, label: 'Entrevistas', value: metrics.interviewCount },
+    { icon: TrendingUp, label: 'Mejor Puntuación', value: metrics.bestScore },
+    { icon: TrendingUp, label: 'Promedio', value: Math.round(metrics.averageScore) },
+    { icon: Clock, label: 'Racha', value: `${metrics.streaks}d` },
+  ];
+
+  const benefits = [
+    { icon: Mic, title: 'Práctica Realista', description: 'Preguntas adaptadas a tu industria y nivel de experiencia.' },
+    { icon: TrendingUp, title: 'Retroalimentación Instantánea', description: 'Análisis detallado de tus respuestas con sugerencias de mejora.' },
+    { icon: Target, title: 'Mejora Continua', description: 'Rastrea tu progreso e identifica áreas de oportunidad.' },
+  ];
+
   return (
-    <div className="container max-w-6xl py-8 space-y-8">
-      {/* Hero Section */}
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-primary-warm/20 mb-4 shadow-clovely-md">
-          <Mic className="w-10 h-10 text-primary" />
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
+      {/* Hero */}
+      <motion.div 
+        initial={{ opacity: 0, y: 8 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        className="space-y-5"
+      >
+        <div className="space-y-2">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Practica Entrevistas con IA</h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada.
+          </p>
         </div>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">Practica Entrevistas con IA</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada
-        </p>
         
-        {/* Two CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button 
             size="lg" 
             onClick={() => navigate('/dashboard/interviews/ai')} 
-            variant="premium" 
-            className="min-h-[52px] gap-2 shadow-clovely-glow"
+            className="h-12 gap-2 font-semibold"
           >
-            <Bot className="w-5 h-5" />
+            <Bot className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
             Entrevista con Voz IA
             <Sparkles className="w-4 h-4" />
           </Button>
@@ -38,113 +52,83 @@ export default function InterviewLanding() {
             size="lg" 
             onClick={() => navigate('/dashboard/interviews/setup')} 
             variant="outline"
-            className="min-h-[52px] gap-2"
+            className="h-12 gap-2"
           >
-            <Mic className="w-5 h-5" />
+            <Mic className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
             Práctica con Texto
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 space-y-2 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
-              <Target className="w-4 h-4 text-primary" />
+      <motion.div 
+        initial={{ opacity: 0, y: 8 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ delay: 0.05 }}
+        className="grid grid-cols-2 sm:grid-cols-4 gap-3"
+      >
+        {stats.map((stat, i) => (
+          <Card key={i} className="p-4 border-border/40 hover:border-primary/20 transition-all duration-200">
+            <div className="flex items-center gap-2 text-muted-foreground mb-2">
+              <div className="p-1.5 rounded-lg bg-primary/8">
+                <stat.icon className="w-3.5 h-3.5 text-primary" />
+              </div>
+              <span className="text-xs font-medium">{stat.label}</span>
             </div>
-            <span className="text-sm">Entrevistas</span>
-          </div>
-          <p className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-warm bg-clip-text text-transparent">{metrics.interviewCount}</p>
-        </Card>
-        <Card className="p-4 space-y-2 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-green-500/10 to-emerald-500/10">
-              <TrendingUp className="w-4 h-4 text-green-600" />
-            </div>
-            <span className="text-sm">Mejor Puntuación</span>
-          </div>
-          <p className="text-3xl font-bold text-green-600">{metrics.bestScore}</p>
-        </Card>
-        <Card className="p-4 space-y-2 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10">
-              <TrendingUp className="w-4 h-4 text-blue-600" />
-            </div>
-            <span className="text-sm">Promedio</span>
-          </div>
-          <p className="text-3xl font-bold text-blue-600">{Math.round(metrics.averageScore)}</p>
-        </Card>
-        <Card className="p-4 space-y-2 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-amber-500/10 to-yellow-500/10">
-              <Clock className="w-4 h-4 text-amber-600" />
-            </div>
-            <span className="text-sm">Racha</span>
-          </div>
-          <p className="text-3xl font-bold text-amber-600">{metrics.streaks} días</p>
-        </Card>
-      </div>
+            <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+          </Card>
+        ))}
+      </motion.div>
 
       {/* Recent Sessions */}
       {recentSessions.length > 0 && (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Prácticas Recientes</h2>
-          <div className="grid gap-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 8 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 0.1 }}
+          className="space-y-3"
+        >
+          <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Prácticas Recientes</h2>
+          <div className="space-y-2">
             {recentSessions.map((session) => (
-              <Card key={session.id} className="p-4 rounded-xl border-2 hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300">
+              <Card key={session.id} className="p-4 border-border/40 hover:border-primary/20 hover:shadow-clovely-sm transition-all duration-200">
                 <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <h3 className="font-medium">{session.role}</h3>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="space-y-0.5">
+                    <h3 className="font-medium text-sm">{session.role}</h3>
+                    <p className="text-xs text-muted-foreground">
                       {new Date(session.startedAt).toLocaleDateString('es-ES', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
+                        day: 'numeric', month: 'long', year: 'numeric'
                       })}
                     </p>
                   </div>
-                  <div className="text-right space-y-1">
-                    <p className="text-2xl font-bold text-primary">{session.finalScore}</p>
-                    <p className="text-sm text-muted-foreground">Puntuación</p>
+                  <div className="text-right">
+                    <p className="text-xl font-bold text-primary">{session.finalScore}</p>
+                    <p className="text-xs text-muted-foreground">Puntuación</p>
                   </div>
                 </div>
               </Card>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Benefits */}
-      <div className="grid md:grid-cols-3 gap-6 mt-12">
-        <Card className="p-6 space-y-3 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary-warm/20 flex items-center justify-center shadow-clovely-sm">
-            <Mic className="w-7 h-7 text-primary" />
-          </div>
-          <h3 className="text-lg font-semibold">Práctica Realista</h3>
-          <p className="text-muted-foreground">
-            Preguntas adaptadas a tu industria y nivel de experiencia
-          </p>
-        </Card>
-        <Card className="p-6 space-y-3 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/20 flex items-center justify-center shadow-clovely-sm">
-            <TrendingUp className="w-7 h-7 text-green-600" />
-          </div>
-          <h3 className="text-lg font-semibold">Retroalimentación Instantánea</h3>
-          <p className="text-muted-foreground">
-            Análisis detallado de tus respuestas con sugerencias de mejora
-          </p>
-        </Card>
-        <Card className="p-6 space-y-3 rounded-2xl shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-1 transition-all duration-300">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/20 flex items-center justify-center shadow-clovely-sm">
-            <Target className="w-7 h-7 text-blue-600" />
-          </div>
-          <h3 className="text-lg font-semibold">Mejora Continua</h3>
-          <p className="text-muted-foreground">
-            Rastrea tu progreso y identifica áreas de oportunidad
-          </p>
-        </Card>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 8 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ delay: 0.15 }}
+        className="grid md:grid-cols-3 gap-4"
+      >
+        {benefits.map((benefit, i) => (
+          <Card key={i} className="p-6 border-border/40 hover:border-primary/20 hover:shadow-clovely-md transition-all duration-300 group">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+              <benefit.icon className="w-5 h-5 text-primary" />
+            </div>
+            <h3 className="font-semibold text-base mb-1.5 group-hover:text-primary transition-colors">{benefit.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
+          </Card>
+        ))}
+      </motion.div>
     </div>
   );
 }

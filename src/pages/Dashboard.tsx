@@ -10,8 +10,9 @@ import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
 import { UserStats } from '@/components/dashboard/UserStats';
 import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
 import {
-  Briefcase, FileText, ArrowRight, Target, Sparkles, RotateCcw, Compass,
+  Briefcase, FileText, ArrowRight, Sparkles, RotateCcw, Compass, Mic, ChevronRight,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   const { user } = useAuthStore();
@@ -40,12 +41,23 @@ const Dashboard = () => {
 
   const firstName = user?.name?.split(' ')[0] || 'Usuario';
 
+  const quickActions = [
+    { icon: FileText, label: 'CV Builder', desc: 'Crea tu CV profesional', path: '/dashboard/cvs' },
+    { icon: Mic, label: 'Entrevistas', desc: 'Practica con IA', path: '/dashboard/interviews' },
+    { icon: Briefcase, label: 'Oportunidades', desc: 'Encuentra trabajos', path: '/dashboard/opportunities' },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         
         {/* Header */}
-        <div className="flex items-start justify-between gap-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex items-start justify-between gap-4 mb-8"
+        >
           <div className="space-y-1">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
               Hola, {firstName}
@@ -55,113 +67,137 @@ const Dashboard = () => {
             </p>
           </div>
           <NotificationsBell />
-        </div>
+        </motion.div>
 
-        {/* Stats */}
-        <UserStats 
-          streak={user?.streak || 0}
-          applicationsSubmitted={user?.applicationsSubmitted || 0}
-          role={profile?.rolActual ? getRoleDisplayName(profile.rolActual) : undefined}
-        />
+        {/* Stats Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="mb-8"
+        >
+          <UserStats 
+            streak={user?.streak || 0}
+            applicationsSubmitted={user?.applicationsSubmitted || 0}
+            role={profile?.rolActual ? getRoleDisplayName(profile.rolActual) : undefined}
+          />
+        </motion.div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-5 gap-6">
-          {/* Left column */}
-          <div className="lg:col-span-3 space-y-6">
+        {/* Two-column layout */}
+        <div className="grid lg:grid-cols-[1fr_340px] gap-6">
+          {/* Main content */}
+          <div className="space-y-6">
+            {/* Diagnostic CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              <Card className="p-6 bg-primary text-primary-foreground relative overflow-hidden border-0">
+                <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-primary-foreground/5" />
+                <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-primary-foreground/5" />
+                <div className="relative space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Compass className="h-5 w-5" />
+                    <h2 className="font-semibold text-lg">
+                      {profile?.rolActual ? 'Refina tu perfil' : 'Descubre tu camino ideal'}
+                    </h2>
+                  </div>
+                  <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-lg">
+                    {profile?.rolActual 
+                      ? 'Actualiza tu perfil profesional para obtener recomendaciones más precisas.'
+                      : 'Completa tu diagnóstico con IA para recibir oportunidades personalizadas.'
+                    }
+                  </p>
+                  <div className="flex items-center gap-3 pt-1">
+                    <Link to="/onboarding">
+                      <Button 
+                        size="sm"
+                        className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-medium"
+                      >
+                        {profile?.rolActual ? (
+                          <>
+                            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                            Rehacer diagnóstico
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+                            Iniciar diagnóstico
+                          </>
+                        )}
+                      </Button>
+                    </Link>
+                    {profile?.rolActual && (
+                      <span className="text-xs text-primary-foreground/60">
+                        Rol: {getRoleDisplayName(profile.rolActual)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
             {/* Daily Job */}
-            <DailyJob />
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+            >
+              <DailyJob />
+            </motion.div>
 
             {/* Quick Actions */}
-            <div className="space-y-3">
-              <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="space-y-3"
+            >
+              <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Acciones rápidas
               </h2>
-              <div className="grid sm:grid-cols-2 gap-3">
-                <Link to="/dashboard/cvs" className="block group">
-                  <Card className="p-5 h-full border-border/50 hover:border-primary/25 transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2.5 bg-primary/8 rounded-xl group-hover:bg-primary/12 transition-colors">
-                        <FileText className="h-5 w-5 text-primary" />
+              <div className="grid sm:grid-cols-3 gap-3">
+                {quickActions.map((action) => (
+                  <Link key={action.path} to={action.path} className="block group">
+                    <Card className="p-4 h-full border-border/40 hover:border-primary/25 hover:shadow-clovely-md transition-all duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 bg-primary/8 rounded-xl group-hover:bg-primary/12 transition-colors">
+                          <action.icon className="h-4.5 w-4.5 text-primary" style={{ width: 18, height: 18 }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-medium text-sm group-hover:text-primary transition-colors">{action.label}</h3>
+                          <p className="text-xs text-muted-foreground">{action.desc}</p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm group-hover:text-primary transition-colors">CV Builder</h3>
-                        <p className="text-xs text-muted-foreground">Crea tu CV profesional</p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                  </Card>
-                </Link>
-
-                <Link to="/dashboard/opportunities" className="block group">
-                  <Card className="p-5 h-full border-border/50 hover:border-primary/25 transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2.5 bg-primary/8 rounded-xl group-hover:bg-primary/12 transition-colors">
-                        <Briefcase className="h-5 w-5 text-primary" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm group-hover:text-primary transition-colors">Oportunidades</h3>
-                        <p className="text-xs text-muted-foreground">Encuentra trabajos</p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                  </Card>
-                </Link>
-              </div>
-            </div>
-
-            {/* Getting Started / Diagnostic CTA */}
-            <Card className="p-6 bg-primary text-primary-foreground relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-primary-foreground/5 rounded-full -mr-24 -mt-24" />
-              <div className="relative space-y-3">
-                <div className="flex items-center gap-2">
-                  <Compass className="h-5 w-5" />
-                  <h2 className="font-semibold text-lg">
-                    {profile?.rolActual ? 'Refina tu perfil' : 'Descubre tu camino ideal'}
-                  </h2>
-                </div>
-                <p className="text-primary-foreground/85 text-sm leading-relaxed max-w-lg">
-                  {profile?.rolActual 
-                    ? 'Actualiza tu perfil profesional para obtener recomendaciones más precisas.'
-                    : 'Completa tu diagnóstico con IA para recibir oportunidades personalizadas.'
-                  }
-                </p>
-                <div className="flex items-center gap-3 pt-1">
-                  <Link to="/onboarding">
-                    <Button 
-                      size="sm"
-                      className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-medium"
-                    >
-                      {profile?.rolActual ? (
-                        <>
-                          <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-                          Rehacer diagnóstico
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="mr-1.5 h-3.5 w-3.5" />
-                          Iniciar diagnóstico
-                        </>
-                      )}
-                    </Button>
+                    </Card>
                   </Link>
-                  {profile?.rolActual && (
-                    <span className="text-xs text-primary-foreground/60">
-                      Rol: {getRoleDisplayName(profile.rolActual)}
-                    </span>
-                  )}
-                </div>
+                ))}
               </div>
-            </Card>
+            </motion.div>
           </div>
 
-          {/* Right column */}
-          <div className="lg:col-span-2 space-y-6">
-            <ProgressBar 
-              cvCompleted={cvCompletionScore}
-              interviewsPracticed={interviewsPracticed}
-              opportunitiesSaved={opportunitiesSaved}
-            />
-            <RecommendedResources role={profile?.rolActual} />
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
+            >
+              <ProgressBar 
+                cvCompleted={cvCompletionScore}
+                interviewsPracticed={interviewsPracticed}
+                opportunitiesSaved={opportunitiesSaved}
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <RecommendedResources role={profile?.rolActual} />
+            </motion.div>
           </div>
         </div>
       </div>

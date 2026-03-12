@@ -19,18 +19,12 @@ import { IntegrationsSection } from '@/components/settings/IntegrationsSection';
 import { LanguageSection } from '@/components/settings/LanguageSection';
 import { AccountSection } from '@/components/settings/AccountSection';
 import { RoleSection } from '@/components/settings/RoleSection';
+import { cn } from '@/lib/utils';
 
 type SettingSection = 
-  | 'profile' 
-  | 'role'
-  | 'security' 
-  | 'notifications' 
-  | 'appearance' 
-  | 'language'
-  | 'subscription' 
-  | 'privacy' 
-  | 'integrations' 
-  | 'account';
+  | 'profile' | 'role' | 'security' | 'notifications' 
+  | 'appearance' | 'language' | 'subscription' | 'privacy' 
+  | 'integrations' | 'account';
 
 export default function Settings() {
   const { t } = useTranslation();
@@ -51,48 +45,28 @@ export default function Settings() {
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'profile':
-        return <ProfileSection />;
-      case 'role':
-        return <RoleSection />;
-      case 'security':
-        return <SecuritySection />;
-      case 'notifications':
-        return (
-          <>
-            <NotificationsSettings />
-            <NotificationsSection />
-          </>
-        );
-      case 'appearance':
-        return <AppearanceSection />;
-      case 'language':
-        return <LanguageSection />;
-      case 'subscription':
-        return <SubscriptionSection />;
-      case 'privacy':
-        return <PrivacySection />;
-      case 'integrations':
-        return <IntegrationsSection />;
-      case 'account':
-        return <AccountSection />;
-      default:
-        return null;
+      case 'profile': return <ProfileSection />;
+      case 'role': return <RoleSection />;
+      case 'security': return <SecuritySection />;
+      case 'notifications': return (<><NotificationsSettings /><NotificationsSection /></>);
+      case 'appearance': return <AppearanceSection />;
+      case 'language': return <LanguageSection />;
+      case 'subscription': return <SubscriptionSection />;
+      case 'privacy': return <PrivacySection />;
+      case 'integrations': return <IntegrationsSection />;
+      case 'account': return <AccountSection />;
+      default: return null;
     }
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
-      {/* Header */}
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{t('settings.title')}</h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          {t('settings.subtitle')}
-        </p>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">{t('settings.title')}</h1>
+        <p className="text-sm text-muted-foreground">{t('settings.subtitle')}</p>
       </div>
 
       {isMobile ? (
-        /* Mobile: Horizontal Tabs */
         <div className="space-y-6">
           <ScrollArea className="w-full whitespace-nowrap">
             <Tabs value={activeSection} onValueChange={(value) => setActiveSection(value as SettingSection)}>
@@ -103,73 +77,62 @@ export default function Settings() {
                     <TabsTrigger
                       key={item.id}
                       value={item.id}
-                      className="min-h-[44px] px-3 sm:px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                      className="min-h-[40px] px-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground text-xs"
                     >
-                      <Icon className="h-4 w-4 mr-2" />
-                      <span className="text-xs sm:text-sm">{item.label}</span>
+                      <Icon className="h-3.5 w-3.5 mr-1.5" />
+                      {item.label}
                     </TabsTrigger>
                   );
                 })}
-                <TabsTrigger
-                  value="account"
-                  className="min-h-[44px] px-3 sm:px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  <span className="text-xs sm:text-sm">{t('settings.account.title')}</span>
+                <TabsTrigger value="account" className="min-h-[40px] px-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground text-xs">
+                  <Download className="h-3.5 w-3.5 mr-1.5" />
+                  {t('settings.account.title')}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
-
-          <main className="min-w-0">
-            {renderContent()}
-          </main>
+          <main className="min-w-0">{renderContent()}</main>
         </div>
       ) : (
-        /* Desktop: Sidebar Navigation */
-        <div className="flex flex-col md:flex-row gap-8">
-          <aside className="w-full md:w-64 space-y-1">
-            <nav className="sticky top-6">
+        <div className="flex gap-8">
+          <aside className="w-56 shrink-0">
+            <nav className="sticky top-6 space-y-0.5">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeSection === item.id;
-
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveSection(item.id as SettingSection)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 min-h-[44px] ${
+                    className={cn(
+                      'w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left transition-all duration-200',
                       isActive
-                        ? 'bg-primary text-primary-foreground shadow-clovely-md'
-                        : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground hover:shadow-clovely-sm'
-                    }`}
+                        ? 'bg-primary text-primary-foreground font-medium shadow-clovely-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                    )}
                   >
-                    <Icon className="h-5 w-5" />
-                    <span className="font-medium">{item.label}</span>
+                    <Icon className="h-4 w-4" />
+                    <span>{item.label}</span>
                   </button>
                 );
               })}
-
-              <Separator className="my-4" />
-
+              <Separator className="my-3" />
               <button
-                onClick={() => setActiveSection('account' as SettingSection)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 min-h-[44px] ${
+                onClick={() => setActiveSection('account')}
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left transition-all duration-200',
                   activeSection === 'account'
-                    ? 'bg-accent text-foreground shadow-clovely-sm'
-                    : 'hover:bg-accent/50 text-muted-foreground hover:text-foreground'
-                }`}
+                    ? 'bg-muted text-foreground font-medium'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                )}
               >
-                <Download className="h-5 w-5" />
-                <span className="font-medium">{t('settings.account.title')}</span>
+                <Download className="h-4 w-4" />
+                <span>{t('settings.account.title')}</span>
               </button>
             </nav>
           </aside>
-
-          <main className="flex-1 min-w-0">
-            {renderContent()}
-          </main>
+          <main className="flex-1 min-w-0">{renderContent()}</main>
         </div>
       )}
     </div>

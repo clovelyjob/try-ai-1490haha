@@ -16,12 +16,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import {
-  Home, FileText, Briefcase, Settings, Mic, Shield, Menu, ArrowUpRight,
+  Home, FileText, Briefcase, Settings, Mic, Shield, Menu, ArrowUpRight, LogOut,
 } from 'lucide-react';
 
 export default function DashboardLayout() {
   const { t } = useTranslation();
-  const { user, startPremiumTrial } = useAuthStore();
+  const { user, startPremiumTrial, logout } = useAuthStore();
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -70,17 +70,20 @@ export default function DashboardLayout() {
     return items;
   }, [isAdmin, t]);
 
+  const isActive = (path: string) =>
+    location.pathname === path || (path !== '/dashboard' && location.pathname.startsWith(path));
+
   const SidebarContent = () => (
     <>
       {/* Logo */}
-      <div className="flex items-center px-5 h-16 border-b border-border/40">
+      <div className="flex items-center px-5 h-16 border-b border-sidebar-border/60">
         <OfficialLogo size="md" to="/dashboard" asMotion={true} animated={false} />
       </div>
 
       {/* User Profile */}
-      <div className="p-4 border-b border-border/40">
+      <div className="p-4 border-b border-sidebar-border/60">
         <div className="flex items-center gap-3">
-          <Avatar className="h-9 w-9">
+          <Avatar className="h-9 w-9 ring-2 ring-primary/10">
             <AvatarImage src={user?.avatar} />
             <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
               {user?.name?.[0]}
@@ -94,10 +97,9 @@ export default function DashboardLayout() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-3 space-y-0.5" aria-label="Main navigation">
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1" aria-label="Main navigation">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path || 
-                         (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
+          const active = isActive(item.path);
           const Icon = item.icon;
           
           return (
@@ -108,13 +110,13 @@ export default function DashboardLayout() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                'transition-colors duration-150',
-                isActive
-                  ? 'bg-primary text-primary-foreground font-medium'
+                'transition-all duration-200',
+                active
+                  ? 'bg-primary text-primary-foreground font-medium shadow-clovely-sm'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
               )}
             >
-              <Icon className="h-4.5 w-4.5 flex-shrink-0" style={{ width: 18, height: 18 }} />
+              <Icon className="flex-shrink-0" style={{ width: 18, height: 18 }} />
               <span className="flex-1 truncate">{item.label}</span>
             </Link>
           );
@@ -122,7 +124,7 @@ export default function DashboardLayout() {
       </nav>
 
       {/* Footer */}
-      <div className="p-3 border-t border-border/40 space-y-2">
+      <div className="p-3 border-t border-sidebar-border/60 space-y-2">
         <ThemeToggle />
         {!isPremium && (
           <Button 
@@ -142,8 +144,8 @@ export default function DashboardLayout() {
   );
 
   const MiniSidebar = () => (
-    <aside className="border-r border-border/40 bg-card flex flex-col fixed h-screen z-40 w-[56px]">
-      <div className="p-2 h-16 flex items-center justify-center border-b border-border/40">
+    <aside className="border-r border-sidebar-border/60 bg-card flex flex-col fixed h-screen z-40 w-[56px]">
+      <div className="p-2 h-16 flex items-center justify-center border-b border-sidebar-border/60">
         <Button 
           variant="ghost" 
           size="icon"
@@ -155,10 +157,9 @@ export default function DashboardLayout() {
         </Button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto p-1.5 space-y-0.5">
+      <nav className="flex-1 overflow-y-auto p-1.5 space-y-1">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path || 
-                         (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
+          const active = isActive(item.path);
           const Icon = item.icon;
           
           return (
@@ -169,9 +170,9 @@ export default function DashboardLayout() {
                   className={cn(
                     'flex items-center justify-center p-2.5 rounded-lg',
                     'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                    'transition-colors duration-150',
-                    isActive
-                      ? 'bg-primary text-primary-foreground'
+                    'transition-all duration-200',
+                    active
+                      ? 'bg-primary text-primary-foreground shadow-clovely-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                   )}
                 >
@@ -186,7 +187,7 @@ export default function DashboardLayout() {
         })}
       </nav>
 
-      <div className="p-1.5 border-t border-border/40">
+      <div className="p-1.5 border-t border-sidebar-border/60">
         <Tooltip>
           <TooltipTrigger asChild>
             <div><ThemeToggle /></div>
