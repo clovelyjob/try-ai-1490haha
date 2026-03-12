@@ -4,84 +4,91 @@
 
 @layer base {
   :root {
-    /* Main colors - Clovely premium palette */
-    --background: 0 0% 99%; /* Premium white */
-    --foreground: 0 0% 15%; /* Dark gray text */
+    /* Main colors - Clovely green theme */
+    --background: 208 100% 97%; /* #f0f8ff */
+    --foreground: 220 14% 26%; /* #374151 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card: 0 0% 100%; /* #ffffff */
+    --card-foreground: 220 14% 26%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 220 14% 26%;
 
-    /* Clovely Brand - Naranja vibrante #FF7A00 */
-    --primary: 25 100% 50%; /* #FF7A00 Naranja principal */
-    --primary-light: 25 100% 65%; /* Naranja claro */
-    --primary-dark: 25 100% 40%; /* Naranja oscuro */
+    /* Clovely Brand - Green */
+    --primary: 160 84% 39%; /* #10b981 */
+    --primary-light: 142 71% 45%; /* #22c55e */
+    --primary-dark: 160 84% 30%; /* darker green */
     --primary-foreground: 0 0% 100%;
 
-    /* Colores secundarios - Durazno y Coral */
-    --secondary: 16 100% 70%; /* #FFB88A Durazno suave */
-    --secondary-light: 16 100% 80%; /* Durazno más claro */
-    --secondary-coral: 4 100% 69%; /* #FF6F61 Coral */
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Light blue */
+    --secondary: 204 94% 94%; /* #e0f2fe */
+    --secondary-light: 204 94% 96%;
+    --secondary-coral: 4 100% 69%;
+    --secondary-foreground: 220 9% 34%; /* #4b5563 */
     
-    /* Color premium de contraste - Azul profundo */
-    --premium-blue: 207 86% 21%; /* #0A3D62 Azul profundo */
+    /* Premium blue kept for compatibility */
+    --premium-blue: 207 86% 21%;
     --premium-blue-foreground: 0 0% 100%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    --muted: 0 0% 96%; /* Subtle gray background */
-    --muted-foreground: 0 0% 40%; /* Muted text */
+    --muted: 220 14% 96%; /* #f3f4f6 */
+    --muted-foreground: 220 9% 46%; /* #6b7280 */
 
-    --accent: 25 100% 55%; /* Bright orange accent */
-    --accent-foreground: 0 0% 100%;
+    --accent: 149 80% 90%; /* #d1fae5 */
+    --accent-foreground: 220 14% 26%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%; /* #ef4444 */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%; /* Light gray borders */
-    --input: 0 0% 90%;
-    --ring: 25 100% 50%;
+    --border: 220 13% 91%; /* #e5e7eb */
+    --input: 220 13% 91%;
+    --ring: 142 71% 45%; /* #22c55e */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Clovely Gradients - Premium Edition */
-    --gradient-primary: linear-gradient(135deg, hsl(25 100% 50%), hsl(25 100% 65%));
-    --gradient-orange: linear-gradient(135deg, hsl(25 100% 50%), hsl(25 100% 65%));
-    --gradient-hero: linear-gradient(180deg, hsl(210 100% 94%), hsl(25 100% 96%), hsl(35 100% 94%));
-    --gradient-premium: linear-gradient(135deg, hsl(207 86% 21%), hsl(210 90% 35%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 100% 50%), hsl(35 100% 60%));
-    --gradient-soft: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 99%));
+    /* Chart colors */
+    --chart-1: 142 71% 45%;
+    --chart-2: 160 84% 39%;
+    --chart-3: 160 84% 30%;
+    --chart-4: 160 84% 24%;
+    --chart-5: 160 84% 20%;
+
+    /* Clovely Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(160 84% 39%), hsl(142 71% 45%));
+    --gradient-orange: linear-gradient(135deg, hsl(160 84% 39%), hsl(142 71% 45%));
+    --gradient-hero: linear-gradient(180deg, hsl(204 94% 94%), hsl(149 80% 95%), hsl(208 100% 97%));
+    --gradient-premium: linear-gradient(135deg, hsl(160 84% 30%), hsl(142 71% 45%));
+    --gradient-warm: linear-gradient(135deg, hsl(160 84% 39%), hsl(149 80% 50%));
+    --gradient-soft: linear-gradient(180deg, hsl(0 0% 100%), hsl(208 100% 97%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(208 100% 98%));
     
-    /* Shadows - Orange tinted */
-    --shadow-sm: 0 1px 2px 0 rgba(255, 122, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(255, 122, 0, 0.08), 0 2px 4px -2px rgba(255, 122, 0, 0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(255, 122, 0, 0.1), 0 4px 6px -4px rgba(255, 122, 0, 0.08);
-    --shadow-xl: 0 20px 25px -5px rgba(255, 122, 0, 0.1), 0 8px 10px -6px rgba(255, 122, 0, 0.08);
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(16, 185, 129, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(16, 185, 129, 0.08), 0 2px 4px -2px rgba(16, 185, 129, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(16, 185, 129, 0.1), 0 4px 6px -4px rgba(16, 185, 129, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(16, 185, 129, 0.1), 0 8px 10px -6px rgba(16, 185, 129, 0.08);
     
-    /* Glassmorphism - Clovely style */
+    /* Glassmorphism */
     --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(255, 122, 0, 0.15);
+    --glass-border: rgba(16, 185, 129, 0.15);
     
     /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 15%;
-    --sidebar-primary: 25 100% 50%;
+    --sidebar-background: 204 94% 94%; /* #e0f2fe */
+    --sidebar-foreground: 220 14% 26%;
+    --sidebar-primary: 142 71% 45%; /* #22c55e */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 97%;
-    --sidebar-accent-foreground: 0 0% 15%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 25 100% 50%;
+    --sidebar-accent: 149 80% 90%; /* #d1fae5 */
+    --sidebar-accent-foreground: 220 14% 26%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 71% 45%;
     
     /* Professional CV Specific */
-    --harvard-text: 0 0% 0%; /* Pure black #000000 */
-    --harvard-text-secondary: 0 0% 33%; /* Gray #555555 */
-    --harvard-bg: 0 0% 100%; /* Pure white */
-    --harvard-border: 0 0% 0%; /* Black borders */
+    --harvard-text: 0 0% 0%;
+    --harvard-text-secondary: 0 0% 33%;
+    --harvard-bg: 0 0% 100%;
+    --harvard-border: 0 0% 0%;
   }
 
   .dark {
