@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
+import { Chrome, Linkedin, ArrowLeft, Sparkles } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
-import { DecoratedLogo } from '@/components/DecoratedLogo';
+import { OfficialLogo } from '@/components/OfficialLogo';
 import { z } from 'zod';
 
 const registerSchema = z.object({
@@ -29,318 +29,190 @@ const Register = () => {
   const { register } = useAuthStore();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-    newsletter: true,
+    name: '', email: '', password: '', confirmPassword: '', acceptTerms: false, newsletter: true,
   });
-
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleGoogleSignup = async () => {
-    try {
-      await useAuthStore.getState().signInWithGoogle();
-      toast.success('Redirigiendo a Google...');
-    } catch (error: any) {
-      console.error('Google signup error:', error);
-      toast.error('Error al conectar con Google');
-    }
+    try { await useAuthStore.getState().signInWithGoogle(); } 
+    catch { toast.error('Error al conectar con Google'); }
   };
 
   const handleLinkedInSignup = async () => {
-    try {
-      await useAuthStore.getState().signInWithLinkedIn();
-      toast.success('Redirigiendo a LinkedIn...');
-    } catch (error: any) {
-      console.error('LinkedIn signup error:', error);
-      toast.error('Error al conectar con LinkedIn');
-    }
+    try { await useAuthStore.getState().signInWithLinkedIn(); } 
+    catch { toast.error('Error al conectar con LinkedIn'); }
   };
 
   const getPasswordStrength = () => {
-    const password = formData.password;
-    let strength = 0;
-    if (password.length >= 8) strength++;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-    if (/\d/.test(password)) strength++;
-    if (/[^a-zA-Z\d]/.test(password)) strength++;
-    return strength;
+    const p = formData.password;
+    let s = 0;
+    if (p.length >= 8) s++;
+    if (/[a-z]/.test(p) && /[A-Z]/.test(p)) s++;
+    if (/\d/.test(p)) s++;
+    if (/[^a-zA-Z\d]/.test(p)) s++;
+    return s;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
-
-    if (!formData.acceptTerms) {
-      setErrors({ acceptTerms: 'Debes aceptar los términos' });
-      toast.error('Debes aceptar los términos y condiciones');
-      return;
-    }
-
-    try {
-      registerSchema.parse(formData);
-    } catch (error) {
+    if (!formData.acceptTerms) { setErrors({ acceptTerms: 'Debes aceptar los términos' }); toast.error('Debes aceptar los términos'); return; }
+    try { registerSchema.parse(formData); } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            newErrors[err.path[0].toString()] = err.message;
-          }
-        });
-        setErrors(newErrors);
-        toast.error(error.errors[0].message);
-        return;
+        error.errors.forEach((err) => { if (err.path[0]) newErrors[err.path[0].toString()] = err.message; });
+        setErrors(newErrors); toast.error(error.errors[0].message); return;
       }
     }
-
     setLoading(true);
     try {
       await register(formData.name, formData.email, formData.password);
-      toast.success('¡Cuenta creada exitosamente! Redirigiendo al diagnóstico...');
-      // Pequeño delay para que se complete el registro
+      toast.success('Cuenta creada exitosamente');
       setTimeout(() => navigate('/onboarding'), 1500);
     } catch (error: any) {
-      console.error('Register error:', error);
-      if (error.message?.includes('already registered') || error.message?.includes('User already registered')) {
-        toast.error('Este email ya está registrado. Intenta iniciar sesión.');
-      } else {
-        toast.error(error.message || 'Error al crear la cuenta');
-      }
-    } finally {
-      setLoading(false);
-    }
+      if (error.message?.includes('already registered')) toast.error('Este email ya está registrado.');
+      else toast.error(error.message || 'Error al crear la cuenta');
+    } finally { setLoading(false); }
   };
 
   const strength = getPasswordStrength();
-  const strengthColors = ['bg-destructive', 'bg-destructive', 'bg-accent', 'bg-success'];
+  const strengthColors = ['bg-destructive', 'bg-destructive', 'bg-primary/50', 'bg-primary'];
   const strengthLabels = ['Débil', 'Regular', 'Buena', 'Fuerte'];
 
   return (
     <div className="min-h-screen grid md:grid-cols-2 overflow-x-hidden max-w-full">
-      {/* Form Column */}
-      <div className="flex items-center justify-center p-8 max-w-full">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="w-full max-w-md"
-        >
-          <Link to="/" className="inline-flex items-center gap-2 mb-8 text-sm hover:text-primary transition-all duration-300 hover-lift">
-            <ArrowLeft className="h-4 w-4" />
-            Volver al inicio
+      {/* Form */}
+      <div className="flex items-center justify-center p-6 sm:p-8">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
+          <Link to="/" className="inline-flex items-center gap-1.5 mb-8 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5" /> Volver al inicio
           </Link>
 
-          <div className="mb-8">
-            <div className="flex justify-center mb-6">
-              <DecoratedLogo size="md" animated={true} />
+          <div className="mb-6">
+            <OfficialLogo size="md" className="mb-5" />
+            <h1 className="text-2xl font-bold mb-2 tracking-tight">Crea tu cuenta gratis</h1>
+            <div className="bg-primary/8 border border-primary/15 rounded-lg p-3 mb-3">
+              <p className="text-primary font-medium text-sm flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5" />
+                7 días de prueba gratuita
+              </p>
+              <p className="text-xs text-muted-foreground">Sin compromiso. Cancela cuando quieras.</p>
             </div>
-            <h1 className="text-3xl font-heading font-bold mb-2">
-              Crea tu cuenta gratis
-            </h1>
-            <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
-              <p className="text-primary font-semibold text-lg">✨ 7 días de prueba gratuita</p>
-              <p className="text-sm text-muted-foreground">Sin compromiso. Cancela cuando quieras.</p>
-            </div>
-            <p className="text-muted-foreground">
-              Comienza tu transformación profesional hoy
-            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="name">Nombre completo *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Ana García"
-                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.name ? 'border-destructive' : ''}`}
-              />
-              {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
+          <form onSubmit={handleSubmit} className="space-y-3.5">
+            <div className="space-y-1.5">
+              <Label htmlFor="name" className="text-sm">Nombre completo</Label>
+              <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Ana García" className={`h-10 ${errors.name ? 'border-destructive' : ''}`} />
+              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
             </div>
 
-            <div>
-              <Label htmlFor="email">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="ana@ejemplo.com"
-                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.email ? 'border-destructive' : ''}`}
-              />
-              {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-sm">Email</Label>
+              <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="ana@ejemplo.com" className={`h-10 ${errors.email ? 'border-destructive' : ''}`} />
+              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
             </div>
 
-            <div>
-              <Label htmlFor="password">Contraseña *</Label>
-              <Input
-                id="password"
-                type="password"
-                value={formData.password}
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-sm">Contraseña</Label>
+              <Input id="password" type="password" value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="••••••••"
-                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.password ? 'border-destructive' : ''}`}
-              />
+                placeholder="••••••••" className={`h-10 ${errors.password ? 'border-destructive' : ''}`} />
               {formData.password && (
-                <div className="mt-2 space-y-1">
+                <div className="mt-1.5 space-y-1">
                   <div className="flex gap-1">
                     {[0, 1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className={`h-1 flex-1 rounded ${
-                          i < strength ? strengthColors[strength - 1] : 'bg-muted'
-                        }`}
-                      />
+                      <div key={i} className={`h-1 flex-1 rounded-full ${i < strength ? strengthColors[strength - 1] : 'bg-muted'}`} />
                     ))}
                   </div>
-                  {strength > 0 && (
-                    <p className="text-xs text-muted-foreground">
-                      Seguridad: {strengthLabels[strength - 1]}
-                    </p>
-                  )}
+                  {strength > 0 && <p className="text-xs text-muted-foreground">Seguridad: {strengthLabels[strength - 1]}</p>}
                 </div>
               )}
-              {errors.password && <p className="text-xs text-destructive mt-1">{errors.password}</p>}
+              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
             </div>
 
-            <div>
-              <Label htmlFor="confirmPassword">Confirmar contraseña *</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                value={formData.confirmPassword}
+            <div className="space-y-1.5">
+              <Label htmlFor="confirmPassword" className="text-sm">Confirmar contraseña</Label>
+              <Input id="confirmPassword" type="password" value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                placeholder="••••••••"
-                className={`shadow-clovely-sm focus-visible:shadow-clovely-md transition-all duration-300 ${errors.confirmPassword ? 'border-destructive' : ''}`}
-              />
-              {errors.confirmPassword && (
-                <p className="text-xs text-destructive mt-1">{errors.confirmPassword}</p>
-              )}
+                placeholder="••••••••" className={`h-10 ${errors.confirmPassword ? 'border-destructive' : ''}`} />
+              {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword}</p>}
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5 pt-1">
               <div className="flex items-start gap-2">
-                <Checkbox
-                  id="terms"
-                  checked={formData.acceptTerms}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, acceptTerms: checked as boolean })
-                  }
-                  className={errors.acceptTerms ? 'border-destructive' : ''}
-                />
-                <label htmlFor="terms" className="text-sm leading-tight">
-                  Acepto los{' '}
-                  <a href="#" className="text-primary hover:underline">
-                    términos y condiciones
-                  </a>{' '}
-                  y la{' '}
-                  <a href="#" className="text-primary hover:underline">
-                    política de privacidad
-                  </a>
+                <Checkbox id="terms" checked={formData.acceptTerms}
+                  onCheckedChange={(checked) => setFormData({ ...formData, acceptTerms: checked as boolean })} />
+                <label htmlFor="terms" className="text-xs leading-tight">
+                  Acepto los <a href="#" className="text-primary hover:underline">términos</a> y la <a href="#" className="text-primary hover:underline">política de privacidad</a>
                 </label>
               </div>
-
               <div className="flex items-start gap-2">
-                <Checkbox
-                  id="newsletter"
-                  checked={formData.newsletter}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, newsletter: checked as boolean })
-                  }
-                />
-                <label htmlFor="newsletter" className="text-sm">
-                  Quiero recibir tips semanales para impulsar mi carrera
-                </label>
+                <Checkbox id="newsletter" checked={formData.newsletter}
+                  onCheckedChange={(checked) => setFormData({ ...formData, newsletter: checked as boolean })} />
+                <label htmlFor="newsletter" className="text-xs">Tips semanales para impulsar mi carrera</label>
               </div>
             </div>
 
-            <Button
-              type="submit"
-              className="w-full gradient-orange text-white hover-glow hover:scale-105 transition-all duration-300"
-              disabled={loading}
-            >
-              {loading ? 'Creando cuenta...' : 'Crear cuenta gratis →'}
+            <Button type="submit" className="w-full h-10 font-medium" disabled={loading}>
+              {loading ? 'Creando cuenta...' : 'Crear cuenta gratis'}
             </Button>
 
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t"></div>
-              </div>
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border/60" /></div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  O continúa con
-                </span>
+                <span className="bg-background px-2 text-muted-foreground">O continúa con</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
-                onClick={handleGoogleSignup}
-              >
-                <Chrome className="mr-2 h-4 w-4" />
-                Google
+              <Button type="button" variant="outline" className="h-10 text-sm" onClick={handleGoogleSignup}>
+                <Chrome className="mr-1.5 h-4 w-4" /> Google
               </Button>
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="shadow-clovely-sm hover:shadow-clovely-md hover:-translate-y-0.5 transition-all duration-300"
-                onClick={handleLinkedInSignup}
-              >
-                <Linkedin className="mr-2 h-4 w-4" />
-                LinkedIn
+              <Button type="button" variant="outline" className="h-10 text-sm" onClick={handleLinkedInSignup}>
+                <Linkedin className="mr-1.5 h-4 w-4" /> LinkedIn
               </Button>
             </div>
 
             <p className="text-center text-sm text-muted-foreground">
-              ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-primary hover:underline font-medium">
-                Inicia sesión
-              </Link>
+              ¿Ya tienes cuenta? <Link to="/login" className="text-primary hover:underline font-medium">Inicia sesión</Link>
             </p>
           </form>
-
-          <p className="mt-8 text-xs text-center text-muted-foreground">
-            Al crear una cuenta, aceptas nuestros Términos de Servicio y reconoces
-            haber leído nuestra Política de Privacidad.
-          </p>
         </motion.div>
       </div>
 
-      {/* Testimonial Column */}
-      <div className="hidden md:flex gradient-orange text-white p-12 items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="max-w-md"
-        >
+      {/* Testimonial Panel */}
+      <div className="hidden md:flex bg-primary text-primary-foreground p-12 items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
+            backgroundSize: '32px 32px',
+          }} />
+        </div>
+        <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} className="max-w-sm relative">
           <div className="space-y-6">
-            <div className="text-6xl">✨</div>
-            <blockquote className="text-2xl font-heading font-semibold leading-relaxed">
+            <blockquote className="text-xl font-semibold leading-relaxed">
               "Clovely me ayudó a descubrir mi verdadera pasión. En 3 meses pasé
               de sentirme perdida a tener mi trabajo soñado."
             </blockquote>
             <div>
               <p className="font-semibold">Ana María Torres</p>
-              <p className="text-white/80">Product Designer en Rappi</p>
+              <p className="text-primary-foreground/70 text-sm">Product Designer en Rappi</p>
             </div>
-
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/20">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-primary-foreground/15">
               <div>
-                <p className="text-3xl font-heading font-bold">87%</p>
-                <p className="text-sm text-white/80">Consigue empleo</p>
+                <p className="text-2xl font-bold">87%</p>
+                <p className="text-xs text-primary-foreground/70">Consigue empleo</p>
               </div>
               <div>
-                <p className="text-3xl font-heading font-bold">4.9</p>
-                <p className="text-sm text-white/80">Rating promedio</p>
+                <p className="text-2xl font-bold">4.9</p>
+                <p className="text-xs text-primary-foreground/70">Rating promedio</p>
               </div>
               <div>
-                <p className="text-3xl font-heading font-bold">10K+</p>
-                <p className="text-sm text-white/80">Usuarios activos</p>
+                <p className="text-2xl font-bold">10K+</p>
+                <p className="text-xs text-primary-foreground/70">Usuarios activos</p>
               </div>
             </div>
           </div>

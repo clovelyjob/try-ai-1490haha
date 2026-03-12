@@ -62,10 +62,8 @@ export const OfficialLogo = ({
         'object-contain transition-all duration-200',
         sizes[size],
         'opacity-95',
-        fullVersion 
-          ? 'drop-shadow-[0_0_8px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.25)]'
-          : 'drop-shadow-[0_0_4px_rgba(255,122,0,0.18)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.25)]',
-        'hover:scale-[1.04]'
+        'drop-shadow-[0_0_4px_rgba(16,185,129,0.12)] dark:drop-shadow-[0_0_6px_rgba(52,211,153,0.2)]',
+        'hover:scale-[1.02]'
       )}
     />
   );
