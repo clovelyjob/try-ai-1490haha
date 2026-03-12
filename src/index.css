@@ -288,6 +288,14 @@
     background: var(--gradient-primary);
   }
 
+  .gradient-orange {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-orange-gray {
+    background: var(--gradient-primary);
+  }
+
   .gradient-warm {
     background: var(--gradient-warm);
   }
