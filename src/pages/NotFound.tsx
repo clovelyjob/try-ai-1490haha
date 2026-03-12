@@ -12,21 +12,17 @@ const NotFound = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-6">
-      <div className="text-center max-w-sm space-y-6">
-        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-          <SearchX className="h-8 w-8 text-primary" />
+      <div className="text-center max-w-xs space-y-5">
+        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
+          <SearchX className="h-6 w-6 text-primary" />
         </div>
-        <div className="space-y-2">
-          <h1 className="text-5xl font-bold text-foreground">404</h1>
-          <p className="text-lg text-muted-foreground">Página no encontrada</p>
+        <div>
+          <h1 className="text-4xl font-bold text-foreground mb-1">404</h1>
+          <p className="text-sm text-muted-foreground">La página que buscas no existe o fue movida.</p>
         </div>
-        <p className="text-sm text-muted-foreground">
-          La página que buscas no existe o fue movida.
-        </p>
         <Link to="/">
-          <Button variant="outline" className="gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            Volver al inicio
+          <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+            <ArrowLeft className="h-3 w-3" /> Volver al inicio
           </Button>
         </Link>
       </div>
