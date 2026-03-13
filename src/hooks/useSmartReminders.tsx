@@ -37,7 +37,7 @@ export const useSmartReminders = () => {
       if (daysSinceUpdate >= 30 && hour === 10 && dayOfWeek === 1) { // Monday at 10am
         addNotification({
           type: 'reminder',
-          title: '📝 Actualiza tu CV',
+          title: 'Actualiza tu CV',
           message: `Han pasado ${daysSinceUpdate} días desde tu última actualización. Mantén tu CV al día.`,
           actionUrl: '/dashboard/cvs',
           actionLabel: 'Actualizar CV',
