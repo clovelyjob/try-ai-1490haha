@@ -586,7 +586,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'medical_doctor',
     label: 'Médico',
-    icon: '👨‍⚕️',
+    icon: 'stethoscope',
     description: 'Diagnostica y trata enfermedades',
     keywords: ['medicina', 'diagnóstico', 'tratamiento', 'pacientes', 'clínica'],
     toolKeywords: ['emr', 'medical imaging', 'diagnostic tools'],
