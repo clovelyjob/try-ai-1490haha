@@ -96,10 +96,10 @@ export const useSmartReminders = () => {
     // Motivational reminder (every Monday at 8am)
     if (dayOfWeek === 1 && hour === 8) {
       const motivationalMessages = [
-        '¡Nueva semana, nuevas oportunidades! 💪',
-        '¡Tu próxima gran oportunidad está esperándote! 🚀',
-        '¡Sigue trabajando en tu desarrollo profesional! 🌟',
-        '¡Esta semana es perfecta para avanzar en tu carrera! ✨',
+        'Nueva semana, nuevas oportunidades.',
+        'Tu próxima gran oportunidad está esperándote.',
+        'Sigue trabajando en tu desarrollo profesional.',
+        'Esta semana es perfecta para avanzar en tu carrera.',
       ];
       
       const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
