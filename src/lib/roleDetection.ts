@@ -554,7 +554,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'architect',
     label: 'Arquitecto',
-    icon: '🏛️',
+    icon: 'landmark',
     description: 'Diseña espacios arquitectónicos y edificaciones',
     keywords: ['arquitectura', 'diseño', 'espacios', 'edificios', 'construcción'],
     toolKeywords: ['revit', 'autocad', 'sketchup', 'rhino', 'lumion'],
