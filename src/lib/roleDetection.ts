@@ -98,7 +98,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_fullstack',
     label: 'Desarrollador Fullstack',
-    icon: '🔧',
+    icon: 'wrench',
     description: 'Maneja tanto frontend como backend',
     keywords: ['fullstack', 'full stack', 'completo', 'frontend', 'backend', 'end-to-end'],
     toolKeywords: ['react', 'node', 'typescript', 'postgresql', 'mongodb', 'docker'],
