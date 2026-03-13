@@ -244,7 +244,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'investor',
     label: 'Inversionista',
-    icon: '💰',
+    icon: 'dollar-sign',
     description: 'Gestiona inversiones y análisis financiero',
     keywords: ['inversión', 'finanzas', 'portafolio', 'análisis financiero', 'mercados', 'activos'],
     toolKeywords: ['bloomberg', 'excel', 'python', 'tableau', 'powerpoint'],
