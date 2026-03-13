@@ -317,8 +317,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Crear diagrama de flujo', xp: 80, category: 'mapping' },
       ],
       resources: [
-        { type: 'Curso', title: 'Business Analysis', duration: '5h', icon: '📊' },
-        { type: 'Artículo', title: 'Requirements Gathering', duration: '18min', icon: '📝' },
+        { type: 'Curso', title: 'Business Analysis', duration: '5h', icon: 'bar-chart-3' },
+        { type: 'Artículo', title: 'Requirements Gathering', duration: '18min', icon: 'file-text' },
       ]
     },
 
