@@ -419,8 +419,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'A/B testing de anuncios', xp: 100, category: 'optimization' },
       ],
       resources: [
-        { type: 'Curso', title: 'Digital Marketing', duration: '5h', icon: '📣' },
-        { type: 'Video', title: 'Social Media Marketing', duration: '30min', icon: '📱' },
+        { type: 'Curso', title: 'Digital Marketing', duration: '5h', icon: 'megaphone' },
+        { type: 'Video', title: 'Social Media Marketing', duration: '30min', icon: 'smartphone' },
       ]
     },
     growth_marketer: getDefaultConfig('Growth Marketer'),
