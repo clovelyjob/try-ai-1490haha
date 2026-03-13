@@ -230,7 +230,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             {
               method: 'GET',
               headers: {
-                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+                'Authorization': `Bearer ${session.access_token}`,
                 'Content-Type': 'application/json',
               },
             }
