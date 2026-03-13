@@ -138,7 +138,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'qa_engineer',
     label: 'QA Engineer',
-    icon: '🔍',
+    icon: 'search',
     description: 'Asegura la calidad mediante testing y automatización',
     keywords: ['qa', 'testing', 'calidad', 'automatización', 'bugs', 'pruebas'],
     toolKeywords: ['selenium', 'cypress', 'jira', 'postman', 'jest', 'pytest'],
