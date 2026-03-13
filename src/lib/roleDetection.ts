@@ -88,7 +88,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_backend',
     label: 'Desarrollador Backend',
-    icon: '⚙️',
+    icon: 'server',
     description: 'Enfocado en APIs, bases de datos y lógica del servidor',
     keywords: ['backend', 'servidor', 'api', 'base de datos', 'arquitectura', 'microservicios'],
     toolKeywords: ['node', 'python', 'java', 'postgresql', 'mongodb', 'redis', 'docker', 'kubernetes'],
