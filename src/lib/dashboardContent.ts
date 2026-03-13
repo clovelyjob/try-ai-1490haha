@@ -377,8 +377,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Research de oportunidades', xp: 120, category: 'research' },
       ],
       resources: [
-        { type: 'Curso', title: 'Investment Analysis', duration: '6h', icon: '💼' },
-        { type: 'Video', title: 'Financial Modeling', duration: '35min', icon: '💰' },
+        { type: 'Curso', title: 'Investment Analysis', duration: '6h', icon: 'briefcase' },
+        { type: 'Video', title: 'Financial Modeling', duration: '35min', icon: 'dollar-sign' },
       ]
     },
     hedge_fund: {
