@@ -111,7 +111,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
           Tu código Holland: {riasecResult.hollandCode}
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          {typeInfo.icon} Perfil principal: <strong>{typeInfo.name}</strong> — {typeInfo.description}
+          <DynamicIcon name={typeInfo.icon} size={18} className="inline mr-1" /> Perfil principal: <strong>{typeInfo.name}</strong> — {typeInfo.description}
         </p>
       </div>
 
