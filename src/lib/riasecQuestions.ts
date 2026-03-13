@@ -33,7 +33,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   E: {
     name: 'Emprendedor',
     description: 'Líder, persuasivo, orientado a negocios y resultados',
-    icon: '💼'
+    icon: 'briefcase'
   },
   C: {
     name: 'Convencional',
