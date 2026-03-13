@@ -36,7 +36,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'product_designer',
     label: 'Product Designer',
-    icon: '🚀',
+    icon: 'rocket',
     description: 'Combina UX, UI y visión de producto para diseñar experiencias completas',
     keywords: ['product design', 'producto', 'end-to-end', 'estrategia', 'mvp', 'iteración'],
     toolKeywords: ['figma', 'sketch', 'framer', 'principle', 'notion', 'jira'],
