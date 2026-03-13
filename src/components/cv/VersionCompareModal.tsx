@@ -106,11 +106,11 @@ export default function VersionCompareModal({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="current">
-                  📌 Versión Actual
+                  Versión Actual
                 </SelectItem>
                 {sortedVersions.map((version) => (
                   <SelectItem key={version.versionId} value={version.versionId}>
-                    📅 {new Date(version.createdAt).toLocaleDateString('es-ES', {
+                    {new Date(version.createdAt).toLocaleDateString('es-ES', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
@@ -132,11 +132,11 @@ export default function VersionCompareModal({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="current">
-                  📌 Versión Actual
+                  Versión Actual
                 </SelectItem>
                 {sortedVersions.map((version) => (
                   <SelectItem key={version.versionId} value={version.versionId}>
-                    📅 {new Date(version.createdAt).toLocaleDateString('es-ES', {
+                    {new Date(version.createdAt).toLocaleDateString('es-ES', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',

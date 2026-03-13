@@ -13,32 +13,32 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   R: {
     name: 'Realista',
     description: 'Práctico, trabaja con herramientas, máquinas y cosas físicas',
-    icon: '🔧'
+    icon: 'wrench'
   },
   I: {
     name: 'Investigador',
     description: 'Analítico, científico, disfruta resolver problemas complejos',
-    icon: '🔬'
+    icon: 'microscope'
   },
   A: {
     name: 'Artístico',
     description: 'Creativo, expresivo, trabaja con ideas y formas de expresión',
-    icon: '🎨'
+    icon: 'palette'
   },
   S: {
     name: 'Social',
     description: 'Ayuda a otros, enseña, comunica y trabaja en equipo',
-    icon: '🤝'
+    icon: 'users'
   },
   E: {
     name: 'Emprendedor',
     description: 'Líder, persuasivo, orientado a negocios y resultados',
-    icon: '💼'
+    icon: 'briefcase'
   },
   C: {
     name: 'Convencional',
     description: 'Organizado, detallista, trabaja con datos y sistemas',
-    icon: '📊'
+    icon: 'bar-chart-3'
   }
 };
 

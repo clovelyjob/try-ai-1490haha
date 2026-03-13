@@ -58,9 +58,9 @@ export default function ExportSettingsModal({
   };
 
   const formatInfo = {
-    A4: { width: '210mm', height: '297mm', region: '🌍 Internacional' },
-    Letter: { width: '8.5"', height: '11"', region: '🇺🇸 EEUU/Canadá' },
-    Legal: { width: '8.5"', height: '14"', region: '⚖️ Legal' },
+    A4: { width: '210mm', height: '297mm', region: 'Internacional' },
+    Letter: { width: '8.5"', height: '11"', region: 'EEUU/Canadá' },
+    Legal: { width: '8.5"', height: '14"', region: 'Legal' },
   };
 
   return (

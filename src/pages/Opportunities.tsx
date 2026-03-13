@@ -62,7 +62,7 @@ export default function Opportunities() {
     });
     setIsRefreshing(false);
     toast({
-      title: '✅ Oportunidades actualizadas',
+      title: 'Oportunidades actualizadas',
       description: 'Se han cargado las últimas ofertas disponibles',
     });
   };
@@ -88,7 +88,7 @@ export default function Opportunities() {
       saveOpportunity(user.id, opportunityId);
       addXP(5);
       toast({
-        title: '✅ Oferta guardada',
+        title: 'Oferta guardada',
         description: 'Puedes verla en tu lista de guardadas',
       });
     }

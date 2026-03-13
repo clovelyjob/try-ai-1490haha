@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Sparkles, CheckCircle2, Loader2, X } from 'lucide-react';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { RolePreferences, ProfessionalRole } from '@/types';
 import { getRoleDefinition, PROFESSIONAL_ROLES } from '@/lib/roleDetection';
 import { useAI } from '@/hooks/useAI';
@@ -213,7 +214,7 @@ export const RoleDetectionStep = ({ preferences, onChange, onRoleConfirmed }: Ro
                       onClick={() => handleSelectRole(suggestion.role, suggestion.confidence)}>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className="text-4xl">{roleDef.icon}</div>
+                      <div className="text-4xl"><DynamicIcon name={roleDef.icon} size={36} className="text-primary" /></div>
                       <div>
                         <h3 className="text-xl font-heading font-bold">{roleDef.label}</h3>
                         <p className="text-sm text-muted-foreground">{roleDef.description}</p>
@@ -260,7 +261,7 @@ export const RoleDetectionStep = ({ preferences, onChange, onRoleConfirmed }: Ro
                 onClick={() => handleSelectRole(role.id as ProfessionalRole, 75)}
               >
                 <div className="text-center space-y-2">
-                  <div className="text-3xl">{role.icon}</div>
+                  <div className="text-3xl"><DynamicIcon name={role.icon} size={28} className="text-primary" /></div>
                   <p className="text-sm font-medium">{role.label}</p>
                 </div>
               </Card>

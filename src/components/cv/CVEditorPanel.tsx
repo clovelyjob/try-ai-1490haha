@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Plus, Trash2, Sparkles } from 'lucide-react';
+import { Plus, Trash2, Sparkles, Globe, FileText, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   Accordion,
@@ -34,7 +34,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
     try {
       const improved = await onImproveText(cv.summary, 'summary', cv.personal.title, cv.language || 'es');
       onUpdate({ summary: improved });
-      toast.success('✨ Resumen mejorado con IA');
+      toast.success('Resumen mejorado con IA');
     } catch (error) {
       // Error already handled in useAI hook
     } finally {
@@ -67,7 +67,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
           : ex
       );
       onUpdate({ experience: updatedExp });
-      toast.success('✨ Texto mejorado con IA');
+      toast.success('Texto mejorado con IA');
     } catch (error) {
       // Error already handled in useAI hook
     } finally {
@@ -81,7 +81,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       <Card className="p-4 rounded-2xl shadow-clovely-md bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-200 dark:border-blue-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-2xl">🌐</div>
+            <div className="text-2xl"><Globe className="w-6 h-6 text-primary" /></div>
             <div>
               <h3 className="font-bold text-foreground">Idioma del CV</h3>
               <p className="text-xs text-muted-foreground">
@@ -96,7 +96,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               onClick={() => onUpdate({ language: 'es' })}
               className="gap-2 hover:shadow-clovely-sm transition-all"
             >
-              🇪🇸 Español
+              ES Español
             </Button>
             <Button
               variant={cv.language === 'en' ? 'default' : 'outline'}
@@ -104,7 +104,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               onClick={() => onUpdate({ language: 'en' })}
               className="gap-2 hover:shadow-clovely-sm transition-all"
             >
-              🇬🇧 English
+              EN English
             </Button>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       {/* Guías Profesionales para CV */}
       <Card className="p-4 rounded-2xl shadow-clovely-sm bg-primary/5 border-2 border-primary/20">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">📝</div>
+          <div className="text-2xl"><FileText className="w-6 h-6 text-primary" /></div>
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-1">Guías Profesionales para tu CV</h3>
             <p className="text-xs text-muted-foreground mb-3">
@@ -271,7 +271,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
             <AccordionContent className="px-6 pb-6">
               {/* Guías para Experiencia */}
               <div className="mb-4 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border-2 border-purple-200 dark:border-purple-800 text-xs shadow-clovely-sm">
-                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Top 5 Errores de CV a Evitar:</p>
+                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">Top 5 Errores de CV a Evitar:</p>
                 <ol className="list-decimal list-inside text-[10px] text-purple-800 dark:text-purple-200 space-y-0.5 ml-2">
                   <li>Errores ortográficos y gramaticales</li>
                   <li>Falta de email y teléfono</li>
@@ -398,7 +398,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         
                         {/* Guías Oficiales */}
                         <div className="mb-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-800 text-xs space-y-2 shadow-clovely-sm">
-                          <p className="font-bold text-amber-900 dark:text-amber-100">📋 Formato Profesional:</p>
+                          <p className="font-bold text-amber-900 dark:text-amber-100">Formato Profesional:</p>
                           <div className="space-y-1">
                             <p className="text-amber-800 dark:text-amber-200">
                               <span className="font-semibold">Verbo de Acción</span> + Logro específico + <span className="font-semibold">Impacto cuantificado</span>
@@ -417,7 +417,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                             </div>
                           </div>
                           <p className="text-[10px] text-amber-600 dark:text-amber-400 mt-1 font-medium">
-                            ⚠️ SIN pronombres (Yo, Nosotros) • SIN abreviaturas • Sé específico no general
+                            SIN pronombres (Yo, Nosotros) · SIN abreviaturas · Sé específico no general
                           </p>
                         </div>
 
@@ -450,7 +450,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                               className="shrink-0 shadow-clovely-sm hover:shadow-clovely-md transition-all"
                             >
                               {improvingField === `exp-${exp.id}-${bIndex}` ? (
-                                <span className="h-4 w-4 animate-spin">⏳</span>
+                                <span className="h-4 w-4 animate-spin"><Loader2 className="h-4 w-4" /></span>
                               ) : (
                                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                               )}

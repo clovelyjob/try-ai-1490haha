@@ -28,7 +28,7 @@ export const useNotificationTriggers = () => {
           if (newOpps.length > 0) {
           addNotification({
             type: 'opportunity',
-            title: `🎯 ${newOpps.length} nuevas oportunidades`,
+            title: `${newOpps.length} nuevas oportunidades`,
             message: `Hay ${newOpps.length} ofertas que coinciden con tu perfil. ¡Échales un vistazo!`,
             actionUrl: '/dashboard/opportunities',
             actionLabel: 'Ver oportunidades',
@@ -71,16 +71,16 @@ export const useNotificationTriggers = () => {
         let message = '';
         
         if (score >= 80) {
-          message = '¡Excelente trabajo! Tus respuestas fueron impresionantes 🌟';
+          message = 'Excelente trabajo. Tus respuestas fueron impresionantes.';
         } else if (score >= 60) {
-          message = 'Buen trabajo. Sigue practicando para mejorar 💪';
+          message = 'Buen trabajo. Sigue practicando para mejorar.';
         } else {
-          message = 'La práctica hace al maestro. ¡Sigue adelante! 🎯';
+          message = 'La práctica hace al maestro. Sigue adelante.';
         }
 
         addNotification({
           type: 'success',
-          title: '✅ Entrevista completada',
+          title: 'Entrevista completada',
           message,
           actionUrl: `/dashboard/interviews/results`,
           actionLabel: 'Ver resultados',

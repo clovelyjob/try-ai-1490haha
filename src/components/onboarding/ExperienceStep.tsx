@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/card';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -40,7 +41,7 @@ export const ExperienceStep = ({ data, onChange }: ExperienceStepProps) => {
                     : 'border-border hover:border-primary/50 hover:shadow-clovely-sm hover:-translate-y-0.5'
                 }`}
               >
-                <div className="text-3xl mb-2">{level.icon}</div>
+                <div className="text-3xl mb-2"><DynamicIcon name={level.icon} size={28} className="text-primary" /></div>
                 <p className="font-medium text-sm">{level.label}</p>
               </button>
             ))}

@@ -304,7 +304,7 @@ export function VideoRecorder({ onRecordingComplete, disabled }: VideoRecorderPr
 
       {/* Tips */}
       <p className="text-xs text-muted-foreground text-center">
-        💡 Tip: Mira directamente a la cámara, habla claro y con confianza
+        Tip: Mira directamente a la cámara, habla claro y con confianza
       </p>
     </Card>
   );

@@ -37,7 +37,7 @@ export const useSmartReminders = () => {
       if (daysSinceUpdate >= 30 && hour === 10 && dayOfWeek === 1) { // Monday at 10am
         addNotification({
           type: 'reminder',
-          title: '📝 Actualiza tu CV',
+          title: 'Actualiza tu CV',
           message: `Han pasado ${daysSinceUpdate} días desde tu última actualización. Mantén tu CV al día.`,
           actionUrl: '/dashboard/cvs',
           actionLabel: 'Actualizar CV',
@@ -53,7 +53,7 @@ export const useSmartReminders = () => {
       if (daysSinceSession >= 7 && hour === 18 && dayOfWeek === 3) { // Wednesday at 6pm
         addNotification({
           type: 'reminder',
-          title: '🎯 Practica una entrevista',
+          title: 'Practica una entrevista',
           message: 'Mantén tus habilidades afiladas. Una sesión semanal marca la diferencia.',
           actionUrl: '/dashboard/interviews/setup',
           actionLabel: 'Practicar ahora',
@@ -72,7 +72,7 @@ export const useSmartReminders = () => {
       if (recentOpps.length > 0) {
         addNotification({
           type: 'reminder',
-          title: '💼 Revisa tus oportunidades guardadas',
+          title: 'Revisa tus oportunidades guardadas',
           message: `Tienes ${recentOpps.length} oportunidades recientes. ¡No las dejes pasar!`,
           actionUrl: '/dashboard/opportunities',
           actionLabel: 'Ver oportunidades',
@@ -85,7 +85,7 @@ export const useSmartReminders = () => {
       if (hour === 11 && dayOfWeek === 5) { // Friday at 11am
         addNotification({
           type: 'reminder',
-          title: '⚙️ Completa tu perfil',
+          title: 'Completa tu perfil',
           message: 'Un perfil completo te ayuda a encontrar mejores oportunidades.',
           actionUrl: '/dashboard/settings',
           actionLabel: 'Completar perfil',
@@ -96,17 +96,17 @@ export const useSmartReminders = () => {
     // Motivational reminder (every Monday at 8am)
     if (dayOfWeek === 1 && hour === 8) {
       const motivationalMessages = [
-        '¡Nueva semana, nuevas oportunidades! 💪',
-        '¡Tu próxima gran oportunidad está esperándote! 🚀',
-        '¡Sigue trabajando en tu desarrollo profesional! 🌟',
-        '¡Esta semana es perfecta para avanzar en tu carrera! ✨',
+        'Nueva semana, nuevas oportunidades.',
+        'Tu próxima gran oportunidad está esperándote.',
+        'Sigue trabajando en tu desarrollo profesional.',
+        'Esta semana es perfecta para avanzar en tu carrera.',
       ];
       
       const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
       
       addNotification({
         type: 'info',
-        title: '🌅 Buenos días',
+        title: 'Buenos días',
         message: randomMessage,
       });
     }

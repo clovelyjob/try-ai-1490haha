@@ -111,7 +111,7 @@ export default function OpportunityDetail() {
       saveOpportunity(user.id, opportunity.id);
       addXP(5);
       toast({
-        title: '✅ Oferta guardada',
+        title: 'Oferta guardada',
         description: 'Puedes verla en tu lista de guardadas',
       });
     }
@@ -122,7 +122,7 @@ export default function OpportunityDetail() {
       window.open(opportunity.applyUrl, '_blank', 'noopener,noreferrer');
       addXP(10);
       toast({
-        title: '🔗 Redirigiendo al portal de empleo',
+        title: 'Redirigiendo al portal de empleo',
         description: 'Has ganado 10 XP por explorar esta oportunidad',
       });
     }
@@ -151,7 +151,7 @@ export default function OpportunityDetail() {
     setShowConfetti(true);
 
     toast({
-      title: '🎉 ¡Postulación enviada!',
+      title: 'Postulación enviada',
       description: 'Has ganado 50 XP y 10 Clovely Coins',
     });
 

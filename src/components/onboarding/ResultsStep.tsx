@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Sparkles, TrendingUp, Target, Lightbulb, Award } from 'lucide-react';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 import { RIASECResult, getHollandCodeInterpretation } from '@/lib/riasecScoring';
 import { RIASEC_TYPE_INFO, RIASECType } from '@/lib/riasecQuestions';
@@ -102,7 +103,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
               key={i} 
               className="text-lg px-4 py-2 bg-primary text-primary-foreground"
             >
-              {RIASEC_TYPE_INFO[letter as RIASECType].icon} {letter}
+              <DynamicIcon name={RIASEC_TYPE_INFO[letter as RIASECType].icon} size={16} className="inline mr-1" /> {letter}
             </Badge>
           ))}
         </div>
@@ -110,7 +111,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
           Tu código Holland: {riasecResult.hollandCode}
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          {typeInfo.icon} Perfil principal: <strong>{typeInfo.name}</strong> — {typeInfo.description}
+          <DynamicIcon name={typeInfo.icon} size={18} className="inline mr-1" /> Perfil principal: <strong>{typeInfo.name}</strong> — {typeInfo.description}
         </p>
       </div>
 
@@ -141,7 +142,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
           <div className="grid grid-cols-2 gap-2 mt-4">
             {riasecResult.topTypes.map((item) => (
               <div key={item.type} className="flex items-center gap-2 text-sm">
-                <span>{RIASEC_TYPE_INFO[item.type].icon}</span>
+                <span><DynamicIcon name={RIASEC_TYPE_INFO[item.type].icon} size={16} /></span>
                 <span className="flex-1">{RIASEC_TYPE_INFO[item.type].name}</span>
                 <span className="font-semibold">{item.percentage}%</span>
               </div>

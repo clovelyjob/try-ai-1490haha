@@ -53,9 +53,9 @@ function getDefaultConfig(roleName: string): RoleDashboardConfig {
       { title: 'Actualizar portafolio', xp: 90, category: 'career', action: '/dashboard/cvs' },
     ],
     resources: [
-      { type: 'Curso', title: 'Desarrollo profesional avanzado', duration: '4h', icon: '📚' },
-      { type: 'Artículo', title: 'Mejores prácticas en la industria', duration: '20min', icon: '📰' },
-      { type: 'Video', title: 'Tendencias y futuro del sector', duration: '30min', icon: '🎥' },
+      { type: 'Curso', title: 'Desarrollo profesional avanzado', duration: '4h', icon: 'book-open' },
+      { type: 'Artículo', title: 'Mejores prácticas en la industria', duration: '20min', icon: 'newspaper' },
+      { type: 'Video', title: 'Tendencias y futuro del sector', duration: '30min', icon: 'video' },
     ],
     opportunities: [
       { company: 'Empresas Top', position: roleName, match: 85, salary: 'Competitivo', location: 'Remoto', logo: 'ET' },
@@ -82,8 +82,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Test de usabilidad con 5 usuarios', xp: 150, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
-        { type: 'Curso', title: 'Advanced User Research Methods', duration: '3h', icon: '🔍' },
-        { type: 'Artículo', title: 'Mejores prácticas en diseño', duration: '15min', icon: '📚' },
+        { type: 'Curso', title: 'Advanced User Research Methods', duration: '3h', icon: 'search' },
+        { type: 'Artículo', title: 'Mejores prácticas en diseño', duration: '15min', icon: 'book-open' },
       ],
       opportunities: [
         { company: 'Mercado Libre', position: 'UX Designer', match: 94, salary: '$3-4.5K', location: 'Remoto', logo: 'ML' },
@@ -105,8 +105,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Diseñar set de iconos', xp: 100, category: 'icons' },
       ],
       resources: [
-        { type: 'Curso', title: 'Design Systems Fundamentals', duration: '4h', icon: '🎨' },
-        { type: 'Artículo', title: 'Teoría del color en UI', duration: '12min', icon: '🎨' },
+        { type: 'Curso', title: 'Design Systems Fundamentals', duration: '4h', icon: 'palette' },
+        { type: 'Artículo', title: 'Teoría del color en UI', duration: '12min', icon: 'palette' },
       ]
     },
     product_designer: {
@@ -123,8 +123,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Analizar métricas de conversión', xp: 90, category: 'analytics' },
       ],
       resources: [
-        { type: 'Curso', title: 'Product Thinking', duration: '5h', icon: '🚀' },
-        { type: 'Artículo', title: 'Cómo priorizar features', duration: '20min', icon: '📊' },
+        { type: 'Curso', title: 'Product Thinking', duration: '5h', icon: 'rocket' },
+        { type: 'Artículo', title: 'Cómo priorizar features', duration: '20min', icon: 'bar-chart-3' },
       ]
     },
     graphic_designer: {
@@ -141,8 +141,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Producir assets para redes sociales', xp: 80, category: 'digital' },
       ],
       resources: [
-        { type: 'Curso', title: 'Branding Essentials', duration: '4h', icon: '🎨' },
-        { type: 'Video', title: 'Typography Masterclass', duration: '35min', icon: '🎥' },
+        { type: 'Curso', title: 'Branding Essentials', duration: '4h', icon: 'palette' },
+        { type: 'Video', title: 'Typography Masterclass', duration: '35min', icon: 'video' },
       ]
     },
     industrial_designer: getDefaultConfig('Diseñador Industrial'),
@@ -163,8 +163,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Agregar tests unitarios', xp: 80, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
-        { type: 'Curso', title: 'React Performance', duration: '4h', icon: '⚡' },
-        { type: 'Artículo', title: 'Clean Code en JavaScript', duration: '18min', icon: '💻' },
+        { type: 'Curso', title: 'React Performance', duration: '4h', icon: 'zap' },
+        { type: 'Artículo', title: 'Clean Code en JavaScript', duration: '18min', icon: 'code' },
       ],
       opportunities: [
         { company: 'Google', position: 'Frontend Engineer', match: 95, salary: '$5-7K', location: 'Remoto', logo: 'GO' },
@@ -186,8 +186,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Implementar autenticación JWT', xp: 130, category: 'security' },
       ],
       resources: [
-        { type: 'Curso', title: 'Microservices Architecture', duration: '6h', icon: '🏗️' },
-        { type: 'Artículo', title: 'Database Best Practices', duration: '25min', icon: '📊' },
+        { type: 'Curso', title: 'Microservices Architecture', duration: '6h', icon: 'server' },
+        { type: 'Artículo', title: 'Database Best Practices', duration: '25min', icon: 'database' },
       ]
     },
     developer_fullstack: {
@@ -204,8 +204,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Optimizar aplicación completa', xp: 140, category: 'performance' },
       ],
       resources: [
-        { type: 'Curso', title: 'Full-Stack Masterclass', duration: '8h', icon: '🔧' },
-        { type: 'Video', title: 'DevOps for Developers', duration: '45min', icon: '⚙️' },
+        { type: 'Curso', title: 'Full-Stack Masterclass', duration: '8h', icon: 'wrench' },
+        { type: 'Video', title: 'DevOps for Developers', duration: '45min', icon: 'settings' },
       ]
     },
     software_engineer: getDefaultConfig('Ingeniero de Software'),
@@ -224,8 +224,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Migrar a Kubernetes', xp: 150, category: 'infrastructure' },
       ],
       resources: [
-        { type: 'Curso', title: 'DevOps Engineering', duration: '8h', icon: '⚙️' },
-        { type: 'Video', title: 'Kubernetes Fundamentals', duration: '50min', icon: '☸️' },
+        { type: 'Curso', title: 'DevOps Engineering', duration: '8h', icon: 'settings' },
+        { type: 'Video', title: 'Kubernetes Fundamentals', duration: '50min', icon: 'container' },
       ]
     },
     qa_engineer: {
@@ -242,8 +242,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Performance testing', xp: 120, category: 'performance' },
       ],
       resources: [
-        { type: 'Curso', title: 'Test Automation', duration: '5h', icon: '🔍' },
-        { type: 'Artículo', title: 'QA Best Practices', duration: '18min', icon: '✅' },
+        { type: 'Curso', title: 'Test Automation', duration: '5h', icon: 'search' },
+        { type: 'Artículo', title: 'QA Best Practices', duration: '18min', icon: 'check-circle' },
       ]
     },
     ml_engineer: getDefaultConfig('Ingeniero de ML'),
@@ -263,8 +263,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Presentación a stakeholders', xp: 100, category: 'communication' },
       ],
       resources: [
-        { type: 'Curso', title: 'Agile Project Management', duration: '5h', icon: '📊' },
-        { type: 'Artículo', title: 'Stakeholder Management', duration: '20min', icon: '👥' },
+        { type: 'Curso', title: 'Agile Project Management', duration: '5h', icon: 'bar-chart-3' },
+        { type: 'Artículo', title: 'Stakeholder Management', duration: '20min', icon: 'users' },
       ]
     },
     product_manager: {
@@ -281,8 +281,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Presentar roadmap', xp: 120, category: 'communication' },
       ],
       resources: [
-        { type: 'Curso', title: 'Product Management', duration: '6h', icon: '🎯' },
-        { type: 'Artículo', title: 'Frameworks de priorización', duration: '22min', icon: '📊' },
+        { type: 'Curso', title: 'Product Management', duration: '6h', icon: 'target' },
+        { type: 'Artículo', title: 'Frameworks de priorización', duration: '22min', icon: 'bar-chart-3' },
       ]
     },
     scrum_master: {
@@ -299,8 +299,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Coaching de prácticas ágiles', xp: 110, category: 'coaching' },
       ],
       resources: [
-        { type: 'Curso', title: 'Scrum Master Certification', duration: '6h', icon: '🏃' },
-        { type: 'Video', title: 'Agile Coaching Skills', duration: '30min', icon: '🎯' },
+        { type: 'Curso', title: 'Scrum Master Certification', duration: '6h', icon: 'zap' },
+        { type: 'Video', title: 'Agile Coaching Skills', duration: '30min', icon: 'target' },
       ]
     },
     business_analyst: {
@@ -317,8 +317,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Crear diagrama de flujo', xp: 80, category: 'mapping' },
       ],
       resources: [
-        { type: 'Curso', title: 'Business Analysis', duration: '5h', icon: '📊' },
-        { type: 'Artículo', title: 'Requirements Gathering', duration: '18min', icon: '📝' },
+        { type: 'Curso', title: 'Business Analysis', duration: '5h', icon: 'bar-chart-3' },
+        { type: 'Artículo', title: 'Requirements Gathering', duration: '18min', icon: 'file-text' },
       ]
     },
 
@@ -337,8 +337,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Optimizar queries SQL', xp: 90, category: 'technical' },
       ],
       resources: [
-        { type: 'Curso', title: 'Data Analysis with SQL', duration: '4h', icon: '📊' },
-        { type: 'Video', title: 'Tableau Basics', duration: '30min', icon: '🎨' },
+        { type: 'Curso', title: 'Data Analysis with SQL', duration: '4h', icon: 'bar-chart-3' },
+        { type: 'Video', title: 'Tableau Basics', duration: '30min', icon: 'palette' },
       ]
     },
     data_scientist: {
@@ -355,8 +355,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Deploy modelo a producción', xp: 140, category: 'deployment' },
       ],
       resources: [
-        { type: 'Curso', title: 'Machine Learning', duration: '8h', icon: '🤖' },
-        { type: 'Artículo', title: 'Feature Engineering', duration: '25min', icon: '⚙️' },
+        { type: 'Curso', title: 'Machine Learning', duration: '8h', icon: 'bot' },
+        { type: 'Artículo', title: 'Feature Engineering', duration: '25min', icon: 'settings' },
       ]
     },
     data_engineer: getDefaultConfig('Ingeniero de Datos'),
@@ -377,8 +377,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Research de oportunidades', xp: 120, category: 'research' },
       ],
       resources: [
-        { type: 'Curso', title: 'Investment Analysis', duration: '6h', icon: '💼' },
-        { type: 'Video', title: 'Financial Modeling', duration: '35min', icon: '💰' },
+        { type: 'Curso', title: 'Investment Analysis', duration: '6h', icon: 'briefcase' },
+        { type: 'Video', title: 'Financial Modeling', duration: '35min', icon: 'dollar-sign' },
       ]
     },
     hedge_fund: {
@@ -395,8 +395,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Implementar trading algorithm', xp: 160, category: 'quantitative' },
       ],
       resources: [
-        { type: 'Curso', title: 'Quantitative Trading', duration: '10h', icon: '📈' },
-        { type: 'Artículo', title: 'Risk Management', duration: '30min', icon: '🛡️' },
+        { type: 'Curso', title: 'Quantitative Trading', duration: '10h', icon: 'trending-up' },
+        { type: 'Artículo', title: 'Risk Management', duration: '30min', icon: 'shield' },
       ]
     },
     trader: getDefaultConfig('Trader'),
@@ -419,8 +419,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'A/B testing de anuncios', xp: 100, category: 'optimization' },
       ],
       resources: [
-        { type: 'Curso', title: 'Digital Marketing', duration: '5h', icon: '📣' },
-        { type: 'Video', title: 'Social Media Marketing', duration: '30min', icon: '📱' },
+        { type: 'Curso', title: 'Digital Marketing', duration: '5h', icon: 'megaphone' },
+        { type: 'Video', title: 'Social Media Marketing', duration: '30min', icon: 'smartphone' },
       ]
     },
     growth_marketer: getDefaultConfig('Growth Marketer'),
@@ -440,8 +440,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Crear calendario de contenido', xp: 80, category: 'planning' },
       ],
       resources: [
-        { type: 'Curso', title: 'Content Marketing', duration: '4h', icon: '✍️' },
-        { type: 'Video', title: 'Video Production', duration: '35min', icon: '🎬' },
+        { type: 'Curso', title: 'Content Marketing', duration: '4h', icon: 'pen-tool' },
+        { type: 'Video', title: 'Video Production', duration: '35min', icon: 'clapperboard' },
       ]
     },
     copywriter: getDefaultConfig('Copywriter'),
@@ -463,8 +463,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Desarrollar MVP', xp: 150, category: 'product' },
       ],
       resources: [
-        { type: 'Curso', title: 'Lean Startup', duration: '5h', icon: '🚀' },
-        { type: 'Artículo', title: 'Fundraising Basics', duration: '20min', icon: '💰' },
+        { type: 'Curso', title: 'Lean Startup', duration: '5h', icon: 'rocket' },
+        { type: 'Artículo', title: 'Fundraising Basics', duration: '20min', icon: 'dollar-sign' },
       ]
     },
     business_consultant: getDefaultConfig('Consultor de Negocios'),
@@ -512,8 +512,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Actualizar portfolio online', xp: 90, category: 'portfolio' },
       ],
       resources: [
-        { type: 'Curso', title: 'Photography Masterclass', duration: '6h', icon: '📷' },
-        { type: 'Video', title: 'Lightroom Editing', duration: '40min', icon: '🎨' },
+        { type: 'Curso', title: 'Photography Masterclass', duration: '6h', icon: 'camera' },
+        { type: 'Video', title: 'Lightroom Editing', duration: '40min', icon: 'palette' },
       ]
     },
     videographer: getDefaultConfig('Videógrafo'),
@@ -548,8 +548,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Conectar con profesionales', xp: 80, category: 'networking' },
       ],
       resources: [
-        { type: 'Guía', title: 'Guía de Inicio Profesional', duration: '30min', icon: '🎓' },
-        { type: 'Artículo', title: 'Construye tu Portfolio', duration: '15min', icon: '💼' },
+        { type: 'Guía', title: 'Guía de Inicio Profesional', duration: '30min', icon: 'graduation-cap' },
+        { type: 'Artículo', title: 'Construye tu Portfolio', duration: '15min', icon: 'briefcase' },
       ]
     },
     freelancer: getDefaultConfig('Freelancer'),
@@ -569,8 +569,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Conectar con mentores', xp: 90, category: 'networking', action: '/dashboard/circles' },
       ],
       resources: [
-        { type: 'Guía', title: 'Guía de Transición de Carrera', duration: '40min', icon: '🔄' },
-        { type: 'Curso', title: 'Finding Your New Path', duration: '3h', icon: '🎯' },
+        { type: 'Guía', title: 'Guía de Transición de Carrera', duration: '40min', icon: 'refresh-cw' },
+        { type: 'Curso', title: 'Finding Your New Path', duration: '3h', icon: 'target' },
       ]
     },
     other: {
@@ -587,8 +587,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Actualizar CV y LinkedIn', xp: 90, category: 'career' },
       ],
       resources: [
-        { type: 'Guía', title: 'Descubre tu rol profesional', duration: '30min', icon: '🧭' },
-        { type: 'Video', title: 'Construyendo tu marca', duration: '25min', icon: '🎯' },
+        { type: 'Guía', title: 'Descubre tu rol profesional', duration: '30min', icon: 'compass' },
+        { type: 'Video', title: 'Construyendo tu marca', duration: '25min', icon: 'target' },
       ]
     }
   };

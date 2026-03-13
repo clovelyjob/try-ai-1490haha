@@ -1,4 +1,4 @@
-import { Bell, Check, CheckCheck, Trash2, Settings, X } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Settings, X, Lightbulb, CheckCircle, AlertTriangle, Trophy, Clock, Briefcase } from 'lucide-react';
 import { useNotificationsStore } from '@/store/useNotificationsStore';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -13,13 +13,13 @@ interface NotificationCenterProps {
   onClose: () => void;
 }
 
-const notificationIcons = {
-  info: '💡',
-  success: '✅',
-  warning: '⚠️',
-  achievement: '🏆',
-  reminder: '⏰',
-  opportunity: '💼',
+const notificationIconComponents: Record<string, React.ElementType> = {
+  info: Lightbulb,
+  success: CheckCircle,
+  warning: AlertTriangle,
+  achievement: Trophy,
+  reminder: Clock,
+  opportunity: Briefcase,
 };
 
 const notificationColors = {
@@ -142,10 +142,13 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
 
                 <div className="flex gap-3 ml-4">
                   <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-xl",
+                    "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0",
                     notificationColors[notification.type]
                   )}>
-                    {notificationIcons[notification.type]}
+                    {(() => {
+                      const IconComp = notificationIconComponents[notification.type] || Lightbulb;
+                      return <IconComp className="w-5 h-5" />;
+                    })()}
                   </div>
 
                   <div className="flex-1 min-w-0">

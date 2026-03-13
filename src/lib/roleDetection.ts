@@ -16,7 +16,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ux_designer',
     label: 'Diseñador UX',
-    icon: '🎨',
+    icon: 'palette',
     description: 'Especializado en experiencia de usuario, investigación y usabilidad',
     keywords: ['ux', 'experiencia', 'usuario', 'usabilidad', 'research', 'investigación', 'wireframes', 'prototipos'],
     toolKeywords: ['figma', 'sketch', 'adobe xd', 'miro', 'optimal workshop', 'useberry'],
@@ -26,7 +26,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ui_designer',
     label: 'Diseñador UI',
-    icon: '🎭',
+    icon: 'layout-template',
     description: 'Enfocado en diseño visual, interfaces y sistemas de diseño',
     keywords: ['ui', 'visual', 'interfaz', 'diseño gráfico', 'branding', 'componentes', 'design system'],
     toolKeywords: ['figma', 'sketch', 'adobe illustrator', 'photoshop', 'principle'],
@@ -36,7 +36,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'product_designer',
     label: 'Product Designer',
-    icon: '🚀',
+    icon: 'rocket',
     description: 'Combina UX, UI y visión de producto para diseñar experiencias completas',
     keywords: ['product design', 'producto', 'end-to-end', 'estrategia', 'mvp', 'iteración'],
     toolKeywords: ['figma', 'sketch', 'framer', 'principle', 'notion', 'jira'],
@@ -46,7 +46,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'graphic_designer',
     label: 'Diseñador Gráfico',
-    icon: '🖼️',
+    icon: 'image',
     description: 'Crea diseños visuales para branding, publicidad y medios',
     keywords: ['gráfico', 'branding', 'identidad', 'publicidad', 'ilustración', 'composición'],
     toolKeywords: ['adobe illustrator', 'photoshop', 'indesign', 'canva', 'coreldraw'],
@@ -56,7 +56,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'industrial_designer',
     label: 'Diseñador Industrial',
-    icon: '🏭',
+    icon: 'factory',
     description: 'Diseña productos físicos y objetos manufacturados',
     keywords: ['industrial', 'producto físico', 'manufactura', 'prototipado', '3d', 'ergonomía'],
     toolKeywords: ['solidworks', 'rhino', 'autocad', 'fusion 360', 'keyshot'],
@@ -66,7 +66,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'fashion_designer',
     label: 'Diseñador de Moda',
-    icon: '👗',
+    icon: 'scissors',
     description: 'Crea diseños de vestuario y tendencias de moda',
     keywords: ['moda', 'vestuario', 'textil', 'tendencias', 'colecciones', 'patronaje'],
     toolKeywords: ['adobe illustrator', 'clo3d', 'photoshop', 'marvelous designer'],
@@ -78,7 +78,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_frontend',
     label: 'Desarrollador Frontend',
-    icon: '💻',
+    icon: 'code',
     description: 'Especializado en desarrollo de interfaces web y mobile',
     keywords: ['frontend', 'web', 'desarrollo', 'código', 'interfaces', 'responsive', 'componentes'],
     toolKeywords: ['react', 'vue', 'angular', 'javascript', 'typescript', 'html', 'css', 'tailwind'],
@@ -88,7 +88,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_backend',
     label: 'Desarrollador Backend',
-    icon: '⚙️',
+    icon: 'server',
     description: 'Enfocado en APIs, bases de datos y lógica del servidor',
     keywords: ['backend', 'servidor', 'api', 'base de datos', 'arquitectura', 'microservicios'],
     toolKeywords: ['node', 'python', 'java', 'postgresql', 'mongodb', 'redis', 'docker', 'kubernetes'],
@@ -98,7 +98,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_fullstack',
     label: 'Desarrollador Fullstack',
-    icon: '🔧',
+    icon: 'wrench',
     description: 'Maneja tanto frontend como backend',
     keywords: ['fullstack', 'full stack', 'completo', 'frontend', 'backend', 'end-to-end'],
     toolKeywords: ['react', 'node', 'typescript', 'postgresql', 'mongodb', 'docker'],
@@ -108,7 +108,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'software_engineer',
     label: 'Ingeniero de Software',
-    icon: '👨‍💻',
+    icon: 'terminal',
     description: 'Desarrolla sistemas de software complejos y escalables',
     keywords: ['software', 'ingeniería', 'arquitectura', 'sistemas', 'código', 'desarrollo'],
     toolKeywords: ['java', 'python', 'c++', 'git', 'kubernetes', 'aws', 'microservices'],
@@ -118,7 +118,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mobile_developer',
     label: 'Desarrollador Mobile',
-    icon: '📱',
+    icon: 'smartphone',
     description: 'Especializado en aplicaciones móviles iOS y Android',
     keywords: ['mobile', 'móvil', 'ios', 'android', 'app', 'nativo', 'híbrido'],
     toolKeywords: ['react native', 'flutter', 'swift', 'kotlin', 'xcode', 'android studio'],
@@ -128,7 +128,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'devops',
     label: 'DevOps Engineer',
-    icon: '🔄',
+    icon: 'refresh-cw',
     description: 'Gestiona infraestructura, CI/CD y automatización',
     keywords: ['devops', 'infraestructura', 'deployment', 'automatización', 'cloud', 'containers'],
     toolKeywords: ['docker', 'kubernetes', 'jenkins', 'terraform', 'aws', 'azure', 'github actions'],
@@ -138,7 +138,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'qa_engineer',
     label: 'QA Engineer',
-    icon: '🔍',
+    icon: 'search',
     description: 'Asegura la calidad mediante testing y automatización',
     keywords: ['qa', 'testing', 'calidad', 'automatización', 'bugs', 'pruebas'],
     toolKeywords: ['selenium', 'cypress', 'jira', 'postman', 'jest', 'pytest'],
@@ -148,7 +148,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ml_engineer',
     label: 'Ingeniero de Machine Learning',
-    icon: '🤖',
+    icon: 'bot',
     description: 'Implementa y despliega modelos de ML en producción',
     keywords: ['machine learning', 'ml', 'ai', 'modelos', 'deep learning', 'mlops'],
     toolKeywords: ['tensorflow', 'pytorch', 'python', 'kubernetes', 'mlflow', 'sagemaker'],
@@ -160,7 +160,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'project_manager',
     label: 'Project Manager',
-    icon: '📊',
+    icon: 'bar-chart-3',
     description: 'Gestiona proyectos, equipos y entregables',
     keywords: ['gestión', 'proyectos', 'coordinación', 'planificación', 'stakeholders', 'deadlines'],
     toolKeywords: ['jira', 'asana', 'trello', 'microsoft project', 'notion', 'slack'],
@@ -170,7 +170,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'product_manager',
     label: 'Product Manager',
-    icon: '🎯',
+    icon: 'target',
     description: 'Define la visión y estrategia del producto',
     keywords: ['producto', 'estrategia', 'roadmap', 'priorización', 'métricas', 'kpis', 'mvp'],
     toolKeywords: ['jira', 'productboard', 'amplitude', 'mixpanel', 'figma', 'miro'],
@@ -180,7 +180,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'scrum_master',
     label: 'Scrum Master',
-    icon: '🏃',
+    icon: 'zap',
     description: 'Facilita procesos ágiles y mejora continua del equipo',
     keywords: ['scrum', 'agile', 'facilitación', 'retrospectivas', 'sprints', 'ceremonies'],
     toolKeywords: ['jira', 'miro', 'confluence', 'slack', 'zoom'],
@@ -190,7 +190,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_analyst',
     label: 'Business Analyst',
-    icon: '📋',
+    icon: 'clipboard-list',
     description: 'Analiza procesos y requisitos de negocio',
     keywords: ['análisis', 'negocio', 'procesos', 'requisitos', 'optimización', 'stakeholders'],
     toolKeywords: ['excel', 'visio', 'jira', 'confluence', 'tableau', 'sql'],
@@ -202,7 +202,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_analyst',
     label: 'Analista de Datos',
-    icon: '📈',
+    icon: 'trending-up',
     description: 'Analiza datos y genera insights para decisiones de negocio',
     keywords: ['datos', 'análisis', 'métricas', 'insights', 'reportes', 'visualización', 'bi'],
     toolKeywords: ['excel', 'sql', 'tableau', 'power bi', 'python', 'r', 'google analytics'],
@@ -212,7 +212,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_scientist',
     label: 'Data Scientist',
-    icon: '🔬',
+    icon: 'microscope',
     description: 'Especializado en machine learning, modelado predictivo y análisis avanzado',
     keywords: ['ciencia de datos', 'machine learning', 'ml', 'ai', 'modelos', 'predicción', 'algoritmos'],
     toolKeywords: ['python', 'r', 'tensorflow', 'pytorch', 'jupyter', 'spark', 'scikit-learn'],
@@ -222,7 +222,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_engineer',
     label: 'Ingeniero de Datos',
-    icon: '🔧',
+    icon: 'database',
     description: 'Construye pipelines y arquitecturas de datos',
     keywords: ['datos', 'pipelines', 'etl', 'data warehouse', 'big data', 'arquitectura'],
     toolKeywords: ['spark', 'kafka', 'airflow', 'sql', 'python', 'aws', 'snowflake'],
@@ -232,7 +232,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_intelligence',
     label: 'Especialista BI',
-    icon: '💡',
+    icon: 'lightbulb',
     description: 'Transforma datos en insights de negocio mediante dashboards',
     keywords: ['bi', 'business intelligence', 'dashboards', 'reportes', 'kpis', 'métricas'],
     toolKeywords: ['tableau', 'power bi', 'looker', 'sql', 'excel'],
@@ -244,7 +244,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'investor',
     label: 'Inversionista',
-    icon: '💰',
+    icon: 'dollar-sign',
     description: 'Gestiona inversiones y análisis financiero',
     keywords: ['inversión', 'finanzas', 'portafolio', 'análisis financiero', 'mercados', 'activos'],
     toolKeywords: ['bloomberg', 'excel', 'python', 'tableau', 'powerpoint'],
@@ -254,7 +254,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hedge_fund',
     label: 'Hedge Fund Manager',
-    icon: '📉',
+    icon: 'line-chart',
     description: 'Gestiona fondos de inversión con estrategias avanzadas',
     keywords: ['hedge fund', 'trading', 'derivados', 'riesgo', 'estrategias', 'arbitraje'],
     toolKeywords: ['bloomberg', 'python', 'matlab', 'excel', 'risk systems'],
@@ -264,7 +264,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'trader',
     label: 'Trader',
-    icon: '💹',
+    icon: 'candlestick-chart',
     description: 'Ejecuta operaciones de compra y venta en mercados financieros',
     keywords: ['trading', 'mercados', 'acciones', 'forex', 'criptomonedas', 'análisis técnico'],
     toolKeywords: ['metatrader', 'thinkorswim', 'tradingview', 'bloomberg', 'python'],
@@ -274,7 +274,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'financial_analyst',
     label: 'Analista Financiero',
-    icon: '📊',
+    icon: 'bar-chart-3',
     description: 'Analiza estados financieros y evalúa inversiones',
     keywords: ['análisis', 'finanzas', 'estados financieros', 'valuación', 'presupuesto'],
     toolKeywords: ['excel', 'bloomberg', 'capital iq', 'python', 'tableau'],
@@ -284,7 +284,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'economist',
     label: 'Economista',
-    icon: '📉',
+    icon: 'line-chart',
     description: 'Analiza fenómenos económicos y genera pronósticos',
     keywords: ['economía', 'macroeconomía', 'política económica', 'pronósticos', 'investigación'],
     toolKeywords: ['stata', 'r', 'python', 'excel', 'eviews'],
@@ -294,7 +294,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'financial_consultant',
     label: 'Consultor Financiero',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Asesora en planificación financiera y estrategias de inversión',
     keywords: ['consultoría', 'finanzas', 'asesoría', 'planificación', 'patrimonial'],
     toolKeywords: ['excel', 'powerpoint', 'financial planning software'],
@@ -306,7 +306,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'marketing_manager',
     label: 'Marketing Manager',
-    icon: '📣',
+    icon: 'megaphone',
     description: 'Gestiona estrategias de marketing y campañas',
     keywords: ['marketing', 'campañas', 'branding', 'digital', 'contenido', 'redes sociales', 'seo'],
     toolKeywords: ['google analytics', 'hubspot', 'mailchimp', 'canva', 'hootsuite', 'semrush'],
@@ -316,7 +316,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'growth_marketer',
     label: 'Growth Marketer',
-    icon: '🚀',
+    icon: 'rocket',
     description: 'Optimiza el crecimiento mediante experimentos y métricas',
     keywords: ['growth', 'crecimiento', 'hacking', 'experimentos', 'optimización', 'conversión'],
     toolKeywords: ['google analytics', 'mixpanel', 'optimizely', 'sql', 'python'],
@@ -326,7 +326,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'digital_strategist',
     label: 'Estratega Digital',
-    icon: '🎯',
+    icon: 'target',
     description: 'Define estrategias digitales y de transformación',
     keywords: ['estrategia', 'digital', 'transformación', 'innovación', 'omnicanal'],
     toolKeywords: ['google analytics', 'semrush', 'ahrefs', 'tableau', 'miro'],
@@ -336,7 +336,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'community_manager',
     label: 'Community Manager',
-    icon: '👥',
+    icon: 'users',
     description: 'Gestiona comunidades y presencia en redes sociales',
     keywords: ['comunidad', 'redes sociales', 'engagement', 'contenido', 'moderación'],
     toolKeywords: ['hootsuite', 'buffer', 'sprout social', 'canva', 'meta business suite'],
@@ -346,7 +346,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'content_creator',
     label: 'Creador de Contenido',
-    icon: '✍️',
+    icon: 'pen-tool',
     description: 'Crea contenido para múltiples plataformas',
     keywords: ['contenido', 'escritura', 'creación', 'storytelling', 'copywriting', 'social media'],
     toolKeywords: ['notion', 'canva', 'adobe premiere', 'final cut', 'wordpress', 'medium'],
@@ -356,7 +356,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'copywriter',
     label: 'Copywriter',
-    icon: '✏️',
+    icon: 'pencil',
     description: 'Redacta textos persuasivos para marketing y publicidad',
     keywords: ['copywriting', 'redacción', 'persuasión', 'publicidad', 'contenido'],
     toolKeywords: ['google docs', 'grammarly', 'hemingway', 'wordpress'],
@@ -366,7 +366,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'seo_specialist',
     label: 'Especialista SEO',
-    icon: '🔍',
+    icon: 'search',
     description: 'Optimiza sitios web para motores de búsqueda',
     keywords: ['seo', 'posicionamiento', 'búsqueda', 'keywords', 'optimización', 'google'],
     toolKeywords: ['semrush', 'ahrefs', 'google analytics', 'google search console', 'screaming frog'],
@@ -376,7 +376,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'social_media_manager',
     label: 'Social Media Manager',
-    icon: '📱',
+    icon: 'smartphone',
     description: 'Gestiona estrategia y contenido en redes sociales',
     keywords: ['social media', 'redes sociales', 'contenido', 'campañas', 'ads', 'influencers'],
     toolKeywords: ['meta business suite', 'hootsuite', 'canva', 'capcut', 'later'],
@@ -388,7 +388,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'entrepreneur',
     label: 'Emprendedor',
-    icon: '🌟',
+    icon: 'sparkles',
     description: 'Crea y gestiona negocios propios',
     keywords: ['emprendimiento', 'startup', 'negocio', 'innovación', 'pitch', 'mvp'],
     toolKeywords: ['notion', 'figma', 'canva', 'stripe', 'google workspace'],
@@ -398,7 +398,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_consultant',
     label: 'Consultor de Negocios',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Asesora en estrategia y optimización de negocios',
     keywords: ['consultoría', 'estrategia', 'negocios', 'optimización', 'transformación'],
     toolKeywords: ['powerpoint', 'excel', 'miro', 'tableau'],
@@ -408,7 +408,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'sales_specialist',
     label: 'Especialista en Ventas',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Gestiona procesos de ventas y relaciones con clientes',
     keywords: ['ventas', 'sales', 'negociación', 'cierre', 'pipeline', 'clientes'],
     toolKeywords: ['salesforce', 'hubspot', 'pipedrive', 'linkedin sales navigator'],
@@ -418,7 +418,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'account_executive',
     label: 'Account Executive',
-    icon: '🤝',
+    icon: 'handshake',
     description: 'Gestiona cuentas clave y relaciones comerciales',
     keywords: ['cuentas', 'clientes', 'ventas', 'relaciones', 'b2b', 'enterprise'],
     toolKeywords: ['salesforce', 'hubspot', 'linkedin', 'zoom'],
@@ -430,7 +430,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hr_specialist',
     label: 'Especialista en RRHH',
-    icon: '👔',
+    icon: 'user-check',
     description: 'Gestiona recursos humanos y desarrollo del talento',
     keywords: ['recursos humanos', 'rrhh', 'talento', 'cultura', 'compensación', 'beneficios'],
     toolKeywords: ['workday', 'bamboohr', 'excel', 'linkedin'],
@@ -440,7 +440,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'talent_acquisition',
     label: 'Talent Acquisition',
-    icon: '🎯',
+    icon: 'target',
     description: 'Atrae y selecciona talento estratégico',
     keywords: ['reclutamiento', 'talento', 'selección', 'sourcing', 'headhunting'],
     toolKeywords: ['linkedin recruiter', 'greenhouse', 'lever', 'workable'],
@@ -450,7 +450,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'recruiter',
     label: 'Reclutador',
-    icon: '🔍',
+    icon: 'search',
     description: 'Busca y selecciona candidatos para vacantes',
     keywords: ['reclutamiento', 'selección', 'entrevistas', 'vacantes', 'candidatos'],
     toolKeywords: ['linkedin', 'indeed', 'ats', 'zoom'],
@@ -460,7 +460,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'leadership_coach',
     label: 'Coach de Liderazgo',
-    icon: '🌱',
+    icon: 'sprout',
     description: 'Desarrolla líderes y equipos de alto rendimiento',
     keywords: ['coaching', 'liderazgo', 'desarrollo', 'equipos', 'mentoring'],
     toolKeywords: ['zoom', 'miro', 'notion', 'assessment tools'],
@@ -470,7 +470,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'organizational_psychologist',
     label: 'Psicólogo Organizacional',
-    icon: '🧠',
+    icon: 'brain',
     description: 'Aplica psicología al desarrollo organizacional',
     keywords: ['psicología', 'organizacional', 'cultura', 'bienestar', 'evaluación'],
     toolKeywords: ['assessment tools', 'spss', 'r', 'qualtrics'],
@@ -480,7 +480,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mentor',
     label: 'Mentor',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'Guía y desarrolla profesionales en sus carreras',
     keywords: ['mentoría', 'guía', 'desarrollo', 'carrera', 'consejos'],
     toolKeywords: ['zoom', 'notion', 'calendly'],
@@ -492,7 +492,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'lawyer',
     label: 'Abogado',
-    icon: '⚖️',
+    icon: 'scale',
     description: 'Provee asesoría legal y representación',
     keywords: ['derecho', 'legal', 'litigio', 'contratos', 'asesoría jurídica'],
     toolKeywords: ['lexisnexis', 'westlaw', 'case management software'],
@@ -502,7 +502,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'legal_advisor',
     label: 'Asesor Legal',
-    icon: '📜',
+    icon: 'scroll',
     description: 'Asesora en temas legales corporativos y contratos',
     keywords: ['asesoría', 'legal', 'contratos', 'corporativo', 'compliance'],
     toolKeywords: ['docusign', 'legal templates', 'document management'],
@@ -512,7 +512,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'compliance_officer',
     label: 'Oficial de Cumplimiento',
-    icon: '🛡️',
+    icon: 'shield',
     description: 'Asegura el cumplimiento de normativas y regulaciones',
     keywords: ['compliance', 'cumplimiento', 'regulación', 'auditoría', 'riesgos'],
     toolKeywords: ['compliance software', 'risk management tools', 'audit software'],
@@ -524,7 +524,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'civil_engineer',
     label: 'Ingeniero Civil',
-    icon: '🏗️',
+    icon: 'hard-hat',
     description: 'Diseña y supervisa proyectos de infraestructura',
     keywords: ['civil', 'construcción', 'infraestructura', 'estructuras', 'obras'],
     toolKeywords: ['autocad', 'civil 3d', 'revit', 'sap2000', 'etabs'],
@@ -534,7 +534,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mechanical_engineer',
     label: 'Ingeniero Mecánico',
-    icon: '⚙️',
+    icon: 'settings',
     description: 'Diseña sistemas mecánicos y maquinaria',
     keywords: ['mecánico', 'maquinaria', 'sistemas', 'manufactura', 'diseño mecánico'],
     toolKeywords: ['solidworks', 'autocad', 'ansys', 'matlab', 'catia'],
@@ -544,7 +544,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'electrical_engineer',
     label: 'Ingeniero Eléctrico',
-    icon: '⚡',
+    icon: 'zap',
     description: 'Diseña sistemas eléctricos y electrónicos',
     keywords: ['eléctrico', 'electrónico', 'circuitos', 'energía', 'automatización'],
     toolKeywords: ['matlab', 'pspice', 'autocad electrical', 'labview'],
@@ -554,7 +554,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'architect',
     label: 'Arquitecto',
-    icon: '🏛️',
+    icon: 'landmark',
     description: 'Diseña espacios arquitectónicos y edificaciones',
     keywords: ['arquitectura', 'diseño', 'espacios', 'edificios', 'construcción'],
     toolKeywords: ['revit', 'autocad', 'sketchup', 'rhino', 'lumion'],
@@ -564,7 +564,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'sustainability_consultant',
     label: 'Consultor de Sostenibilidad',
-    icon: '🌱',
+    icon: 'leaf',
     description: 'Asesora en prácticas sostenibles y medio ambiente',
     keywords: ['sostenibilidad', 'medio ambiente', 'esg', 'carbono', 'energía renovable'],
     toolKeywords: ['gis', 'lca software', 'energy modeling tools'],
@@ -576,7 +576,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'healthcare_professional',
     label: 'Profesional de la Salud',
-    icon: '🏥',
+    icon: 'heart-pulse',
     description: 'Provee atención y servicios de salud',
     keywords: ['salud', 'atención', 'pacientes', 'clínica', 'tratamiento'],
     toolKeywords: ['emr systems', 'medical software'],
@@ -586,7 +586,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'medical_doctor',
     label: 'Médico',
-    icon: '👨‍⚕️',
+    icon: 'stethoscope',
     description: 'Diagnostica y trata enfermedades',
     keywords: ['medicina', 'diagnóstico', 'tratamiento', 'pacientes', 'clínica'],
     toolKeywords: ['emr', 'medical imaging', 'diagnostic tools'],
@@ -596,7 +596,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'academic_researcher',
     label: 'Investigador Académico',
-    icon: '🔬',
+    icon: 'microscope',
     description: 'Realiza investigación científica y publica hallazgos',
     keywords: ['investigación', 'ciencia', 'academia', 'publicaciones', 'papers'],
     toolKeywords: ['latex', 'r', 'python', 'spss', 'mendeley', 'zotero'],
@@ -606,7 +606,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'laboratory_scientist',
     label: 'Científico de Laboratorio',
-    icon: '🧪',
+    icon: 'flask-conical',
     description: 'Realiza experimentos y análisis de laboratorio',
     keywords: ['laboratorio', 'experimentos', 'análisis', 'investigación', 'ciencia'],
     toolKeywords: ['lab equipment', 'data analysis software', 'lims'],
@@ -618,7 +618,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'photographer',
     label: 'Fotógrafo',
-    icon: '📷',
+    icon: 'camera',
     description: 'Captura y edita imágenes profesionales',
     keywords: ['fotografía', 'imágenes', 'retrato', 'edición', 'producto'],
     toolKeywords: ['lightroom', 'photoshop', 'capture one', 'camera equipment'],
@@ -628,7 +628,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'videographer',
     label: 'Videógrafo',
-    icon: '🎥',
+    icon: 'video',
     description: 'Graba y edita videos profesionales',
     keywords: ['video', 'filmación', 'edición', 'producción', 'cinematografía'],
     toolKeywords: ['premiere pro', 'final cut', 'davinci resolve', 'after effects'],
@@ -638,7 +638,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'audiovisual_producer',
     label: 'Productor Audiovisual',
-    icon: '🎬',
+    icon: 'clapperboard',
     description: 'Produce contenido audiovisual completo',
     keywords: ['producción', 'audiovisual', 'multimedia', 'dirección', 'post-producción'],
     toolKeywords: ['premiere pro', 'after effects', 'audition', 'pro tools'],
@@ -648,7 +648,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'artist',
     label: 'Artista',
-    icon: '🎨',
+    icon: 'palette',
     description: 'Crea obras de arte y expresión creativa',
     keywords: ['arte', 'creación', 'expresión', 'obras', 'exposición'],
     toolKeywords: ['procreate', 'photoshop', 'illustrator', 'traditional media'],
@@ -658,7 +658,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'illustrator',
     label: 'Ilustrador',
-    icon: '✏️',
+    icon: 'pencil',
     description: 'Crea ilustraciones digitales y tradicionales',
     keywords: ['ilustración', 'dibujo', 'arte digital', 'concepto', 'narrativa visual'],
     toolKeywords: ['procreate', 'adobe illustrator', 'photoshop', 'clip studio paint'],
@@ -668,7 +668,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'animator',
     label: 'Animador',
-    icon: '🎞️',
+    icon: 'film',
     description: 'Crea animaciones 2D y 3D',
     keywords: ['animación', '2d', '3d', 'motion graphics', 'efectos'],
     toolKeywords: ['after effects', 'blender', 'maya', 'cinema 4d', 'toon boom'],
@@ -680,7 +680,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'educator',
     label: 'Educador',
-    icon: '👨‍🏫',
+    icon: 'book-open',
     description: 'Enseña y facilita el aprendizaje',
     keywords: ['educación', 'enseñanza', 'docente', 'profesor', 'aprendizaje'],
     toolKeywords: ['google classroom', 'zoom', 'canvas', 'moodle'],
@@ -690,7 +690,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'edtech_specialist',
     label: 'Especialista en EdTech',
-    icon: '💻',
+    icon: 'monitor',
     description: 'Implementa tecnología educativa',
     keywords: ['tecnología educativa', 'edtech', 'e-learning', 'plataformas', 'innovación'],
     toolKeywords: ['lms', 'articulate', 'canvas', 'moodle', 'zoom'],
@@ -700,7 +700,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'corporate_trainer',
     label: 'Capacitador Corporativo',
-    icon: '📊',
+    icon: 'presentation',
     description: 'Diseña y facilita entrenamientos empresariales',
     keywords: ['capacitación', 'training', 'desarrollo', 'empresarial', 'talleres'],
     toolKeywords: ['powerpoint', 'articulate', 'zoom', 'miro'],
@@ -710,7 +710,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'instructional_designer',
     label: 'Diseñador Instruccional',
-    icon: '📚',
+    icon: 'book-open',
     description: 'Diseña experiencias de aprendizaje efectivas',
     keywords: ['diseño instruccional', 'e-learning', 'cursos', 'aprendizaje', 'pedagogía'],
     toolKeywords: ['articulate', 'rise', 'camtasia', 'captivate', 'lms'],
@@ -722,7 +722,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'chef',
     label: 'Chef',
-    icon: '👨‍🍳',
+    icon: 'chef-hat',
     description: 'Crea y dirige operaciones culinarias',
     keywords: ['cocina', 'gastronomía', 'chef', 'menú', 'culinario'],
     toolKeywords: ['kitchen equipment', 'pos systems', 'menu planning software'],
@@ -732,7 +732,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'culinary_specialist',
     label: 'Especialista Gastronómico',
-    icon: '🍽️',
+    icon: 'utensils',
     description: 'Especializado en técnicas culinarias avanzadas',
     keywords: ['gastronomía', 'cocina', 'técnicas', 'innovación', 'alta cocina'],
     toolKeywords: ['professional kitchen equipment', 'food lab tools'],
@@ -742,7 +742,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hospitality_manager',
     label: 'Gerente de Hospitalidad',
-    icon: '🏨',
+    icon: 'hotel',
     description: 'Gestiona operaciones de hoteles y servicios',
     keywords: ['hospitalidad', 'hotel', 'servicios', 'gestión', 'experiencia del cliente'],
     toolKeywords: ['pms', 'booking systems', 'crm', 'excel'],
@@ -754,7 +754,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'student',
     label: 'Estudiante',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'En formación académica y desarrollo profesional',
     keywords: ['estudiante', 'aprendizaje', 'universidad', 'carrera', 'formación'],
     toolKeywords: ['notion', 'google workspace', 'zoom'],
@@ -764,7 +764,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'freelancer',
     label: 'Freelancer',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Trabaja de forma independiente en proyectos diversos',
     keywords: ['freelance', 'independiente', 'proyectos', 'remoto', 'autónomo'],
     toolKeywords: ['notion', 'figma', 'slack', 'zoom', 'invoicing software'],
@@ -774,7 +774,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'corporate_executive',
     label: 'Ejecutivo Corporativo',
-    icon: '👔',
+    icon: 'user-check',
     description: 'Lidera estrategia y operaciones a nivel ejecutivo',
     keywords: ['ejecutivo', 'liderazgo', 'estrategia', 'corporativo', 'dirección'],
     toolKeywords: ['powerpoint', 'excel', 'tableau', 'salesforce'],
@@ -784,7 +784,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'independent_consultant',
     label: 'Consultor Independiente',
-    icon: '🎯',
+    icon: 'target',
     description: 'Provee consultoría especializada de forma independiente',
     keywords: ['consultor', 'independiente', 'asesoría', 'especialista', 'freelance'],
     toolKeywords: ['powerpoint', 'excel', 'miro', 'zoom'],
@@ -794,7 +794,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'career_changer',
     label: 'En Transición de Carrera',
-    icon: '🔄',
+    icon: 'refresh-cw',
     description: 'Explorando nuevas oportunidades profesionales',
     keywords: ['transición', 'cambio', 'carrera', 'reinvención', 'pivot'],
     toolKeywords: ['linkedin', 'notion', 'coursera', 'udemy'],
@@ -804,7 +804,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'other',
     label: 'Otro',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'Rol profesional no especificado',
     keywords: [],
     toolKeywords: [],

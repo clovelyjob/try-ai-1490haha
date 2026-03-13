@@ -73,7 +73,7 @@ export default function CVBuilder() {
     updateCV(currentCV.id, { updatedAt: new Date().toISOString() });
     
     toast({
-      title: '💾 CV guardado',
+      title: 'CV guardado',
       description: 'Los cambios se han guardado correctamente',
     });
     
@@ -87,7 +87,7 @@ export default function CVBuilder() {
     saveVersion(currentCV.id, note || undefined);
     
     toast({
-      title: '📦 Versión guardada',
+      title: 'Versión guardada',
       description: 'Se ha creado una nueva versión del CV',
     });
   };
@@ -97,7 +97,7 @@ export default function CVBuilder() {
     
     if (isGuestMode || user?.plan !== 'premium') {
       toast({
-        title: '🔒 Función Premium',
+        title: 'Función Premium',
         description: 'Suscríbete al plan Pro por $15/mes para analizar tu CV con IA.',
         variant: 'destructive',
       });
@@ -110,7 +110,7 @@ export default function CVBuilder() {
       setShowAnalysis(true);
       
       toast({
-        title: '✨ Análisis completado',
+        title: 'Análisis completado',
         description: 'Revisa las sugerencias personalizadas para mejorar tu CV',
       });
     } catch (error) {
@@ -138,7 +138,7 @@ export default function CVBuilder() {
     // Block export for guest mode / non-premium users
     if (isGuestMode || user?.plan !== 'premium') {
       toast({
-        title: '🔒 Función Premium',
+        title: 'Función Premium',
         description: 'Suscríbete al plan Pro por $15/mes para descargar tus CVs en PDF.',
         variant: 'destructive',
       });
@@ -178,7 +178,7 @@ export default function CVBuilder() {
     };
 
     toast({
-      title: '📄 Generando PDF',
+      title: 'Generando PDF',
       description: 'Por favor espera un momento...',
     });
 
@@ -188,14 +188,14 @@ export default function CVBuilder() {
       .save()
       .then(() => {
         toast({
-          title: '✅ PDF exportado',
+          title: 'PDF exportado',
           description: `Tu CV ha sido descargado como ${fileName}`,
         });
       })
       .catch((error: any) => {
         console.error('Error exporting PDF:', error);
         toast({
-          title: '❌ Error al exportar',
+          title: 'Error al exportar',
           description: 'Hubo un problema al generar el PDF',
           variant: 'destructive',
         });
@@ -391,7 +391,7 @@ export default function CVBuilder() {
           onClose={() => setShowAnalysis(false)}
           analysisData={analysisData}
           onApplySuggestion={(suggestion) => {
-            toast({ title: '💡 Sugerencia guardada', description: suggestion });
+            toast({ title: 'Sugerencia guardada', description: suggestion });
           }}
         />
       )}
@@ -406,7 +406,7 @@ export default function CVBuilder() {
             saveVersion(currentCV.id, 'Backup antes de restaurar');
             useCVStore.getState().restoreVersion(currentCV.id, versionId);
             toast({
-              title: '✅ Versión restaurada',
+              title: 'Versión restaurada',
               description: 'Se ha restaurado la versión seleccionada',
             });
           }}
@@ -414,7 +414,7 @@ export default function CVBuilder() {
             const updatedVersions = currentCV.versions.filter(v => v.versionId !== versionId);
             updateCV(currentCV.id, { versions: updatedVersions });
             toast({
-              title: '🗑️ Versión eliminada',
+              title: 'Versión eliminada',
               description: 'La versión ha sido eliminada',
             });
           }}
@@ -441,7 +441,7 @@ export default function CVBuilder() {
           onApply={(colors) => {
             setTemplateColors(colors);
             toast({
-              title: '🎨 Colores aplicados',
+              title: 'Colores aplicados',
               description: 'El esquema de colores ha sido actualizado',
             });
           }}

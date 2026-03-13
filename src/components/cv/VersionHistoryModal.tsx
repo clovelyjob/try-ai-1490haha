@@ -115,7 +115,7 @@ export default function VersionHistoryModal({
 
                         {version.note && (
                           <p className="text-sm mt-2 text-foreground/80 p-2 rounded-lg bg-muted/50">
-                            📝 {version.note}
+                            {version.note}
                           </p>
                         )}
                       </div>
