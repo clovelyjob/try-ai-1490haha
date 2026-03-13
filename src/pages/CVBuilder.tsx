@@ -414,7 +414,7 @@ export default function CVBuilder() {
             const updatedVersions = currentCV.versions.filter(v => v.versionId !== versionId);
             updateCV(currentCV.id, { versions: updatedVersions });
             toast({
-              title: '🗑️ Versión eliminada',
+              title: 'Versión eliminada',
               description: 'La versión ha sido eliminada',
             });
           }}
