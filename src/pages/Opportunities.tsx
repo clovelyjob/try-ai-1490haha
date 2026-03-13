@@ -62,7 +62,7 @@ export default function Opportunities() {
     });
     setIsRefreshing(false);
     toast({
-      title: '✅ Oportunidades actualizadas',
+      title: 'Oportunidades actualizadas',
       description: 'Se han cargado las últimas ofertas disponibles',
     });
   };
