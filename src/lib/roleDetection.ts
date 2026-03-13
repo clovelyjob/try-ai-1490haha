@@ -648,7 +648,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'artist',
     label: 'Artista',
-    icon: '🎨',
+    icon: 'palette',
     description: 'Crea obras de arte y expresión creativa',
     keywords: ['arte', 'creación', 'expresión', 'obras', 'exposición'],
     toolKeywords: ['procreate', 'photoshop', 'illustrator', 'traditional media'],
