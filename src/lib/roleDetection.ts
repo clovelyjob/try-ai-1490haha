@@ -764,7 +764,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'freelancer',
     label: 'Freelancer',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Trabaja de forma independiente en proyectos diversos',
     keywords: ['freelance', 'independiente', 'proyectos', 'remoto', 'autónomo'],
     toolKeywords: ['notion', 'figma', 'slack', 'zoom', 'invoicing software'],
