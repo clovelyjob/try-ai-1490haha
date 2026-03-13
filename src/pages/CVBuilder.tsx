@@ -110,7 +110,7 @@ export default function CVBuilder() {
       setShowAnalysis(true);
       
       toast({
-        title: '✨ Análisis completado',
+        title: 'Análisis completado',
         description: 'Revisa las sugerencias personalizadas para mejorar tu CV',
       });
     } catch (error) {
