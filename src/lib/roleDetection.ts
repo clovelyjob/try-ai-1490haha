@@ -668,7 +668,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'animator',
     label: 'Animador',
-    icon: '🎞️',
+    icon: 'film',
     description: 'Crea animaciones 2D y 3D',
     keywords: ['animación', '2d', '3d', 'motion graphics', 'efectos'],
     toolKeywords: ['after effects', 'blender', 'maya', 'cinema 4d', 'toon boom'],
