@@ -53,7 +53,7 @@ export const useSmartReminders = () => {
       if (daysSinceSession >= 7 && hour === 18 && dayOfWeek === 3) { // Wednesday at 6pm
         addNotification({
           type: 'reminder',
-          title: '🎯 Practica una entrevista',
+          title: 'Practica una entrevista',
           message: 'Mantén tus habilidades afiladas. Una sesión semanal marca la diferencia.',
           actionUrl: '/dashboard/interviews/setup',
           actionLabel: 'Practicar ahora',
