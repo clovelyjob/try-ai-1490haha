@@ -111,7 +111,7 @@ export default function OpportunityDetail() {
       saveOpportunity(user.id, opportunity.id);
       addXP(5);
       toast({
-        title: '✅ Oferta guardada',
+        title: 'Oferta guardada',
         description: 'Puedes verla en tu lista de guardadas',
       });
     }
