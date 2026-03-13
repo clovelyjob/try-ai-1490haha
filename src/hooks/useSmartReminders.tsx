@@ -72,7 +72,7 @@ export const useSmartReminders = () => {
       if (recentOpps.length > 0) {
         addNotification({
           type: 'reminder',
-          title: '💼 Revisa tus oportunidades guardadas',
+          title: 'Revisa tus oportunidades guardadas',
           message: `Tienes ${recentOpps.length} oportunidades recientes. ¡No las dejes pasar!`,
           actionUrl: '/dashboard/opportunities',
           actionLabel: 'Ver oportunidades',
