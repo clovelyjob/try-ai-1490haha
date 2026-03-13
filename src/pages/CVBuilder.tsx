@@ -391,7 +391,7 @@ export default function CVBuilder() {
           onClose={() => setShowAnalysis(false)}
           analysisData={analysisData}
           onApplySuggestion={(suggestion) => {
-            toast({ title: '💡 Sugerencia guardada', description: suggestion });
+            toast({ title: 'Sugerencia guardada', description: suggestion });
           }}
         />
       )}
