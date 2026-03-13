@@ -97,7 +97,7 @@ export default function CVBuilder() {
     
     if (isGuestMode || user?.plan !== 'premium') {
       toast({
-        title: '🔒 Función Premium',
+        title: 'Función Premium',
         description: 'Suscríbete al plan Pro por $15/mes para analizar tu CV con IA.',
         variant: 'destructive',
       });
