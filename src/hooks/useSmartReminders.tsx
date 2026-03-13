@@ -106,7 +106,7 @@ export const useSmartReminders = () => {
       
       addNotification({
         type: 'info',
-        title: '🌅 Buenos días',
+        title: 'Buenos días',
         message: randomMessage,
       });
     }

@@ -38,7 +38,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   C: {
     name: 'Convencional',
     description: 'Organizado, detallista, trabaja con datos y sistemas',
-    icon: '📊'
+    icon: 'bar-chart-3'
   }
 };
 
