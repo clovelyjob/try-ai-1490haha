@@ -173,7 +173,7 @@ export default function InterviewLanding() {
         ))}
       </motion.div>
 
-      <UpgradeModal open={showUpgrade} onOpenChange={setShowUpgrade} />
+      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} feature="Entrevistas con IA" />
     </div>
   );
 }
