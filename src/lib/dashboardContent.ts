@@ -82,8 +82,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Test de usabilidad con 5 usuarios', xp: 150, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
-        { type: 'Curso', title: 'Advanced User Research Methods', duration: '3h', icon: '🔍' },
-        { type: 'Artículo', title: 'Mejores prácticas en diseño', duration: '15min', icon: '📚' },
+        { type: 'Curso', title: 'Advanced User Research Methods', duration: '3h', icon: 'search' },
+        { type: 'Artículo', title: 'Mejores prácticas en diseño', duration: '15min', icon: 'book-open' },
       ],
       opportunities: [
         { company: 'Mercado Libre', position: 'UX Designer', match: 94, salary: '$3-4.5K', location: 'Remoto', logo: 'ML' },
