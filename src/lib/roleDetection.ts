@@ -430,7 +430,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hr_specialist',
     label: 'Especialista en RRHH',
-    icon: '👔',
+    icon: 'user-check',
     description: 'Gestiona recursos humanos y desarrollo del talento',
     keywords: ['recursos humanos', 'rrhh', 'talento', 'cultura', 'compensación', 'beneficios'],
     toolKeywords: ['workday', 'bamboohr', 'excel', 'linkedin'],
