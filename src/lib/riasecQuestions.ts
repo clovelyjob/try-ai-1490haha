@@ -13,7 +13,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   R: {
     name: 'Realista',
     description: 'Práctico, trabaja con herramientas, máquinas y cosas físicas',
-    icon: '🔧'
+    icon: 'wrench'
   },
   I: {
     name: 'Investigador',
