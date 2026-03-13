@@ -774,7 +774,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'corporate_executive',
     label: 'Ejecutivo Corporativo',
-    icon: '👔',
+    icon: 'user-check',
     description: 'Lidera estrategia y operaciones a nivel ejecutivo',
     keywords: ['ejecutivo', 'liderazgo', 'estrategia', 'corporativo', 'dirección'],
     toolKeywords: ['powerpoint', 'excel', 'tableau', 'salesforce'],
