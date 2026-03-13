@@ -512,8 +512,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Actualizar portfolio online', xp: 90, category: 'portfolio' },
       ],
       resources: [
-        { type: 'Curso', title: 'Photography Masterclass', duration: '6h', icon: '📷' },
-        { type: 'Video', title: 'Lightroom Editing', duration: '40min', icon: '🎨' },
+        { type: 'Curso', title: 'Photography Masterclass', duration: '6h', icon: 'camera' },
+        { type: 'Video', title: 'Lightroom Editing', duration: '40min', icon: 'palette' },
       ]
     },
     videographer: getDefaultConfig('Videógrafo'),
