@@ -440,7 +440,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'talent_acquisition',
     label: 'Talent Acquisition',
-    icon: '🎯',
+    icon: 'target',
     description: 'Atrae y selecciona talento estratégico',
     keywords: ['reclutamiento', 'talento', 'selección', 'sourcing', 'headhunting'],
     toolKeywords: ['linkedin recruiter', 'greenhouse', 'lever', 'workable'],
