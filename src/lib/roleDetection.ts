@@ -316,7 +316,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'growth_marketer',
     label: 'Growth Marketer',
-    icon: '🚀',
+    icon: 'rocket',
     description: 'Optimiza el crecimiento mediante experimentos y métricas',
     keywords: ['growth', 'crecimiento', 'hacking', 'experimentos', 'optimización', 'conversión'],
     toolKeywords: ['google analytics', 'mixpanel', 'optimizely', 'sql', 'python'],
