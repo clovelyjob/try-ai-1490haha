@@ -3,66 +3,45 @@ import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Building2 } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Zap, Sparkles } from 'lucide-react';
 
 const Pricing = () => {
   const plans = [
     {
-      name: 'Starter',
+      name: 'Modo invitado',
       icon: Zap,
       price: '$0',
-      period: '/mes',
-      description: 'Para explorar tu potencial',
+      period: '',
+      description: 'Explora las funciones básicas',
       features: [
-        'Diagnóstico RIASEC completo',
-        '1 CV profesional',
-        '5 simulaciones de entrevista',
-        'Acceso a oportunidades básicas',
-        'Exportación PDF',
+        '1 plantilla de CV',
+        'Oportunidades genéricas',
+        'Diagnóstico básico',
+        'Funciones limitadas',
       ],
-      cta: 'Empezar gratis',
-      href: '/registro',
+      cta: 'Probar gratis',
+      href: '/guest-start',
       popular: false,
     },
     {
       name: 'Pro',
       icon: Sparkles,
-      price: '$19',
+      price: '$15',
       period: '/mes',
-      description: 'Para profesionales ambiciosos',
+      description: 'Todo lo que necesitas para crecer',
       features: [
-        'Todo en Starter',
-        'CVs ilimitados',
-        'Simulaciones ilimitadas',
+        'Todas las plantillas de CV',
+        'Entrevistas ilimitadas con IA',
+        'Oportunidades personalizadas',
+        'Match score inteligente',
         'Coach IA personalizado 24/7',
-        'Análisis profundo con IA',
-        'Acceso prioritario a oportunidades',
-        'Plantillas premium',
+        'Diagnóstico completo RIASEC',
+        'Exportación PDF ilimitada',
         'Soporte prioritario',
       ],
-      cta: 'Prueba 7 días gratis',
+      cta: 'Suscribirse por $15/mes',
       href: '/registro',
       popular: true,
-    },
-    {
-      name: 'Enterprise',
-      icon: Building2,
-      price: 'Custom',
-      period: '',
-      description: 'Para equipos y organizaciones',
-      features: [
-        'Todo en Pro',
-        'Usuarios ilimitados',
-        'Panel de administración',
-        'Integraciones API',
-        'SSO & seguridad avanzada',
-        'Onboarding dedicado',
-        'Account manager',
-        'SLA garantizado',
-      ],
-      cta: 'Contactar ventas',
-      href: '/help',
-      popular: false,
     },
   ];
 
@@ -70,7 +49,7 @@ const Pricing = () => {
     { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Sin preguntas, sin penalizaciones.' },
     { q: '¿Qué métodos de pago aceptan?', a: 'Visa, Mastercard, Amex y PayPal.' },
     { q: '¿Hay descuento para estudiantes?', a: '50% de descuento con email .edu verificado.' },
-    { q: '¿Qué incluye la prueba gratuita?', a: 'Acceso completo a Pro durante 7 días. Sin tarjeta requerida.' },
+    { q: '¿Qué incluye el modo invitado?', a: 'Acceso limitado a funciones básicas para que explores la plataforma antes de suscribirte.' },
   ];
 
   return (
@@ -80,7 +59,7 @@ const Pricing = () => {
           <OfficialLogo size="md" to="/" />
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/registro"><Button size="sm" className="h-8 text-sm">Empieza gratis</Button></Link>
+            <Link to="/registro"><Button size="sm" className="h-8 text-sm">Suscribirse</Button></Link>
           </div>
         </div>
       </nav>
@@ -100,7 +79,7 @@ const Pricing = () => {
 
       <section className="pb-20">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="grid lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {plans.map((plan, i) => (
               <motion.div
                 key={i}
@@ -177,7 +156,7 @@ const Pricing = () => {
           <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
           <Link to="/registro">
             <Button className="h-10 px-6 text-sm gap-2">
-              Crear cuenta gratis <ArrowRight className="h-3.5 w-3.5" />
+              Crear cuenta <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
