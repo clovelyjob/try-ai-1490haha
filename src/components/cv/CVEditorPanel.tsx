@@ -67,7 +67,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
           : ex
       );
       onUpdate({ experience: updatedExp });
-      toast.success('✨ Texto mejorado con IA');
+      toast.success('Texto mejorado con IA');
     } catch (error) {
       // Error already handled in useAI hook
     } finally {
