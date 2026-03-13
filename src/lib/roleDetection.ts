@@ -596,7 +596,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'academic_researcher',
     label: 'Investigador Académico',
-    icon: '🔬',
+    icon: 'microscope',
     description: 'Realiza investigación científica y publica hallazgos',
     keywords: ['investigación', 'ciencia', 'academia', 'publicaciones', 'papers'],
     toolKeywords: ['latex', 'r', 'python', 'spss', 'mendeley', 'zotero'],
