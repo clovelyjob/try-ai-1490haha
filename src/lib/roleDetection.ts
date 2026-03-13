@@ -618,7 +618,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'photographer',
     label: 'Fotógrafo',
-    icon: '📷',
+    icon: 'camera',
     description: 'Captura y edita imágenes profesionales',
     keywords: ['fotografía', 'imágenes', 'retrato', 'edición', 'producto'],
     toolKeywords: ['lightroom', 'photoshop', 'capture one', 'camera equipment'],
