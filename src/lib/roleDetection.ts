@@ -470,7 +470,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'organizational_psychologist',
     label: 'Psicólogo Organizacional',
-    icon: '🧠',
+    icon: 'brain',
     description: 'Aplica psicología al desarrollo organizacional',
     keywords: ['psicología', 'organizacional', 'cultura', 'bienestar', 'evaluación'],
     toolKeywords: ['assessment tools', 'spss', 'r', 'qualtrics'],
