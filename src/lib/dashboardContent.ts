@@ -53,9 +53,9 @@ function getDefaultConfig(roleName: string): RoleDashboardConfig {
       { title: 'Actualizar portafolio', xp: 90, category: 'career', action: '/dashboard/cvs' },
     ],
     resources: [
-      { type: 'Curso', title: 'Desarrollo profesional avanzado', duration: '4h', icon: '📚' },
-      { type: 'Artículo', title: 'Mejores prácticas en la industria', duration: '20min', icon: '📰' },
-      { type: 'Video', title: 'Tendencias y futuro del sector', duration: '30min', icon: '🎥' },
+      { type: 'Curso', title: 'Desarrollo profesional avanzado', duration: '4h', icon: 'book-open' },
+      { type: 'Artículo', title: 'Mejores prácticas en la industria', duration: '20min', icon: 'newspaper' },
+      { type: 'Video', title: 'Tendencias y futuro del sector', duration: '30min', icon: 'video' },
     ],
     opportunities: [
       { company: 'Empresas Top', position: roleName, match: 85, salary: 'Competitivo', location: 'Remoto', logo: 'ET' },
