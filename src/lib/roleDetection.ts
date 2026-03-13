@@ -222,7 +222,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_engineer',
     label: 'Ingeniero de Datos',
-    icon: '🔧',
+    icon: 'database',
     description: 'Construye pipelines y arquitecturas de datos',
     keywords: ['datos', 'pipelines', 'etl', 'data warehouse', 'big data', 'arquitectura'],
     toolKeywords: ['spark', 'kafka', 'airflow', 'sql', 'python', 'aws', 'snowflake'],
