@@ -337,8 +337,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Optimizar queries SQL', xp: 90, category: 'technical' },
       ],
       resources: [
-        { type: 'Curso', title: 'Data Analysis with SQL', duration: '4h', icon: '📊' },
-        { type: 'Video', title: 'Tableau Basics', duration: '30min', icon: '🎨' },
+        { type: 'Curso', title: 'Data Analysis with SQL', duration: '4h', icon: 'bar-chart-3' },
+        { type: 'Video', title: 'Tableau Basics', duration: '30min', icon: 'palette' },
       ]
     },
     data_scientist: {
