@@ -190,7 +190,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_analyst',
     label: 'Business Analyst',
-    icon: '📋',
+    icon: 'clipboard-list',
     description: 'Analiza procesos y requisitos de negocio',
     keywords: ['análisis', 'negocio', 'procesos', 'requisitos', 'optimización', 'stakeholders'],
     toolKeywords: ['excel', 'visio', 'jira', 'confluence', 'tableau', 'sql'],
