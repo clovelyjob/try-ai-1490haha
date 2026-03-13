@@ -376,7 +376,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'social_media_manager',
     label: 'Social Media Manager',
-    icon: '📱',
+    icon: 'smartphone',
     description: 'Gestiona estrategia y contenido en redes sociales',
     keywords: ['social media', 'redes sociales', 'contenido', 'campañas', 'ads', 'influencers'],
     toolKeywords: ['meta business suite', 'hootsuite', 'canva', 'capcut', 'later'],
