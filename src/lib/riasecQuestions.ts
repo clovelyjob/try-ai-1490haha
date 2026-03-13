@@ -18,7 +18,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   I: {
     name: 'Investigador',
     description: 'Analítico, científico, disfruta resolver problemas complejos',
-    icon: '🔬'
+    icon: 'microscope'
   },
   A: {
     name: 'Artístico',
