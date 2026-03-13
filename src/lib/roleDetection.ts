@@ -544,7 +544,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'electrical_engineer',
     label: 'Ingeniero Eléctrico',
-    icon: '⚡',
+    icon: 'zap',
     description: 'Diseña sistemas eléctricos y electrónicos',
     keywords: ['eléctrico', 'electrónico', 'circuitos', 'energía', 'automatización'],
     toolKeywords: ['matlab', 'pspice', 'autocad electrical', 'labview'],
