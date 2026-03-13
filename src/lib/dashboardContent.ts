@@ -281,8 +281,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Presentar roadmap', xp: 120, category: 'communication' },
       ],
       resources: [
-        { type: 'Curso', title: 'Product Management', duration: '6h', icon: '🎯' },
-        { type: 'Artículo', title: 'Frameworks de priorización', duration: '22min', icon: '📊' },
+        { type: 'Curso', title: 'Product Management', duration: '6h', icon: 'target' },
+        { type: 'Artículo', title: 'Frameworks de priorización', duration: '22min', icon: 'bar-chart-3' },
       ]
     },
     scrum_master: {
