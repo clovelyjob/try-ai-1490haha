@@ -804,7 +804,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'other',
     label: 'Otro',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'Rol profesional no especificado',
     keywords: [],
     toolKeywords: [],
