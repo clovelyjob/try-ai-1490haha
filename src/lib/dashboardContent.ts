@@ -163,8 +163,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Agregar tests unitarios', xp: 80, category: 'testing', action: '/dashboard/goals' },
       ],
       resources: [
-        { type: 'Curso', title: 'React Performance', duration: '4h', icon: '⚡' },
-        { type: 'Artículo', title: 'Clean Code en JavaScript', duration: '18min', icon: '💻' },
+        { type: 'Curso', title: 'React Performance', duration: '4h', icon: 'zap' },
+        { type: 'Artículo', title: 'Clean Code en JavaScript', duration: '18min', icon: 'code' },
       ],
       opportunities: [
         { company: 'Google', position: 'Frontend Engineer', match: 95, salary: '$5-7K', location: 'Remoto', logo: 'GO' },
