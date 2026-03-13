@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, X, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface UpgradeModalProps {
   open: boolean;
@@ -10,13 +11,7 @@ interface UpgradeModalProps {
   onStartTrial?: () => void;
 }
 
-export const UpgradeModal = ({ open, onClose, feature, onStartTrial }: UpgradeModalProps) => {
-  const handleStartTrial = () => {
-    if (onStartTrial) {
-      onStartTrial();
-    }
-    onClose();
-  };
+export const UpgradeModal = ({ open, onClose, feature }: UpgradeModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
@@ -31,14 +26,14 @@ export const UpgradeModal = ({ open, onClose, feature, onStartTrial }: UpgradeMo
           {feature && (
             <div className="rounded-lg bg-primary/10 p-4 border border-primary/20">
               <p className="text-sm">
-                Has alcanzado el límite de <strong>{feature}</strong> en el plan gratuito.
-                Actualiza a Premium para acceso ilimitado.
+                Has alcanzado el límite de <strong>{feature}</strong> en el modo invitado.
+                Suscríbete a Pro para acceso completo.
               </p>
             </div>
           )}
           {!feature && (
             <div className="text-center space-y-2">
-              <p className="text-lg font-semibold">Empieza con <span className="text-primary">7 días gratis</span></p>
+              <p className="text-lg font-semibold">Accede a todas las herramientas por <span className="text-primary">$15/mes</span></p>
               <p className="text-sm text-muted-foreground">Cancela cuando quieras. Sin permanencia.</p>
             </div>
           )}
@@ -46,94 +41,82 @@ export const UpgradeModal = ({ open, onClose, feature, onStartTrial }: UpgradeMo
           <div className="grid md:grid-cols-2 gap-4">
             <div className="border rounded-lg p-6 space-y-4">
               <div>
-                <h3 className="font-heading font-bold text-lg mb-1">Free</h3>
+                <h3 className="font-heading font-bold text-lg mb-1">Modo invitado</h3>
                 <p className="text-3xl font-heading font-bold">$0<span className="text-sm text-muted-foreground">/mes</span></p>
               </div>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>1 plantilla de CV</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>Oportunidades genéricas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                   <span>Diagnóstico básico</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>1 objetivo activo</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>10 microacciones/semana</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>5 mensajes IA/mes</span>
+                  <X className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">Entrevistas con IA</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">CV optimizado IA</span>
+                  <span className="text-muted-foreground">Oportunidades personalizadas</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Simulador ilimitado</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <X className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">Match inteligente empleos</span>
+                  <span className="text-muted-foreground">Coach IA 24/7</span>
                 </li>
               </ul>
             </div>
 
             <div className="border-2 border-primary rounded-lg p-6 space-y-4 relative overflow-hidden">
-              <Badge className="absolute top-3 right-3 gradient-premium text-white">
+              <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">
                 Recomendado
               </Badge>
               <div>
-                <h3 className="font-heading font-bold text-lg mb-1">Premium</h3>
+                <h3 className="font-heading font-bold text-lg mb-1">Pro</h3>
                 <p className="text-3xl font-heading font-bold text-primary">
-                  $20<span className="text-sm text-muted-foreground">/mes</span>
+                  $15<span className="text-sm text-muted-foreground">/mes</span>
                 </p>
               </div>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>Todo de Free +</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Todas las plantillas de CV</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span className="font-semibold">Objetivos ilimitados</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Entrevistas ilimitadas con IA</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span className="font-semibold">Coach IA 24/7 ilimitado</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Oportunidades personalizadas</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span className="font-semibold">CV optimizado con IA</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Match score inteligente</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span className="font-semibold">Simulador entrevistas ilimitado</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Coach IA 24/7</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span className="font-semibold">Match inteligente empleos</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span className="font-semibold">Diagnóstico completo RIASEC</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>2 mentorías grupales/mes</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
-                  <span>Certificados de logros</span>
+                  <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>Exportación PDF ilimitada</span>
                 </li>
               </ul>
-              <Button 
-                className="w-full gradient-orange text-white font-semibold"
-                onClick={handleStartTrial}
-              >
-                Iniciar prueba de 7 días gratis
-              </Button>
-              <p className="text-xs text-center text-muted-foreground">
-                Después de la prueba, $20/mes. Sin permanencia.
-              </p>
+              <Link to="/registro">
+                <Button className="w-full font-semibold">
+                  Suscribirse por $15/mes
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

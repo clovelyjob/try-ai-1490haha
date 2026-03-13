@@ -12,7 +12,6 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
   const { user } = useAuthStore();
   const [dismissed, setDismissed] = useState(false);
   
-  // Check if banner was already dismissed in this session
   useEffect(() => {
     const wasDismissed = sessionStorage.getItem('upgrade-banner-dismissed');
     if (wasDismissed) {
@@ -25,7 +24,6 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
     sessionStorage.setItem('upgrade-banner-dismissed', 'true');
   };
   
-  // Don't show if user is premium or has dismissed
   if (user?.plan === 'premium' || dismissed) {
     return null;
   }
@@ -44,13 +42,11 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
           shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-0.5 transition-all duration-300
         "
       >
-        {/* Background decoration */}
         <div className="absolute inset-0 opacity-10 dark:opacity-20">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary rounded-full blur-2xl" />
         </div>
         
-        {/* Content */}
         <div className="relative flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-1">
             <div className="p-2 rounded-full bg-primary/20">
@@ -58,10 +54,10 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
             </div>
             <div className="flex-1">
               <p className="font-semibold text-sm text-foreground mb-0.5">
-                Prueba Clovely Premium <span className="px-2 py-0.5 rounded-md bg-primary text-white text-xs font-bold">7 días gratis</span>
+                Desbloquea Clovely Pro por <span className="text-primary">$15/mes</span>
               </p>
               <p className="text-xs text-muted-foreground">
-                Desbloquea coach IA ilimitado, simulador de entrevistas y más
+                Todas las plantillas, entrevistas IA, oportunidades personalizadas y más
               </p>
             </div>
           </div>
@@ -73,7 +69,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
               size="sm"
               className="shadow-clovely-glow hover:shadow-clovely-glow-lg"
             >
-              Probar gratis
+              Suscribirse
             </Button>
             <button
               onClick={handleDismiss}
