@@ -81,7 +81,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       <Card className="p-4 rounded-2xl shadow-clovely-md bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-200 dark:border-blue-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-2xl">🌐</div>
+            <div className="text-2xl"><Globe className="w-6 h-6 text-primary" /></div>
             <div>
               <h3 className="font-bold text-foreground">Idioma del CV</h3>
               <p className="text-xs text-muted-foreground">
