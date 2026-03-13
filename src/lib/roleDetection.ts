@@ -26,7 +26,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ui_designer',
     label: 'Diseñador UI',
-    icon: '🎭',
+    icon: 'layout-template',
     description: 'Enfocado en diseño visual, interfaces y sistemas de diseño',
     keywords: ['ui', 'visual', 'interfaz', 'diseño gráfico', 'branding', 'componentes', 'design system'],
     toolKeywords: ['figma', 'sketch', 'adobe illustrator', 'photoshop', 'principle'],
