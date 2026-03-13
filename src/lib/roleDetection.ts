@@ -284,7 +284,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'economist',
     label: 'Economista',
-    icon: '📉',
+    icon: 'line-chart',
     description: 'Analiza fenómenos económicos y genera pronósticos',
     keywords: ['economía', 'macroeconomía', 'política económica', 'pronósticos', 'investigación'],
     toolKeywords: ['stata', 'r', 'python', 'excel', 'eviews'],
