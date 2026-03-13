@@ -366,7 +366,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'seo_specialist',
     label: 'Especialista SEO',
-    icon: '🔍',
+    icon: 'search',
     description: 'Optimiza sitios web para motores de búsqueda',
     keywords: ['seo', 'posicionamiento', 'búsqueda', 'keywords', 'optimización', 'google'],
     toolKeywords: ['semrush', 'ahrefs', 'google analytics', 'google search console', 'screaming frog'],
