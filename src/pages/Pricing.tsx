@@ -59,7 +59,7 @@ const Pricing = () => {
           <OfficialLogo size="md" to="/" />
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/registro"><Button size="sm" className="h-8 text-sm">Empieza gratis</Button></Link>
+            <Link to="/registro"><Button size="sm" className="h-8 text-sm">Suscribirse</Button></Link>
           </div>
         </div>
       </nav>
