@@ -290,7 +290,7 @@ serve(async (req) => {
     }
 
     const transformedJobs = result.data.map(transformJob);
-    console.log(`[${user.id}] Found ${transformedJobs.length} jobs`);
+    console.log(`[${userId}] Found ${transformedJobs.length} jobs`);
 
     return new Response(
       JSON.stringify({ data: transformedJobs, totalResults: transformedJobs.length, page, hasMore: result.data.length >= 10 }),
