@@ -742,7 +742,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hospitality_manager',
     label: 'Gerente de Hospitalidad',
-    icon: '🏨',
+    icon: 'hotel',
     description: 'Gestiona operaciones de hoteles y servicios',
     keywords: ['hospitalidad', 'hotel', 'servicios', 'gestión', 'experiencia del cliente'],
     toolKeywords: ['pms', 'booking systems', 'crm', 'excel'],
