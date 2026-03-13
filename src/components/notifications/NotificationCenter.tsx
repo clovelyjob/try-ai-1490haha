@@ -1,4 +1,4 @@
-import { Bell, Check, CheckCheck, Trash2, Settings, X } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Settings, X, Lightbulb, CheckCircle, AlertTriangle, Trophy, Clock, Briefcase } from 'lucide-react';
 import { useNotificationsStore } from '@/store/useNotificationsStore';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -13,13 +13,13 @@ interface NotificationCenterProps {
   onClose: () => void;
 }
 
-const notificationIcons = {
-  info: '💡',
-  success: '✅',
-  warning: '⚠️',
-  achievement: '🏆',
-  reminder: '⏰',
-  opportunity: '💼',
+const notificationIconComponents: Record<string, React.ElementType> = {
+  info: Lightbulb,
+  success: CheckCircle,
+  warning: AlertTriangle,
+  achievement: Trophy,
+  reminder: Clock,
+  opportunity: Briefcase,
 };
 
 const notificationColors = {
