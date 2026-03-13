@@ -450,7 +450,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                               className="shrink-0 shadow-clovely-sm hover:shadow-clovely-md transition-all"
                             >
                               {improvingField === `exp-${exp.id}-${bIndex}` ? (
-                                <span className="h-4 w-4 animate-spin">⏳</span>
+                                <span className="h-4 w-4 animate-spin"><Loader2 className="h-4 w-4" /></span>
                               ) : (
                                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                               )}
