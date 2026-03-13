@@ -212,7 +212,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_scientist',
     label: 'Data Scientist',
-    icon: '🔬',
+    icon: 'microscope',
     description: 'Especializado en machine learning, modelado predictivo y análisis avanzado',
     keywords: ['ciencia de datos', 'machine learning', 'ml', 'ai', 'modelos', 'predicción', 'algoritmos'],
     toolKeywords: ['python', 'r', 'tensorflow', 'pytorch', 'jupyter', 'spark', 'scikit-learn'],
