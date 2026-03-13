@@ -103,7 +103,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
               key={i} 
               className="text-lg px-4 py-2 bg-primary text-primary-foreground"
             >
-              {RIASEC_TYPE_INFO[letter as RIASECType].icon} {letter}
+              <DynamicIcon name={RIASEC_TYPE_INFO[letter as RIASECType].icon} size={16} className="inline mr-1" /> {letter}
             </Badge>
           ))}
         </div>
