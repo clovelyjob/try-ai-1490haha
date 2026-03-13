@@ -23,7 +23,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   A: {
     name: 'Artístico',
     description: 'Creativo, expresivo, trabaja con ideas y formas de expresión',
-    icon: '🎨'
+    icon: 'palette'
   },
   S: {
     name: 'Social',
