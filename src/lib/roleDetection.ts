@@ -46,7 +46,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'graphic_designer',
     label: 'Diseñador Gráfico',
-    icon: '🖼️',
+    icon: 'image',
     description: 'Crea diseños visuales para branding, publicidad y medios',
     keywords: ['gráfico', 'branding', 'identidad', 'publicidad', 'ilustración', 'composición'],
     toolKeywords: ['adobe illustrator', 'photoshop', 'indesign', 'canva', 'coreldraw'],
