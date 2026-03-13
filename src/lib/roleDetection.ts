@@ -700,7 +700,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'corporate_trainer',
     label: 'Capacitador Corporativo',
-    icon: '📊',
+    icon: 'presentation',
     description: 'Diseña y facilita entrenamientos empresariales',
     keywords: ['capacitación', 'training', 'desarrollo', 'empresarial', 'talleres'],
     toolKeywords: ['powerpoint', 'articulate', 'zoom', 'miro'],
