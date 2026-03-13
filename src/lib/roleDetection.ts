@@ -356,7 +356,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'copywriter',
     label: 'Copywriter',
-    icon: '✏️',
+    icon: 'pencil',
     description: 'Redacta textos persuasivos para marketing y publicidad',
     keywords: ['copywriting', 'redacción', 'persuasión', 'publicidad', 'contenido'],
     toolKeywords: ['google docs', 'grammarly', 'hemingway', 'wordpress'],
