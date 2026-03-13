@@ -219,7 +219,7 @@ serve(async (req) => {
       searchParams.set('date_posted', date_posted);
     }
 
-    console.log(`[${user.id}] Searching jobs: query="${query}", location="${location}", page=${page}`);
+    console.log(`[${userId}] Searching jobs: query="${query}", location="${location}", page=${page}`);
 
     const response = await fetch(
       `https://jsearch.p.rapidapi.com/search?${searchParams.toString()}`,
