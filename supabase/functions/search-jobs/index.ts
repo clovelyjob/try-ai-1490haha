@@ -203,8 +203,9 @@ serve(async (req) => {
       { global: { headers: { Authorization: authHeader } } }
     );
 
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
-    if (authError || !user) {
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: authError } = await supabaseClient.auth.getClaims(token);
+    if (authError || !claimsData?.claims?.sub) {
       console.error('[Auth] Error:', authError?.message);
       return new Response(
         JSON.stringify({ error: "No autorizado.", data: [] }),
@@ -212,6 +213,7 @@ serve(async (req) => {
       );
     }
 
+    const userId = claimsData.claims.sub;
     const url = new URL(req.url);
     const query = sanitizeSearchInput(url.searchParams.get('query') || 'developer') || 'developer';
     const location = sanitizeSearchInput(url.searchParams.get('location') || '');
@@ -224,7 +226,7 @@ serve(async (req) => {
 
     // If no API key, return fallback
     if (!RAPIDAPI_KEY) {
-      console.log(`[${user.id}] No API key, returning fallback jobs`);
+      console.log(`[${userId}] No API key, returning fallback jobs`);
       const fallback = generateFallbackJobs(query);
       return new Response(
         JSON.stringify({ data: fallback, totalResults: fallback.length, page, hasMore: false }),
@@ -242,7 +244,7 @@ serve(async (req) => {
     if (remote_only) searchParams.set('remote_jobs_only', 'true');
     if (date_posted && date_posted !== 'all') searchParams.set('date_posted', date_posted);
 
-    console.log(`[${user.id}] Searching jobs: query="${query}", page=${page}`);
+    console.log(`[${userId}] Searching jobs: query="${query}", page=${page}`);
 
     const response = await fetch(
       `https://jsearch.p.rapidapi.com/search?${searchParams.toString()}`,
