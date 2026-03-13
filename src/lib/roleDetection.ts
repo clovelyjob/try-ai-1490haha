@@ -606,7 +606,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'laboratory_scientist',
     label: 'Científico de Laboratorio',
-    icon: '🧪',
+    icon: 'flask-conical',
     description: 'Realiza experimentos y análisis de laboratorio',
     keywords: ['laboratorio', 'experimentos', 'análisis', 'investigación', 'ciencia'],
     toolKeywords: ['lab equipment', 'data analysis software', 'lims'],
