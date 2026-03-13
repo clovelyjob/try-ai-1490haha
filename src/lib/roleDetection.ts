@@ -524,7 +524,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'civil_engineer',
     label: 'Ingeniero Civil',
-    icon: '🏗️',
+    icon: 'hard-hat',
     description: 'Diseña y supervisa proyectos de infraestructura',
     keywords: ['civil', 'construcción', 'infraestructura', 'estructuras', 'obras'],
     toolKeywords: ['autocad', 'civil 3d', 'revit', 'sap2000', 'etabs'],
