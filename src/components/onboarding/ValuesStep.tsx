@@ -74,7 +74,7 @@ export const ValuesStep = ({ selected, onChange }: ValuesStepProps) => {
                 className="p-3 rounded-xl border-2 hover:border-primary transition-all duration-300 text-left hover:shadow-clovely-sm hover:-translate-y-0.5"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{value.icon}</span>
+                  <DynamicIcon name={value.icon} size={20} className="text-primary" />
                   <span className="font-medium text-sm">{value.label}</span>
                 </div>
               </button>
