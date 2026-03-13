@@ -417,7 +417,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                             </div>
                           </div>
                           <p className="text-[10px] text-amber-600 dark:text-amber-400 mt-1 font-medium">
-                            ⚠️ SIN pronombres (Yo, Nosotros) • SIN abreviaturas • Sé específico no general
+                            SIN pronombres (Yo, Nosotros) · SIN abreviaturas · Sé específico no general
                           </p>
                         </div>
 
