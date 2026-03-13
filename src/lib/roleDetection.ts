@@ -460,7 +460,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'leadership_coach',
     label: 'Coach de Liderazgo',
-    icon: '🌱',
+    icon: 'sprout',
     description: 'Desarrolla líderes y equipos de alto rendimiento',
     keywords: ['coaching', 'liderazgo', 'desarrollo', 'equipos', 'mentoring'],
     toolKeywords: ['zoom', 'miro', 'notion', 'assessment tools'],
