@@ -88,13 +88,13 @@ const Pricing = () => {
                 transition={{ delay: i * 0.06 }}
                 className={plan.popular ? 'lg:-mt-3' : ''}
               >
-                <div className={`p-6 h-full rounded-xl border transition-all duration-200 ${
+                <div className={`p-6 h-full rounded-xl border transition-all duration-200 flex flex-col ${
                   plan.popular
                     ? 'border-primary/30 bg-primary/[0.02] shadow-clovely-md'
                     : 'border-border/50 hover:border-primary/15'
                 }`}>
                   {plan.popular && (
-                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-medium mb-4">
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-medium mb-4 w-fit">
                       <Sparkles className="h-2.5 w-2.5" />
                       Recomendado
                     </div>
@@ -112,7 +112,7 @@ const Pricing = () => {
                     <span className="text-sm text-muted-foreground">{plan.period}</span>
                   </div>
 
-                  <ul className="space-y-2 mb-6">
+                  <ul className="space-y-2 mb-6 flex-1">
                     {plan.features.map((f, j) => (
                       <li key={j} className="flex items-start gap-2">
                         <Check className="h-3.5 w-3.5 text-primary mt-0.5 flex-shrink-0" />
@@ -121,7 +121,7 @@ const Pricing = () => {
                     ))}
                   </ul>
 
-                  <Link to={plan.href}>
+                  <Link to={plan.href} className="mt-auto">
                     <Button
                       className="w-full h-9 text-sm"
                       variant={plan.popular ? 'default' : 'outline'}
