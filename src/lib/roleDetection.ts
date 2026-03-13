@@ -398,7 +398,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_consultant',
     label: 'Consultor de Negocios',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Asesora en estrategia y optimización de negocios',
     keywords: ['consultoría', 'estrategia', 'negocios', 'optimización', 'transformación'],
     toolKeywords: ['powerpoint', 'excel', 'miro', 'tableau'],
