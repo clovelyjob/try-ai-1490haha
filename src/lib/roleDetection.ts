@@ -78,7 +78,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'developer_frontend',
     label: 'Desarrollador Frontend',
-    icon: '💻',
+    icon: 'code',
     description: 'Especializado en desarrollo de interfaces web y mobile',
     keywords: ['frontend', 'web', 'desarrollo', 'código', 'interfaces', 'responsive', 'componentes'],
     toolKeywords: ['react', 'vue', 'angular', 'javascript', 'typescript', 'html', 'css', 'tailwind'],
