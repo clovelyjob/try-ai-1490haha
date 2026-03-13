@@ -202,7 +202,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'data_analyst',
     label: 'Analista de Datos',
-    icon: '📈',
+    icon: 'trending-up',
     description: 'Analiza datos y genera insights para decisiones de negocio',
     keywords: ['datos', 'análisis', 'métricas', 'insights', 'reportes', 'visualización', 'bi'],
     toolKeywords: ['excel', 'sql', 'tableau', 'power bi', 'python', 'r', 'google analytics'],
