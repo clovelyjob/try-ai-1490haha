@@ -93,7 +93,7 @@ export default function InterviewSession() {
       if (data?.text) {
         setAnswer(data.text);
         toast({
-          title: "✅ Transcripción completada",
+          title: "Transcripción completada",
           description: "Tu respuesta ha sido transcrita. Revísala y envíala.",
         });
       } else if (data?.message) {
