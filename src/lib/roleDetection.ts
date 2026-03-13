@@ -170,7 +170,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'product_manager',
     label: 'Product Manager',
-    icon: '🎯',
+    icon: 'target',
     description: 'Define la visión y estrategia del producto',
     keywords: ['producto', 'estrategia', 'roadmap', 'priorización', 'métricas', 'kpis', 'mvp'],
     toolKeywords: ['jira', 'productboard', 'amplitude', 'mixpanel', 'figma', 'miro'],
