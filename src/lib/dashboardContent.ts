@@ -299,8 +299,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Coaching de prácticas ágiles', xp: 110, category: 'coaching' },
       ],
       resources: [
-        { type: 'Curso', title: 'Scrum Master Certification', duration: '6h', icon: '🏃' },
-        { type: 'Video', title: 'Agile Coaching Skills', duration: '30min', icon: '🎯' },
+        { type: 'Curso', title: 'Scrum Master Certification', duration: '6h', icon: 'zap' },
+        { type: 'Video', title: 'Agile Coaching Skills', duration: '30min', icon: 'target' },
       ]
     },
     business_analyst: {
