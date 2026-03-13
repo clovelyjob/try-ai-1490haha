@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Sparkles, TrendingUp, Target, Lightbulb, Award } from 'lucide-react';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 import { RIASECResult, getHollandCodeInterpretation } from '@/lib/riasecScoring';
 import { RIASEC_TYPE_INFO, RIASECType } from '@/lib/riasecQuestions';
