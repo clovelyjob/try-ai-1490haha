@@ -186,8 +186,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Implementar autenticación JWT', xp: 130, category: 'security' },
       ],
       resources: [
-        { type: 'Curso', title: 'Microservices Architecture', duration: '6h', icon: '🏗️' },
-        { type: 'Artículo', title: 'Database Best Practices', duration: '25min', icon: '📊' },
+        { type: 'Curso', title: 'Microservices Architecture', duration: '6h', icon: 'server' },
+        { type: 'Artículo', title: 'Database Best Practices', duration: '25min', icon: 'database' },
       ]
     },
     developer_fullstack: {
