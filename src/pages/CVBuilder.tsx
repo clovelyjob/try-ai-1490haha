@@ -178,7 +178,7 @@ export default function CVBuilder() {
     };
 
     toast({
-      title: '📄 Generando PDF',
+      title: 'Generando PDF',
       description: 'Por favor espera un momento...',
     });
 
