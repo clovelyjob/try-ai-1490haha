@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { WORK_MODALITIES, WORK_SCHEDULES, COMPANY_SIZES } from '@/lib/constants';
+import { DynamicIcon } from '@/components/DynamicIcon';
 
 interface StyleStepProps {
   workStyle: {
