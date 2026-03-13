@@ -254,7 +254,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'hedge_fund',
     label: 'Hedge Fund Manager',
-    icon: '📉',
+    icon: 'line-chart',
     description: 'Gestiona fondos de inversión con estrategias avanzadas',
     keywords: ['hedge fund', 'trading', 'derivados', 'riesgo', 'estrategias', 'arbitraje'],
     toolKeywords: ['bloomberg', 'python', 'matlab', 'excel', 'risk systems'],
