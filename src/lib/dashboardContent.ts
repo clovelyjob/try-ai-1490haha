@@ -141,8 +141,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Producir assets para redes sociales', xp: 80, category: 'digital' },
       ],
       resources: [
-        { type: 'Curso', title: 'Branding Essentials', duration: '4h', icon: '🎨' },
-        { type: 'Video', title: 'Typography Masterclass', duration: '35min', icon: '🎥' },
+        { type: 'Curso', title: 'Branding Essentials', duration: '4h', icon: 'palette' },
+        { type: 'Video', title: 'Typography Masterclass', duration: '35min', icon: 'video' },
       ]
     },
     industrial_designer: getDefaultConfig('Diseñador Industrial'),
