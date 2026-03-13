@@ -496,9 +496,9 @@ const Landing = () => {
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              { name: 'Ana M.', role: 'UX Designer', text: 'En 3 meses conseguí mi primer trabajo en UX. Clovely me dio la claridad que necesitaba para enfocar mi búsqueda.' },
-              { name: 'Carlos R.', role: 'Aumento salarial 40%', text: 'Seguí el plan paso a paso. El simulador de entrevistas me preparó tanto que negocié un 40% más de salario.' },
-              { name: 'María F.', role: 'Recién graduada', text: 'Recibí 3 ofertas laborales en mi primer mes. El diagnóstico me ayudó a entender qué buscar.' },
+              { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. Clovely me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
+              { name: 'Diego L.', role: 'Desarrollador Junior', text: 'Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.' },
+              { name: 'Camila R.', role: 'Analista de Marketing', text: 'Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil.' },
             ].map((t, i) => (
               <motion.div
                 key={i}
