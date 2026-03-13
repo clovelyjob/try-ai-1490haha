@@ -408,7 +408,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'sales_specialist',
     label: 'Especialista en Ventas',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Gestiona procesos de ventas y relaciones con clientes',
     keywords: ['ventas', 'sales', 'negociación', 'cierre', 'pipeline', 'clientes'],
     toolKeywords: ['salesforce', 'hubspot', 'pipedrive', 'linkedin sales navigator'],
