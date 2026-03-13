@@ -638,7 +638,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'audiovisual_producer',
     label: 'Productor Audiovisual',
-    icon: '🎬',
+    icon: 'clapperboard',
     description: 'Produce contenido audiovisual completo',
     keywords: ['producción', 'audiovisual', 'multimedia', 'dirección', 'post-producción'],
     toolKeywords: ['premiere pro', 'after effects', 'audition', 'pro tools'],
