@@ -569,8 +569,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Conectar con mentores', xp: 90, category: 'networking', action: '/dashboard/circles' },
       ],
       resources: [
-        { type: 'Guía', title: 'Guía de Transición de Carrera', duration: '40min', icon: '🔄' },
-        { type: 'Curso', title: 'Finding Your New Path', duration: '3h', icon: '🎯' },
+        { type: 'Guía', title: 'Guía de Transición de Carrera', duration: '40min', icon: 'refresh-cw' },
+        { type: 'Curso', title: 'Finding Your New Path', duration: '3h', icon: 'target' },
       ]
     },
     other: {
