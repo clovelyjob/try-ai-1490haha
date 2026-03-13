@@ -128,7 +128,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'devops',
     label: 'DevOps Engineer',
-    icon: '🔄',
+    icon: 'refresh-cw',
     description: 'Gestiona infraestructura, CI/CD y automatización',
     keywords: ['devops', 'infraestructura', 'deployment', 'automatización', 'cloud', 'containers'],
     toolKeywords: ['docker', 'kubernetes', 'jenkins', 'terraform', 'aws', 'azure', 'github actions'],
