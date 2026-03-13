@@ -180,7 +180,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'scrum_master',
     label: 'Scrum Master',
-    icon: '🏃',
+    icon: 'zap',
     description: 'Facilita procesos ágiles y mejora continua del equipo',
     keywords: ['scrum', 'agile', 'facilitación', 'retrospectivas', 'sprints', 'ceremonies'],
     toolKeywords: ['jira', 'miro', 'confluence', 'slack', 'zoom'],
