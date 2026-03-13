@@ -732,7 +732,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'culinary_specialist',
     label: 'Especialista Gastronómico',
-    icon: '🍽️',
+    icon: 'utensils',
     description: 'Especializado en técnicas culinarias avanzadas',
     keywords: ['gastronomía', 'cocina', 'técnicas', 'innovación', 'alta cocina'],
     toolKeywords: ['professional kitchen equipment', 'food lab tools'],
