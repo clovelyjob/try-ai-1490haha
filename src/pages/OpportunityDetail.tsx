@@ -122,7 +122,7 @@ export default function OpportunityDetail() {
       window.open(opportunity.applyUrl, '_blank', 'noopener,noreferrer');
       addXP(10);
       toast({
-        title: '🔗 Redirigiendo al portal de empleo',
+        title: 'Redirigiendo al portal de empleo',
         description: 'Has ganado 10 XP por explorar esta oportunidad',
       });
     }
