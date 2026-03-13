@@ -564,7 +564,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'sustainability_consultant',
     label: 'Consultor de Sostenibilidad',
-    icon: '🌱',
+    icon: 'leaf',
     description: 'Asesora en prácticas sostenibles y medio ambiente',
     keywords: ['sostenibilidad', 'medio ambiente', 'esg', 'carbono', 'energía renovable'],
     toolKeywords: ['gis', 'lca software', 'energy modeling tools'],
