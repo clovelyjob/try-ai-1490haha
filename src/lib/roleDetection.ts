@@ -418,7 +418,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'account_executive',
     label: 'Account Executive',
-    icon: '🤝',
+    icon: 'handshake',
     description: 'Gestiona cuentas clave y relaciones comerciales',
     keywords: ['cuentas', 'clientes', 'ventas', 'relaciones', 'b2b', 'enterprise'],
     toolKeywords: ['salesforce', 'hubspot', 'linkedin', 'zoom'],
