@@ -56,7 +56,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'industrial_designer',
     label: 'Diseñador Industrial',
-    icon: '🏭',
+    icon: 'factory',
     description: 'Diseña productos físicos y objetos manufacturados',
     keywords: ['industrial', 'producto físico', 'manufactura', 'prototipado', '3d', 'ergonomía'],
     toolKeywords: ['solidworks', 'rhino', 'autocad', 'fusion 360', 'keyshot'],
