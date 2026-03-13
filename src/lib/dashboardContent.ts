@@ -355,8 +355,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Deploy modelo a producción', xp: 140, category: 'deployment' },
       ],
       resources: [
-        { type: 'Curso', title: 'Machine Learning', duration: '8h', icon: '🤖' },
-        { type: 'Artículo', title: 'Feature Engineering', duration: '25min', icon: '⚙️' },
+        { type: 'Curso', title: 'Machine Learning', duration: '8h', icon: 'bot' },
+        { type: 'Artículo', title: 'Feature Engineering', duration: '25min', icon: 'settings' },
       ]
     },
     data_engineer: getDefaultConfig('Ingeniero de Datos'),
