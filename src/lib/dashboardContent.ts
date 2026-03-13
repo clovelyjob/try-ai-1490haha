@@ -105,8 +105,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Diseñar set de iconos', xp: 100, category: 'icons' },
       ],
       resources: [
-        { type: 'Curso', title: 'Design Systems Fundamentals', duration: '4h', icon: '🎨' },
-        { type: 'Artículo', title: 'Teoría del color en UI', duration: '12min', icon: '🎨' },
+        { type: 'Curso', title: 'Design Systems Fundamentals', duration: '4h', icon: 'palette' },
+        { type: 'Artículo', title: 'Teoría del color en UI', duration: '12min', icon: 'palette' },
       ]
     },
     product_designer: {
