@@ -214,7 +214,7 @@ export const RoleDetectionStep = ({ preferences, onChange, onRoleConfirmed }: Ro
                       onClick={() => handleSelectRole(suggestion.role, suggestion.confidence)}>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className="text-4xl">{roleDef.icon}</div>
+                      <div className="text-4xl"><DynamicIcon name={roleDef.icon} size={36} className="text-primary" /></div>
                       <div>
                         <h3 className="text-xl font-heading font-bold">{roleDef.label}</h3>
                         <p className="text-sm text-muted-foreground">{roleDef.description}</p>
