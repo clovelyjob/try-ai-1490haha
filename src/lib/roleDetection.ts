@@ -754,7 +754,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'student',
     label: 'Estudiante',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'En formación académica y desarrollo profesional',
     keywords: ['estudiante', 'aprendizaje', 'universidad', 'carrera', 'formación'],
     toolKeywords: ['notion', 'google workspace', 'zoom'],
