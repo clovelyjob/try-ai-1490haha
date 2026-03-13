@@ -454,7 +454,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
       calculateMatch: (opportunity, profile, cv) => {
         if (!profile?.skills) {
-          return { overall: 50, skills: 50, culture: 50, growth: 50, matchingSkills: [], missingSkills: opportunity.requirements || [] };
+          return { overall: 50, breakdown: { skillsMatch: 50, experienceMatch: 50, educationMatch: 50, lifestyleMatch: 50, keywordsMatch: 50 }, recommendations: [], missingSkills: opportunity.requirements || [] };
         }
         // Base skill matching
         const userSkills = [
