@@ -49,7 +49,7 @@ const Pricing = () => {
     { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Sin preguntas, sin penalizaciones.' },
     { q: '¿Qué métodos de pago aceptan?', a: 'Visa, Mastercard, Amex y PayPal.' },
     { q: '¿Hay descuento para estudiantes?', a: '50% de descuento con email .edu verificado.' },
-    { q: '¿Qué incluye la prueba gratuita?', a: 'Acceso completo a Pro durante 7 días. Sin tarjeta requerida.' },
+    { q: '¿Qué incluye el modo invitado?', a: 'Acceso limitado a funciones básicas para que explores la plataforma antes de suscribirte.' },
   ];
 
   return (
