@@ -576,7 +576,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'healthcare_professional',
     label: 'Profesional de la Salud',
-    icon: '🏥',
+    icon: 'heart-pulse',
     description: 'Provee atención y servicios de salud',
     keywords: ['salud', 'atención', 'pacientes', 'clínica', 'tratamiento'],
     toolKeywords: ['emr systems', 'medical software'],
