@@ -534,7 +534,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mechanical_engineer',
     label: 'Ingeniero Mecánico',
-    icon: '⚙️',
+    icon: 'settings',
     description: 'Diseña sistemas mecánicos y maquinaria',
     keywords: ['mecánico', 'maquinaria', 'sistemas', 'manufactura', 'diseño mecánico'],
     toolKeywords: ['solidworks', 'autocad', 'ansys', 'matlab', 'catia'],
