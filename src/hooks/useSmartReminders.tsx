@@ -85,7 +85,7 @@ export const useSmartReminders = () => {
       if (hour === 11 && dayOfWeek === 5) { // Friday at 11am
         addNotification({
           type: 'reminder',
-          title: '⚙️ Completa tu perfil',
+          title: 'Completa tu perfil',
           message: 'Un perfil completo te ayuda a encontrar mejores oportunidades.',
           actionUrl: '/dashboard/settings',
           actionLabel: 'Completar perfil',
