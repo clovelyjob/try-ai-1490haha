@@ -271,7 +271,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
             <AccordionContent className="px-6 pb-6">
               {/* Guías para Experiencia */}
               <div className="mb-4 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border-2 border-purple-200 dark:border-purple-800 text-xs shadow-clovely-sm">
-                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">💼 Top 5 Errores de CV a Evitar:</p>
+                <p className="font-bold text-purple-900 dark:text-purple-100 mb-1">Top 5 Errores de CV a Evitar:</p>
                 <ol className="list-decimal list-inside text-[10px] text-purple-800 dark:text-purple-200 space-y-0.5 ml-2">
                   <li>Errores ortográficos y gramaticales</li>
                   <li>Falta de email y teléfono</li>
