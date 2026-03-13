@@ -95,6 +95,15 @@ export default function CVBuilder() {
   const handleAnalyze = async () => {
     if (!currentCV) return;
     
+    if (isGuestMode || user?.plan !== 'premium') {
+      toast({
+        title: '🔒 Función Premium',
+        description: 'Suscríbete al plan Pro por $15/mes para analizar tu CV con IA.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       const analysis = await analyzeCVintense(currentCV, currentCV.personal.title);
       setAnalysisData(analysis);
