@@ -142,7 +142,7 @@ export const ResultsStep = ({ onComplete, riasecResult, values = [], experience 
           <div className="grid grid-cols-2 gap-2 mt-4">
             {riasecResult.topTypes.map((item) => (
               <div key={item.type} className="flex items-center gap-2 text-sm">
-                <span>{RIASEC_TYPE_INFO[item.type].icon}</span>
+                <span><DynamicIcon name={RIASEC_TYPE_INFO[item.type].icon} size={16} /></span>
                 <span className="flex-1">{RIASEC_TYPE_INFO[item.type].name}</span>
                 <span className="font-semibold">{item.percentage}%</span>
               </div>

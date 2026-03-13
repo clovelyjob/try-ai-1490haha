@@ -112,7 +112,7 @@ export const ValuesStep = ({ selected, onChange }: ValuesStepProps) => {
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
                         {index + 1}
                       </div>
-                      <span className="text-2xl">{value.icon}</span>
+                      <DynamicIcon name={value.icon} size={20} className="text-primary" />
                       <span className="font-medium text-sm flex-1">
                         {value.label}
                       </span>

@@ -43,7 +43,7 @@ export const InterestsStep = ({ selected, onChange }: InterestsStepProps) => {
                   : 'border-border hover:border-primary/50 hover:shadow-clovely-sm hover:-translate-y-0.5'
               }`}
             >
-              <div className="text-3xl mb-2">{interest.icon}</div>
+              <div className="text-3xl mb-2"><DynamicIcon name={interest.icon} size={28} className="text-primary" /></div>
               <p className="font-medium text-sm">{interest.label}</p>
             </button>
           );

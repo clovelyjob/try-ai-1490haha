@@ -261,7 +261,7 @@ export const RoleDetectionStep = ({ preferences, onChange, onRoleConfirmed }: Ro
                 onClick={() => handleSelectRole(role.id as ProfessionalRole, 75)}
               >
                 <div className="text-center space-y-2">
-                  <div className="text-3xl">{role.icon}</div>
+                  <div className="text-3xl"><DynamicIcon name={role.icon} size={28} className="text-primary" /></div>
                   <p className="text-sm font-medium">{role.label}</p>
                 </div>
               </Card>
