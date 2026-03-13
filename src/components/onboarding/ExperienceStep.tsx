@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/card';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
