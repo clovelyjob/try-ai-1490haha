@@ -38,7 +38,7 @@ export const StyleStep = ({ workStyle, onChange }: StyleStepProps) => {
                     : 'border-border hover:border-primary/50 hover:shadow-clovely-sm hover:-translate-y-0.5'
                 }`}
               >
-                <div className="text-3xl mb-2">{option.icon}</div>
+                <div className="text-3xl mb-2"><DynamicIcon name={option.icon} size={28} className="text-primary" /></div>
                 <p className="font-medium text-sm">{option.label}</p>
               </button>
             ))}
