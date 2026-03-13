@@ -232,7 +232,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'business_intelligence',
     label: 'Especialista BI',
-    icon: '💡',
+    icon: 'lightbulb',
     description: 'Transforma datos en insights de negocio mediante dashboards',
     keywords: ['bi', 'business intelligence', 'dashboards', 'reportes', 'kpis', 'métricas'],
     toolKeywords: ['tableau', 'power bi', 'looker', 'sql', 'excel'],
