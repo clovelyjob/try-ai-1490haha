@@ -326,7 +326,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'digital_strategist',
     label: 'Estratega Digital',
-    icon: '🎯',
+    icon: 'target',
     description: 'Define estrategias digitales y de transformación',
     keywords: ['estrategia', 'digital', 'transformación', 'innovación', 'omnicanal'],
     toolKeywords: ['google analytics', 'semrush', 'ahrefs', 'tableau', 'miro'],
