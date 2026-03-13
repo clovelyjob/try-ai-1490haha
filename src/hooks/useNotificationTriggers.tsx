@@ -80,7 +80,7 @@ export const useNotificationTriggers = () => {
 
         addNotification({
           type: 'success',
-          title: '✅ Entrevista completada',
+          title: 'Entrevista completada',
           message,
           actionUrl: `/dashboard/interviews/results`,
           actionLabel: 'Ver resultados',

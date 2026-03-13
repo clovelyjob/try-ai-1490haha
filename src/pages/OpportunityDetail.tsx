@@ -151,7 +151,7 @@ export default function OpportunityDetail() {
     setShowConfetti(true);
 
     toast({
-      title: '🎉 ¡Postulación enviada!',
+      title: 'Postulación enviada',
       description: 'Has ganado 50 XP y 10 Clovely Coins',
     });
 
