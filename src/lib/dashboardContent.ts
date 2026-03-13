@@ -463,8 +463,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Desarrollar MVP', xp: 150, category: 'product' },
       ],
       resources: [
-        { type: 'Curso', title: 'Lean Startup', duration: '5h', icon: '🚀' },
-        { type: 'Artículo', title: 'Fundraising Basics', duration: '20min', icon: '💰' },
+        { type: 'Curso', title: 'Lean Startup', duration: '5h', icon: 'rocket' },
+        { type: 'Artículo', title: 'Fundraising Basics', duration: '20min', icon: 'dollar-sign' },
       ]
     },
     business_consultant: getDefaultConfig('Consultor de Negocios'),
