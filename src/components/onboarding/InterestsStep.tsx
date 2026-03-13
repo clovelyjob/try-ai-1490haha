@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { INTERESTS } from '@/lib/constants';
+import { DynamicIcon } from '@/components/DynamicIcon';
 
 interface InterestsStepProps {
   selected: string[];
