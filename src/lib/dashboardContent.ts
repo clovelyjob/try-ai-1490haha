@@ -204,8 +204,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Optimizar aplicación completa', xp: 140, category: 'performance' },
       ],
       resources: [
-        { type: 'Curso', title: 'Full-Stack Masterclass', duration: '8h', icon: '🔧' },
-        { type: 'Video', title: 'DevOps for Developers', duration: '45min', icon: '⚙️' },
+        { type: 'Curso', title: 'Full-Stack Masterclass', duration: '8h', icon: 'wrench' },
+        { type: 'Video', title: 'DevOps for Developers', duration: '45min', icon: 'settings' },
       ]
     },
     software_engineer: getDefaultConfig('Ingeniero de Software'),
