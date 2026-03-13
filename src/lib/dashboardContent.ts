@@ -123,8 +123,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Analizar métricas de conversión', xp: 90, category: 'analytics' },
       ],
       resources: [
-        { type: 'Curso', title: 'Product Thinking', duration: '5h', icon: '🚀' },
-        { type: 'Artículo', title: 'Cómo priorizar features', duration: '20min', icon: '📊' },
+        { type: 'Curso', title: 'Product Thinking', duration: '5h', icon: 'rocket' },
+        { type: 'Artículo', title: 'Cómo priorizar features', duration: '20min', icon: 'bar-chart-3' },
       ]
     },
     graphic_designer: {
