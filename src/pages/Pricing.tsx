@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Building2 } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Zap, Sparkles } from 'lucide-react';
 
 const Pricing = () => {
   const plans = [
