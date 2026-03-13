@@ -234,7 +234,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@
               Términos y Condiciones
             </h1>
             <p className="text-muted-foreground">
-              Última actualización: 1 de diciembre de 2024
+              Última actualización: 13 de marzo de 2026
             </p>
           </motion.div>
         </div>
