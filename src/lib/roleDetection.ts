@@ -108,7 +108,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'software_engineer',
     label: 'Ingeniero de Software',
-    icon: '👨‍💻',
+    icon: 'terminal',
     description: 'Desarrolla sistemas de software complejos y escalables',
     keywords: ['software', 'ingeniería', 'arquitectura', 'sistemas', 'código', 'desarrollo'],
     toolKeywords: ['java', 'python', 'c++', 'git', 'kubernetes', 'aws', 'microservices'],
