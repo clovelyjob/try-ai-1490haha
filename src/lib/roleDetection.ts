@@ -274,7 +274,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'financial_analyst',
     label: 'Analista Financiero',
-    icon: '📊',
+    icon: 'bar-chart-3',
     description: 'Analiza estados financieros y evalúa inversiones',
     keywords: ['análisis', 'finanzas', 'estados financieros', 'valuación', 'presupuesto'],
     toolKeywords: ['excel', 'bloomberg', 'capital iq', 'python', 'tableau'],
