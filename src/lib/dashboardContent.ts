@@ -242,8 +242,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Performance testing', xp: 120, category: 'performance' },
       ],
       resources: [
-        { type: 'Curso', title: 'Test Automation', duration: '5h', icon: '🔍' },
-        { type: 'Artículo', title: 'QA Best Practices', duration: '18min', icon: '✅' },
+        { type: 'Curso', title: 'Test Automation', duration: '5h', icon: 'search' },
+        { type: 'Artículo', title: 'QA Best Practices', duration: '18min', icon: 'check-circle' },
       ]
     },
     ml_engineer: getDefaultConfig('Ingeniero de ML'),
