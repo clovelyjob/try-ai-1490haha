@@ -587,8 +587,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Actualizar CV y LinkedIn', xp: 90, category: 'career' },
       ],
       resources: [
-        { type: 'Guía', title: 'Descubre tu rol profesional', duration: '30min', icon: '🧭' },
-        { type: 'Video', title: 'Construyendo tu marca', duration: '25min', icon: '🎯' },
+        { type: 'Guía', title: 'Descubre tu rol profesional', duration: '30min', icon: 'compass' },
+        { type: 'Video', title: 'Construyendo tu marca', duration: '25min', icon: 'target' },
       ]
     }
   };
