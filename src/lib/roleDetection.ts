@@ -160,7 +160,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'project_manager',
     label: 'Project Manager',
-    icon: '📊',
+    icon: 'bar-chart-3',
     description: 'Gestiona proyectos, equipos y entregables',
     keywords: ['gestión', 'proyectos', 'coordinación', 'planificación', 'stakeholders', 'deadlines'],
     toolKeywords: ['jira', 'asana', 'trello', 'microsoft project', 'notion', 'slack'],
