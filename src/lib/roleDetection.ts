@@ -264,7 +264,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'trader',
     label: 'Trader',
-    icon: '💹',
+    icon: 'candlestick-chart',
     description: 'Ejecuta operaciones de compra y venta en mercados financieros',
     keywords: ['trading', 'mercados', 'acciones', 'forex', 'criptomonedas', 'análisis técnico'],
     toolKeywords: ['metatrader', 'thinkorswim', 'tradingview', 'bloomberg', 'python'],
