@@ -138,7 +138,7 @@ export default function CVBuilder() {
     // Block export for guest mode / non-premium users
     if (isGuestMode || user?.plan !== 'premium') {
       toast({
-        title: '🔒 Función Premium',
+        title: 'Función Premium',
         description: 'Suscríbete al plan Pro por $15/mes para descargar tus CVs en PDF.',
         variant: 'destructive',
       });
