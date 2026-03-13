@@ -441,7 +441,7 @@ export default function CVBuilder() {
           onApply={(colors) => {
             setTemplateColors(colors);
             toast({
-              title: '🎨 Colores aplicados',
+              title: 'Colores aplicados',
               description: 'El esquema de colores ha sido actualizado',
             });
           }}
