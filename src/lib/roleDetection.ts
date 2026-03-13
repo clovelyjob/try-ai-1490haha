@@ -16,7 +16,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ux_designer',
     label: 'Diseñador UX',
-    icon: '🎨',
+    icon: 'palette',
     description: 'Especializado en experiencia de usuario, investigación y usabilidad',
     keywords: ['ux', 'experiencia', 'usuario', 'usabilidad', 'research', 'investigación', 'wireframes', 'prototipos'],
     toolKeywords: ['figma', 'sketch', 'adobe xd', 'miro', 'optimal workshop', 'useberry'],
