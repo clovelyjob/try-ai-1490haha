@@ -306,7 +306,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'marketing_manager',
     label: 'Marketing Manager',
-    icon: '📣',
+    icon: 'megaphone',
     description: 'Gestiona estrategias de marketing y campañas',
     keywords: ['marketing', 'campañas', 'branding', 'digital', 'contenido', 'redes sociales', 'seo'],
     toolKeywords: ['google analytics', 'hubspot', 'mailchimp', 'canva', 'hootsuite', 'semrush'],
