@@ -440,8 +440,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Crear calendario de contenido', xp: 80, category: 'planning' },
       ],
       resources: [
-        { type: 'Curso', title: 'Content Marketing', duration: '4h', icon: '✍️' },
-        { type: 'Video', title: 'Video Production', duration: '35min', icon: '🎬' },
+        { type: 'Curso', title: 'Content Marketing', duration: '4h', icon: 'pen-tool' },
+        { type: 'Video', title: 'Video Production', duration: '35min', icon: 'clapperboard' },
       ]
     },
     copywriter: getDefaultConfig('Copywriter'),
