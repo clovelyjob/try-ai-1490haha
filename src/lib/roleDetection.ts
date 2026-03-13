@@ -710,7 +710,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'instructional_designer',
     label: 'Diseñador Instruccional',
-    icon: '📚',
+    icon: 'book-open',
     description: 'Diseña experiencias de aprendizaje efectivas',
     keywords: ['diseño instruccional', 'e-learning', 'cursos', 'aprendizaje', 'pedagogía'],
     toolKeywords: ['articulate', 'rise', 'camtasia', 'captivate', 'lms'],
