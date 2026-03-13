@@ -167,6 +167,17 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
       loadOpportunities: async (params?: Partial<SearchParams>) => {
         set({ isLoading: true, error: null });
+
+        // Guest mode: skip API call and use generic mock data
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          set({
+            opportunities: generateMockOpportunities(),
+            isLoading: false,
+            hasMore: false,
+          });
+          return;
+        }
         
         const currentParams = get().searchParams;
         const filters = get().filters;
@@ -219,7 +230,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
             {
               method: 'GET',
               headers: {
-                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+                'Authorization': `Bearer ${session.access_token}`,
                 'Content-Type': 'application/json',
               },
             }
@@ -442,10 +453,13 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       },
 
       calculateMatch: (opportunity, profile, cv) => {
+        if (!profile?.skills) {
+          return { overall: 50, breakdown: { skillsMatch: 50, experienceMatch: 50, educationMatch: 50, lifestyleMatch: 50, keywordsMatch: 50 }, recommendations: [], missingSkills: opportunity.requirements || [] };
+        }
         // Base skill matching
         const userSkills = [
-          ...profile.skills.technical.map((s) => s.name.toLowerCase()),
-          ...profile.skills.tools.map((t) => t.toLowerCase()),
+          ...(profile.skills.technical || []).map((s: any) => (s.name || s).toString().toLowerCase()),
+          ...(profile.skills.tools || []).map((t: any) => t.toString().toLowerCase()),
         ];
         const requiredSkills = opportunity.requirements.map((r) => r.toLowerCase());
 
