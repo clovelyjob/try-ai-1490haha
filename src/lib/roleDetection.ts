@@ -722,7 +722,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'chef',
     label: 'Chef',
-    icon: '👨‍🍳',
+    icon: 'chef-hat',
     description: 'Crea y dirige operaciones culinarias',
     keywords: ['cocina', 'gastronomía', 'chef', 'menú', 'culinario'],
     toolKeywords: ['kitchen equipment', 'pos systems', 'menu planning software'],
