@@ -142,10 +142,13 @@ export const NotificationCenter = ({ onClose }: NotificationCenterProps) => {
 
                 <div className="flex gap-3 ml-4">
                   <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-xl",
+                    "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0",
                     notificationColors[notification.type]
                   )}>
-                    {notificationIcons[notification.type]}
+                    {(() => {
+                      const IconComp = notificationIconComponents[notification.type] || Lightbulb;
+                      return <IconComp className="w-5 h-5" />;
+                    })()}
                   </div>
 
                   <div className="flex-1 min-w-0">
