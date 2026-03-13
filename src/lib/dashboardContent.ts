@@ -224,8 +224,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Migrar a Kubernetes', xp: 150, category: 'infrastructure' },
       ],
       resources: [
-        { type: 'Curso', title: 'DevOps Engineering', duration: '8h', icon: '⚙️' },
-        { type: 'Video', title: 'Kubernetes Fundamentals', duration: '50min', icon: '☸️' },
+        { type: 'Curso', title: 'DevOps Engineering', duration: '8h', icon: 'settings' },
+        { type: 'Video', title: 'Kubernetes Fundamentals', duration: '50min', icon: 'container' },
       ]
     },
     qa_engineer: {
