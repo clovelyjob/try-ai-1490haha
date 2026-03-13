@@ -388,7 +388,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'entrepreneur',
     label: 'Emprendedor',
-    icon: '🌟',
+    icon: 'sparkles',
     description: 'Crea y gestiona negocios propios',
     keywords: ['emprendimiento', 'startup', 'negocio', 'innovación', 'pitch', 'mvp'],
     toolKeywords: ['notion', 'figma', 'canva', 'stripe', 'google workspace'],
