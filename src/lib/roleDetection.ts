@@ -502,7 +502,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'legal_advisor',
     label: 'Asesor Legal',
-    icon: '📜',
+    icon: 'scroll',
     description: 'Asesora en temas legales corporativos y contratos',
     keywords: ['asesoría', 'legal', 'contratos', 'corporativo', 'compliance'],
     toolKeywords: ['docusign', 'legal templates', 'document management'],
