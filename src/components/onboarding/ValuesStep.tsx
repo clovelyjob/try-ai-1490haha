@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { VALUES } from '@/lib/constants';
 import { GripVertical } from 'lucide-react';
+import { DynamicIcon } from '@/components/DynamicIcon';
 
 interface ValuesStepProps {
   selected: string[];
