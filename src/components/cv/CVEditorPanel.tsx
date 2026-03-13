@@ -113,7 +113,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
       {/* Guías Profesionales para CV */}
       <Card className="p-4 rounded-2xl shadow-clovely-sm bg-primary/5 border-2 border-primary/20">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">📝</div>
+          <div className="text-2xl"><FileText className="w-6 h-6 text-primary" /></div>
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-1">Guías Profesionales para tu CV</h3>
             <p className="text-xs text-muted-foreground mb-3">
