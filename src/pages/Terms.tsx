@@ -110,23 +110,25 @@ Cualquier sugerencia o feedback que proporciones puede ser utilizado por nosotro
     title: '7. Planes y pagos',
     content: `
 **Planes disponibles:**
-Ofrecemos planes gratuitos y de pago con diferentes niveles de funcionalidad. Los detalles específicos están disponibles en nuestra página de Precios.
+Clovely ofrece dos modalidades: un modo invitado gratuito con funciones limitadas y un plan Pro de pago con acceso completo a todas las herramientas.
 
-**Facturación:**
-- Los planes de pago se facturan por adelantado (mensual o anualmente)
-- Los precios pueden cambiar con aviso previo de 30 días
-- Los impuestos aplicables son adicionales según tu ubicación
+**Precio:**
+El plan Pro tiene un costo de $15 USD por mes, facturado mensualmente.
+
+**Procesamiento de pagos:**
+Los pagos se procesan de forma segura a través de Stripe. Aceptamos las principales tarjetas de crédito y débito. Clovely no almacena datos de tarjetas; toda la información de pago es gestionada directamente por Stripe.
 
 **Renovación automática:**
-Las suscripciones se renuevan automáticamente. Puedes cancelar antes de la fecha de renovación para evitar cargos futuros.
-
-**Reembolsos:**
-- Ofrecemos reembolso completo dentro de los primeros 7 días
-- Después de 7 días, no hay reembolsos por el período de facturación actual
-- Los créditos no utilizados no son reembolsables
+Las suscripciones se renuevan automáticamente cada mes. Puedes cancelar antes de la fecha de renovación para evitar cargos futuros.
 
 **Cancelación:**
-Puedes cancelar en cualquier momento desde Configuración > Suscripción. Mantendrás acceso hasta el final de tu período de facturación.
+Puedes cancelar en cualquier momento desde Configuración > Suscripción. Mantendrás acceso a las funciones Pro hasta el final de tu período de facturación actual. No hay penalizaciones por cancelar.
+
+**Reembolsos:**
+No ofrecemos reembolsos por períodos parciales. Al cancelar, mantienes acceso hasta el final del ciclo de facturación.
+
+**Cambios de precio:**
+Nos reservamos el derecho de modificar los precios con aviso previo de 30 días por correo electrónico. Los impuestos aplicables son adicionales según tu ubicación.
       `
   }, {
     title: '8. Limitación de responsabilidad',
@@ -232,7 +234,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@
               Términos y Condiciones
             </h1>
             <p className="text-muted-foreground">
-              Última actualización: 1 de diciembre de 2024
+              Última actualización: 13 de marzo de 2026
             </p>
           </motion.div>
         </div>

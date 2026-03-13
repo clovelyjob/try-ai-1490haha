@@ -157,48 +157,18 @@ export const useAuthStore = create<AuthState>()(
       },
       
       startPremiumTrial: async () => {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const trialEndsAt = new Date();
-        trialEndsAt.setDate(trialEndsAt.getDate() + 7);
-        
-        set((state) => ({
-          user: state.user ? {
-            ...state.user,
-            plan: 'premium',
-            trialActive: true,
-            trialEndsAt,
-          } : null,
-        }));
-        
-        // Analytics event
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'trial_start_success', {
-            trial_days: 7,
-            plan: 'premium',
-            price: 20,
-          });
-        }
+        // No trial — redirect to subscription flow
+        console.log('No trial available. Use Stripe subscription.');
       },
       
       upgradeToPremium: async () => {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
+        // Will be handled by Stripe checkout
         set((state) => ({
           user: state.user ? {
             ...state.user,
             plan: 'premium',
-            trialActive: false,
-            trialEndsAt: undefined,
           } : null,
         }));
-        
-        // Analytics event
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'upgrade_success', {
-            plan: 'premium',
-            price: 20,
-          });
-        }
       },
     }),
     {
