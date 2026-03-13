@@ -167,6 +167,17 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
       loadOpportunities: async (params?: Partial<SearchParams>) => {
         set({ isLoading: true, error: null });
+
+        // Guest mode: skip API call and use generic mock data
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          set({
+            opportunities: generateMockOpportunities(),
+            isLoading: false,
+            hasMore: false,
+          });
+          return;
+        }
         
         const currentParams = get().searchParams;
         const filters = get().filters;
