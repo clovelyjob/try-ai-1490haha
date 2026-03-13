@@ -794,7 +794,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'career_changer',
     label: 'En Transición de Carrera',
-    icon: '🔄',
+    icon: 'refresh-cw',
     description: 'Explorando nuevas oportunidades profesionales',
     keywords: ['transición', 'cambio', 'carrera', 'reinvención', 'pivot'],
     toolKeywords: ['linkedin', 'notion', 'coursera', 'udemy'],
