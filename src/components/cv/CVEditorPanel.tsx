@@ -34,7 +34,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
     try {
       const improved = await onImproveText(cv.summary, 'summary', cv.personal.title, cv.language || 'es');
       onUpdate({ summary: improved });
-      toast.success('✨ Resumen mejorado con IA');
+      toast.success('Resumen mejorado con IA');
     } catch (error) {
       // Error already handled in useAI hook
     } finally {
