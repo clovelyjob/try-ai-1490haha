@@ -87,7 +87,7 @@ export default function CVBuilder() {
     saveVersion(currentCV.id, note || undefined);
     
     toast({
-      title: '📦 Versión guardada',
+      title: 'Versión guardada',
       description: 'Se ha creado una nueva versión del CV',
     });
   };
