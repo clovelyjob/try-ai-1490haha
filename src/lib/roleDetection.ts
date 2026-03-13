@@ -628,7 +628,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'videographer',
     label: 'Videógrafo',
-    icon: '🎥',
+    icon: 'video',
     description: 'Graba y edita videos profesionales',
     keywords: ['video', 'filmación', 'edición', 'producción', 'cinematografía'],
     toolKeywords: ['premiere pro', 'final cut', 'davinci resolve', 'after effects'],
