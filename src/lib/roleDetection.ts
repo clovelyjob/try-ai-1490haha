@@ -294,7 +294,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'financial_consultant',
     label: 'Consultor Financiero',
-    icon: '💼',
+    icon: 'briefcase',
     description: 'Asesora en planificación financiera y estrategias de inversión',
     keywords: ['consultoría', 'finanzas', 'asesoría', 'planificación', 'patrimonial'],
     toolKeywords: ['excel', 'powerpoint', 'financial planning software'],
