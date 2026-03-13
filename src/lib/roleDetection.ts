@@ -346,7 +346,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'content_creator',
     label: 'Creador de Contenido',
-    icon: '✍️',
+    icon: 'pen-tool',
     description: 'Crea contenido para múltiples plataformas',
     keywords: ['contenido', 'escritura', 'creación', 'storytelling', 'copywriting', 'social media'],
     toolKeywords: ['notion', 'canva', 'adobe premiere', 'final cut', 'wordpress', 'medium'],
