@@ -492,7 +492,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'lawyer',
     label: 'Abogado',
-    icon: '⚖️',
+    icon: 'scale',
     description: 'Provee asesoría legal y representación',
     keywords: ['derecho', 'legal', 'litigio', 'contratos', 'asesoría jurídica'],
     toolKeywords: ['lexisnexis', 'westlaw', 'case management software'],
