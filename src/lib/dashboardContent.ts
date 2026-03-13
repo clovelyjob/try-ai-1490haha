@@ -395,8 +395,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Implementar trading algorithm', xp: 160, category: 'quantitative' },
       ],
       resources: [
-        { type: 'Curso', title: 'Quantitative Trading', duration: '10h', icon: '📈' },
-        { type: 'Artículo', title: 'Risk Management', duration: '30min', icon: '🛡️' },
+        { type: 'Curso', title: 'Quantitative Trading', duration: '10h', icon: 'trending-up' },
+        { type: 'Artículo', title: 'Risk Management', duration: '30min', icon: 'shield' },
       ]
     },
     trader: getDefaultConfig('Trader'),
