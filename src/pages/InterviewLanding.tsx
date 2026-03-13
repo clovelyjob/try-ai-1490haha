@@ -1,13 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mic, TrendingUp, Target, Clock, Bot, Sparkles, ArrowRight } from "lucide-react";
+import { Mic, TrendingUp, Target, Clock, Bot, Sparkles, Lock, Crown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "@/store/useInterviewStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { UpgradeModal } from "@/components/UpgradeModal";
 
 export default function InterviewLanding() {
   const navigate = useNavigate();
   const { sessions, metrics } = useInterviewStore();
+  const { isGuestMode, user } = useAuthStore();
+  const isPremium = user?.plan === 'premium';
+  const isLocked = isGuestMode || !isPremium;
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const recentSessions = sessions.slice(-3).reverse();
 
   const stats = [
@@ -23,8 +30,41 @@ export default function InterviewLanding() {
     { icon: Target, title: 'Mejora Continua', description: 'Rastrea tu progreso e identifica áreas de oportunidad.' },
   ];
 
+  const handleStartInterview = (path: string) => {
+    if (isLocked) {
+      setShowUpgrade(true);
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
+      {/* Premium Lock Banner for Guest */}
+      {isLocked && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 flex items-center justify-between gap-4"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-amber-500/15">
+              <Crown className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-sm">Función Premium</h3>
+              <p className="text-xs text-muted-foreground">
+                Las entrevistas con IA están disponibles exclusivamente en el plan Pro.
+              </p>
+            </div>
+          </div>
+          <Button size="sm" onClick={() => setShowUpgrade(true)} className="gap-1.5 whitespace-nowrap">
+            <Lock className="w-3.5 h-3.5" />
+            Desbloquear
+          </Button>
+        </motion.div>
+      )}
+
       {/* Hero */}
       <motion.div 
         initial={{ opacity: 0, y: 8 }} 
@@ -41,19 +81,22 @@ export default function InterviewLanding() {
         <div className="flex flex-col sm:flex-row gap-3">
           <Button 
             size="lg" 
-            onClick={() => navigate('/dashboard/interviews/ai')} 
+            onClick={() => handleStartInterview('/dashboard/interviews/ai')} 
             className="h-12 gap-2 font-semibold"
+            variant={isLocked ? "outline" : "default"}
           >
+            {isLocked && <Lock className="w-4 h-4" />}
             <Bot className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
             Entrevista con Voz IA
-            <Sparkles className="w-4 h-4" />
+            {!isLocked && <Sparkles className="w-4 h-4" />}
           </Button>
           <Button 
             size="lg" 
-            onClick={() => navigate('/dashboard/interviews/setup')} 
+            onClick={() => handleStartInterview('/dashboard/interviews/setup')} 
             variant="outline"
             className="h-12 gap-2"
           >
+            {isLocked && <Lock className="w-4 h-4" />}
             <Mic className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
             Práctica con Texto
           </Button>
@@ -129,6 +172,8 @@ export default function InterviewLanding() {
           </Card>
         ))}
       </motion.div>
+
+      <UpgradeModal open={showUpgrade} onOpenChange={setShowUpgrade} />
     </div>
   );
 }
