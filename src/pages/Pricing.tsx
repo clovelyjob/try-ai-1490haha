@@ -79,7 +79,7 @@ const Pricing = () => {
 
       <section className="pb-20">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="grid lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {plans.map((plan, i) => (
               <motion.div
                 key={i}
