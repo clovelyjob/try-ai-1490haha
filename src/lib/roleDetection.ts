@@ -480,7 +480,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mentor',
     label: 'Mentor',
-    icon: '🎓',
+    icon: 'graduation-cap',
     description: 'Guía y desarrolla profesionales en sus carreras',
     keywords: ['mentoría', 'guía', 'desarrollo', 'carrera', 'consejos'],
     toolKeywords: ['zoom', 'notion', 'calendly'],
