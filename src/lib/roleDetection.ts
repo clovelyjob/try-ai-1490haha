@@ -118,7 +118,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'mobile_developer',
     label: 'Desarrollador Mobile',
-    icon: '📱',
+    icon: 'smartphone',
     description: 'Especializado en aplicaciones móviles iOS y Android',
     keywords: ['mobile', 'móvil', 'ios', 'android', 'app', 'nativo', 'híbrido'],
     toolKeywords: ['react native', 'flutter', 'swift', 'kotlin', 'xcode', 'android studio'],
