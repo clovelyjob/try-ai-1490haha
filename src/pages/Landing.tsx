@@ -136,7 +136,7 @@ const Landing = () => {
             className="flex items-center justify-center gap-5 text-xs text-muted-foreground mt-8"
           >
             <span className="flex items-center gap-1.5">
-              <Check className="h-3.5 w-3.5 text-primary" /> Sin tarjeta de crédito
+              <Check className="h-3.5 w-3.5 text-primary" /> Modo invitado gratuito
             </span>
             <span className="flex items-center gap-1.5">
               <Check className="h-3.5 w-3.5 text-primary" /> Cancela cuando quieras

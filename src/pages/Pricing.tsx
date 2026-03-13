@@ -156,7 +156,7 @@ const Pricing = () => {
           <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
           <Link to="/registro">
             <Button className="h-10 px-6 text-sm gap-2">
-              Crear cuenta gratis <ArrowRight className="h-3.5 w-3.5" />
+              Crear cuenta <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
