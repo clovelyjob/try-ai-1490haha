@@ -66,7 +66,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'fashion_designer',
     label: 'Diseñador de Moda',
-    icon: '👗',
+    icon: 'scissors',
     description: 'Crea diseños de vestuario y tendencias de moda',
     keywords: ['moda', 'vestuario', 'textil', 'tendencias', 'colecciones', 'patronaje'],
     toolKeywords: ['adobe illustrator', 'clo3d', 'photoshop', 'marvelous designer'],
