@@ -336,7 +336,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'community_manager',
     label: 'Community Manager',
-    icon: '👥',
+    icon: 'users',
     description: 'Gestiona comunidades y presencia en redes sociales',
     keywords: ['comunidad', 'redes sociales', 'engagement', 'contenido', 'moderación'],
     toolKeywords: ['hootsuite', 'buffer', 'sprout social', 'canva', 'meta business suite'],
