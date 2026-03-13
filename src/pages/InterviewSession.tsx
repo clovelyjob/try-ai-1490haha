@@ -193,7 +193,7 @@ export default function InterviewSession() {
                 className="resize-none min-h-[200px] sm:min-h-[240px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md focus-visible:ring-primary/20 transition-all duration-300"
               />
               <p className="text-sm text-muted-foreground bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
-                💡 Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
+                Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
               </p>
             </>
           )}

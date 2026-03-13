@@ -143,7 +143,7 @@ export function IntegrationsSection() {
                 <ul className="space-y-1">
                   {integration.benefits.map((benefit, index) => (
                     <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
-                      <span className="text-primary">✓</span>
+                      <span className="text-primary font-semibold">·</span>
                       {benefit}
                     </li>
                   ))}

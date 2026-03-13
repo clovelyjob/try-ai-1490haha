@@ -40,30 +40,7 @@ export default function InterviewLanding() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
-      {/* Premium Lock Banner for Guest */}
-      {isLocked && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 flex items-center justify-between gap-4"
-        >
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/15">
-              <Crown className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm">Función Premium</h3>
-              <p className="text-xs text-muted-foreground">
-                Las entrevistas con IA están disponibles exclusivamente en el plan Pro.
-              </p>
-            </div>
-          </div>
-          <Button size="sm" onClick={() => setShowUpgrade(true)} className="gap-1.5 whitespace-nowrap">
-            <Lock className="w-3.5 h-3.5" />
-            Desbloquear
-          </Button>
-        </motion.div>
-      )}
+      {/* Premium Lock Banner removed - upgrade modal shows on button click */}
 
       {/* Hero */}
       <motion.div 
