@@ -263,8 +263,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Presentación a stakeholders', xp: 100, category: 'communication' },
       ],
       resources: [
-        { type: 'Curso', title: 'Agile Project Management', duration: '5h', icon: '📊' },
-        { type: 'Artículo', title: 'Stakeholder Management', duration: '20min', icon: '👥' },
+        { type: 'Curso', title: 'Agile Project Management', duration: '5h', icon: 'bar-chart-3' },
+        { type: 'Artículo', title: 'Stakeholder Management', duration: '20min', icon: 'users' },
       ]
     },
     product_manager: {
