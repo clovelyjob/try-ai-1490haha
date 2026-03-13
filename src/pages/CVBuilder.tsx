@@ -406,7 +406,7 @@ export default function CVBuilder() {
             saveVersion(currentCV.id, 'Backup antes de restaurar');
             useCVStore.getState().restoreVersion(currentCV.id, versionId);
             toast({
-              title: '✅ Versión restaurada',
+              title: 'Versión restaurada',
               description: 'Se ha restaurado la versión seleccionada',
             });
           }}
