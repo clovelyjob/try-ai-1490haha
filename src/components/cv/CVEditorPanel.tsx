@@ -398,7 +398,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
                         
                         {/* Guías Oficiales */}
                         <div className="mb-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-200 dark:border-amber-800 text-xs space-y-2 shadow-clovely-sm">
-                          <p className="font-bold text-amber-900 dark:text-amber-100">📋 Formato Profesional:</p>
+                          <p className="font-bold text-amber-900 dark:text-amber-100">Formato Profesional:</p>
                           <div className="space-y-1">
                             <p className="text-amber-800 dark:text-amber-200">
                               <span className="font-semibold">Verbo de Acción</span> + Logro específico + <span className="font-semibold">Impacto cuantificado</span>
