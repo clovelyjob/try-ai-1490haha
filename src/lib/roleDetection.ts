@@ -512,7 +512,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'compliance_officer',
     label: 'Oficial de Cumplimiento',
-    icon: '🛡️',
+    icon: 'shield',
     description: 'Asegura el cumplimiento de normativas y regulaciones',
     keywords: ['compliance', 'cumplimiento', 'regulación', 'auditoría', 'riesgos'],
     toolKeywords: ['compliance software', 'risk management tools', 'audit software'],
