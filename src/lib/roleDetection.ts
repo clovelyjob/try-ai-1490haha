@@ -680,7 +680,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'educator',
     label: 'Educador',
-    icon: '👨‍🏫',
+    icon: 'book-open',
     description: 'Enseña y facilita el aprendizaje',
     keywords: ['educación', 'enseñanza', 'docente', 'profesor', 'aprendizaje'],
     toolKeywords: ['google classroom', 'zoom', 'canvas', 'moodle'],
