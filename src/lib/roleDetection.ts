@@ -784,7 +784,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'independent_consultant',
     label: 'Consultor Independiente',
-    icon: '🎯',
+    icon: 'target',
     description: 'Provee consultoría especializada de forma independiente',
     keywords: ['consultor', 'independiente', 'asesoría', 'especialista', 'freelance'],
     toolKeywords: ['powerpoint', 'excel', 'miro', 'zoom'],
