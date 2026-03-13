@@ -73,7 +73,7 @@ export default function CVBuilder() {
     updateCV(currentCV.id, { updatedAt: new Date().toISOString() });
     
     toast({
-      title: '💾 CV guardado',
+      title: 'CV guardado',
       description: 'Los cambios se han guardado correctamente',
     });
     
