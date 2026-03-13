@@ -188,7 +188,7 @@ export default function CVBuilder() {
       .save()
       .then(() => {
         toast({
-          title: '✅ PDF exportado',
+          title: 'PDF exportado',
           description: `Tu CV ha sido descargado como ${fileName}`,
         });
       })
