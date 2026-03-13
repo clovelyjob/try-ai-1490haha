@@ -123,13 +123,24 @@ export default function CVBuilder() {
     }
   };
 
+  const { isGuestMode } = useAuthStore();
+
   const handleExportPDF = () => {
+    // Block export for guest mode / non-premium users
+    if (isGuestMode || user?.plan !== 'premium') {
+      toast({
+        title: '🔒 Función Premium',
+        description: 'Suscríbete al plan Pro por $15/mes para descargar tus CVs en PDF.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     if (!previewRef.current || !currentCV) return;
 
     const element = previewRef.current;
     const fileName = `${currentCV.title || 'CV'}_${currentCV.personal.fullName || 'sin-nombre'}.pdf`;
 
-    // Configuración por defecto
     const defaultSettings = {
       format: 'a4',
       marginTop: 10,
