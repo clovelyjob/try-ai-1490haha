@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Sparkles, CheckCircle2, Loader2, X } from 'lucide-react';
+import { DynamicIcon } from '@/components/DynamicIcon';
 import { RolePreferences, ProfessionalRole } from '@/types';
 import { getRoleDefinition, PROFESSIONAL_ROLES } from '@/lib/roleDetection';
 import { useAI } from '@/hooks/useAI';
