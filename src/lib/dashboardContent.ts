@@ -548,8 +548,8 @@ export function getDashboardConfig(role: ProfessionalRole): RoleDashboardConfig 
         { title: 'Conectar con profesionales', xp: 80, category: 'networking' },
       ],
       resources: [
-        { type: 'Guía', title: 'Guía de Inicio Profesional', duration: '30min', icon: '🎓' },
-        { type: 'Artículo', title: 'Construye tu Portfolio', duration: '15min', icon: '💼' },
+        { type: 'Guía', title: 'Guía de Inicio Profesional', duration: '30min', icon: 'graduation-cap' },
+        { type: 'Artículo', title: 'Construye tu Portfolio', duration: '15min', icon: 'briefcase' },
       ]
     },
     freelancer: getDefaultConfig('Freelancer'),
