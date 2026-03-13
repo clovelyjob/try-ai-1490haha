@@ -104,7 +104,7 @@ export default function CVEditorPanel({ cv, onUpdate, onImproveText, isAILoading
               onClick={() => onUpdate({ language: 'en' })}
               className="gap-2 hover:shadow-clovely-sm transition-all"
             >
-              🇬🇧 English
+              EN English
             </Button>
           </div>
         </div>
