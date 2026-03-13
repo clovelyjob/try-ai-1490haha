@@ -28,7 +28,7 @@ export const useNotificationTriggers = () => {
           if (newOpps.length > 0) {
           addNotification({
             type: 'opportunity',
-            title: `🎯 ${newOpps.length} nuevas oportunidades`,
+            title: `${newOpps.length} nuevas oportunidades`,
             message: `Hay ${newOpps.length} ofertas que coinciden con tu perfil. ¡Échales un vistazo!`,
             actionUrl: '/dashboard/opportunities',
             actionLabel: 'Ver oportunidades',
