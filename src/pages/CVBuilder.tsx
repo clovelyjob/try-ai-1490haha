@@ -195,7 +195,7 @@ export default function CVBuilder() {
       .catch((error: any) => {
         console.error('Error exporting PDF:', error);
         toast({
-          title: '❌ Error al exportar',
+          title: 'Error al exportar',
           description: 'Hubo un problema al generar el PDF',
           variant: 'destructive',
         });
