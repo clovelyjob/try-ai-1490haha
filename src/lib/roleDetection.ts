@@ -690,7 +690,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'edtech_specialist',
     label: 'Especialista en EdTech',
-    icon: '💻',
+    icon: 'monitor',
     description: 'Implementa tecnología educativa',
     keywords: ['tecnología educativa', 'edtech', 'e-learning', 'plataformas', 'innovación'],
     toolKeywords: ['lms', 'articulate', 'canvas', 'moodle', 'zoom'],
