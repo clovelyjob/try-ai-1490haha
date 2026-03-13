@@ -450,7 +450,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'recruiter',
     label: 'Reclutador',
-    icon: '🔍',
+    icon: 'search',
     description: 'Busca y selecciona candidatos para vacantes',
     keywords: ['reclutamiento', 'selección', 'entrevistas', 'vacantes', 'candidatos'],
     toolKeywords: ['linkedin', 'indeed', 'ats', 'zoom'],
