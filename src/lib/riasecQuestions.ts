@@ -28,7 +28,7 @@ export const RIASEC_TYPE_INFO: Record<RIASECType, { name: string; description: s
   S: {
     name: 'Social',
     description: 'Ayuda a otros, enseña, comunica y trabaja en equipo',
-    icon: '🤝'
+    icon: 'users'
   },
   E: {
     name: 'Emprendedor',
