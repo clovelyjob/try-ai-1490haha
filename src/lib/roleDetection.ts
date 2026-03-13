@@ -658,7 +658,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'illustrator',
     label: 'Ilustrador',
-    icon: '✏️',
+    icon: 'pencil',
     description: 'Crea ilustraciones digitales y tradicionales',
     keywords: ['ilustración', 'dibujo', 'arte digital', 'concepto', 'narrativa visual'],
     toolKeywords: ['procreate', 'adobe illustrator', 'photoshop', 'clip studio paint'],
