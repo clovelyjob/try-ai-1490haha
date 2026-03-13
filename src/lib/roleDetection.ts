@@ -148,7 +148,7 @@ export const PROFESSIONAL_ROLES: RoleDefinition[] = [
   {
     id: 'ml_engineer',
     label: 'Ingeniero de Machine Learning',
-    icon: '🤖',
+    icon: 'bot',
     description: 'Implementa y despliega modelos de ML en producción',
     keywords: ['machine learning', 'ml', 'ai', 'modelos', 'deep learning', 'mlops'],
     toolKeywords: ['tensorflow', 'pytorch', 'python', 'kubernetes', 'mlflow', 'sagemaker'],
