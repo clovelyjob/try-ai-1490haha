@@ -110,7 +110,7 @@ export default function VersionCompareModal({
                 </SelectItem>
                 {sortedVersions.map((version) => (
                   <SelectItem key={version.versionId} value={version.versionId}>
-                    📅 {new Date(version.createdAt).toLocaleDateString('es-ES', {
+                    {new Date(version.createdAt).toLocaleDateString('es-ES', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
