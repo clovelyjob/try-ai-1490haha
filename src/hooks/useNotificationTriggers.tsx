@@ -71,11 +71,11 @@ export const useNotificationTriggers = () => {
         let message = '';
         
         if (score >= 80) {
-          message = '¡Excelente trabajo! Tus respuestas fueron impresionantes 🌟';
+          message = 'Excelente trabajo. Tus respuestas fueron impresionantes.';
         } else if (score >= 60) {
-          message = 'Buen trabajo. Sigue practicando para mejorar 💪';
+          message = 'Buen trabajo. Sigue practicando para mejorar.';
         } else {
-          message = 'La práctica hace al maestro. ¡Sigue adelante! 🎯';
+          message = 'La práctica hace al maestro. Sigue adelante.';
         }
 
         addNotification({
