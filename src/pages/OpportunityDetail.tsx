@@ -152,7 +152,7 @@ export default function OpportunityDetail() {
 
     toast({
       title: 'Postulación enviada',
-      description: 'Has ganado 50 XP y 10 Clovely Coins',
+      description: 'Has ganado 50 XP y 10 MoonJab Coins',
     });
 
     setTimeout(() => {
