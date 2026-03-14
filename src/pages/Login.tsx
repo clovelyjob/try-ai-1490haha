@@ -28,11 +28,6 @@ const Login = () => {
     catch { toast.error('Error al conectar con Google'); }
   };
 
-  const handleLinkedInLogin = async () => {
-    try { await useAuthStore.getState().signInWithLinkedIn(); } 
-    catch { toast.error('Error al conectar con LinkedIn'); }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try { loginSchema.parse(formData); } catch (error) {
