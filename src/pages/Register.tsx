@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { OfficialLogo } from '@/components/OfficialLogo';
