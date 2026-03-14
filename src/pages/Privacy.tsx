@@ -144,7 +144,7 @@ Para ejercer cualquiera de estos derechos, contáctanos en moonjab.com@gmail.com
 Mantenemos tus datos mientras tu cuenta esté activa y uses nuestros servicios.
 
 **Cuenta inactiva:**
-Si no usas Clovely por 24 meses, te notificaremos antes de eliminar tu cuenta.
+Si no usas MoonJab por 24 meses, te notificaremos antes de eliminar tu cuenta.
 
 **Después de eliminación:**
 - Eliminamos tus datos personales en 30 días
