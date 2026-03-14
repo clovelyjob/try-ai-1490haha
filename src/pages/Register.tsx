@@ -148,12 +148,9 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5">
-            <Button type="button" variant="outline" className="h-10 text-xs" onClick={handleGoogleSignup}>
-              <Chrome className="mr-1.5 h-3.5 w-3.5" /> Google
-            </Button>
-            <Button type="button" variant="outline" className="h-10 text-xs" onClick={handleLinkedInSignup}>
-              <Linkedin className="mr-1.5 h-3.5 w-3.5" /> LinkedIn
+          <div>
+            <Button type="button" variant="outline" className="w-full h-10 text-xs" onClick={handleGoogleSignup}>
+              <img src="https://www.google.com/favicon.ico" alt="Google" className="mr-1.5 h-4 w-4" /> Continuar con Google
             </Button>
           </div>
 

@@ -98,12 +98,9 @@ const Login = () => {
               <span className="bg-background px-3 text-muted-foreground">O continúa con</span>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2.5 mt-4">
-            <Button type="button" variant="outline" onClick={handleGoogleLogin} className="h-10 text-xs">
-              <Chrome className="mr-1.5 h-3.5 w-3.5" /> Google
-            </Button>
-            <Button type="button" variant="outline" onClick={handleLinkedInLogin} className="h-10 text-xs">
-              <Linkedin className="mr-1.5 h-3.5 w-3.5" /> LinkedIn
+          <div className="mt-4">
+            <Button type="button" variant="outline" onClick={handleGoogleLogin} className="w-full h-10 text-xs">
+              <img src="https://www.google.com/favicon.ico" alt="Google" className="mr-1.5 h-4 w-4" /> Continuar con Google
             </Button>
           </div>
         </div>
