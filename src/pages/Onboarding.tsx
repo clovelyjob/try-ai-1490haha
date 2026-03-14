@@ -41,8 +41,9 @@ const Onboarding = () => {
     updateUser({ onboardingCompleted: true });
     navigate('/dashboard');
 
-    // Save to Supabase in background
-    if (user?.id && riasecResult) {
+    // Save to Supabase in background — only for real authenticated users (not guests)
+    const isGuest = user?.id?.startsWith('guest_');
+    if (user?.id && riasecResult && !isGuest) {
       (async () => {
         try {
           await trackEvent('onboarding_completed', {
