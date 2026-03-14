@@ -83,7 +83,7 @@ const About = () => {
               <span className="text-primary">quién puedes ser</span>
             </h1>
             <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Clovely nació de una frustración universal: encontrar el trabajo ideal no debería ser un proceso tan confuso. Decidimos cambiarlo.
+              MoonJab nació de una frustración universal: encontrar el trabajo ideal no debería ser un proceso tan confuso. Decidimos cambiarlo.
             </p>
           </motion.div>
         </div>

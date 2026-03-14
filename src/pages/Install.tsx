@@ -135,7 +135,7 @@ export default function Install() {
                   </div>
                   <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
                     <li>Busca el ícono de instalación en la barra de direcciones</li>
-                    <li>O abre el menú del navegador y selecciona <strong>"Instalar Clovely"</strong></li>
+                    <li>O abre el menú del navegador y selecciona <strong>"Instalar MoonJab"</strong></li>
                   </ol>
                 </Card>
               )}

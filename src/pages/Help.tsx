@@ -52,7 +52,7 @@ const Help = () => {
     answer: 'Aceptamos todas las tarjetas principales (Visa, Mastercard, American Express), PayPal, y en algunos países transferencia bancaria. Todos los pagos son procesados de forma segura a través de Stripe. Ofrecemos facturación mensual y anual (con 2 meses gratis).'
   }, {
     question: '¿Hay descuento para estudiantes?',
-    answer: 'Sí, ofrecemos 50% de descuento para estudiantes con email .edu verificado. Contáctanos en clovely.job@gmail.com con tu correo institucional para obtener tu código de descuento.'
+    answer: 'Sí, ofrecemos 50% de descuento para estudiantes con email .edu verificado. Contáctanos en moonjab.com@gmail.com con tu correo institucional para obtener tu código de descuento.'
   }, {
     question: '¿Mis datos están seguros?',
     answer: 'Absolutamente. Utilizamos encriptación de nivel bancario (256-bit SSL), almacenamiento seguro en la nube con AWS, y nunca vendemos ni compartimos tu información personal. Cumplimos con GDPR y las mejores prácticas de privacidad de datos.'
