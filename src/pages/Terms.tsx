@@ -202,10 +202,10 @@ Las secciones sobre propiedad intelectual, limitación de responsabilidad, indem
     content: `
 Si tienes preguntas sobre estos Términos y Condiciones:
 
-**Email:** clovely.job@gmail.com
-**Correo postal:** Clovely Inc., Ciudad de México, México
+**Email:** moonjab.com@gmail.com
+**Correo postal:** MoonJab Inc., Ciudad de México, México
 
-Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@gmail.com
+Para asuntos urgentes relacionados con seguridad o abuso, contacta: moonjab.com@gmail.com
       `
   }];
   return <div className="min-h-screen bg-background">
