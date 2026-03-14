@@ -321,8 +321,8 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: moonjab.com@
           <p className="text-muted-foreground mb-6">
             Nuestro equipo legal está aquí para ayudarte
           </p>
-          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:clovely.job@gmail.com">
-            clovely.job@gmail.com
+          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:moonjab.com@gmail.com">
+            moonjab.com@gmail.com
           </a>
         </div>
       </section>

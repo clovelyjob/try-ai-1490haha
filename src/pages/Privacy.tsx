@@ -295,8 +295,8 @@ Responderemos a todas las consultas en un máximo de 5 días hábiles.
           <p className="text-muted-foreground mb-6">
             Estamos aquí para resolver cualquier duda sobre tu privacidad
           </p>
-          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:clovely.job@gmail.com">
-            clovely.job@gmail.com
+          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:moonjab.com@gmail.com">
+            moonjab.com@gmail.com
           </a>
         </div>
       </section>

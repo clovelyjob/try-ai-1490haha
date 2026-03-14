@@ -227,7 +227,7 @@ const Help = () => {
                 Escríbenos y te responderemos en menos de 24 horas hábiles.
               </p>
               <Button variant="outline" className="w-full" asChild>
-                <a href="mailto:clovely.job@gmail.com">clovely.job@gmail.com</a>
+                <a href="mailto:moonjab.com@gmail.com">moonjab.com@gmail.com</a>
               </Button>
             </Card>
           </div>
