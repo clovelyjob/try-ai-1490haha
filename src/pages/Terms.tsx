@@ -4,7 +4,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
 import { FileText, CheckCircle, AlertCircle, Scale, Mail } from 'lucide-react';
 const Terms = () => {
-  const keyPoints = ['Debes tener 16+ años para usar Clovely', 'Eres responsable de mantener tu cuenta segura', 'No garantizamos resultados específicos de empleo', 'Puedes cancelar en cualquier momento'];
+  const keyPoints = ['Debes tener 16+ años para usar MoonJab', 'Eres responsable de mantener tu cuenta segura', 'No garantizamos resultados específicos de empleo', 'Puedes cancelar en cualquier momento'];
   const sections = [{
     title: '1. Aceptación de términos',
     content: `
