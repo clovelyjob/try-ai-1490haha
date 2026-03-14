@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useThemeLogo } from '@/hooks/useThemeLogo';
-import clovelyLogo from '@/assets/clovely-logo.jpg';
+import moonjabEmerald from '@/assets/moonjab-logo-emerald.png';
 
 interface SplashTransitionProps {
   title?: string;
@@ -11,7 +11,7 @@ interface SplashTransitionProps {
 }
 
 export const SplashTransition = ({ 
-  title = "¡Bienvenido(a) a Clovely!",
+  title = "¡Bienvenido(a) a MoonJab!",
   subtitle = "Estamos preparando tu experiencia…",
   timeoutMs = 1500,
   onComplete 
@@ -19,14 +19,10 @@ export const SplashTransition = ({
   const { isDark } = useThemeLogo();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onComplete?.();
-    }, timeoutMs);
-
+    const timer = setTimeout(() => { onComplete?.(); }, timeoutMs);
     return () => clearTimeout(timer);
   }, [timeoutMs, onComplete]);
 
-  // Detect reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   return (
@@ -38,8 +34,8 @@ export const SplashTransition = ({
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
       style={{
         background: isDark
-          ? 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(249,115,22,0.18), transparent 65%)'
-          : 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(255,122,0,0.12), transparent 65%)',
+          ? 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(16,185,129,0.18), transparent 65%)'
+          : 'radial-gradient(ellipse 1400px 900px at 50% 20%, rgba(16,185,129,0.12), transparent 65%)',
         backgroundColor: isDark ? '#0E0E0E' : '#FFFFFF'
       }}
       role="status"
@@ -55,68 +51,43 @@ export const SplashTransition = ({
           border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`
         }}
       >
-        {/* Logo with breathing animation */}
         <motion.div
           animate={prefersReducedMotion ? {} : {
             scale: [1, 1.06, 1],
             filter: [
-              'drop-shadow(0 0 0px rgba(255, 122, 0, 0))',
-              'drop-shadow(0 0 24px rgba(255, 122, 0, 0.5)) drop-shadow(0 0 48px rgba(255, 122, 0, 0.3))',
-              'drop-shadow(0 0 0px rgba(255, 122, 0, 0))'
+              'drop-shadow(0 0 0px rgba(16, 185, 129, 0))',
+              'drop-shadow(0 0 24px rgba(16, 185, 129, 0.5)) drop-shadow(0 0 48px rgba(16, 185, 129, 0.3))',
+              'drop-shadow(0 0 0px rgba(16, 185, 129, 0))'
             ]
           }}
-          transition={{
-            duration: 1.6,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
         >
           <img
-            src={clovelyLogo}
-            alt="Clovely – cargando"
-            className={`h-24 w-auto ${isDark ? 'rounded-xl border-2 border-primary p-2' : 'rounded-xl'}`}
+            src={moonjabEmerald}
+            alt="MoonJab – cargando"
+            className="h-24 w-auto rounded-xl"
             loading="eager"
             decoding="async"
           />
         </motion.div>
 
-        {/* Title and subtitle */}
         <div className="text-center space-y-2">
-          <h1 
-            className="text-xl font-semibold"
-            style={{ color: isDark ? '#E2E8F0' : '#1E293B' }}
-          >
+          <h1 className="text-xl font-semibold" style={{ color: isDark ? '#E2E8F0' : '#1E293B' }}>
             {title}
           </h1>
-          <p 
-            className="text-sm"
-            style={{ color: isDark ? '#CBD5E1' : '#475569' }}
-          >
+          <p className="text-sm" style={{ color: isDark ? '#CBD5E1' : '#475569' }}>
             {subtitle}
           </p>
         </div>
 
-        {/* Animated dots */}
         <div className="flex items-center gap-2">
           {[0, 1, 2].map((index) => (
             <motion.div
               key={index}
-              animate={prefersReducedMotion ? { opacity: 1 } : {
-                opacity: [0.4, 1, 0.4],
-              }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                delay: index * 0.15,
-                ease: 'easeInOut'
-              }}
-              className="w-2 h-2 rounded-full"
-              style={{
-                background: index === 1 
-                  ? 'linear-gradient(135deg, #FF7A00, #F97316)' 
-                  : 'linear-gradient(135deg, #F97316, #FB923C)',
-                opacity: index === 1 ? 1 : 0.7
-              }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 1.2, repeat: Infinity, delay: index * 0.15, ease: 'easeInOut' }}
+              className="w-2 h-2 rounded-full bg-primary"
+              style={{ opacity: index === 1 ? 1 : 0.7 }}
             />
           ))}
         </div>

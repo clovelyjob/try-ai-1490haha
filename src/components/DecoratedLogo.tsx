@@ -1,4 +1,7 @@
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import moonjabEmerald from '@/assets/moonjab-full-emerald.png';
+import moonjabLight from '@/assets/moonjab-full-light.png';
 
 interface DecoratedLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -7,31 +10,27 @@ interface DecoratedLogoProps {
 }
 
 export const DecoratedLogo = ({ size = 'md', animated = false, className = '' }: DecoratedLogoProps) => {
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = currentTheme === 'dark';
+
   const sizes = {
-    sm: {
-      logo: 'h-10',
-    },
-    md: {
-      logo: 'h-12',
-    },
-    lg: {
-      logo: 'h-16',
-    },
+    sm: 'h-10',
+    md: 'h-12',
+    lg: 'h-16',
   };
 
   const LogoElement = (
     <div className={`flex items-center justify-center ${className}`}>
       <img
-        src="/clovely-logo-light.png"
-        alt="Clovely"
-        className={`${sizes[size].logo} w-auto object-contain drop-shadow-[0_0_8px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_12px_rgba(255,122,0,0.25)]`}
+        src={isDark ? moonjabLight : moonjabEmerald}
+        alt="MoonJab"
+        className={`${sizes[size]} w-auto object-contain`}
       />
     </div>
   );
 
-  if (!animated) {
-    return LogoElement;
-  }
+  if (!animated) return LogoElement;
 
   return (
     <motion.div

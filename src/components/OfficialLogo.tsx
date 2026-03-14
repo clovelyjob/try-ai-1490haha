@@ -2,33 +2,18 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import moonjabEmerald from '@/assets/moonjab-full-emerald.png';
+import moonjabLight from '@/assets/moonjab-full-light.png';
 
 interface OfficialLogoProps {
-  /** Size preset for the logo */
   size?: 'sm' | 'md' | 'lg';
-  /** Additional CSS classes */
   className?: string;
-  /** Whether to animate on mount */
   animated?: boolean;
-  /** Link destination (if clickable) */
   to?: string;
-  /** Use motion wrapper for animations */
   asMotion?: boolean;
-  /** Show full version with lines and card (for landing/marketing) */
   fullVersion?: boolean;
 }
 
-/**
- * Official Clovely Logo Component
- * 
- * Always shows "Clovely" (complete with C) - never just "lovely"
- * 
- * Features:
- * - Light/dark mode adaptive
- * - C with orange gradient + "Clovely" text
- * - Clean version for dashboard (no lines/card)
- * - Full version for landing (with decorative lines and card)
- */
 export const OfficialLogo = ({ 
   size = 'md', 
   className = '', 
@@ -47,17 +32,12 @@ export const OfficialLogo = ({
     lg: fullVersion ? 'h-16' : 'h-9 w-auto',
   };
 
-  // Choose correct logo variant based on theme
-  const logoSrc = fullVersion 
-    ? (isDark ? '/clovely-logo-dark.png' : '/clovely-logo-light.png')  // Landing version
-    : isDark 
-      ? '/clovely-logo-dark.png'  // Dashboard dark mode - white text
-      : '/clovely-logo-light.png';  // Dashboard light mode - black text
+  const logoSrc = isDark ? moonjabLight : moonjabEmerald;
 
   const LogoContent = (
     <img
       src={logoSrc}
-      alt="Clovely"
+      alt="MoonJab"
       className={cn(
         'object-contain transition-all duration-200',
         sizes[size],
@@ -74,7 +54,6 @@ export const OfficialLogo = ({
     className
   );
 
-  // Motion wrapper
   if (asMotion) {
     const content = (
       <motion.div
@@ -86,11 +65,9 @@ export const OfficialLogo = ({
         {LogoContent}
       </motion.div>
     );
-
     return to ? <Link to={to}>{content}</Link> : content;
   }
 
-  // Link wrapper
   if (to) {
     return (
       <Link to={to} className={containerClasses}>
@@ -99,7 +76,6 @@ export const OfficialLogo = ({
     );
   }
 
-  // Plain container
   return (
     <div className={containerClasses}>
       {LogoContent}

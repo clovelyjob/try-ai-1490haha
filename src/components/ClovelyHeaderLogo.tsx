@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
+import moonjabEmerald from '@/assets/moonjab-full-emerald.png';
+import moonjabLight from '@/assets/moonjab-full-light.png';
 
 interface ClovelyHeaderLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -17,27 +20,24 @@ export const ClovelyHeaderLogo = ({
   to = '/',
   asMotion = false
 }: ClovelyHeaderLogoProps) => {
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = currentTheme === 'dark';
+
   const sizes = {
-    sm: {
-      logo: 'h-7 w-auto',
-    },
-    md: {
-      logo: 'h-8 w-auto',
-    },
-    lg: {
-      logo: 'h-9 w-auto',
-    },
+    sm: 'h-7 w-auto',
+    md: 'h-8 w-auto',
+    lg: 'h-9 w-auto',
   };
 
   const LogoContent = (
     <img
-      src="/clovely-logo-light.png"
-      alt="Clovely"
+      src={isDark ? moonjabLight : moonjabEmerald}
+      alt="MoonJab"
       className={cn(
         'object-contain transition-transform duration-200',
-        sizes[size].logo,
+        sizes[size],
         'opacity-95',
-        'drop-shadow-[0_0_4px_rgba(255,122,0,0.15)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.2)]',
         'hover:scale-[1.04]'
       )}
     />

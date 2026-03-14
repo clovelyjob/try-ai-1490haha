@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import moonjabEmerald from '@/assets/moonjab-full-emerald.png';
+import moonjabLight from '@/assets/moonjab-full-light.png';
 
 interface ClovelyLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -11,10 +13,6 @@ interface ClovelyLogoProps {
   asMotion?: boolean;
 }
 
-/**
- * Adaptive Clovely Logo component that switches between light/dark versions
- * Uses the official C + "Clovely" text logo without lines or card background
- */
 export const ClovelyLogo = ({ 
   size = 'md', 
   className = '', 
@@ -34,13 +32,12 @@ export const ClovelyLogo = ({
 
   const LogoContent = (
     <img
-      src={isDark ? '/clovely-logo-dark.png' : '/clovely-logo-light.png'}
-      alt="Clovely"
+      src={isDark ? moonjabLight : moonjabEmerald}
+      alt="MoonJab"
       className={cn(
         'object-contain transition-all duration-200',
         sizes[size],
         'opacity-95',
-        'drop-shadow-[0_0_4px_rgba(255,122,0,0.18)] dark:drop-shadow-[0_0_6px_rgba(255,122,0,0.25)]',
         'hover:scale-[1.04]'
       )}
     />
