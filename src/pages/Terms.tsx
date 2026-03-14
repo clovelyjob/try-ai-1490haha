@@ -266,7 +266,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: moonjab.com@
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-              Estos términos establecen las reglas de uso de Clovely. Están escritos en lenguaje claro para que entiendas exactamente tus derechos y responsabilidades. Si tienes alguna pregunta, no dudes en contactarnos.
+              Estos términos establecen las reglas de uso de MoonJab. Están escritos en lenguaje claro para que entiendas exactamente tus derechos y responsabilidades. Si tienes alguna pregunta, no dudes en contactarnos.
             </p>
 
             {sections.map((section, i) => <motion.div key={i} initial={{
