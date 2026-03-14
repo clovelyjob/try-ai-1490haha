@@ -429,7 +429,7 @@ export const useCVStore = create<CVState>()(
         };
 
         set({ cvs: [sampleCV] });
-        localStorage.setItem('clovely_cv_seeded', 'true');
+        localStorage.setItem('moonjab_cv_seeded', 'true');
       },
     }),
     {

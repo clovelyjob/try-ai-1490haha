@@ -9,7 +9,7 @@ import { useOpportunitiesStore } from '@/store/useOpportunitiesStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import type { Opportunity } from '@/types';
 
-const DAILY_JOB_CACHE_KEY = 'clovely_daily_job';
+const DAILY_JOB_CACHE_KEY = 'moonjab_daily_job';
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 interface CachedDailyJob {

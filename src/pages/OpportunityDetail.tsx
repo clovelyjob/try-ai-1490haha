@@ -305,7 +305,7 @@ export default function OpportunityDetail() {
                     <Users className="h-4 w-4" />
                     {opportunity.applicantsCount} postulantes
                   </span>
-                  {opportunity.source && opportunity.source !== 'Clovely' && (
+                  {opportunity.source && opportunity.source !== 'MoonJab' && (
                     <span className="flex items-center gap-1">
                       <Globe className="h-4 w-4" />
                       Fuente: {opportunity.source}

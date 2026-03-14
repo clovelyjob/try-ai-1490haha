@@ -189,7 +189,7 @@ export default function InterviewSetup() {
       
       await seedQuestions(role, level, jobDescription || undefined, cvContent);
       
-      localStorage.setItem('clovely_interview_response_mode', responseMode);
+      localStorage.setItem('moonjab_interview_response_mode', responseMode);
       
       startSession({
         userId: user.id,
