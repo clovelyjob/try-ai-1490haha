@@ -67,7 +67,7 @@ export default function OpportunityDetail() {
   const matchResult = opportunity && profile ? calculateMatch(opportunity, profile, userCV) : null;
 
   // Check if this is an external job
-  const isExternalJob = opportunity?.applyUrl && opportunity.source !== 'Clovely';
+  const isExternalJob = opportunity?.applyUrl && opportunity.source !== 'MoonJab';
 
   useEffect(() => {
     if (!opportunity) {
