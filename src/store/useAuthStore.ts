@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
+import { lovable } from '@/integrations/lovable/index';
 import type { Session } from '@supabase/supabase-js';
 
 interface AuthState {
@@ -16,7 +17,6 @@ interface AuthState {
   register: (name: string, email: string, password: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
-  signInWithLinkedIn: () => Promise<void>;
   startGuestMode: () => void;
   logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
@@ -81,26 +81,8 @@ export const useAuthStore = create<AuthState>()(
       },
       
       signInWithGoogle: async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: `${window.location.origin}/onboarding`,
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            }
-          }
-        });
-        
-        if (error) throw error;
-      },
-      
-      signInWithLinkedIn: async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'linkedin_oidc',
-          options: {
-            redirectTo: `${window.location.origin}/onboarding`,
-          }
+        const { error } = await lovable.auth.signInWithOAuth('google', {
+          redirect_uri: window.location.origin,
         });
         
         if (error) throw error;

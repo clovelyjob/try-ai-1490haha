@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Chrome, Linkedin, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { OfficialLogo } from '@/components/OfficialLogo';
@@ -32,11 +32,6 @@ const Register = () => {
   const handleGoogleSignup = async () => {
     try { await useAuthStore.getState().signInWithGoogle(); } 
     catch { toast.error('Error al conectar con Google'); }
-  };
-
-  const handleLinkedInSignup = async () => {
-    try { await useAuthStore.getState().signInWithLinkedIn(); } 
-    catch { toast.error('Error al conectar con LinkedIn'); }
   };
 
   const getPasswordStrength = () => {
@@ -153,12 +148,9 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5">
-            <Button type="button" variant="outline" className="h-10 text-xs" onClick={handleGoogleSignup}>
-              <Chrome className="mr-1.5 h-3.5 w-3.5" /> Google
-            </Button>
-            <Button type="button" variant="outline" className="h-10 text-xs" onClick={handleLinkedInSignup}>
-              <Linkedin className="mr-1.5 h-3.5 w-3.5" /> LinkedIn
+          <div>
+            <Button type="button" variant="outline" className="w-full h-10 text-xs" onClick={handleGoogleSignup}>
+              <img src="https://www.google.com/favicon.ico" alt="Google" className="mr-1.5 h-4 w-4" /> Continuar con Google
             </Button>
           </div>
 
