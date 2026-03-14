@@ -34,11 +34,6 @@ const Register = () => {
     catch { toast.error('Error al conectar con Google'); }
   };
 
-  const handleLinkedInSignup = async () => {
-    try { await useAuthStore.getState().signInWithLinkedIn(); } 
-    catch { toast.error('Error al conectar con LinkedIn'); }
-  };
-
   const getPasswordStrength = () => {
     const p = formData.password;
     let s = 0;
