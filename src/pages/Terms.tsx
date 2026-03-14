@@ -306,7 +306,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: moonjab.com@
                 Aviso importante
               </h3>
               <p className="text-amber-800 dark:text-amber-200 text-sm leading-relaxed">
-                Este resumen no reemplaza la lectura completa de los términos. Al usar Clovely, aceptas todos los términos detallados arriba. Si tienes preguntas específicas, consulta con un profesional legal.
+                Este resumen no reemplaza la lectura completa de los términos. Al usar MoonJab, aceptas todos los términos detallados arriba. Si tienes preguntas específicas, consulta con un profesional legal.
               </p>
             </div>
           </div>
