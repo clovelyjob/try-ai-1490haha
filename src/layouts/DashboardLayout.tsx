@@ -33,7 +33,7 @@ export default function DashboardLayout() {
   }, [user]);
 
   const checkAdminStatus = async () => {
-    if (!user) { setIsAdmin(false); return; }
+    if (!user || user.id.startsWith('guest_')) { setIsAdmin(false); return; }
     try {
       const { data, error } = await supabase
         .from('user_roles').select('role').eq('user_id', user.id).single();

@@ -21,7 +21,7 @@ export function AdminRoute({ children }: AdminRouteProps) {
   useEffect(() => {
     const checkAdminStatus = async () => {
       // Not authenticated - redirect immediately
-      if (!isAuthenticated || !user) {
+      if (!isAuthenticated || !user || user.id.startsWith('guest_')) {
         setIsAdmin(false);
         setIsLoading(false);
         return;
