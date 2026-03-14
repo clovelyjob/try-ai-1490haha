@@ -135,7 +135,7 @@ Tienes control total sobre tus datos:
 
 **Retiro de consentimiento:** Puedes retirar tu consentimiento para comunicaciones de marketing en cualquier momento.
 
-Para ejercer cualquiera de estos derechos, contáctanos en clovely.job@gmail.com. Responderemos en un máximo de 30 días.
+Para ejercer cualquiera de estos derechos, contáctanos en moonjab.com@gmail.com. Responderemos en un máximo de 30 días.
       `
   }, {
     title: '6. Retención de datos',
