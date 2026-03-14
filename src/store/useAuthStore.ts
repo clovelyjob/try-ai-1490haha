@@ -81,26 +81,8 @@ export const useAuthStore = create<AuthState>()(
       },
       
       signInWithGoogle: async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: `${window.location.origin}/onboarding`,
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            }
-          }
-        });
-        
-        if (error) throw error;
-      },
-      
-      signInWithLinkedIn: async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'linkedin_oidc',
-          options: {
-            redirectTo: `${window.location.origin}/onboarding`,
-          }
+        const { error } = await lovable.auth.signInWithOAuth('google', {
+          redirect_uri: window.location.origin,
         });
         
         if (error) throw error;
