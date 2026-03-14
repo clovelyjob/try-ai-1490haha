@@ -173,7 +173,7 @@ Puedes controlar las cookies desde la configuración de tu navegador.
   }, {
     title: '8. Menores de edad',
     content: `
-Clovely está diseñado para usuarios mayores de 16 años. No recopilamos intencionalmente información de menores de 16 años.
+MoonJab está diseñado para usuarios mayores de 16 años. No recopilamos intencionalmente información de menores de 16 años.
 
 Si eres padre/madre y crees que tu hijo ha proporcionado información personal, contáctanos para eliminarla.
       `
