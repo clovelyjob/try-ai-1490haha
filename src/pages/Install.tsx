@@ -63,7 +63,7 @@ export default function Install() {
           <div className="w-20 h-20 mx-auto rounded-2xl bg-primary/10 flex items-center justify-center">
             <Smartphone className="w-10 h-10 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold">Instalar Clovely</h1>
+          <h1 className="text-2xl font-bold">Instalar MoonJab</h1>
           <p className="text-muted-foreground">
             Instala la app en tu dispositivo para acceso rápido sin conexión
           </p>
