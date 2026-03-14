@@ -257,7 +257,7 @@ Responderemos a todas las consultas en un máximo de 5 días hábiles.
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-              En Clovely, tu privacidad es fundamental. Esta política explica de manera clara y sencilla cómo recopilamos, usamos y protegemos tu información personal. Nos comprometemos a ser transparentes y a darte control sobre tus datos.
+              En MoonJab, tu privacidad es fundamental. Esta política explica de manera clara y sencilla cómo recopilamos, usamos y protegemos tu información personal. Nos comprometemos a ser transparentes y a darte control sobre tus datos.
             </p>
 
             {sections.map((section, i) => <motion.div key={i} initial={{
