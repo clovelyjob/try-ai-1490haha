@@ -20,7 +20,7 @@ const Privacy = () => {
   const sections = [{
     title: '1. Información que recopilamos',
     content: `
-Recopilamos información que nos proporcionas directamente cuando utilizas Clovely:
+Recopilamos información que nos proporcionas directamente cuando utilizas MoonJab:
 
 **Información de cuenta:**
 - Nombre y apellido
