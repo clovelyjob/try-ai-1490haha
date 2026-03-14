@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
+import { lovable } from '@/integrations/lovable/index';
 import type { Session } from '@supabase/supabase-js';
 
 interface AuthState {
@@ -16,7 +17,6 @@ interface AuthState {
   register: (name: string, email: string, password: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
-  signInWithLinkedIn: () => Promise<void>;
   startGuestMode: () => void;
   logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
