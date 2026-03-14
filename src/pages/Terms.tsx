@@ -17,7 +17,7 @@ Nos reservamos el derecho de modificar estos Términos en cualquier momento. Te 
   }, {
     title: '2. Descripción del servicio',
     content: `
-Clovely proporciona una plataforma de desarrollo profesional que incluye:
+MoonJab proporciona una plataforma de desarrollo profesional que incluye:
 
 **Servicios principales:**
 - Diagnóstico de carrera basado en el modelo RIASEC
