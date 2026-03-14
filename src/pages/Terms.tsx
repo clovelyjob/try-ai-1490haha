@@ -8,9 +8,9 @@ const Terms = () => {
   const sections = [{
     title: '1. Aceptación de términos',
     content: `
-Al acceder o utilizar Clovely (la "Plataforma"), aceptas estar legalmente vinculado por estos Términos y Condiciones ("Términos"). Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
+Al acceder o utilizar MoonJab (la "Plataforma"), aceptas estar legalmente vinculado por estos Términos y Condiciones ("Términos"). Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
 
-Estos Términos constituyen un acuerdo legal entre tú ("Usuario") y Clovely Inc. ("Clovely", "nosotros", "nuestro").
+Estos Términos constituyen un acuerdo legal entre tú ("Usuario") y MoonJab Inc. ("MoonJab", "nosotros", "nuestro").
 
 Nos reservamos el derecho de modificar estos Términos en cualquier momento. Te notificaremos de cambios significativos por correo electrónico o mediante un aviso en la Plataforma. El uso continuado después de dichos cambios constituye tu aceptación de los nuevos Términos.
       `
