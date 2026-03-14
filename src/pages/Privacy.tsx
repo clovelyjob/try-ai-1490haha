@@ -193,8 +193,8 @@ Te recomendamos revisar esta página periódicamente.
     content: `
 Si tienes preguntas sobre esta política o el manejo de tus datos:
 
-**Email:** clovely.job@gmail.com
-**Correo postal:** Clovely Inc., Ciudad de México, México
+**Email:** moonjab.com@gmail.com
+**Correo postal:** MoonJab Inc., Ciudad de México, México
 
 Responderemos a todas las consultas en un máximo de 5 días hábiles.
       `
