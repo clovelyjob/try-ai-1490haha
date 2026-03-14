@@ -430,7 +430,7 @@ export const useInterviewStore = create<InterviewState>()(
       },
     }),
     {
-      name: 'clovely-interviews',
+      name: 'moonjab-interviews',
     }
   )
 );

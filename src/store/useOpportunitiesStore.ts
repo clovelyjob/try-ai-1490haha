@@ -658,7 +658,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       },
     }),
     {
-      name: 'clovely-opportunities-storage',
+      name: 'moonjab-opportunities-storage',
       partialize: (state) => ({
         applications: state.applications,
         savedOpportunities: state.savedOpportunities,

@@ -165,7 +165,7 @@ const Landing = () => {
                 </div>
                 <div className="flex-1 flex justify-center">
                   <div className="px-4 py-0.5 rounded-md bg-muted/60 text-[10px] text-muted-foreground font-mono">
-                    app.clovely.io
+                    app.moonjab.com
                   </div>
                 </div>
               </div>

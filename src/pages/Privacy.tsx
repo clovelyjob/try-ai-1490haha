@@ -20,7 +20,7 @@ const Privacy = () => {
   const sections = [{
     title: '1. Información que recopilamos',
     content: `
-Recopilamos información que nos proporcionas directamente cuando utilizas Clovely:
+Recopilamos información que nos proporcionas directamente cuando utilizas MoonJab:
 
 **Información de cuenta:**
 - Nombre y apellido
@@ -135,7 +135,7 @@ Tienes control total sobre tus datos:
 
 **Retiro de consentimiento:** Puedes retirar tu consentimiento para comunicaciones de marketing en cualquier momento.
 
-Para ejercer cualquiera de estos derechos, contáctanos en clovely.job@gmail.com. Responderemos en un máximo de 30 días.
+Para ejercer cualquiera de estos derechos, contáctanos en moonjab.com@gmail.com. Responderemos en un máximo de 30 días.
       `
   }, {
     title: '6. Retención de datos',
@@ -144,7 +144,7 @@ Para ejercer cualquiera de estos derechos, contáctanos en clovely.job@gmail.com
 Mantenemos tus datos mientras tu cuenta esté activa y uses nuestros servicios.
 
 **Cuenta inactiva:**
-Si no usas Clovely por 24 meses, te notificaremos antes de eliminar tu cuenta.
+Si no usas MoonJab por 24 meses, te notificaremos antes de eliminar tu cuenta.
 
 **Después de eliminación:**
 - Eliminamos tus datos personales en 30 días
@@ -173,7 +173,7 @@ Puedes controlar las cookies desde la configuración de tu navegador.
   }, {
     title: '8. Menores de edad',
     content: `
-Clovely está diseñado para usuarios mayores de 16 años. No recopilamos intencionalmente información de menores de 16 años.
+MoonJab está diseñado para usuarios mayores de 16 años. No recopilamos intencionalmente información de menores de 16 años.
 
 Si eres padre/madre y crees que tu hijo ha proporcionado información personal, contáctanos para eliminarla.
       `
@@ -193,8 +193,8 @@ Te recomendamos revisar esta página periódicamente.
     content: `
 Si tienes preguntas sobre esta política o el manejo de tus datos:
 
-**Email:** clovely.job@gmail.com
-**Correo postal:** Clovely Inc., Ciudad de México, México
+**Email:** moonjab.com@gmail.com
+**Correo postal:** MoonJab Inc., Ciudad de México, México
 
 Responderemos a todas las consultas en un máximo de 5 días hábiles.
       `
@@ -257,7 +257,7 @@ Responderemos a todas las consultas en un máximo de 5 días hábiles.
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-              En Clovely, tu privacidad es fundamental. Esta política explica de manera clara y sencilla cómo recopilamos, usamos y protegemos tu información personal. Nos comprometemos a ser transparentes y a darte control sobre tus datos.
+              En MoonJab, tu privacidad es fundamental. Esta política explica de manera clara y sencilla cómo recopilamos, usamos y protegemos tu información personal. Nos comprometemos a ser transparentes y a darte control sobre tus datos.
             </p>
 
             {sections.map((section, i) => <motion.div key={i} initial={{
@@ -295,8 +295,8 @@ Responderemos a todas las consultas en un máximo de 5 días hábiles.
           <p className="text-muted-foreground mb-6">
             Estamos aquí para resolver cualquier duda sobre tu privacidad
           </p>
-          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:clovely.job@gmail.com">
-            clovely.job@gmail.com
+          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:moonjab.com@gmail.com">
+            moonjab.com@gmail.com
           </a>
         </div>
       </section>

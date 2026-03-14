@@ -48,7 +48,7 @@ const Pricing = () => {
   const faqs = [
     { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Puedes cancelar tu suscripción cuando quieras desde tu configuración. No hay penalizaciones ni compromisos de permanencia.' },
     { q: '¿Qué métodos de pago aceptan?', a: 'Procesamos los pagos de forma segura a través de Stripe. Aceptamos Visa, Mastercard y las principales tarjetas de crédito y débito.' },
-    { q: '¿Qué puedo hacer en modo invitado?', a: 'Puedes explorar la plataforma con funciones limitadas: 1 plantilla de CV, oportunidades genéricas y un diagnóstico básico. Es ideal para conocer Clovely antes de suscribirte.' },
+    { q: '¿Qué puedo hacer en modo invitado?', a: 'Puedes explorar la plataforma con funciones limitadas: 1 plantilla de CV, oportunidades genéricas y un diagnóstico básico. Es ideal para conocer MoonJab antes de suscribirte.' },
     { q: '¿Qué se desbloquea con el plan Pro?', a: 'Acceso a todas las plantillas de CV, entrevistas ilimitadas con IA, oportunidades personalizadas con match score, diagnóstico completo RIASEC, coach IA 24/7 y exportación PDF ilimitada.' },
     { q: '¿Se renueva automáticamente?', a: 'Sí, la suscripción se renueva cada mes. Puedes cancelar antes de la siguiente fecha de cobro para evitar cargos futuros.' },
     { q: '¿Mis datos están seguros?', a: 'Absolutamente. Tus datos personales y CVs están protegidos con encriptación. Nunca compartimos tu información con terceros.' },

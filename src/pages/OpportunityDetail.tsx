@@ -67,7 +67,7 @@ export default function OpportunityDetail() {
   const matchResult = opportunity && profile ? calculateMatch(opportunity, profile, userCV) : null;
 
   // Check if this is an external job
-  const isExternalJob = opportunity?.applyUrl && opportunity.source !== 'Clovely';
+  const isExternalJob = opportunity?.applyUrl && opportunity.source !== 'MoonJab';
 
   useEffect(() => {
     if (!opportunity) {
@@ -152,7 +152,7 @@ export default function OpportunityDetail() {
 
     toast({
       title: 'Postulación enviada',
-      description: 'Has ganado 50 XP y 10 Clovely Coins',
+      description: 'Has ganado 50 XP y 10 MoonJab Coins',
     });
 
     setTimeout(() => {
@@ -305,7 +305,7 @@ export default function OpportunityDetail() {
                     <Users className="h-4 w-4" />
                     {opportunity.applicantsCount} postulantes
                   </span>
-                  {opportunity.source && opportunity.source !== 'Clovely' && (
+                  {opportunity.source && opportunity.source !== 'MoonJab' && (
                     <span className="flex items-center gap-1">
                       <Globe className="h-4 w-4" />
                       Fuente: {opportunity.source}

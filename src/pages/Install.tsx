@@ -63,7 +63,7 @@ export default function Install() {
           <div className="w-20 h-20 mx-auto rounded-2xl bg-primary/10 flex items-center justify-center">
             <Smartphone className="w-10 h-10 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold">Instalar Clovely</h1>
+          <h1 className="text-2xl font-bold">Instalar MoonJab</h1>
           <p className="text-muted-foreground">
             Instala la app en tu dispositivo para acceso rápido sin conexión
           </p>
@@ -75,7 +75,7 @@ export default function Install() {
               ✓ App Instalada
             </Badge>
             <p className="text-sm text-muted-foreground">
-              Clovely ya está instalada en tu dispositivo
+              MoonJab ya está instalada en tu dispositivo
             </p>
             <Link to="/dashboard">
               <Button variant="premium" className="w-full">
@@ -135,7 +135,7 @@ export default function Install() {
                   </div>
                   <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
                     <li>Busca el ícono de instalación en la barra de direcciones</li>
-                    <li>O abre el menú del navegador y selecciona <strong>"Instalar Clovely"</strong></li>
+                    <li>O abre el menú del navegador y selecciona <strong>"Instalar MoonJab"</strong></li>
                   </ol>
                 </Card>
               )}

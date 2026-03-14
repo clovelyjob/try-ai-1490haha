@@ -24,7 +24,7 @@ export const useProgressStore = create<ProgressState>()(
       },
     }),
     {
-      name: 'clovely-progress-stub',
+      name: 'moonjab-progress-stub',
     }
   )
 );

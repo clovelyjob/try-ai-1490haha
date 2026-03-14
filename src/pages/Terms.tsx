@@ -4,20 +4,20 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
 import { FileText, CheckCircle, AlertCircle, Scale, Mail } from 'lucide-react';
 const Terms = () => {
-  const keyPoints = ['Debes tener 16+ años para usar Clovely', 'Eres responsable de mantener tu cuenta segura', 'No garantizamos resultados específicos de empleo', 'Puedes cancelar en cualquier momento'];
+  const keyPoints = ['Debes tener 16+ años para usar MoonJab', 'Eres responsable de mantener tu cuenta segura', 'No garantizamos resultados específicos de empleo', 'Puedes cancelar en cualquier momento'];
   const sections = [{
     title: '1. Aceptación de términos',
     content: `
-Al acceder o utilizar Clovely (la "Plataforma"), aceptas estar legalmente vinculado por estos Términos y Condiciones ("Términos"). Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
+Al acceder o utilizar MoonJab (la "Plataforma"), aceptas estar legalmente vinculado por estos Términos y Condiciones ("Términos"). Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
 
-Estos Términos constituyen un acuerdo legal entre tú ("Usuario") y Clovely Inc. ("Clovely", "nosotros", "nuestro").
+Estos Términos constituyen un acuerdo legal entre tú ("Usuario") y MoonJab Inc. ("MoonJab", "nosotros", "nuestro").
 
 Nos reservamos el derecho de modificar estos Términos en cualquier momento. Te notificaremos de cambios significativos por correo electrónico o mediante un aviso en la Plataforma. El uso continuado después de dichos cambios constituye tu aceptación de los nuevos Términos.
       `
   }, {
     title: '2. Descripción del servicio',
     content: `
-Clovely proporciona una plataforma de desarrollo profesional que incluye:
+MoonJab proporciona una plataforma de desarrollo profesional que incluye:
 
 **Servicios principales:**
 - Diagnóstico de carrera basado en el modelo RIASEC
@@ -202,10 +202,10 @@ Las secciones sobre propiedad intelectual, limitación de responsabilidad, indem
     content: `
 Si tienes preguntas sobre estos Términos y Condiciones:
 
-**Email:** clovely.job@gmail.com
-**Correo postal:** Clovely Inc., Ciudad de México, México
+**Email:** moonjab.com@gmail.com
+**Correo postal:** MoonJab Inc., Ciudad de México, México
 
-Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@gmail.com
+Para asuntos urgentes relacionados con seguridad o abuso, contacta: moonjab.com@gmail.com
       `
   }];
   return <div className="min-h-screen bg-background">
@@ -266,7 +266,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-              Estos términos establecen las reglas de uso de Clovely. Están escritos en lenguaje claro para que entiendas exactamente tus derechos y responsabilidades. Si tienes alguna pregunta, no dudes en contactarnos.
+              Estos términos establecen las reglas de uso de MoonJab. Están escritos en lenguaje claro para que entiendas exactamente tus derechos y responsabilidades. Si tienes alguna pregunta, no dudes en contactarnos.
             </p>
 
             {sections.map((section, i) => <motion.div key={i} initial={{
@@ -306,7 +306,7 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@
                 Aviso importante
               </h3>
               <p className="text-amber-800 dark:text-amber-200 text-sm leading-relaxed">
-                Este resumen no reemplaza la lectura completa de los términos. Al usar Clovely, aceptas todos los términos detallados arriba. Si tienes preguntas específicas, consulta con un profesional legal.
+                Este resumen no reemplaza la lectura completa de los términos. Al usar MoonJab, aceptas todos los términos detallados arriba. Si tienes preguntas específicas, consulta con un profesional legal.
               </p>
             </div>
           </div>
@@ -321,8 +321,8 @@ Para asuntos urgentes relacionados con seguridad o abuso, contacta: clovely.job@
           <p className="text-muted-foreground mb-6">
             Nuestro equipo legal está aquí para ayudarte
           </p>
-          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:clovely.job@gmail.com">
-            clovely.job@gmail.com
+          <a className="inline-flex items-center gap-2 text-primary font-medium hover:underline" href="mailto:moonjab.com@gmail.com">
+            moonjab.com@gmail.com
           </a>
         </div>
       </section>

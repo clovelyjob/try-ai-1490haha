@@ -24,7 +24,7 @@ export default function InterviewSession() {
 
   // Get response mode from localStorage
   useEffect(() => {
-    const savedMode = localStorage.getItem('clovely_interview_response_mode') as ResponseMode;
+    const savedMode = localStorage.getItem('moonjab_interview_response_mode') as ResponseMode;
     if (savedMode && (savedMode === 'text' || savedMode === 'video')) {
       setResponseMode(savedMode);
     }

@@ -5,7 +5,7 @@ export const useThemeLogo = () => {
 
   useEffect(() => {
     // Get initial theme
-    const stored = localStorage.getItem('clovely-theme') as 'light' | 'dark' | null;
+    const stored = localStorage.getItem('moonjab-theme') as 'light' | 'dark' | null;
     const initial = stored || 'light';
     setTheme(initial);
 
