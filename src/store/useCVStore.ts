@@ -433,7 +433,7 @@ export const useCVStore = create<CVState>()(
       },
     }),
     {
-      name: 'clovely-cvs',
+      name: 'moonjab-cvs',
     }
   )
 );

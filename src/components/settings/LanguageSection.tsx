@@ -26,7 +26,7 @@ export function LanguageSection() {
 
   const handleLanguageChange = (lang: Language) => {
     i18n.changeLanguage(lang);
-    localStorage.setItem('clovely_language', lang);
+    localStorage.setItem('moonjab_language', lang);
     
     const langLabel = languages.find(l => l.code === lang)?.label;
     toast.success(t('settings.language.updated'), {

@@ -241,7 +241,7 @@ export const useSettingsStore = create<SettingsState>()(
       resetToDefaults: () => set(DEFAULT_SETTINGS),
     }),
     {
-      name: 'clovely-settings',
+      name: 'moonjab-settings',
     }
   )
 );

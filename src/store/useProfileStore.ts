@@ -38,7 +38,7 @@ export const useProfileStore = create<ProfileState>()(
         }),
     }),
     {
-      name: 'clovely-profile',
+      name: 'moonjab-profile',
     }
   )
 );

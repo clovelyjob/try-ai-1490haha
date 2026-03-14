@@ -26,7 +26,7 @@ i18n
     },
     detection: {
       order: ['localStorage', 'navigator'],
-      lookupLocalStorage: 'clovely_language',
+      lookupLocalStorage: 'moonjab_language',
       caches: ['localStorage'],
     },
   });

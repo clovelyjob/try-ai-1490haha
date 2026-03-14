@@ -56,7 +56,7 @@ function AuthSyncWrapper({ children }: { children: React.ReactNode }) {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="clovely-theme">
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="moonjab-theme">
       <TooltipProvider>
         <Toaster />
         <Sonner />

@@ -8,7 +8,7 @@ export const ThemeToggle = () => {
 
   useEffect(() => {
     // Force light mode on first load if no preference exists
-    if (!localStorage.getItem('clovely-theme')) {
+    if (!localStorage.getItem('moonjab-theme')) {
       setTheme('light');
     }
   }, [setTheme]);

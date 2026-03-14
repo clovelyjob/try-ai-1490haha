@@ -154,7 +154,7 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: 'clovely-auth',
+      name: 'moonjab-auth',
     }
   )
 );
