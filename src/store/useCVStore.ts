@@ -315,7 +315,7 @@ export const useCVStore = create<CVState>()(
       },
 
       seedInitialData: (userId) => {
-        const seeded = localStorage.getItem('clovely_cv_seeded');
+        const seeded = localStorage.getItem('moonjab_cv_seeded');
         if (seeded) return;
 
         const sampleCV: CVData = {
