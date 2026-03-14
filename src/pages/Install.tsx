@@ -75,7 +75,7 @@ export default function Install() {
               ✓ App Instalada
             </Badge>
             <p className="text-sm text-muted-foreground">
-              Clovely ya está instalada en tu dispositivo
+              MoonJab ya está instalada en tu dispositivo
             </p>
             <Link to="/dashboard">
               <Button variant="premium" className="w-full">
