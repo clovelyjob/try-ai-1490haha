@@ -28,13 +28,13 @@ export default defineConfig(({ mode }) => ({
         scope: "/",
         icons: [
           {
-            src: "/clovely-logo-icon.png",
+            src: "/moonjab-logo.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable"
           },
           {
-            src: "/clovely-logo.png",
+            src: "/moonjab-logo.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"
