@@ -34,9 +34,9 @@ serve(async (req) => {
       );
     }
 
-    const APYHUB_API_KEY = Deno.env.get("APYHUB_API_KEY");
+    const APYHUB_API_KEY = Deno.env.get("APYHUB_JOB_POSITIONS_KEY");
     if (!APYHUB_API_KEY) {
-      console.error("[Internal] APYHUB_API_KEY not configured");
+      console.error("[Internal] APYHUB_JOB_POSITIONS_KEY not configured");
       return new Response(
         JSON.stringify({ error: "Error de configuración del servicio." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
