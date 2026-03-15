@@ -87,7 +87,8 @@ export default function Auth() {
       if (error) {
         toast({ title: 'Error al registrarse', description: error.message.includes('already registered') ? 'Este email ya está registrado.' : error.message, variant: 'destructive' });
       } else {
-        toast({ title: 'Cuenta creada', description: 'Iniciando tu diagnóstico profesional...' });
+        toast({ title: 'Cuenta creada', description: 'Revisa tu correo para verificar tu cuenta.' });
+        navigate('/verify-email', { state: { email: signupData.email } });
       }
     } catch { toast({ title: 'Error', description: 'Ocurrió un error inesperado', variant: 'destructive' }); }
     finally { setIsLoading(false); }

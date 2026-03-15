@@ -41,7 +41,12 @@ const Login = () => {
       toast.success('Bienvenido de vuelta');
       navigate(profile?.rol_profesional ? '/dashboard' : '/onboarding');
     } catch (error: any) {
-      toast.error(error.message || 'Credenciales incorrectas');
+      const msg = error.message || '';
+      if (msg.includes('Email not confirmed')) {
+        toast.error('Tu email aún no ha sido verificado. Revisa tu correo.');
+      } else {
+        toast.error(msg || 'Credenciales incorrectas');
+      }
     } finally { setLoading(false); }
   };
 
