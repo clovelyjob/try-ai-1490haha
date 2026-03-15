@@ -403,7 +403,7 @@ Si el salario es inamovible, negocia:
 
 ---
 
-*Practica tu negociación con el simulador de entrevistas de Clovely.*
+*Practica tu negociación con el simulador de entrevistas de MoonJab.*
     `,
     date: '20 Nov 2024',
     readTime: '8 min',
