@@ -320,8 +320,9 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
           if (result.error) {
             console.warn('API returned error, using mock data:', result.error);
+            const mockData = generateMockOpportunities().slice(0, FREE_DAILY_LIMIT);
             set({ 
-              opportunities: generateMockOpportunities(),
+              opportunities: mockData,
               isLoading: false,
               error: result.error,
               hasMore: false,
@@ -330,24 +331,32 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           }
 
           if (result.data && result.data.length > 0) {
+            // Free users: limit to 5 jobs per day
+            const limitedData = isPremium ? result.data : result.data.slice(0, FREE_DAILY_LIMIT);
+            const limitedHasMore = isPremium ? (result.hasMore || false) : false;
+
             // Store in cache
             set((state) => ({
               cache: {
                 ...state.cache,
                 [cacheKey]: {
-                  data: result.data,
+                  data: limitedData,
                   timestamp: Date.now(),
-                  hasMore: result.hasMore || false,
+                  hasMore: limitedHasMore,
                 },
               },
-              opportunities: newParams.page === 1 ? result.data : [...get().opportunities, ...result.data],
+              opportunities: newParams.page === 1 ? limitedData : [...get().opportunities, ...limitedData],
               isLoading: false,
-              hasMore: result.hasMore || false,
+              hasMore: limitedHasMore,
             }));
+
+            if (!isPremium && result.data.length > FREE_DAILY_LIMIT) {
+              toast.info('Con el plan gratuito puedes ver hasta 5 trabajos al día. ¡Actualiza a Pro para ver más!');
+            }
           } else {
             if (newParams.page === 1) {
               set({ 
-                opportunities: generateMockOpportunities(),
+                opportunities: generateMockOpportunities().slice(0, FREE_DAILY_LIMIT),
                 isLoading: false,
                 hasMore: false,
               });
