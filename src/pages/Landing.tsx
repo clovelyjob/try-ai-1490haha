@@ -496,7 +496,7 @@ const Landing = () => {
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-            { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. Clovely me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
+            { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. MoonJab me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
             { name: 'Diego L.', role: 'Desarrollador Junior', text: 'Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.' },
             { name: 'Camila R.', role: 'Analista de Marketing', text: 'Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil.' }].
             map((t, i) =>
