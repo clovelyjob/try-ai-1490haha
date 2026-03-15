@@ -116,7 +116,7 @@ Clovely ofrece dos modalidades: un modo invitado gratuito con funciones limitada
 El plan Pro tiene un costo de $15 USD por mes, facturado mensualmente.
 
 **Procesamiento de pagos:**
-Los pagos se procesan de forma segura a través de Stripe. Aceptamos las principales tarjetas de crédito y débito. Clovely no almacena datos de tarjetas; toda la información de pago es gestionada directamente por Stripe.
+Los pagos se procesan de forma segura a través de Stripe. Aceptamos las principales tarjetas de crédito y débito. MoonJab no almacena datos de tarjetas; toda la información de pago es gestionada directamente por Stripe.
 
 **Renovación automática:**
 Las suscripciones se renuevan automáticamente cada mes. Puedes cancelar antes de la fecha de renovación para evitar cargos futuros.
