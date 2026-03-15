@@ -52,6 +52,14 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
     setIsLoading(true);
 
     try {
+      // Verificar que el email existe
+      const emailCheck = await verifyEmailExists(formData.email);
+      if (!emailCheck.valid) {
+        setErrors({ email: emailCheck.reason || 'Correo inválido' });
+        setIsLoading(false);
+        return;
+      }
+
       // Registrar usuario en Supabase
       const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: formData.email,

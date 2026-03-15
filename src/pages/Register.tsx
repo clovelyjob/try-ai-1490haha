@@ -57,6 +57,13 @@ const Register = () => {
     }
     setLoading(true);
     try {
+      const emailCheck = await verifyEmailExists(formData.email);
+      if (!emailCheck.valid) {
+        toast.error(emailCheck.reason || 'El correo ingresado no es válido');
+        setErrors({ email: emailCheck.reason || 'Correo inválido' });
+        setLoading(false);
+        return;
+      }
       await register(formData.name, formData.email, formData.password);
       toast.success('Cuenta creada exitosamente');
       setTimeout(() => navigate('/onboarding'), 1500);
