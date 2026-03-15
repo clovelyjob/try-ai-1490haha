@@ -496,7 +496,7 @@ const Landing = () => {
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-            { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. Clovely me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
+            { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. MoonJab me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
             { name: 'Diego L.', role: 'Desarrollador Junior', text: 'Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.' },
             { name: 'Camila R.', role: 'Analista de Marketing', text: 'Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil.' }].
             map((t, i) =>
@@ -647,7 +647,7 @@ const Landing = () => {
               Tu próximo paso profesional<br className="hidden sm:block" /> empieza aquí
             </h2>
             <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Únete a miles de profesionales que ya transformaron su carrera con Clovely.
+              Únete a miles de profesionales que ya transformaron su carrera con MoonJab.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <Link to="/registro">
@@ -684,8 +684,8 @@ const Landing = () => {
             </div>
           </div>
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-border/20">
-            <p className="text-[11px] text-muted-foreground">© 2025 Clovely. Todos los derechos reservados.</p>
-            <a href="https://www.instagram.com/clovelyia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
+            <p className="text-[11px] text-muted-foreground">© 2025 MoonJab. Todos los derechos reservados.</p>
+            <a href="https://www.instagram.com/moonjab" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
               <Instagram className="h-4 w-4" />
             </a>
           </div>

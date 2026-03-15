@@ -9,7 +9,7 @@ interface UserContext {
   role?: string;
 }
 
-const CACHE_KEY = 'clovely_last_quote';
+const CACHE_KEY = 'moonjab_last_quote';
 const CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours
 
 interface CachedQuote {

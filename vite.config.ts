@@ -15,12 +15,12 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "clovely-logo-icon.png", "clovely-logo.png"],
+      includeAssets: ["favicon.ico", "moonjab-logo.png"],
       manifest: {
-        name: "Clovely - Tu Coach de Carrera con IA",
-        short_name: "Clovely",
-        description: "Practica entrevistas con IA, crea tu CV profesional y encuentra tu trabajo ideal con matching inteligente",
-        theme_color: "#FF7A00",
+        name: "MoonJab — Construye la carrera que mereces",
+        short_name: "MoonJab",
+        description: "Plataforma de empleabilidad con IA. Mejora tu CV, practica entrevistas y encuentra oportunidades alineadas a tu perfil.",
+        theme_color: "#10b981",
         background_color: "#ffffff",
         display: "standalone",
         orientation: "portrait",
@@ -28,13 +28,13 @@ export default defineConfig(({ mode }) => ({
         scope: "/",
         icons: [
           {
-            src: "/clovely-logo-icon.png",
+            src: "/moonjab-logo.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable"
           },
           {
-            src: "/clovely-logo.png",
+            src: "/moonjab-logo.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"
@@ -48,21 +48,21 @@ export default defineConfig(({ mode }) => ({
             short_name: "Entrevistas",
             description: "Inicia una sesión de práctica de entrevista",
             url: "/dashboard/interviews",
-            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
           },
           {
             name: "Crear CV",
             short_name: "CV",
             description: "Crea o edita tu CV profesional",
             url: "/dashboard/cv",
-            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
           },
           {
             name: "Oportunidades",
             short_name: "Jobs",
             description: "Explora oportunidades de trabajo",
             url: "/dashboard/opportunities",
-            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
           }
         ]
       },

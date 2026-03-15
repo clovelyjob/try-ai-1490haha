@@ -18,7 +18,7 @@ export const UpgradeModal = ({ open, onClose, feature }: UpgradeModalProps) => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl">
             <Sparkles className="h-6 w-6 text-primary" />
-            Desbloquea todo el potencial de Clovely
+            Desbloquea todo el potencial de MoonJab
           </DialogTitle>
         </DialogHeader>
         

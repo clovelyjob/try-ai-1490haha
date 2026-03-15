@@ -52,7 +52,7 @@ Nos reservamos el derecho de suspender o terminar cuentas que violen estos Térm
   }, {
     title: '4. Uso aceptable',
     content: `
-Te comprometes a utilizar Clovely de manera responsable y legal.
+Te comprometes a utilizar MoonJab de manera responsable y legal.
 
 **Está permitido:**
 - Usar la Plataforma para tu desarrollo profesional personal
@@ -92,7 +92,7 @@ Puedes eliminar tu contenido en cualquier momento. Tras la eliminación, haremos
     title: '6. Propiedad intelectual',
     content: `
 **Nuestra propiedad:**
-Todo el contenido de Clovely, incluyendo pero no limitado a:
+Todo el contenido de MoonJab, incluyendo pero no limitado a:
 - Diseño, logos y marca
 - Código fuente y algoritmos
 - Textos, gráficos e interfaces
@@ -110,13 +110,13 @@ Cualquier sugerencia o feedback que proporciones puede ser utilizado por nosotro
     title: '7. Planes y pagos',
     content: `
 **Planes disponibles:**
-Clovely ofrece dos modalidades: un modo invitado gratuito con funciones limitadas y un plan Pro de pago con acceso completo a todas las herramientas.
+MoonJab ofrece dos modalidades: un modo invitado gratuito con funciones limitadas y un plan Pro de pago con acceso completo a todas las herramientas.
 
 **Precio:**
 El plan Pro tiene un costo de $15 USD por mes, facturado mensualmente.
 
 **Procesamiento de pagos:**
-Los pagos se procesan de forma segura a través de Stripe. Aceptamos las principales tarjetas de crédito y débito. Clovely no almacena datos de tarjetas; toda la información de pago es gestionada directamente por Stripe.
+Los pagos se procesan de forma segura a través de Stripe. Aceptamos las principales tarjetas de crédito y débito. MoonJab no almacena datos de tarjetas; toda la información de pago es gestionada directamente por Stripe.
 
 **Renovación automática:**
 Las suscripciones se renuevan automáticamente cada mes. Puedes cancelar antes de la fecha de renovación para evitar cargos futuros.
@@ -137,10 +137,10 @@ Nos reservamos el derecho de modificar los precios con aviso previo de 30 días 
 La Plataforma se proporciona "tal cual" y "según disponibilidad". No garantizamos que:
 - El servicio será ininterrumpido o libre de errores
 - Los resultados obtenidos serán precisos o confiables
-- Conseguirás empleo o resultados específicos usando Clovely
+- Conseguirás empleo o resultados específicos usando MoonJab
 
 **Limitación de daños:**
-En la máxima medida permitida por la ley, Clovely no será responsable por:
+En la máxima medida permitida por la ley, MoonJab no será responsable por:
 - Daños indirectos, incidentales o consecuentes
 - Pérdida de beneficios, datos o oportunidades
 - Cualquier daño que exceda el monto pagado en los últimos 12 meses
@@ -154,7 +154,7 @@ No seremos responsables por incumplimientos causados por eventos fuera de nuestr
   }, {
     title: '9. Indemnización',
     content: `
-Aceptas indemnizar y mantener indemne a Clovely, sus directores, empleados y agentes, de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales razonables) que surja de:
+Aceptas indemnizar y mantener indemne a MoonJab, sus directores, empleados y agentes, de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales razonables) que surja de:
 
 - Tu uso de la Plataforma
 - Tu violación de estos Términos
@@ -183,7 +183,7 @@ Aceptas resolver disputas de manera individual y renuncias a participar en deman
     title: '11. Disposiciones generales',
     content: `
 **Acuerdo completo:**
-Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y Clovely.
+Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y MoonJab.
 
 **Separabilidad:**
 Si alguna disposición se considera inválida, las demás disposiciones permanecerán en vigor.

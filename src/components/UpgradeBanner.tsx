@@ -39,7 +39,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
           rounded-2xl border-2 border-primary/20 
           bg-primary/5 dark:bg-primary/10
           p-4 relative overflow-hidden
-          shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-0.5 transition-all duration-300
+          shadow-mj-md hover:shadow-mj-lg hover:-translate-y-0.5 transition-all duration-300
         "
       >
         <div className="absolute inset-0 opacity-10 dark:opacity-20">
@@ -54,7 +54,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
             </div>
             <div className="flex-1">
               <p className="font-semibold text-sm text-foreground mb-0.5">
-                Desbloquea Clovely Pro por <span className="text-primary">$15/mes</span>
+                Desbloquea MoonJab Pro por <span className="text-primary">$15/mes</span>
               </p>
               <p className="text-xs text-muted-foreground">
                 Todas las plantillas, entrevistas IA, oportunidades personalizadas y más
@@ -67,7 +67,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
               onClick={onUpgrade}
               variant="premium"
               size="sm"
-              className="shadow-clovely-glow hover:shadow-clovely-glow-lg"
+              className="shadow-mj-glow hover:shadow-mj-glow-lg"
             >
               Suscribirse
             </Button>

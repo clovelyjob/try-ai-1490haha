@@ -174,7 +174,7 @@ function generateFallbackJobs(query: string): TransformedOpportunity[] {
     publishedAt: now,
     expiresAt: null,
     salaryRange: { min: 80000 + i * 15000, max: 120000 + i * 20000, currency: 'USD' },
-    source: 'Clovely',
+    source: 'MoonJab',
     companyLogo: company.logo,
     views: Math.floor(Math.random() * 500) + 100,
     applicantsCount: Math.floor(Math.random() * 50) + 10,

@@ -95,7 +95,7 @@ export function AccountSection() {
 
     // Clear all localStorage
     Object.keys(localStorage).forEach((key) => {
-      if (key.startsWith('clovely-')) {
+      if (key.startsWith('moonjab-')) {
         localStorage.removeItem(key);
       }
     });

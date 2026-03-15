@@ -72,7 +72,7 @@ export default function OpportunityCard({
             </Link>
             <div className="flex items-center gap-2">
               <p className="text-sm text-muted-foreground truncate">{opportunity.company}</p>
-              {opportunity.source && opportunity.source !== 'Clovely' && (
+              {opportunity.source && opportunity.source !== 'MoonJab' && (
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0">
                   {opportunity.source}
                 </Badge>

@@ -30,7 +30,7 @@ const BlogPost = () => {
   }
 
   const shareUrl = window.location.href;
-  const shareText = `${post.title} - Clovely Blog`;
+  const shareText = `${post.title} - MoonJab Blog`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -176,7 +176,7 @@ const BlogPost = () => {
               ¿Listo para impulsar tu carrera?
             </h3>
             <p className="text-lg opacity-90 mb-6">
-              Descubre tu potencial con el diagnóstico gratuito de Clovely
+              Descubre tu potencial con el diagnóstico gratuito de MoonJab
             </p>
             <Link to="/registro">
               <Button size="lg" variant="secondary" className="font-semibold">

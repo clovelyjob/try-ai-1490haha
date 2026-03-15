@@ -183,7 +183,7 @@ const About = () => {
             ¿Quieres ser parte de esta historia?
           </h2>
           <p className="text-xl opacity-90 mb-8">
-            Empieza hoy y transforma tu carrera con Clovely.
+            Empieza hoy y transforma tu carrera con MoonJab.
           </p>
           <Link to="/registro">
             <Button size="lg" variant="secondary" className="text-lg px-8 py-6 font-semibold">

@@ -57,7 +57,7 @@ Para las preguntas de behavioral, ten 5-7 historias STAR preparadas que demuestr
 
 1. **LeetCode** - Para práctica de algoritmos
 2. **System Design Primer** - Para arquitectura
-3. **Clovely** - Para simulaciones con IA que te dan feedback real
+3. **MoonJab** - Para simulaciones con IA que te dan feedback real
 
 ### El día de la entrevista
 
@@ -68,13 +68,13 @@ Para las preguntas de behavioral, ten 5-7 historias STAR preparadas que demuestr
 
 ---
 
-*¿Quieres practicar entrevistas con feedback de IA? Prueba el simulador de Clovely gratis.*
+*¿Quieres practicar entrevistas con feedback de IA? Prueba el simulador de MoonJab gratis.*
     `,
     date: '5 Dic 2024',
     readTime: '8 min',
     category: 'Entrevistas',
     author: 'María González',
-    authorRole: 'CEO de Clovely',
+    authorRole: 'CEO de MoonJab',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=450&fit=crop',
     featured: true
   },
@@ -223,7 +223,7 @@ Si incluyes foto, que sea profesional. Fondo neutro, buena iluminación, vestime
 
 ---
 
-*Crea un CV optimizado con IA en minutos usando el builder de Clovely.*
+*Crea un CV optimizado con IA en minutos usando el builder de MoonJab.*
     `,
     date: '28 Nov 2024',
     readTime: '7 min',
@@ -300,20 +300,20 @@ A los 30, tienes algo que no tenías a los 22: experiencia, perspectiva y clarid
 
 ### Recursos para empezar
 
-1. **Diagnóstico de Clovely** - Descubre carreras compatibles
+1. **Diagnóstico de MoonJab** - Descubre carreras compatibles
 2. **Cursos online** - Coursera, Platzi, Udemy
 3. **Comunidades** - Encuentra tu tribu en Discord/Slack
 4. **Mentores** - Busca personas que hicieron la transición
 
 ---
 
-*¿Listo para descubrir tu próximo capítulo? Empieza con el diagnóstico gratuito de Clovely.*
+*¿Listo para descubrir tu próximo capítulo? Empieza con el diagnóstico gratuito de MoonJab.*
     `,
     date: '25 Nov 2024',
     readTime: '10 min',
     category: 'Carrera',
     author: 'María González',
-    authorRole: 'CEO de Clovely',
+    authorRole: 'CEO de MoonJab',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=450&fit=crop',
     featured: false
   },
@@ -403,7 +403,7 @@ Si el salario es inamovible, negocia:
 
 ---
 
-*Practica tu negociación con el simulador de entrevistas de Clovely.*
+*Practica tu negociación con el simulador de entrevistas de MoonJab.*
     `,
     date: '20 Nov 2024',
     readTime: '8 min',
