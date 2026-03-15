@@ -216,16 +216,24 @@ export default function Opportunities() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        {error && (
-          <Alert className="mb-6 border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950">
-            <AlertCircle className="h-4 w-4 text-amber-600" />
-            <AlertDescription className="text-amber-800 dark:text-amber-200">
-              {error.includes('Rate limit') 
-                ? 'Límite de búsquedas alcanzado. Mostrando datos de ejemplo.'
-                : 'No se pudieron cargar trabajos reales. Mostrando datos de ejemplo.'}
-            </AlertDescription>
-          </Alert>
-        )}
+          {error && (
+            <Alert className="mb-6 border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950">
+              <AlertCircle className="h-4 w-4 text-amber-600" />
+              <AlertDescription className="text-amber-800 dark:text-amber-200">
+                {error.includes('Rate limit') 
+                  ? 'Límite de búsquedas alcanzado. Mostrando datos de ejemplo.'
+                  : 'No se pudieron cargar trabajos reales. Mostrando datos de ejemplo.'}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {!isPremium && !isGuest && (
+            <div className="mb-6">
+              <UpgradeBanner onUpgrade={() => setShowUpgradeModal(true)} />
+            </div>
+          )}
+
+          <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Desktop Filters Sidebar */}
