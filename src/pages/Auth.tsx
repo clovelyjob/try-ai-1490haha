@@ -82,7 +82,7 @@ export default function Auth() {
     try {
       const { error } = await supabase.auth.signUp({
         email: signupData.email, password: signupData.password,
-        options: { emailRedirectTo: `${window.location.origin}/onboarding`, data: { nombre: signupData.nombre } },
+        options: { emailRedirectTo: `${window.location.origin}/auth`, data: { nombre: signupData.nombre } },
       });
       if (error) {
         toast({ title: 'Error al registrarse', description: error.message.includes('already registered') ? 'Este email ya está registrado.' : error.message, variant: 'destructive' });

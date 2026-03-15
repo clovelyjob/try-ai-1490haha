@@ -54,7 +54,7 @@ export const useAuthStore = create<AuthState>()(
       },
       
       register: async (name: string, email: string, password: string) => {
-        const redirectUrl = `${window.location.origin}/onboarding`;
+        const redirectUrl = `${window.location.origin}/auth`;
         
         const { data, error } = await supabase.auth.signUp({
           email,
