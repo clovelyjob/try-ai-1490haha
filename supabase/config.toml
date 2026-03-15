@@ -29,3 +29,9 @@ verify_jwt = false
 
 [functions.transcribe-audio]
 verify_jwt = false
+
+[functions.cv-job-match]
+verify_jwt = false
+
+[functions.job-positions]
+verify_jwt = false
