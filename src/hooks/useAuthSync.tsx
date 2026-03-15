@@ -29,8 +29,12 @@ export function useAuthSync() {
             fetchUserProfile(session.user.id);
           }, 0);
         } else {
-          setUser(null);
-          setProfile(null);
+          // Don't clear guest mode data when there's no Supabase session
+          const state = useAuthStore.getState();
+          if (!state.isGuestMode) {
+            setUser(null);
+            setProfile(null);
+          }
         }
       }
     );
