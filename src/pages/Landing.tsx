@@ -7,8 +7,8 @@ import {
   FileText, MessageSquare, Target, TrendingUp, Shield,
   Users, ChevronRight, Zap, ArrowUpRight, Layers, Award,
   GraduationCap, Briefcase, Sparkles, LineChart, Rocket,
-  Eye, BookOpen, Check, Mic
-} from 'lucide-react';
+  Eye, BookOpen, Check, Mic } from
+'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { useRef } from 'react';
 
@@ -19,15 +19,15 @@ const fadeUp = {
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease },
-  }),
+    transition: { delay: i * 0.1, duration: 0.6, ease }
+  })
 };
 
 const Landing = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start'],
+    offset: ['start start', 'end start']
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
@@ -59,8 +59,8 @@ const Landing = () => {
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden"
-      >
+        className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden">
+        
         {/* Subtle gradient orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/[0.04] blur-3xl" />
@@ -72,8 +72,8 @@ const Landing = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            custom={0}
-          >
+            custom={0}>
+            
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/[0.06] text-xs font-medium text-primary mb-8">
               <Sparkles className="h-3 w-3" />
               Plataforma de empleabilidad con IA
@@ -85,8 +85,8 @@ const Landing = () => {
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="text-[clamp(2rem,5.5vw,3.5rem)] font-bold leading-[1.08] tracking-tight mb-6"
-          >
+            className="text-[clamp(2rem,5.5vw,3.5rem)] font-bold leading-[1.08] tracking-tight mb-6">
+            
             Construye la carrera que{' '}
             <span className="relative">
               <span className="gradient-text">mereces</span>
@@ -101,8 +101,8 @@ const Landing = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-10"
-          >
+            className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-10">
+            
             Mejora tu CV, practica entrevistas con IA y encuentra las oportunidades
             que se alinean con tu perfil. Todo en un solo lugar.
           </motion.p>
@@ -112,8 +112,8 @@ const Landing = () => {
             animate="visible"
             variants={fadeUp}
             custom={3}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
+            className="flex flex-col sm:flex-row gap-3 justify-center">
+            
             <Link to="/registro">
               <Button size="lg" className="h-12 px-7 text-sm font-semibold gap-2 shadow-clovely-md">
                 Comenzar ahora
@@ -133,8 +133,8 @@ const Landing = () => {
             animate="visible"
             variants={fadeUp}
             custom={4}
-            className="flex items-center justify-center gap-5 text-xs text-muted-foreground mt-8"
-          >
+            className="flex items-center justify-center gap-5 text-xs text-muted-foreground mt-8">
+            
             <span className="flex items-center gap-1.5">
               <Check className="h-3.5 w-3.5 text-primary" /> Modo invitado gratuito
             </span>
@@ -153,8 +153,8 @@ const Landing = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease }}
-            className="relative"
-          >
+            className="relative">
+            
             <div className="absolute -inset-4 rounded-2xl bg-gradient-to-b from-primary/10 to-transparent blur-2xl opacity-60 pointer-events-none" />
             <div className="relative rounded-xl overflow-hidden border border-border/50 shadow-clovely-xl bg-card">
               <div className="bg-muted/40 px-4 py-2.5 border-b border-border/30 flex items-center gap-2">
@@ -165,7 +165,7 @@ const Landing = () => {
                 </div>
                 <div className="flex-1 flex justify-center">
                   <div className="px-4 py-0.5 rounded-md bg-muted/60 text-[10px] text-muted-foreground font-mono">
-                    app.moonjab.com
+                    moonjab.com
                   </div>
                 </div>
               </div>
@@ -182,24 +182,24 @@ const Landing = () => {
         <div className="mx-auto max-w-4xl px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
             {[
-              { value: '10K+', label: 'Profesionales activos', icon: Users },
-              { value: '87%', label: 'Consiguen empleo', icon: TrendingUp },
-              { value: '4.9', label: 'Satisfacción', icon: Star },
-              { value: '15+', label: 'Países', icon: Compass },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="flex flex-col items-center gap-1"
-              >
+            { value: '10K+', label: 'Profesionales activos', icon: Users },
+            { value: '87%', label: 'Consiguen empleo', icon: TrendingUp },
+            { value: '4.9', label: 'Satisfacción', icon: Star },
+            { value: '15+', label: 'Países', icon: Compass }].
+            map((stat, i) =>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="flex flex-col items-center gap-1">
+              
                 <stat.icon className="h-4 w-4 text-primary/60 mb-1" />
                 <p className="text-2xl sm:text-3xl font-bold tracking-tight">{stat.value}</p>
                 <p className="text-[11px] text-muted-foreground">{stat.label}</p>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -212,8 +212,8 @@ const Landing = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
+            
             <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">Funciones</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               Todo lo que necesitas para<br className="hidden sm:block" /> destacar profesionalmente
@@ -232,8 +232,8 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={0}
-              className="md:col-span-2 group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500"
-            >
+              className="md:col-span-2 group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500">
+              
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/[0.03] rounded-full blur-3xl pointer-events-none" />
               <div className="relative">
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
@@ -245,9 +245,9 @@ const Landing = () => {
                   Nuestro motor analiza y mejora cada sección automáticamente.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['Plantillas profesionales', 'Optimización ATS', 'Exportar PDF'].map((tag) => (
-                    <span key={tag} className="px-2.5 py-1 text-[11px] rounded-md bg-primary/[0.06] text-primary font-medium">{tag}</span>
-                  ))}
+                  {['Plantillas profesionales', 'Optimización ATS', 'Exportar PDF'].map((tag) =>
+                  <span key={tag} className="px-2.5 py-1 text-[11px] rounded-md bg-primary/[0.06] text-primary font-medium">{tag}</span>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -259,8 +259,8 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={1}
-              className="group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500"
-            >
+              className="group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500">
+              
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
                 <Compass className="h-5 w-5 text-primary" />
               </div>
@@ -277,8 +277,8 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={2}
-              className="group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500"
-            >
+              className="group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500">
+              
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
                 <Mic className="h-5 w-5 text-primary" />
               </div>
@@ -295,8 +295,8 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={3}
-              className="md:col-span-2 group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500"
-            >
+              className="md:col-span-2 group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 hover:shadow-clovely-lg transition-all duration-500">
+              
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/[0.03] rounded-full blur-3xl pointer-events-none" />
               <div className="relative">
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
@@ -308,9 +308,9 @@ const Landing = () => {
                   realmente coinciden con tus habilidades y objetivos.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['Match inteligente', 'Filtros avanzados', 'Alertas personalizadas'].map((tag) => (
-                    <span key={tag} className="px-2.5 py-1 text-[11px] rounded-md bg-primary/[0.06] text-primary font-medium">{tag}</span>
-                  ))}
+                  {['Match inteligente', 'Filtros avanzados', 'Alertas personalizadas'].map((tag) =>
+                  <span key={tag} className="px-2.5 py-1 text-[11px] rounded-md bg-primary/[0.06] text-primary font-medium">{tag}</span>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -326,8 +326,8 @@ const Landing = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
+            
             <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">Cómo funciona</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               De la preparación a la oferta,<br className="hidden sm:block" /> en tres pasos
@@ -339,34 +339,34 @@ const Landing = () => {
             <div className="hidden md:block absolute top-14 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
             {[
-              {
-                num: '01',
-                icon: Compass,
-                title: 'Descubre tu perfil',
-                desc: 'Completa un diagnóstico inteligente que identifica tus fortalezas, intereses y el tipo de roles donde más puedes destacar.',
-              },
-              {
-                num: '02',
-                icon: FileText,
-                title: 'Prepárate con IA',
-                desc: 'Construye un CV optimizado y practica entrevistas con retroalimentación personalizada en tiempo real.',
-              },
-              {
-                num: '03',
-                icon: Target,
-                title: 'Conecta con oportunidades',
-                desc: 'Recibe ofertas laborales alineadas a tu perfil y postula con un CV adaptado a cada posición.',
-              },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="relative text-center"
-              >
+            {
+              num: '01',
+              icon: Compass,
+              title: 'Descubre tu perfil',
+              desc: 'Completa un diagnóstico inteligente que identifica tus fortalezas, intereses y el tipo de roles donde más puedes destacar.'
+            },
+            {
+              num: '02',
+              icon: FileText,
+              title: 'Prepárate con IA',
+              desc: 'Construye un CV optimizado y practica entrevistas con retroalimentación personalizada en tiempo real.'
+            },
+            {
+              num: '03',
+              icon: Target,
+              title: 'Conecta con oportunidades',
+              desc: 'Recibe ofertas laborales alineadas a tu perfil y postula con un CV adaptado a cada posición.'
+            }].
+            map((step, i) =>
+            <motion.div
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={i}
+              className="relative text-center">
+              
                 <div className="relative z-10 w-14 h-14 rounded-2xl bg-card border border-border/50 shadow-clovely-sm flex items-center justify-center mx-auto mb-5">
                   <step.icon className="h-6 w-6 text-primary" />
                 </div>
@@ -374,7 +374,7 @@ const Landing = () => {
                 <h3 className="font-bold text-lg mt-1.5 mb-2.5">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">{step.desc}</p>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -383,14 +383,14 @@ const Landing = () => {
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-5xl px-6 space-y-28">
           {[
-            {
-              icon: FileText,
-              label: 'CV Builder',
-              title: 'Tu mejor versión profesional, en minutos',
-              desc: 'No más horas luchando con el formato. Nuestro editor inteligente analiza tu experiencia y genera un CV que pasa los filtros ATS y captura la atención de reclutadores.',
-              points: ['Sugerencias de mejora con IA', 'Adaptación por industria', 'Exportación en PDF profesional'],
-              visual: (
-                <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-card to-muted/50 border border-border/40 p-6 flex flex-col justify-between">
+          {
+            icon: FileText,
+            label: 'CV Builder',
+            title: 'Tu mejor versión profesional, en minutos',
+            desc: 'No más horas luchando con el formato. Nuestro editor inteligente analiza tu experiencia y genera un CV que pasa los filtros ATS y captura la atención de reclutadores.',
+            points: ['Sugerencias de mejora con IA', 'Adaptación por industria', 'Exportación en PDF profesional'],
+            visual:
+            <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-card to-muted/50 border border-border/40 p-6 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="h-3 w-32 rounded bg-primary/15" />
                     <div className="h-2.5 w-full rounded bg-muted" />
@@ -405,18 +405,18 @@ const Landing = () => {
                     <div className="px-3 py-1.5 rounded-md bg-primary/10 text-[10px] text-primary font-medium">ATS Score: 92%</div>
                     <div className="px-3 py-1.5 rounded-md bg-muted text-[10px] text-muted-foreground">PDF Ready</div>
                   </div>
-                </div>
-              ),
-              reverse: false,
-            },
-            {
-              icon: MessageSquare,
-              label: 'Entrevistas IA',
-              title: 'Practica hasta sentir confianza total',
-              desc: 'Nuestro simulador reproduce escenarios reales de entrevista adaptados a tu rol e industria. Recibe retroalimentación inmediata sobre tus respuestas.',
-              points: ['Preguntas contextuales por rol', 'Análisis de respuestas en tiempo real', 'Historial de sesiones y progreso'],
-              visual: (
-                <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-card to-muted/50 border border-border/40 p-6 flex flex-col gap-3">
+                </div>,
+
+            reverse: false
+          },
+          {
+            icon: MessageSquare,
+            label: 'Entrevistas IA',
+            title: 'Practica hasta sentir confianza total',
+            desc: 'Nuestro simulador reproduce escenarios reales de entrevista adaptados a tu rol e industria. Recibe retroalimentación inmediata sobre tus respuestas.',
+            points: ['Preguntas contextuales por rol', 'Análisis de respuestas en tiempo real', 'Historial de sesiones y progreso'],
+            visual:
+            <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-card to-muted/50 border border-border/40 p-6 flex flex-col gap-3">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-7 h-7 rounded-full bg-primary/15 flex items-center justify-center">
                       <Mic className="h-3.5 w-3.5 text-primary" />
@@ -439,19 +439,19 @@ const Landing = () => {
                     </div>
                     <span className="text-[10px] text-primary font-medium">75%</span>
                   </div>
-                </div>
-              ),
-              reverse: true,
-            },
-          ].map((feature, i) => (
-            <motion.div
-              key={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className={`grid md:grid-cols-2 gap-12 lg:gap-16 items-center`}
-            >
+                </div>,
+
+            reverse: true
+          }].
+          map((feature, i) =>
+          <motion.div
+            key={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className={`grid md:grid-cols-2 gap-12 lg:gap-16 items-center`}>
+            
               <div className={`space-y-5 ${feature.reverse ? 'md:order-2' : ''}`}>
                 <div className="inline-flex items-center gap-2 text-xs font-semibold text-primary uppercase tracking-[0.15em]">
                   <feature.icon className="h-3.5 w-3.5" />
@@ -460,21 +460,21 @@ const Landing = () => {
                 <h3 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
                 <ul className="space-y-3 pt-1">
-                  {feature.points.map((point, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm">
+                  {feature.points.map((point, j) =>
+                <li key={j} className="flex items-center gap-3 text-sm">
                       <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <Check className="h-3 w-3 text-primary" />
                       </div>
                       {point}
                     </li>
-                  ))}
+                )}
                 </ul>
               </div>
               <div className={feature.reverse ? 'md:order-1' : ''}>
                 {feature.visual}
               </div>
             </motion.div>
-          ))}
+          )}
         </div>
       </section>
 
@@ -486,8 +486,8 @@ const Landing = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="text-center mb-14"
-          >
+            className="text-center mb-14">
+            
             <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">Testimonios</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Historias reales de transformación
@@ -496,23 +496,23 @@ const Landing = () => {
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. Clovely me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
-              { name: 'Diego L.', role: 'Desarrollador Junior', text: 'Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.' },
-              { name: 'Camila R.', role: 'Analista de Marketing', text: 'Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil.' },
-            ].map((t, i) => (
-              <motion.div
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="p-6 rounded-2xl border border-border/40 bg-card hover:shadow-clovely-md transition-all duration-300 group"
-              >
+            { name: 'Valentina S.', role: 'Estudiante de Ingeniería', text: 'No sabía cómo armar mi CV sin experiencia. Clovely me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.' },
+            { name: 'Diego L.', role: 'Desarrollador Junior', text: 'Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.' },
+            { name: 'Camila R.', role: 'Analista de Marketing', text: 'Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil.' }].
+            map((t, i) =>
+            <motion.div
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={i}
+              className="p-6 rounded-2xl border border-border/40 bg-card hover:shadow-clovely-md transition-all duration-300 group">
+              
                 <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} className="h-3.5 w-3.5 fill-primary text-primary" />
-                  ))}
+                  {Array.from({ length: 5 }).map((_, j) =>
+                <Star key={j} className="h-3.5 w-3.5 fill-primary text-primary" />
+                )}
                 </div>
                 <p className="text-sm leading-relaxed text-foreground/80 mb-6">
                   &ldquo;{t.text}&rdquo;
@@ -527,7 +527,7 @@ const Landing = () => {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -540,8 +540,8 @@ const Landing = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="text-center mb-14"
-          >
+            className="text-center mb-14">
+            
             <p className="text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-3">Precios</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               Un plan simple, sin sorpresas
@@ -559,24 +559,24 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={0}
-              className="rounded-2xl border border-border/40 bg-card p-7"
-            >
+              className="rounded-2xl border border-border/40 bg-card p-7">
+              
               <p className="text-sm font-semibold mb-1">Modo invitado</p>
               <p className="text-xs text-muted-foreground mb-5">Explora las funciones básicas</p>
               <p className="text-3xl font-bold mb-1">$0</p>
               <p className="text-xs text-muted-foreground mb-6">Para siempre</p>
               <ul className="space-y-2.5 mb-7">
                 {[
-                  '1 plantilla de CV',
-                  'Oportunidades genéricas',
-                  'Diagnóstico básico',
-                  'Funciones limitadas',
-                ].map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                '1 plantilla de CV',
+                'Oportunidades genéricas',
+                'Diagnóstico básico',
+                'Funciones limitadas'].
+                map((f) =>
+                <li key={f} className="flex items-center gap-2.5 text-sm text-muted-foreground">
                     <Check className="h-3.5 w-3.5 text-muted-foreground/60 flex-shrink-0" />
                     {f}
                   </li>
-                ))}
+                )}
               </ul>
               <Link to="/guest-start" className="block">
                 <Button variant="outline" className="w-full h-10 text-sm">
@@ -592,8 +592,8 @@ const Landing = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={1}
-              className="rounded-2xl border-2 border-primary/30 bg-card p-7 relative shadow-clovely-md"
-            >
+              className="rounded-2xl border-2 border-primary/30 bg-card p-7 relative shadow-clovely-md">
+              
               <div className="absolute -top-3 left-7 px-3 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-semibold">
                 Recomendado
               </div>
@@ -606,18 +606,18 @@ const Landing = () => {
               <p className="text-xs text-muted-foreground mb-6">Facturado mensualmente</p>
               <ul className="space-y-2.5 mb-7">
                 {[
-                  'Todas las plantillas de CV',
-                  'Entrevistas ilimitadas con IA',
-                  'Oportunidades personalizadas',
-                  'Match score inteligente',
-                  'Diagnóstico completo RIASEC',
-                  'Exportación PDF ilimitada',
-                ].map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm">
+                'Todas las plantillas de CV',
+                'Entrevistas ilimitadas con IA',
+                'Oportunidades personalizadas',
+                'Match score inteligente',
+                'Diagnóstico completo RIASEC',
+                'Exportación PDF ilimitada'].
+                map((f) =>
+                <li key={f} className="flex items-center gap-2.5 text-sm">
                     <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
                     {f}
                   </li>
-                ))}
+                )}
               </ul>
               <Link to="/registro" className="block">
                 <Button className="w-full h-10 text-sm font-semibold gap-2 shadow-clovely-sm">
@@ -638,8 +638,8 @@ const Landing = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="space-y-6"
-          >
+            className="space-y-6">
+            
             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
               <Rocket className="h-6 w-6 text-primary" />
             </div>
@@ -691,8 +691,8 @@ const Landing = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Landing;
