@@ -43,7 +43,10 @@ export default function Opportunities() {
   const [locationSearch, setLocationSearch] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const isMobile = useIsMobile();
+  const isGuest = useAuthStore((s) => s.isGuestMode);
+  const isPremium = user?.plan === 'premium' || user?.plan === 'pro';
 
   useEffect(() => {
     loadOpportunities({ query: 'developer', location: '' });
