@@ -226,16 +226,34 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       loadOpportunities: async (params?: Partial<SearchParams>) => {
         set({ isLoading: true, error: null });
 
-        // Guest mode: skip API call and use generic mock data
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
+        const authState = useAuthStore.getState();
+        const isGuest = authState.isGuestMode;
+        const userPlan = authState.user?.plan || 'free';
+
+        // Guest mode: show 5 generic mock jobs, no API call
+        if (isGuest) {
           set({
-            opportunities: generateMockOpportunities(),
+            opportunities: generateMockOpportunities().slice(0, 5),
             isLoading: false,
             hasMore: false,
           });
           return;
         }
+
+        // Check session for authenticated users
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          set({
+            opportunities: generateMockOpportunities().slice(0, 5),
+            isLoading: false,
+            hasMore: false,
+          });
+          return;
+        }
+
+        // Free users: check daily limit (5 jobs per day)
+        const FREE_DAILY_LIMIT = 5;
+        const isPremium = userPlan === 'premium' || userPlan === 'pro';
         
         const currentParams = get().searchParams;
         const filters = get().filters;
