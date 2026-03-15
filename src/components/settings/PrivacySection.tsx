@@ -168,7 +168,7 @@ export function PrivacySection() {
             Exportar tus Datos
           </CardTitle>
           <CardDescription>
-            Descarga una copia de toda tu información en Clovely (GDPR)
+            Descarga una copia de toda tu información en MoonJab (GDPR)
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
