@@ -74,7 +74,7 @@ Para las preguntas de behavioral, ten 5-7 historias STAR preparadas que demuestr
     readTime: '8 min',
     category: 'Entrevistas',
     author: 'María González',
-    authorRole: 'CEO de Clovely',
+    authorRole: 'CEO de MoonJab',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=450&fit=crop',
     featured: true
   },
