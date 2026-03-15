@@ -313,7 +313,7 @@ A los 30, tienes algo que no tenías a los 22: experiencia, perspectiva y clarid
     readTime: '10 min',
     category: 'Carrera',
     author: 'María González',
-    authorRole: 'CEO de Clovely',
+    authorRole: 'CEO de MoonJab',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=450&fit=crop',
     featured: false
   },
