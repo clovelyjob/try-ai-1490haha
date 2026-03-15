@@ -110,7 +110,7 @@ Cualquier sugerencia o feedback que proporciones puede ser utilizado por nosotro
     title: '7. Planes y pagos',
     content: `
 **Planes disponibles:**
-Clovely ofrece dos modalidades: un modo invitado gratuito con funciones limitadas y un plan Pro de pago con acceso completo a todas las herramientas.
+MoonJab ofrece dos modalidades: un modo invitado gratuito con funciones limitadas y un plan Pro de pago con acceso completo a todas las herramientas.
 
 **Precio:**
 El plan Pro tiene un costo de $15 USD por mes, facturado mensualmente.
