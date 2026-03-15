@@ -137,7 +137,7 @@ Nos reservamos el derecho de modificar los precios con aviso previo de 30 días 
 La Plataforma se proporciona "tal cual" y "según disponibilidad". No garantizamos que:
 - El servicio será ininterrumpido o libre de errores
 - Los resultados obtenidos serán precisos o confiables
-- Conseguirás empleo o resultados específicos usando Clovely
+- Conseguirás empleo o resultados específicos usando MoonJab
 
 **Limitación de daños:**
 En la máxima medida permitida por la ley, Clovely no será responsable por:
