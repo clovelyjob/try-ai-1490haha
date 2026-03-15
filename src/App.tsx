@@ -14,6 +14,7 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import GuestStart from "./pages/GuestStart";
