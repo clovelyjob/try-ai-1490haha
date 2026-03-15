@@ -170,7 +170,7 @@ const Landing = () => {
                 </div>
               </div>
               <video autoPlay loop muted playsInline className="w-full h-auto">
-                <source src="/clovely-hero-video.mp4" type="video/mp4" />
+                <source src="/moonjab-hero-video.mp4" type="video/mp4" />
               </video>
             </div>
           </motion.div>
