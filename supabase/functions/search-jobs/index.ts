@@ -203,9 +203,8 @@ serve(async (req) => {
       { global: { headers: { Authorization: authHeader } } }
     );
 
-    const token = authHeader.replace('Bearer ', '');
-    const { data: claimsData, error: authError } = await supabaseClient.auth.getClaims(token);
-    if (authError || !claimsData?.claims?.sub) {
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+    if (authError || !user) {
       console.error('[Auth] Error:', authError?.message);
       return new Response(
         JSON.stringify({ error: "No autorizado.", data: [] }),
@@ -213,7 +212,7 @@ serve(async (req) => {
       );
     }
 
-    const userId = claimsData.claims.sub;
+    const userId = user.id;
     const url = new URL(req.url);
     const query = sanitizeSearchInput(url.searchParams.get('query') || 'developer') || 'developer';
     const location = sanitizeSearchInput(url.searchParams.get('location') || '');
