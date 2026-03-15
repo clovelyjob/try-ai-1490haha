@@ -15,6 +15,8 @@ import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { UpgradeBanner } from '@/components/UpgradeBanner';
+import { UpgradeModal } from '@/components/UpgradeModal';
 
 export default function Opportunities() {
   const { user } = useAuthStore();
