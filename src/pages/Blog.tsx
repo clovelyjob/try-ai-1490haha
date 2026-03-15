@@ -300,7 +300,7 @@ A los 30, tienes algo que no tenías a los 22: experiencia, perspectiva y clarid
 
 ### Recursos para empezar
 
-1. **Diagnóstico de Clovely** - Descubre carreras compatibles
+1. **Diagnóstico de MoonJab** - Descubre carreras compatibles
 2. **Cursos online** - Coursera, Platzi, Udemy
 3. **Comunidades** - Encuentra tu tribu en Discord/Slack
 4. **Mentores** - Busca personas que hicieron la transición
