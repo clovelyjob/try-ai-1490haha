@@ -183,7 +183,7 @@ Aceptas resolver disputas de manera individual y renuncias a participar en deman
     title: '11. Disposiciones generales',
     content: `
 **Acuerdo completo:**
-Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y Clovely.
+Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y MoonJab.
 
 **Separabilidad:**
 Si alguna disposición se considera inválida, las demás disposiciones permanecerán en vigor.

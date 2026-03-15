@@ -684,8 +684,8 @@ const Landing = () => {
             </div>
           </div>
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-border/20">
-            <p className="text-[11px] text-muted-foreground">© 2025 Clovely. Todos los derechos reservados.</p>
-            <a href="https://www.instagram.com/clovelyia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
+            <p className="text-[11px] text-muted-foreground">© 2025 MoonJab. Todos los derechos reservados.</p>
+            <a href="https://www.instagram.com/moonjab" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
               <Instagram className="h-4 w-4" />
             </a>
           </div>
