@@ -57,7 +57,7 @@ export function PrivacySection() {
             Visibilidad del Perfil
           </CardTitle>
           <CardDescription>
-            Controla quién puede ver tu perfil y actividad en Clovely
+            Controla quién puede ver tu perfil y actividad en MoonJab
           </CardDescription>
         </CardHeader>
         <CardContent>
