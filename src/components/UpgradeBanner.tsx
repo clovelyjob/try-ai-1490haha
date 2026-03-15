@@ -39,7 +39,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
           rounded-2xl border-2 border-primary/20 
           bg-primary/5 dark:bg-primary/10
           p-4 relative overflow-hidden
-          shadow-clovely-md hover:shadow-clovely-lg hover:-translate-y-0.5 transition-all duration-300
+          shadow-mj-md hover:shadow-mj-lg hover:-translate-y-0.5 transition-all duration-300
         "
       >
         <div className="absolute inset-0 opacity-10 dark:opacity-20">
