@@ -15,12 +15,12 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "clovely-logo-icon.png", "clovely-logo.png"],
+      includeAssets: ["favicon.ico", "moonjab-logo.png"],
       manifest: {
-        name: "Clovely - Tu Coach de Carrera con IA",
-        short_name: "Clovely",
-        description: "Practica entrevistas con IA, crea tu CV profesional y encuentra tu trabajo ideal con matching inteligente",
-        theme_color: "#FF7A00",
+        name: "MoonJab — Construye la carrera que mereces",
+        short_name: "MoonJab",
+        description: "Plataforma de empleabilidad con IA. Mejora tu CV, practica entrevistas y encuentra oportunidades alineadas a tu perfil.",
+        theme_color: "#10b981",
         background_color: "#ffffff",
         display: "standalone",
         orientation: "portrait",
