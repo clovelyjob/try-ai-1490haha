@@ -22,7 +22,7 @@ const VerifyEmail = () => {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email,
-        options: { emailRedirectTo: `${window.location.origin}/onboarding` },
+        options: { emailRedirectTo: `${window.location.origin}/auth` },
       });
       if (error) throw error;
       toast.success('Correo de verificación reenviado');
