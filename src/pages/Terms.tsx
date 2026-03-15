@@ -140,7 +140,7 @@ La Plataforma se proporciona "tal cual" y "según disponibilidad". No garantizam
 - Conseguirás empleo o resultados específicos usando MoonJab
 
 **Limitación de daños:**
-En la máxima medida permitida por la ley, Clovely no será responsable por:
+En la máxima medida permitida por la ley, MoonJab no será responsable por:
 - Daños indirectos, incidentales o consecuentes
 - Pérdida de beneficios, datos o oportunidades
 - Cualquier daño que exceda el monto pagado en los últimos 12 meses
