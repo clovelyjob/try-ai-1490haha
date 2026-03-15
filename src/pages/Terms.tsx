@@ -92,7 +92,7 @@ Puedes eliminar tu contenido en cualquier momento. Tras la eliminación, haremos
     title: '6. Propiedad intelectual',
     content: `
 **Nuestra propiedad:**
-Todo el contenido de Clovely, incluyendo pero no limitado a:
+Todo el contenido de MoonJab, incluyendo pero no limitado a:
 - Diseño, logos y marca
 - Código fuente y algoritmos
 - Textos, gráficos e interfaces
