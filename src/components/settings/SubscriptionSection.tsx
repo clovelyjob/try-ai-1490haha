@@ -15,47 +15,47 @@ interface PaymentHistory {
 }
 
 const MOCK_PAYMENT_HISTORY: PaymentHistory[] = [
-  {
-    id: 'inv_001',
-    date: '2025-01-01',
-    amount: '$20.00',
-    method: 'Visa ****1234',
-    status: 'paid',
-  },
-  {
-    id: 'inv_002',
-    date: '2024-12-01',
-    amount: '$20.00',
-    method: 'Visa ****1234',
-    status: 'paid',
-  },
-  {
-    id: 'inv_003',
-    date: '2024-11-01',
-    amount: '$20.00',
-    method: 'Visa ****1234',
-    status: 'paid',
-  },
-];
+{
+  id: 'inv_001',
+  date: '2025-01-01',
+  amount: '$20.00',
+  method: 'Visa ****1234',
+  status: 'paid'
+},
+{
+  id: 'inv_002',
+  date: '2024-12-01',
+  amount: '$20.00',
+  method: 'Visa ****1234',
+  status: 'paid'
+},
+{
+  id: 'inv_003',
+  date: '2024-11-01',
+  amount: '$20.00',
+  method: 'Visa ****1234',
+  status: 'paid'
+}];
+
 
 const PLAN_FEATURES = {
   free: [
-    'Diagnóstico de carrera',
-    'Hasta 3 CVs',
-    '5 simulaciones de entrevista/mes',
-    'Acceso a oportunidades',
-    'Coach IA básico',
-  ],
+  'Diagnóstico de carrera',
+  'Hasta 3 CVs',
+  '5 simulaciones de entrevista/mes',
+  'Acceso a oportunidades',
+  'Coach IA básico'],
+
   premium: [
-    'Todo lo de Free',
-    'CVs ilimitados',
-    'Simulaciones ilimitadas',
-    'Optimización IA avanzada',
-    'Análisis de compatibilidad detallado',
-    'Mentoría personalizada',
-    'Sin anuncios',
-    'Soporte prioritario',
-  ],
+  'Todo lo de Free',
+  'CVs ilimitados',
+  'Simulaciones ilimitadas',
+  'Optimización IA avanzada',
+  'Análisis de compatibilidad detallado',
+  'Mentoría personalizada',
+  'Sin anuncios',
+  'Soporte prioritario']
+
 };
 
 export function SubscriptionSection() {
@@ -66,31 +66,31 @@ export function SubscriptionSection() {
 
   const handleUpgrade = async () => {
     setIsUpgrading(true);
-    
+
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    
+
     updateUser({ plan: 'premium' });
-    
+
     toast({
       title: '¡Bienvenido a Premium! 🎉',
-      description: 'Ya tienes acceso a todas las funcionalidades avanzadas.',
+      description: 'Ya tienes acceso a todas las funcionalidades avanzadas.'
     });
-    
+
     setIsUpgrading(false);
   };
 
   const handleDownloadInvoice = (invoiceId: string) => {
     toast({
       title: 'Descargando factura',
-      description: `Factura ${invoiceId} se descargará en breve. (Mock)`,
+      description: `Factura ${invoiceId} se descargará en breve. (Mock)`
     });
   };
 
   const handleUpdatePaymentMethod = () => {
     toast({
       title: 'Actualizar método de pago',
-      description: 'Esta funcionalidad estará disponible con integración de Stripe.',
+      description: 'Esta funcionalidad estará disponible con integración de Stripe.'
     });
   };
 
@@ -106,9 +106,9 @@ export function SubscriptionSection() {
                 Plan {isPremium ? 'Premium' : 'Free'}
               </CardTitle>
               <CardDescription>
-                {isPremium 
-                  ? 'Acceso completo a todas las funcionalidades'
-                  : 'Plan gratuito con funcionalidades básicas'
+                {isPremium ?
+                'Acceso completo a todas las funcionalidades' :
+                'Plan gratuito con funcionalidades básicas'
                 }
               </CardDescription>
             </div>
@@ -122,43 +122,43 @@ export function SubscriptionSection() {
           <div>
             <p className="text-sm font-medium mb-3">Incluye:</p>
             <ul className="space-y-2">
-              {PLAN_FEATURES[isPremium ? 'premium' : 'free'].map((feature, index) => (
-                <li key={index} className="text-sm flex items-center gap-2">
+              {PLAN_FEATURES[isPremium ? 'premium' : 'free'].map((feature, index) =>
+              <li key={index} className="text-sm flex items-center gap-2">
                   <span className="text-primary">✓</span>
                   {feature}
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
           {/* Upgrade CTA */}
-          {!isPremium && (
-            <div className="pt-4 border-t">
+          {!isPremium &&
+          <div className="pt-4 border-t">
               <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
                 <p className="text-primary font-semibold">✨ 7 días de prueba gratuita</p>
                 <p className="text-xs text-muted-foreground">Sin compromiso. Cancela cuando quieras.</p>
               </div>
               <div className="flex items-center justify-between mb-2">
                 <div>
-                  <p className="text-lg font-bold">$20/mes</p>
-                  <p className="text-xs text-muted-foreground">O $200/año (ahorra 17%)</p>
+                  <p className="text-lg font-bold">$15/mes</p>
+                  <p className="text-xs text-muted-foreground">​</p>
                 </div>
               </div>
-              <Button 
-                onClick={handleUpgrade} 
-                disabled={isUpgrading}
-                className="w-full"
-                size="lg"
-              >
+              <Button
+              onClick={handleUpgrade}
+              disabled={isUpgrading}
+              className="w-full"
+              size="lg">
+              
                 <Crown className="h-4 w-4 mr-2" />
                 {isUpgrading ? 'Procesando...' : 'Actualizar a Premium'}
               </Button>
             </div>
-          )}
+          }
 
           {/* Premium Info */}
-          {isPremium && (
-            <div className="pt-4 border-t space-y-2">
+          {isPremium &&
+          <div className="pt-4 border-t space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Próxima facturación</span>
                 <span className="font-medium">
@@ -174,13 +174,13 @@ export function SubscriptionSection() {
                 </Button>
               </div>
             </div>
-          )}
+          }
         </CardContent>
       </Card>
 
       {/* Payment History */}
-      {isPremium && (
-        <Card>
+      {isPremium &&
+      <Card>
           <CardHeader>
             <CardTitle>
               <TrendingUp className="h-5 w-5 inline mr-2" />
@@ -192,18 +192,18 @@ export function SubscriptionSection() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {MOCK_PAYMENT_HISTORY.map((payment) => (
-                <div
-                  key={payment.id}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                >
+              {MOCK_PAYMENT_HISTORY.map((payment) =>
+            <div
+              key={payment.id}
+              className="flex items-center justify-between p-3 border rounded-lg">
+              
                   <div className="space-y-1">
                     <p className="text-sm font-medium">
                       {new Date(payment.date).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                     </p>
                     <p className="text-xs text-muted-foreground">{payment.method}</p>
                   </div>
@@ -211,40 +211,40 @@ export function SubscriptionSection() {
                     <div className="text-right">
                       <p className="text-sm font-semibold">{payment.amount}</p>
                       <Badge
-                        variant={
-                          payment.status === 'paid'
-                            ? 'default'
-                            : payment.status === 'pending'
-                            ? 'secondary'
-                            : 'destructive'
-                        }
-                        className="text-xs"
-                      >
-                        {payment.status === 'paid'
-                          ? 'Pagado'
-                          : payment.status === 'pending'
-                          ? 'Pendiente'
-                          : 'Fallido'}
+                    variant={
+                    payment.status === 'paid' ?
+                    'default' :
+                    payment.status === 'pending' ?
+                    'secondary' :
+                    'destructive'
+                    }
+                    className="text-xs">
+                    
+                        {payment.status === 'paid' ?
+                    'Pagado' :
+                    payment.status === 'pending' ?
+                    'Pendiente' :
+                    'Fallido'}
                       </Badge>
                     </div>
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDownloadInvoice(payment.id)}
-                    >
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleDownloadInvoice(payment.id)}>
+                  
                       <Download className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
-              ))}
+            )}
             </div>
           </CardContent>
         </Card>
-      )}
+      }
 
       {/* Premium Benefits */}
-      {!isPremium && (
-        <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+      {!isPremium &&
+      <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
           <CardHeader>
             <CardTitle>¿Por qué Premium?</CardTitle>
             <CardDescription>
@@ -289,7 +289,7 @@ export function SubscriptionSection() {
             </div>
           </CardContent>
         </Card>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }
