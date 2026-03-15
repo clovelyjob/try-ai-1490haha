@@ -223,7 +223,7 @@ Si incluyes foto, que sea profesional. Fondo neutro, buena iluminación, vestime
 
 ---
 
-*Crea un CV optimizado con IA en minutos usando el builder de Clovely.*
+*Crea un CV optimizado con IA en minutos usando el builder de MoonJab.*
     `,
     date: '28 Nov 2024',
     readTime: '7 min',
