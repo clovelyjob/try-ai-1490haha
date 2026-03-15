@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { z } from 'zod';
+import { verifyEmailExists } from '@/lib/verifyEmail';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
@@ -57,6 +58,13 @@ const Register = () => {
     }
     setLoading(true);
     try {
+      const emailCheck = await verifyEmailExists(formData.email);
+      if (!emailCheck.valid) {
+        toast.error(emailCheck.reason || 'El correo ingresado no es válido');
+        setErrors({ email: emailCheck.reason || 'Correo inválido' });
+        setLoading(false);
+        return;
+      }
       await register(formData.name, formData.email, formData.password);
       toast.success('Cuenta creada exitosamente');
       setTimeout(() => navigate('/onboarding'), 1500);

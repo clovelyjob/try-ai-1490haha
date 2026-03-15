@@ -9,6 +9,7 @@ import { AlertCircle, Sparkles, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
+import { verifyEmailExists } from '@/lib/verifyEmail';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
@@ -51,6 +52,14 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
     setIsLoading(true);
 
     try {
+      // Verificar que el email existe
+      const emailCheck = await verifyEmailExists(formData.email);
+      if (!emailCheck.valid) {
+        setErrors({ email: emailCheck.reason || 'Correo inválido' });
+        setIsLoading(false);
+        return;
+      }
+
       // Registrar usuario en Supabase
       const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: formData.email,
