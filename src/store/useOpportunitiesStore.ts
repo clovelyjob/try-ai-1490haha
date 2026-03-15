@@ -10,6 +10,7 @@ import {
 } from '@/types';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface SearchParams {
   query: string;
@@ -225,16 +226,34 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
       loadOpportunities: async (params?: Partial<SearchParams>) => {
         set({ isLoading: true, error: null });
 
-        // Guest mode: skip API call and use generic mock data
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
+        const authState = useAuthStore.getState();
+        const isGuest = authState.isGuestMode;
+        const userPlan = authState.user?.plan || 'free';
+
+        // Guest mode: show 5 generic mock jobs, no API call
+        if (isGuest) {
           set({
-            opportunities: generateMockOpportunities(),
+            opportunities: generateMockOpportunities().slice(0, 5),
             isLoading: false,
             hasMore: false,
           });
           return;
         }
+
+        // Check session for authenticated users
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          set({
+            opportunities: generateMockOpportunities().slice(0, 5),
+            isLoading: false,
+            hasMore: false,
+          });
+          return;
+        }
+
+        // Free users: check daily limit (5 jobs per day)
+        const FREE_DAILY_LIMIT = 5;
+        const isPremium = userPlan === 'premium';
         
         const currentParams = get().searchParams;
         const filters = get().filters;
@@ -301,8 +320,9 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
           if (result.error) {
             console.warn('API returned error, using mock data:', result.error);
+            const mockData = generateMockOpportunities().slice(0, FREE_DAILY_LIMIT);
             set({ 
-              opportunities: generateMockOpportunities(),
+              opportunities: mockData,
               isLoading: false,
               error: result.error,
               hasMore: false,
@@ -311,24 +331,32 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
           }
 
           if (result.data && result.data.length > 0) {
+            // Free users: limit to 5 jobs per day
+            const limitedData = isPremium ? result.data : result.data.slice(0, FREE_DAILY_LIMIT);
+            const limitedHasMore = isPremium ? (result.hasMore || false) : false;
+
             // Store in cache
             set((state) => ({
               cache: {
                 ...state.cache,
                 [cacheKey]: {
-                  data: result.data,
+                  data: limitedData,
                   timestamp: Date.now(),
-                  hasMore: result.hasMore || false,
+                  hasMore: limitedHasMore,
                 },
               },
-              opportunities: newParams.page === 1 ? result.data : [...get().opportunities, ...result.data],
+              opportunities: newParams.page === 1 ? limitedData : [...get().opportunities, ...limitedData],
               isLoading: false,
-              hasMore: result.hasMore || false,
+              hasMore: limitedHasMore,
             }));
+
+            if (!isPremium && result.data.length > FREE_DAILY_LIMIT) {
+              toast.info('Con el plan gratuito puedes ver hasta 5 trabajos al día. ¡Actualiza a Pro para ver más!');
+            }
           } else {
             if (newParams.page === 1) {
               set({ 
-                opportunities: generateMockOpportunities(),
+                opportunities: generateMockOpportunities().slice(0, FREE_DAILY_LIMIT),
                 isLoading: false,
                 hasMore: false,
               });
@@ -339,7 +367,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         } catch (error) {
           console.error('Error loading opportunities:', error);
           set({ 
-            opportunities: generateMockOpportunities(),
+            opportunities: generateMockOpportunities().slice(0, 5),
             isLoading: false,
             error: error instanceof Error ? error.message : 'Error loading opportunities',
             hasMore: false,
