@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) => ({
             short_name: "CV",
             description: "Crea o edita tu CV profesional",
             url: "/dashboard/cv",
-            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
           },
           {
             name: "Oportunidades",
