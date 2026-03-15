@@ -36,10 +36,8 @@ const Login = () => {
     setLoading(true);
     try {
       await login(formData.email, formData.password);
-      const { data: profile } = await supabase
-        .from('profiles').select('rol_profesional').eq('email', formData.email).single();
       toast.success('Bienvenido de vuelta');
-      navigate(profile?.rol_profesional ? '/dashboard' : '/onboarding');
+      navigate('/dashboard');
     } catch (error: any) {
       const msg = error.message || '';
       if (msg.includes('Email not confirmed')) {

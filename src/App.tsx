@@ -90,7 +90,7 @@ const App = () => (
             
                 {/* Dashboard routes with shared sidebar layout */}
                 <Route path="/dashboard" element={
-                  <ProtectedRoute requireOnboarding={true}>
+                  <ProtectedRoute>
                     <DashboardLayout />
                   </ProtectedRoute>
                 }>
