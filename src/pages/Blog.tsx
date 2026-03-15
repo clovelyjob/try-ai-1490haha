@@ -68,7 +68,7 @@ Para las preguntas de behavioral, ten 5-7 historias STAR preparadas que demuestr
 
 ---
 
-*¿Quieres practicar entrevistas con feedback de IA? Prueba el simulador de Clovely gratis.*
+*¿Quieres practicar entrevistas con feedback de IA? Prueba el simulador de MoonJab gratis.*
     `,
     date: '5 Dic 2024',
     readTime: '8 min',
