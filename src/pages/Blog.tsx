@@ -307,7 +307,7 @@ A los 30, tienes algo que no tenías a los 22: experiencia, perspectiva y clarid
 
 ---
 
-*¿Listo para descubrir tu próximo capítulo? Empieza con el diagnóstico gratuito de Clovely.*
+*¿Listo para descubrir tu próximo capítulo? Empieza con el diagnóstico gratuito de MoonJab.*
     `,
     date: '25 Nov 2024',
     readTime: '10 min',
