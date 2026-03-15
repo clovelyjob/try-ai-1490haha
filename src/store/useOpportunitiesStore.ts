@@ -149,7 +149,7 @@ const generateMockOpportunities = (): Opportunity[] => [
     publishedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
     expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
     salaryRange: { min: 2500, max: 4000, currency: 'USD' },
-    source: 'Clovely',
+    source: 'MoonJab',
     views: 430,
     applicantsCount: 29,
   },
