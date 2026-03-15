@@ -9,6 +9,7 @@ import { AlertCircle, Sparkles, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
+import { verifyEmailExists } from '@/lib/verifyEmail';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
