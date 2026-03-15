@@ -46,7 +46,7 @@ export default function Opportunities() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const isMobile = useIsMobile();
   const isGuest = useAuthStore((s) => s.isGuestMode);
-  const isPremium = user?.plan === 'premium' || user?.plan === 'pro';
+  const isPremium = user?.plan === 'premium';
 
   useEffect(() => {
     loadOpportunities({ query: 'developer', location: '' });
