@@ -52,7 +52,7 @@ Nos reservamos el derecho de suspender o terminar cuentas que violen estos Térm
   }, {
     title: '4. Uso aceptable',
     content: `
-Te comprometes a utilizar Clovely de manera responsable y legal.
+Te comprometes a utilizar MoonJab de manera responsable y legal.
 
 **Está permitido:**
 - Usar la Plataforma para tu desarrollo profesional personal
