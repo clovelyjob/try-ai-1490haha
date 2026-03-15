@@ -367,7 +367,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
         } catch (error) {
           console.error('Error loading opportunities:', error);
           set({ 
-            opportunities: generateMockOpportunities(),
+            opportunities: generateMockOpportunities().slice(0, 5),
             isLoading: false,
             error: error instanceof Error ? error.message : 'Error loading opportunities',
             hasMore: false,
