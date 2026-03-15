@@ -34,7 +34,7 @@ export function AppearanceSection() {
             Apariencia
           </CardTitle>
           <CardDescription>
-            Personaliza cómo se ve Clovely para ti
+            Personaliza cómo se ve MoonJab para ti
           </CardDescription>
         </CardHeader>
       </Card>

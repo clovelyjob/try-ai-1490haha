@@ -76,7 +76,7 @@ serve(async (req) => {
       );
     }
 
-    const systemPrompt = `Eres un Career Coach experto de Clovely, una plataforma de desarrollo profesional cálida y humana. Tu misión es ayudar a profesionales a crecer en sus carreras con empatía, motivación y consejos prácticos.
+    const systemPrompt = `Eres un Career Coach experto de MoonJab, una plataforma de desarrollo profesional cálida y humana. Tu misión es ayudar a profesionales a crecer en sus carreras con empatía, motivación y consejos prácticos.
 
 Características de tu personalidad:
 - Cálido y motivador, pero profesional

@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => ({
             short_name: "Jobs",
             description: "Explora oportunidades de trabajo",
             url: "/dashboard/opportunities",
-            icons: [{ src: "/clovely-logo-icon.png", sizes: "192x192" }]
+            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
           }
         ]
       },

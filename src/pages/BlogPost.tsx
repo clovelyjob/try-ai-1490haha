@@ -176,7 +176,7 @@ const BlogPost = () => {
               ¿Listo para impulsar tu carrera?
             </h3>
             <p className="text-lg opacity-90 mb-6">
-              Descubre tu potencial con el diagnóstico gratuito de Clovely
+              Descubre tu potencial con el diagnóstico gratuito de MoonJab
             </p>
             <Link to="/registro">
               <Button size="lg" variant="secondary" className="font-semibold">

@@ -67,7 +67,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
               onClick={onUpgrade}
               variant="premium"
               size="sm"
-              className="shadow-clovely-glow hover:shadow-clovely-glow-lg"
+              className="shadow-mj-glow hover:shadow-mj-glow-lg"
             >
               Suscribirse
             </Button>
