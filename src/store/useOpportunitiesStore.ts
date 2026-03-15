@@ -253,7 +253,7 @@ export const useOpportunitiesStore = create<OpportunitiesState>()(
 
         // Free users: check daily limit (5 jobs per day)
         const FREE_DAILY_LIMIT = 5;
-        const isPremium = userPlan === 'premium' || userPlan === 'pro';
+        const isPremium = userPlan === 'premium';
         
         const currentParams = get().searchParams;
         const filters = get().filters;
