@@ -66,8 +66,8 @@ const Register = () => {
         return;
       }
       await register(formData.name, formData.email, formData.password);
-      toast.success('Cuenta creada exitosamente');
-      setTimeout(() => navigate('/onboarding'), 1500);
+      toast.success('Cuenta creada. Revisa tu correo para verificarla.');
+      navigate('/verify-email', { state: { email: formData.email } });
     } catch (error: any) {
       if (error.message?.includes('already registered')) toast.error('Este email ya está registrado.');
       else toast.error(error.message || 'Error al crear la cuenta');
