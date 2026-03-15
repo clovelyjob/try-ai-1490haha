@@ -312,27 +312,27 @@
     background: var(--gradient-premium);
   }
 
-  .shadow-clovely-sm {
+  .shadow-mj-sm {
     box-shadow: var(--shadow-sm);
   }
 
-  .shadow-clovely {
+  .shadow-mj {
     box-shadow: var(--shadow-md);
   }
 
-  .shadow-clovely-md {
+  .shadow-mj-md {
     box-shadow: var(--shadow-md);
   }
 
-  .shadow-clovely-lg {
+  .shadow-mj-lg {
     box-shadow: var(--shadow-lg);
   }
 
-  .shadow-clovely-xl {
+  .shadow-mj-xl {
     box-shadow: var(--shadow-xl);
   }
 
-  .shadow-clovely-glow {
+  .shadow-mj-glow {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 0 40px rgba(16, 185, 129, 0.08);
   }
 
