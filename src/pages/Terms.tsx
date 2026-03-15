@@ -154,7 +154,7 @@ No seremos responsables por incumplimientos causados por eventos fuera de nuestr
   }, {
     title: '9. Indemnización',
     content: `
-Aceptas indemnizar y mantener indemne a Clovely, sus directores, empleados y agentes, de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales razonables) que surja de:
+Aceptas indemnizar y mantener indemne a MoonJab, sus directores, empleados y agentes, de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales razonables) que surja de:
 
 - Tu uso de la Plataforma
 - Tu violación de estos Términos
