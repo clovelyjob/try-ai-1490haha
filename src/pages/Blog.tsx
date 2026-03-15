@@ -57,7 +57,7 @@ Para las preguntas de behavioral, ten 5-7 historias STAR preparadas que demuestr
 
 1. **LeetCode** - Para práctica de algoritmos
 2. **System Design Primer** - Para arquitectura
-3. **Clovely** - Para simulaciones con IA que te dan feedback real
+3. **MoonJab** - Para simulaciones con IA que te dan feedback real
 
 ### El día de la entrevista
 
