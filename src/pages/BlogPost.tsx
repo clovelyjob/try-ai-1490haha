@@ -30,7 +30,7 @@ const BlogPost = () => {
   }
 
   const shareUrl = window.location.href;
-  const shareText = `${post.title} - Clovely Blog`;
+  const shareText = `${post.title} - MoonJab Blog`;
 
   return (
     <div className="min-h-screen bg-background">
