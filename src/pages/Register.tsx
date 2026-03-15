@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { z } from 'zod';
+import { verifyEmailExists } from '@/lib/verifyEmail';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
