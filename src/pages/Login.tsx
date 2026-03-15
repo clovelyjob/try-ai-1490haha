@@ -9,7 +9,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 import { OfficialLogo } from '@/components/OfficialLogo';
-import { supabase } from '@/integrations/supabase/client';
+
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -36,10 +36,8 @@ const Login = () => {
     setLoading(true);
     try {
       await login(formData.email, formData.password);
-      const { data: profile } = await supabase
-        .from('profiles').select('rol_profesional').eq('email', formData.email).single();
       toast.success('Bienvenido de vuelta');
-      navigate(profile?.rol_profesional ? '/dashboard' : '/onboarding');
+      navigate('/dashboard');
     } catch (error: any) {
       const msg = error.message || '';
       if (msg.includes('Email not confirmed')) {
