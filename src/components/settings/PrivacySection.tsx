@@ -203,7 +203,7 @@ export function PrivacySection() {
                 Tu privacidad es importante
               </p>
               <p>
-                Clovely nunca venderá tus datos personales. Los datos agregados que
+                MoonJab nunca venderá tus datos personales. Los datos agregados que
                 compartimos con instituciones están anonimizados y solo se usan para
                 mejorar programas educativos y de empleabilidad.
               </p>
