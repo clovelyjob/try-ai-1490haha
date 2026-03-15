@@ -312,27 +312,27 @@
     background: var(--gradient-premium);
   }
 
-  .shadow-mj-sm {
+  .shadow-mj-sm, .shadow-clovely-sm {
     box-shadow: var(--shadow-sm);
   }
 
-  .shadow-mj {
+  .shadow-mj, .shadow-clovely {
     box-shadow: var(--shadow-md);
   }
 
-  .shadow-mj-md {
+  .shadow-mj-md, .shadow-clovely-md {
     box-shadow: var(--shadow-md);
   }
 
-  .shadow-mj-lg {
+  .shadow-mj-lg, .shadow-clovely-lg {
     box-shadow: var(--shadow-lg);
   }
 
-  .shadow-mj-xl {
+  .shadow-mj-xl, .shadow-clovely-xl {
     box-shadow: var(--shadow-xl);
   }
 
-  .shadow-mj-glow {
+  .shadow-mj-glow, .shadow-clovely-glow {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 0 40px rgba(16, 185, 129, 0.08);
   }
 
