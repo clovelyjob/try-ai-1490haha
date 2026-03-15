@@ -647,7 +647,7 @@ const Landing = () => {
               Tu próximo paso profesional<br className="hidden sm:block" /> empieza aquí
             </h2>
             <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Únete a miles de profesionales que ya transformaron su carrera con Clovely.
+              Únete a miles de profesionales que ya transformaron su carrera con MoonJab.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <Link to="/registro">
