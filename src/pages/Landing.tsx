@@ -29,7 +29,8 @@ const Landing = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start']
+    offset: ['start start', 'end start'],
+    layoutEffect: false,
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
