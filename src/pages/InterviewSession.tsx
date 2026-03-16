@@ -9,10 +9,12 @@ import { useInterviewStore } from "@/store/useInterviewStore";
 import { useToast } from "@/hooks/use-toast";
 import { VideoRecorder } from "@/components/interview/VideoRecorder";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from 'react-i18next';
 
 type ResponseMode = 'text' | 'video';
 
 export default function InterviewSession() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { currentSession, getNextQuestion, submitResponse, isAnalyzing, endSession, questionBank } = useInterviewStore();
@@ -22,7 +24,6 @@ export default function InterviewSession() {
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [responseMode, setResponseMode] = useState<ResponseMode>('text');
 
-  // Get response mode from localStorage
   useEffect(() => {
     const savedMode = localStorage.getItem('moonjab_interview_response_mode') as ResponseMode;
     if (savedMode && (savedMode === 'text' || savedMode === 'video')) {
@@ -46,8 +47,8 @@ export default function InterviewSession() {
   const handleSubmit = async () => {
     if (!answer.trim()) {
       toast({
-        title: "Respuesta vacía",
-        description: "Por favor escribe una respuesta antes de continuar",
+        title: t('interviews.session.emptyAnswer'),
+        description: t('interviews.session.emptyAnswerDesc'),
         variant: "destructive",
       });
       return;
@@ -69,7 +70,6 @@ export default function InterviewSession() {
     setIsTranscribing(true);
     
     try {
-      // Convert blob to base64
       const reader = new FileReader();
       const base64Promise = new Promise<string>((resolve) => {
         reader.onloadend = () => {
@@ -80,7 +80,6 @@ export default function InterviewSession() {
       reader.readAsDataURL(blob);
       const base64Audio = await base64Promise;
 
-      // Call transcription edge function with mimeType
       const { data, error } = await supabase.functions.invoke('transcribe-audio', {
         body: { 
           audio: base64Audio,
@@ -93,26 +92,26 @@ export default function InterviewSession() {
       if (data?.text) {
         setAnswer(data.text);
         toast({
-          title: "Transcripción completada",
-          description: "Tu respuesta ha sido transcrita. Revísala y envíala.",
+          title: t('interviews.session.transcriptionComplete'),
+          description: t('interviews.session.transcriptionCompleteDesc'),
         });
       } else if (data?.message) {
         toast({
-          title: "Grabación guardada",
+          title: t('interviews.session.recordingSaved'),
           description: data.message,
         });
       }
     } catch (error) {
       console.error('Transcription error:', error);
       toast({
-        title: "Error de transcripción",
-        description: "Escribe tu respuesta basándote en lo que dijiste.",
+        title: t('interviews.session.transcriptionError'),
+        description: t('interviews.session.transcriptionErrorDesc'),
         variant: "destructive",
       });
     } finally {
       setIsTranscribing(false);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   const isLoading = isAnalyzing || isTranscribing;
 
@@ -121,8 +120,8 @@ export default function InterviewSession() {
       {/* Progress */}
       <Card className="p-4 sm:p-6 space-y-3 rounded-2xl shadow-clovely-lg border-2 border-primary/10">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Progreso</span>
-          <span className="font-medium">{answeredCount} / {totalQuestions} preguntas</span>
+          <span className="text-muted-foreground">{t('interviews.session.progress')}</span>
+          <span className="font-medium">{answeredCount} / {totalQuestions} {t('interviews.session.questions')}</span>
         </div>
         <Progress value={progress} className="h-4 sm:h-5 [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-primary-warm" />
       </Card>
@@ -131,7 +130,7 @@ export default function InterviewSession() {
       <Card className="p-5 sm:p-8 space-y-5 sm:space-y-6 rounded-xl bg-gradient-to-br from-card to-primary/[0.02] shadow-clovely-md border-2">
         <div className="space-y-3">
           <div className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary-warm/10 border-2 border-primary/20 text-primary text-sm font-medium">
-            Pregunta {answeredCount + 1}
+            {t('interviews.session.question')} {answeredCount + 1}
           </div>
           <h2 className="text-xl sm:text-2xl font-semibold leading-relaxed">
             {currentQuestion?.text}
@@ -139,7 +138,7 @@ export default function InterviewSession() {
           {currentQuestion?.sampleAnswer && (
             <details className="text-sm text-muted-foreground">
               <summary className="cursor-pointer hover:text-foreground transition-colors">
-                Ver ejemplo de respuesta
+                {t('interviews.session.sampleAnswer')}
               </summary>
               <p className="mt-2 pl-4 border-l-2 border-primary/30 bg-muted/50 p-3 rounded-r-lg">
                 {currentQuestion.sampleAnswer}
@@ -148,7 +147,7 @@ export default function InterviewSession() {
           )}
         </div>
 
-        {/* Response Area - Text or Video */}
+        {/* Response Area */}
         <div className="space-y-3">
           {responseMode === 'video' ? (
             <div className="space-y-4">
@@ -157,10 +156,9 @@ export default function InterviewSession() {
                 disabled={isLoading}
               />
               
-              {/* Show transcribed text or input area */}
               <div className="space-y-2">
                 <p className="text-sm font-medium">
-                  {answer ? 'Transcripción:' : 'Tu respuesta:'}
+                  {answer ? t('interviews.session.transcription') : `${t('interviews.session.yourAnswer')}:`}
                 </p>
                 <Textarea
                   value={answer}
@@ -168,24 +166,24 @@ export default function InterviewSession() {
                   rows={6}
                   disabled={isLoading}
                   className="resize-none rounded-xl shadow-clovely-sm"
-                  placeholder="Escribe tu respuesta aquí o grábate hablando..."
+                  placeholder={t('interviews.session.writeOrRecord')}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Puedes escribir directamente o grabar un video y luego editar el texto
+                  {t('interviews.session.writeOrEdit')}
                 </p>
               </div>
               
               {isTranscribing && (
                 <div className="flex items-center justify-center gap-2 py-4 text-muted-foreground">
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Procesando grabación...</span>
+                  <span>{t('interviews.session.processingRecording')}</span>
                 </div>
               )}
             </div>
           ) : (
             <>
               <Textarea
-                placeholder="Escribe tu respuesta aquí..."
+                placeholder={t('interviews.session.answerPlaceholder')}
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 rows={10}
@@ -193,7 +191,7 @@ export default function InterviewSession() {
                 className="resize-none min-h-[200px] sm:min-h-[240px] rounded-xl shadow-clovely-sm focus-visible:shadow-clovely-md focus-visible:ring-primary/20 transition-all duration-300"
               />
               <p className="text-sm text-muted-foreground bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
-                Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento
+                {t('interviews.session.starTip')}
               </p>
             </>
           )}
@@ -203,14 +201,14 @@ export default function InterviewSession() {
           <Button
             variant="outline"
             onClick={() => {
-              if (confirm("¿Seguro que quieres salir? Se perderá tu progreso.")) {
+              if (confirm(t('interviews.session.exitConfirm'))) {
                 navigate('/dashboard/interviews');
               }
             }}
             disabled={isLoading}
             className="min-h-[44px] w-full sm:w-auto shadow-clovely-sm"
           >
-            Salir
+            {t('interviews.session.exit')}
           </Button>
           <Button 
             onClick={handleSubmit} 
@@ -221,15 +219,15 @@ export default function InterviewSession() {
             {isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                {isTranscribing ? 'Procesando...' : 'Analizando...'}
+                {isTranscribing ? t('interviews.session.processing') : t('interviews.session.analyzing')}
               </>
             ) : answeredCount === totalQuestions - 1 ? (
               <>
-                Finalizar <CheckCircle2 className="w-4 h-4 ml-2" />
+                {t('interviews.session.finalize')} <CheckCircle2 className="w-4 h-4 ml-2" />
               </>
             ) : (
               <>
-                Siguiente <ChevronRight className="w-4 h-4 ml-2" />
+                {t('interviews.session.next')} <ChevronRight className="w-4 h-4 ml-2" />
               </>
             )}
           </Button>
@@ -243,14 +241,13 @@ export default function InterviewSession() {
             <div className="p-2 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-500/10">
               <CheckCircle2 className="h-4 w-4 text-green-600" />
             </div>
-            Última retroalimentación
+            {t('interviews.session.lastFeedback')}
           </h3>
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground p-4 rounded-lg bg-muted/50">
               {currentSession.responses[currentSession.responses.length - 1].feedbackText}
             </p>
             
-            {/* Mostrar puntuación detallada */}
             {currentSession.responses[currentSession.responses.length - 1].scores && (
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 pt-3 border-t">
                 {Object.entries(currentSession.responses[currentSession.responses.length - 1].scores).map(([key, value]) => (

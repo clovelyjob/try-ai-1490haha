@@ -7,8 +7,10 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { UpgradeModal } from "@/components/UpgradeModal";
+import { useTranslation } from 'react-i18next';
 
 export default function InterviewLanding() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { sessions, metrics } = useInterviewStore();
   const { isGuestMode, user } = useAuthStore();
@@ -17,17 +19,19 @@ export default function InterviewLanding() {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const recentSessions = sessions.slice(-3).reverse();
 
+  const locale = i18n.language?.startsWith('es') ? 'es-ES' : 'en-US';
+
   const stats = [
-    { icon: Target, label: 'Entrevistas', value: metrics.interviewCount },
-    { icon: TrendingUp, label: 'Mejor Puntuación', value: metrics.bestScore },
-    { icon: TrendingUp, label: 'Promedio', value: Math.round(metrics.averageScore) },
-    { icon: Clock, label: 'Racha', value: `${metrics.streaks}d` },
+    { icon: Target, label: t('interviews.landing.statsInterviews'), value: metrics.interviewCount },
+    { icon: TrendingUp, label: t('interviews.landing.statsBestScore'), value: metrics.bestScore },
+    { icon: TrendingUp, label: t('interviews.landing.statsAverage'), value: Math.round(metrics.averageScore) },
+    { icon: Clock, label: t('interviews.landing.statsStreak'), value: `${metrics.streaks}d` },
   ];
 
   const benefits = [
-    { icon: Mic, title: 'Práctica Realista', description: 'Preguntas adaptadas a tu industria y nivel de experiencia.' },
-    { icon: TrendingUp, title: 'Retroalimentación Instantánea', description: 'Análisis detallado de tus respuestas con sugerencias de mejora.' },
-    { icon: Target, title: 'Mejora Continua', description: 'Rastrea tu progreso e identifica áreas de oportunidad.' },
+    { icon: Mic, title: t('interviews.landing.benefitRealistic'), description: t('interviews.landing.benefitRealisticDesc') },
+    { icon: TrendingUp, title: t('interviews.landing.benefitFeedback'), description: t('interviews.landing.benefitFeedbackDesc') },
+    { icon: Target, title: t('interviews.landing.benefitImprovement'), description: t('interviews.landing.benefitImprovementDesc') },
   ];
 
   const handleStartInterview = (path: string) => {
@@ -40,8 +44,6 @@ export default function InterviewLanding() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
-      {/* Premium Lock Banner removed - upgrade modal shows on button click */}
-
       {/* Hero */}
       <motion.div 
         initial={{ opacity: 0, y: 8 }} 
@@ -49,9 +51,9 @@ export default function InterviewLanding() {
         className="space-y-5"
       >
         <div className="space-y-2">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Practica Entrevistas con IA</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{t('interviews.landing.title')}</h1>
           <p className="text-muted-foreground text-lg max-w-2xl">
-            Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada.
+            {t('interviews.landing.subtitle')}
           </p>
         </div>
         
@@ -64,7 +66,7 @@ export default function InterviewLanding() {
           >
             {isLocked && <Lock className="w-4 h-4" />}
             <Bot className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
-            Entrevista con Voz IA
+            {t('interviews.landing.voiceBtn')}
             {!isLocked && <Sparkles className="w-4 h-4" />}
           </Button>
           <Button 
@@ -75,7 +77,7 @@ export default function InterviewLanding() {
           >
             {isLocked && <Lock className="w-4 h-4" />}
             <Mic className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
-            Práctica con Texto
+            {t('interviews.landing.textBtn')}
           </Button>
         </div>
       </motion.div>
@@ -108,7 +110,7 @@ export default function InterviewLanding() {
           transition={{ delay: 0.1 }}
           className="space-y-3"
         >
-          <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Prácticas Recientes</h2>
+          <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{t('interviews.landing.recentSessions')}</h2>
           <div className="space-y-2">
             {recentSessions.map((session) => (
               <Card key={session.id} className="p-4 border-border/40 hover:border-primary/20 hover:shadow-clovely-sm transition-all duration-200">
@@ -116,14 +118,14 @@ export default function InterviewLanding() {
                   <div className="space-y-0.5">
                     <h3 className="font-medium text-sm">{session.role}</h3>
                     <p className="text-xs text-muted-foreground">
-                      {new Date(session.startedAt).toLocaleDateString('es-ES', {
+                      {new Date(session.startedAt).toLocaleDateString(locale, {
                         day: 'numeric', month: 'long', year: 'numeric'
                       })}
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-xl font-bold text-primary">{session.finalScore}</p>
-                    <p className="text-xs text-muted-foreground">Puntuación</p>
+                    <p className="text-xs text-muted-foreground">{t('interviews.landing.score')}</p>
                   </div>
                 </div>
               </Card>
@@ -150,7 +152,7 @@ export default function InterviewLanding() {
         ))}
       </motion.div>
 
-      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} feature="Entrevistas con IA" />
+      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} feature={t('interviews.landing.aiInterviews')} />
     </div>
   );
 }
