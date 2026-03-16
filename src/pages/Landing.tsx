@@ -41,8 +41,9 @@ const LandingContent = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ── Navbar ── */}
+      <MobileNavMenu />
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/30">
-        <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 h-14 flex items-center justify-between">
           <OfficialLogo size="md" to="/" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-[13px] text-muted-foreground hover:text-foreground transition-colors">Funciones</a>
@@ -51,12 +52,15 @@ const LandingContent = () => {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/login">
+            <Link to="/login" className="hidden sm:inline-flex">
               <Button variant="ghost" size="sm" className="text-[13px] h-8">Iniciar sesión</Button>
             </Link>
-            <Link to="/registro">
+            <Link to="/registro" className="hidden sm:inline-flex">
               <Button size="sm" className="text-[13px] h-8 px-4">Comenzar</Button>
             </Link>
+            <Button variant="ghost" size="icon" className="md:hidden h-9 w-9" onClick={() => document.dispatchEvent(new CustomEvent('toggle-mobile-nav'))}>
+              <Menu className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </nav>
