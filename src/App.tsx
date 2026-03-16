@@ -20,6 +20,7 @@ import ResetPassword from "./pages/ResetPassword";
 import GuestStart from "./pages/GuestStart";
 import NotFound from "./pages/NotFound";
 import Pricing from "./pages/Pricing";
+import Payment from "./pages/Payment";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";

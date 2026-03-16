@@ -13,26 +13,13 @@ import { Badge } from '@/components/ui/badge';
 const Pricing = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { subscribed, productId, openCheckout, openPortal } = useSubscription();
+  const { subscribed, productId, openPortal } = useSubscription();
 
   const isProActive = subscribed && productId === MOONJAB_PRO.product_id;
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = () => {
     if (isProActive) return;
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      toast.info('Inicia sesión para suscribirte');
-      navigate('/login');
-      return;
-    }
-    setLoading(true);
-    try {
-      await openCheckout();
-    } catch (err: any) {
-      toast.error('Error al iniciar el pago: ' + (err.message || 'Intenta de nuevo'));
-    } finally {
-      setLoading(false);
-    }
+    navigate('/payment');
   };
 
   const handleManage = async () => {
