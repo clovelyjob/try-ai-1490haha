@@ -4,20 +4,21 @@ import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2 } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2, Crown } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-
-const MOONJAB_PRO = {
-  price_id: "price_1TBPv4E84vzDx9ysTSlmjd2j",
-  product_id: "prod_U9jNmi5ibVDe1c",
-};
+import { useSubscription, MOONJAB_PRO } from '@/hooks/useSubscription';
+import { Badge } from '@/components/ui/badge';
 
 const Pricing = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { subscribed, productId, openCheckout, openPortal } = useSubscription();
+
+  const isProActive = subscribed && productId === MOONJAB_PRO.product_id;
 
   const handleSubscribe = async () => {
+    if (isProActive) return;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       toast.info('Inicia sesión o crea una cuenta para suscribirte');
@@ -26,13 +27,20 @@ const Pricing = () => {
     }
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('create-checkout');
-      if (error) throw error;
-      if (data?.url) {
-        window.open(data.url, '_blank');
-      }
+      await openCheckout();
     } catch (err: any) {
       toast.error('Error al iniciar el pago: ' + (err.message || 'Intenta de nuevo'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleManage = async () => {
+    setLoading(true);
+    try {
+      await openPortal();
+    } catch {
+      toast.error('Error al abrir el portal');
     } finally {
       setLoading(false);
     }
@@ -71,8 +79,8 @@ const Pricing = () => {
         'Exportación PDF ilimitada',
         'Soporte prioritario',
       ],
-      cta: 'Suscribirse por $15/mes',
-      action: handleSubscribe,
+      cta: isProActive ? 'Plan actual' : 'Suscribirse por $15/mes',
+      action: isProActive ? handleManage : handleSubscribe,
       popular: true,
     },
   ];
@@ -93,9 +101,15 @@ const Pricing = () => {
           <OfficialLogo size="md" to="/" />
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button size="sm" className="h-8 text-sm" onClick={handleSubscribe} disabled={loading}>
-              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Suscribirse'}
-            </Button>
+            {isProActive ? (
+              <Button size="sm" variant="outline" className="h-8 text-sm gap-1" onClick={handleManage} disabled={loading}>
+                <Crown className="h-3.5 w-3.5" /> Gestionar plan
+              </Button>
+            ) : (
+              <Button size="sm" className="h-8 text-sm" onClick={handleSubscribe} disabled={loading}>
+                {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Suscribirse'}
+              </Button>
+            )}
           </div>
         </div>
       </nav>
@@ -131,8 +145,8 @@ const Pricing = () => {
                 }`}>
                   {plan.popular && (
                     <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-medium mb-4 w-fit">
-                      <Sparkles className="h-2.5 w-2.5" />
-                      Recomendado
+                      {isProActive ? <Crown className="h-2.5 w-2.5" /> : <Sparkles className="h-2.5 w-2.5" />}
+                      {isProActive ? 'Tu plan actual' : 'Recomendado'}
                     </div>
                   )}
 
@@ -159,12 +173,14 @@ const Pricing = () => {
 
                   <Button
                     className="w-full h-9 text-sm"
-                    variant={plan.popular ? 'default' : 'outline'}
+                    variant={plan.popular && !isProActive ? 'default' : 'outline'}
                     onClick={plan.action}
                     disabled={plan.popular && loading}
                   >
                     {plan.popular && loading ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin mr-2" />
+                    ) : plan.popular && isProActive ? (
+                      <Crown className="h-3.5 w-3.5 mr-2" />
                     ) : null}
                     {plan.cta}
                   </Button>
@@ -189,15 +205,17 @@ const Pricing = () => {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-6 text-center max-w-lg">
-          <h2 className="text-2xl font-bold mb-3 tracking-tight">Empieza hoy</h2>
-          <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
-          <Button className="h-10 px-6 text-sm gap-2" onClick={handleSubscribe} disabled={loading}>
-            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <>Suscribirse <ArrowRight className="h-3.5 w-3.5" /></>}
-          </Button>
-        </div>
-      </section>
+      {!isProActive && (
+        <section className="py-16">
+          <div className="container mx-auto px-6 text-center max-w-lg">
+            <h2 className="text-2xl font-bold mb-3 tracking-tight">Empieza hoy</h2>
+            <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
+            <Button className="h-10 px-6 text-sm gap-2" onClick={handleSubscribe} disabled={loading}>
+              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <>Suscribirse <ArrowRight className="h-3.5 w-3.5" /></>}
+            </Button>
+          </div>
+        </section>
+      )}
 
       <footer className="py-6 border-t border-border/40">
         <div className="container mx-auto px-6 text-center">

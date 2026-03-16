@@ -7,6 +7,7 @@ import { DailyJob } from '@/components/dashboard/DailyJob';
 import { ProgressBar } from '@/components/dashboard/ProgressBar';
 import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
 import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
+import { BillingStatusCard } from '@/components/dashboard/BillingStatusCard';
 import { UpgradeBanner } from '@/components/UpgradeBanner';
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { Briefcase, FileText, ArrowRight, Sparkles, RotateCcw, Compass, Mic, ChevronRight, Crown, Lock, Eye, Zap } from 'lucide-react';
@@ -93,6 +94,7 @@ const Dashboard = () => {
           </div>
           <div className="space-y-6">
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.2 }}><ProgressBar cvCompleted={cvCompletionScore} interviewsPracticed={interviewsPracticed} opportunitiesSaved={opportunitiesSaved} /></motion.div>
+            {!isGuestMode && <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.22 }}><BillingStatusCard /></motion.div>}
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.25 }}><RecommendedResources role={profile?.rolActual} /></motion.div>
           </div>
         </div>
