@@ -4,11 +4,14 @@ import { X, Sparkles } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useNavigate } from 'react-router-dom';
+
 interface UpgradeBannerProps {
-  onUpgrade: () => void;
+  onUpgrade?: () => void;
 }
 
 export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
+  const navigate = useNavigate();
   const { user } = useAuthStore();
   const [dismissed, setDismissed] = useState(false);
   
