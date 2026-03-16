@@ -205,15 +205,17 @@ const Pricing = () => {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-6 text-center max-w-lg">
-          <h2 className="text-2xl font-bold mb-3 tracking-tight">Empieza hoy</h2>
-          <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
-          <Button className="h-10 px-6 text-sm gap-2" onClick={handleSubscribe} disabled={loading}>
-            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <>Suscribirse <ArrowRight className="h-3.5 w-3.5" /></>}
-          </Button>
-        </div>
-      </section>
+      {!isProActive && (
+        <section className="py-16">
+          <div className="container mx-auto px-6 text-center max-w-lg">
+            <h2 className="text-2xl font-bold mb-3 tracking-tight">Empieza hoy</h2>
+            <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
+            <Button className="h-10 px-6 text-sm gap-2" onClick={handleSubscribe} disabled={loading}>
+              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <>Suscribirse <ArrowRight className="h-3.5 w-3.5" /></>}
+            </Button>
+          </div>
+        </section>
+      )}
 
       <footer className="py-6 border-t border-border/40">
         <div className="container mx-auto px-6 text-center">
