@@ -5,7 +5,6 @@ import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link, useNavigate } from 'react-router-dom';
 import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2, Crown } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useSubscription, MOONJAB_PRO } from '@/hooks/useSubscription';
 import { Badge } from '@/components/ui/badge';
