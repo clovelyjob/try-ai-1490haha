@@ -21,8 +21,8 @@ const Pricing = () => {
     if (isProActive) return;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      toast.info('Inicia sesión o crea una cuenta para suscribirte');
-      navigate('/auth');
+      toast.info('Inicia sesión para suscribirte');
+      navigate('/login');
       return;
     }
     setLoading(true);
