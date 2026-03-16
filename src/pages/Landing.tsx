@@ -82,6 +82,7 @@ const LandingContent = () => {
             <a href="#pricing" className="text-[13px] text-muted-foreground hover:text-foreground transition-colors">Precios</a>
           </div>
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <ThemeToggle />
             <Link to="/login" className="hidden sm:inline-flex">
               <Button variant="ghost" size="sm" className="text-[13px] h-8">Iniciar sesión</Button>
