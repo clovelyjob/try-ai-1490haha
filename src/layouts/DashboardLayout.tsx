@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
