@@ -81,7 +81,8 @@ function detectCategory(title: string, description: string): string {
   return 'other';
 }
 
-function extractSkillsFromText(text: string): string[] {
+function extractSkillsFromText(text: string | null | undefined): string[] {
+  if (!text) return [];
   const skillPatterns = [
     'react', 'javascript', 'typescript', 'python', 'java', 'node.js', 'nodejs',
     'sql', 'aws', 'docker', 'kubernetes', 'git', 'html', 'css', 'figma',
