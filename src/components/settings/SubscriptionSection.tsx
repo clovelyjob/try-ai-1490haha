@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { CreditCard, Download, Calendar, TrendingUp, Crown } from 'lucide-react';
+import { CreditCard, Download, Calendar, TrendingUp, Crown, ExternalLink, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { toast as sonnerToast } from 'sonner';
 
 interface PaymentHistory {
   id: string;
@@ -18,21 +20,14 @@ const MOCK_PAYMENT_HISTORY: PaymentHistory[] = [
 {
   id: 'inv_001',
   date: '2025-01-01',
-  amount: '$20.00',
+  amount: '$15.00',
   method: 'Visa ****1234',
   status: 'paid'
 },
 {
   id: 'inv_002',
   date: '2024-12-01',
-  amount: '$20.00',
-  method: 'Visa ****1234',
-  status: 'paid'
-},
-{
-  id: 'inv_003',
-  date: '2024-11-01',
-  amount: '$20.00',
+  amount: '$15.00',
   method: 'Visa ****1234',
   status: 'paid'
 }];
@@ -61,36 +56,44 @@ const PLAN_FEATURES = {
 export function SubscriptionSection() {
   const { user, updateUser } = useAuthStore();
   const [isUpgrading, setIsUpgrading] = useState(false);
+  const [isManaging, setIsManaging] = useState(false);
 
   const isPremium = user?.plan === 'premium';
 
   const handleUpgrade = async () => {
     setIsUpgrading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-checkout');
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (err: any) {
+      sonnerToast.error('Error al iniciar el pago: ' + (err.message || 'Intenta de nuevo'));
+    } finally {
+      setIsUpgrading(false);
+    }
+  };
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    updateUser({ plan: 'premium' });
-
-    toast({
-      title: '¡Bienvenido a Premium! 🎉',
-      description: 'Ya tienes acceso a todas las funcionalidades avanzadas.'
-    });
-
-    setIsUpgrading(false);
+  const handleManageSubscription = async () => {
+    setIsManaging(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('customer-portal');
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (err: any) {
+      sonnerToast.error('Error al abrir el portal: ' + (err.message || 'Intenta de nuevo'));
+    } finally {
+      setIsManaging(false);
+    }
   };
 
   const handleDownloadInvoice = (invoiceId: string) => {
     toast({
       title: 'Descargando factura',
       description: `Factura ${invoiceId} se descargará en breve. (Mock)`
-    });
-  };
-
-  const handleUpdatePaymentMethod = () => {
-    toast({
-      title: 'Actualizar método de pago',
-      description: 'Esta funcionalidad estará disponible con integración de Stripe.'
     });
   };
 
@@ -156,9 +159,9 @@ export function SubscriptionSection() {
             </div>
           }
 
-          {/* Premium Info */}
+          {/* Premium Info & Manage */}
           {isPremium &&
-          <div className="pt-4 border-t space-y-2">
+          <div className="pt-4 border-t space-y-3">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Próxima facturación</span>
                 <span className="font-medium">
@@ -166,13 +169,19 @@ export function SubscriptionSection() {
                   {new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('es-ES')}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Método de pago</span>
-                <Button variant="link" size="sm" onClick={handleUpdatePaymentMethod}>
-                  <CreditCard className="h-4 w-4 mr-1" />
-                  Visa ****1234
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={handleManageSubscription}
+                disabled={isManaging}
+              >
+                {isManaging ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                )}
+                Gestionar suscripción
+              </Button>
             </div>
           }
         </CardContent>
