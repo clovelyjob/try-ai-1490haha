@@ -28,12 +28,11 @@ const fadeUp = {
 const MobileNavMenu = () => {
   const [open, setOpen] = useState(false);
   
-  // Listen for toggle event from menu button
-  useState(() => {
+  useEffect(() => {
     const handler = () => setOpen(prev => !prev);
     document.addEventListener('toggle-mobile-nav', handler);
     return () => document.removeEventListener('toggle-mobile-nav', handler);
-  });
+  }, []);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
