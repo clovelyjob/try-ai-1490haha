@@ -20,13 +20,25 @@ import { useSubscription, MOONJAB_PRO } from '@/hooks/useSubscription';
 
 export default function DashboardLayout() {
   const { t } = useTranslation();
-  const { user, startPremiumTrial } = useAuthStore();
+  const { user, updateUser, startPremiumTrial } = useAuthStore();
   const { setSidebarCollapsed } = useUIStore();
   const location = useLocation();
   const isMobile = useIsMobile();
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  // Auto-check subscription status and sync with user store
+  const { subscribed, productId } = useSubscription();
+  useEffect(() => {
+    if (!user || user.id.startsWith('guest_')) return;
+    const isPro = subscribed && productId === MOONJAB_PRO.product_id;
+    if (isPro && user.plan !== 'premium') {
+      updateUser({ plan: 'premium', accessRole: 'premium_user' });
+    } else if (!isPro && user.plan === 'premium') {
+      updateUser({ plan: 'free', accessRole: 'free_user' });
+    }
+  }, [subscribed, productId, user?.id, user?.plan]);
 
   const dashboardBasePath = getDashboardBasePath(user?.accessRole || 'free_user');
   const isPremium = user?.plan === 'premium';
