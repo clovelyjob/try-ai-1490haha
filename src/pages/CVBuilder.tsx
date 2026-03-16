@@ -211,7 +211,7 @@ export default function CVBuilder() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background">
+    <div className="h-dvh flex flex-col bg-background">
       {/* Header */}
       <div className="border-b bg-card/80 backdrop-blur-md shadow-clovely-md sticky top-0 z-10">
         <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5">

@@ -26,17 +26,18 @@ export function GuestBanner() {
             className="sticky top-0 z-40"
           >
             <Alert className="rounded-none border-x-0 bg-primary/5 border-2 border-primary/20 shadow-clovely-md">
-              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-              <AlertDescription className="flex items-center justify-between gap-4">
-                <span className="text-sm">
-                  <strong>Estás en modo de prueba.</strong> Explora la plataforma — tus datos son temporales.
+              <Sparkles className="h-4 w-4 text-primary animate-pulse hidden sm:block" />
+              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+                <span className="text-xs sm:text-sm">
+                  <strong>Estás en modo de prueba.</strong>{' '}
+                  <span className="hidden sm:inline">Explora la plataforma — tus datos son temporales.</span>
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
                   <Button
                     size="sm"
                     onClick={() => setShowModal(true)}
                     variant="premium"
-                    className="shrink-0 shadow-clovely-glow"
+                    className="shrink-0 shadow-clovely-glow text-xs h-8"
                   >
                     Crear mi cuenta
                   </Button>
@@ -44,7 +45,7 @@ export function GuestBanner() {
                     size="sm"
                     variant="ghost"
                     onClick={() => setShowBanner(false)}
-                    className="shrink-0"
+                    className="shrink-0 h-8 w-8 p-0"
                   >
                     <X className="h-4 w-4" />
                   </Button>

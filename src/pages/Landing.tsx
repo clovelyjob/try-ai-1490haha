@@ -7,11 +7,12 @@ import {
   FileText, MessageSquare, Target, TrendingUp, Shield,
   Users, ChevronRight, Zap, ArrowUpRight, Layers, Award,
   GraduationCap, Briefcase, Sparkles, LineChart, Rocket,
-  Eye, BookOpen, Check, Mic } from
+  Eye, BookOpen, Check, Mic, Menu, X } from
 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -22,6 +23,36 @@ const fadeUp = {
     y: 0,
     transition: { delay: i * 0.1, duration: 0.6, ease }
   })
+};
+
+const MobileNavMenu = () => {
+  const [open, setOpen] = useState(false);
+  
+  useEffect(() => {
+    const handler = () => setOpen(prev => !prev);
+    document.addEventListener('toggle-mobile-nav', handler);
+    return () => document.removeEventListener('toggle-mobile-nav', handler);
+  }, []);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetContent side="right" className="w-[280px] p-6 pt-12">
+        <nav className="flex flex-col gap-4">
+          <a href="#features" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Funciones</a>
+          <a href="#how" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Cómo funciona</a>
+          <a href="#pricing" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Precios</a>
+          <div className="border-t border-border/40 pt-4 mt-2 space-y-3">
+            <Link to="/login" onClick={() => setOpen(false)}>
+              <Button variant="outline" className="w-full h-10 text-sm">Iniciar sesión</Button>
+            </Link>
+            <Link to="/registro" onClick={() => setOpen(false)}>
+              <Button className="w-full h-10 text-sm">Comenzar</Button>
+            </Link>
+          </div>
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
 };
 
 const Landing = () => {
@@ -40,8 +71,9 @@ const LandingContent = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ── Navbar ── */}
+      <MobileNavMenu />
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/30">
-        <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 h-14 flex items-center justify-between">
           <OfficialLogo size="md" to="/" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-[13px] text-muted-foreground hover:text-foreground transition-colors">Funciones</a>
@@ -50,12 +82,15 @@ const LandingContent = () => {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/login">
+            <Link to="/login" className="hidden sm:inline-flex">
               <Button variant="ghost" size="sm" className="text-[13px] h-8">Iniciar sesión</Button>
             </Link>
-            <Link to="/registro">
+            <Link to="/registro" className="hidden sm:inline-flex">
               <Button size="sm" className="text-[13px] h-8 px-4">Comenzar</Button>
             </Link>
+            <Button variant="ghost" size="icon" className="md:hidden h-9 w-9" onClick={() => document.dispatchEvent(new CustomEvent('toggle-mobile-nav'))}>
+              <Menu className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </nav>
