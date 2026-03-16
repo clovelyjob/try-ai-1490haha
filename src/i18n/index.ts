@@ -19,13 +19,14 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
+    lng: localStorage.getItem('moonjab_language') || 'es',
     fallbackLng: 'es',
     debug: false,
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage'],
       lookupLocalStorage: 'moonjab_language',
       caches: ['localStorage'],
     },
