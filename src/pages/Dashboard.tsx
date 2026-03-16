@@ -7,20 +7,31 @@ import { DailyJob } from '@/components/dashboard/DailyJob';
 import { ProgressBar } from '@/components/dashboard/ProgressBar';
 import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
 import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
+import { UpgradeBanner } from '@/components/UpgradeBanner';
+import { UpgradeModal } from '@/components/UpgradeModal';
 import {
   Briefcase, FileText, ArrowRight, Sparkles, RotateCcw, Compass, Mic, ChevronRight,
+  Crown, Lock, Eye, Zap, AlertTriangle,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
 
 const Dashboard = () => {
-  const { user } = useAuthStore();
+  const { user, isGuestMode } = useAuthStore();
   const { profile } = useProfileStore();
   const { cvs } = useCVStore();
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const userCV = cvs.find(cv => cv.userId === user?.id);
   const cvCompletionScore = userCV?.score?.overall || 0;
   const interviewsPracticed = 0;
   const opportunitiesSaved = 0;
+
+  const userPlan = isGuestMode ? 'trial' : (user?.plan || 'free');
+  const isTrial = userPlan === 'trial';
+  const isFree = userPlan === 'free';
+  const isPremium = userPlan === 'premium';
   
   const getRoleDisplayName = (role: string) => {
     const roleNames: Record<string, string> = {
@@ -33,32 +44,85 @@ const Dashboard = () => {
   };
 
   const firstName = user?.name?.split(' ')[0] || 'Usuario';
-  const hasRole = !!profile?.rolActual;
+  const hasRole = !!profile?.rolActual && profile.rolActual !== 'other';
+
+  const planLabel = isTrial ? 'Prueba' : isFree ? 'Free' : 'Pro';
+  const planColor = isPremium ? 'bg-primary text-primary-foreground' : isTrial ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' : 'bg-muted text-muted-foreground';
 
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         
-        {/* Header — no welcome splash, direct to action */}
+        {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
           className="flex items-center justify-between mb-8"
         >
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight">
-              {firstName}
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {hasRole ? getRoleDisplayName(profile.rolActual!) : 'Completa tu diagnóstico para comenzar'}
-            </p>
+          <div className="flex items-center gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-semibold tracking-tight">{firstName}</h1>
+                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 h-5 font-medium ${planColor}`}>
+                  {isPremium && <Crown className="h-2.5 w-2.5 mr-0.5" />}
+                  {planLabel}
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {hasRole ? getRoleDisplayName(profile.rolActual!) : 'Completa tu diagnóstico para comenzar'}
+              </p>
+            </div>
           </div>
           <NotificationsBell />
         </motion.div>
 
-        {/* Diagnostic or Profile CTA — only show if no role */}
-        {!hasRole && (
+        {/* Trial sandbox notice */}
+        {isTrial && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.03 }}
+            className="mb-6"
+          >
+            <div className="rounded-xl border-2 border-amber-500/20 bg-amber-500/5 dark:bg-amber-500/10 p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <Eye className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-foreground">Estás en modo de prueba</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                    Explora la plataforma libremente. Tus datos son temporales y no afectan el sistema real. 
+                    Crea una cuenta para guardar tu progreso.
+                  </p>
+                  <div className="flex gap-2 mt-2.5">
+                    <Link to="/registro">
+                      <Button size="sm" className="h-7 text-xs gap-1">
+                        <Sparkles className="h-3 w-3" /> Crear cuenta gratis
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Free user upgrade banner */}
+        {isFree && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.03 }}
+            className="mb-6"
+          >
+            <UpgradeBanner onUpgrade={() => setUpgradeModalOpen(true)} />
+          </motion.div>
+        )}
+
+        {/* Career Diagnostic CTA — only show if no role and not trial */}
+        {!hasRole && !isTrial && (
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -73,12 +137,42 @@ const Dashboard = () => {
                 <div className="flex-1 space-y-2">
                   <h2 className="font-semibold text-sm">Descubre tu perfil profesional</h2>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Completa un diagnóstico rápido con IA para recibir recomendaciones personalizadas de carrera.
+                    Te recomendamos completar este diagnóstico para personalizar oportunidades, rutas de aprendizaje y recomendaciones de carrera para ti.
                   </p>
                   <Link to="/onboarding">
                     <Button size="sm" className="h-8 text-xs mt-1 gap-1.5">
                       <Sparkles className="h-3 w-3" />
                       Iniciar diagnóstico
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Trial diagnostic CTA */}
+        {!hasRole && isTrial && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
+            className="mb-8"
+          >
+            <div className="rounded-xl border border-border/50 bg-muted/30 p-5">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                  <Compass className="h-5 w-5 text-muted-foreground" />
+                </div>
+                <div className="flex-1 space-y-2">
+                  <h2 className="font-semibold text-sm">Prueba el diagnóstico de carrera</h2>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Descubre qué caminos profesionales se ajustan a ti. En modo prueba los resultados no se guardan.
+                  </p>
+                  <Link to="/onboarding">
+                    <Button variant="outline" size="sm" className="h-8 text-xs mt-1 gap-1.5">
+                      <Compass className="h-3 w-3" />
+                      Explorar diagnóstico
                     </Button>
                   </Link>
                 </div>
@@ -95,24 +189,71 @@ const Dashboard = () => {
           className="grid sm:grid-cols-3 gap-3 mb-8"
         >
           {[
-            { icon: FileText, label: 'CV Builder', desc: 'Crea tu CV', path: '/dashboard/cvs' },
-            { icon: Mic, label: 'Entrevistas', desc: 'Practica con IA', path: '/dashboard/interviews' },
-            { icon: Briefcase, label: 'Oportunidades', desc: 'Encuentra trabajos', path: '/dashboard/opportunities' },
+            { 
+              icon: FileText, label: 'CV Builder', desc: isTrial ? 'Solo plantilla Harvard' : 'Crea tu CV', 
+              path: '/dashboard/cvs', locked: false
+            },
+            { 
+              icon: Mic, label: 'Entrevistas', desc: isTrial ? 'No disponible en prueba' : 'Practica con IA', 
+              path: '/dashboard/interviews', locked: isTrial
+            },
+            { 
+              icon: Briefcase, label: 'Oportunidades', 
+              desc: isTrial ? '5 vacantes de ejemplo' : isFree ? '5 por día' : 'Acceso completo', 
+              path: '/dashboard/opportunities', locked: false
+            },
           ].map((action) => (
-            <Link key={action.path} to={action.path} className="group">
-              <div className="flex items-center gap-3 p-4 rounded-xl border border-border/50 hover:border-primary/20 hover:bg-primary/[0.02] transition-all duration-200">
-                <div className="w-9 h-9 rounded-lg bg-primary/8 flex items-center justify-center group-hover:bg-primary/12 transition-colors">
-                  <action.icon className="h-4 w-4 text-primary" />
+            <Link key={action.path} to={action.locked ? '#' : action.path} className="group">
+              <div className={`flex items-center gap-3 p-4 rounded-xl border transition-all duration-200 ${
+                action.locked 
+                  ? 'border-border/30 bg-muted/20 opacity-60 cursor-not-allowed' 
+                  : 'border-border/50 hover:border-primary/20 hover:bg-primary/[0.02]'
+              }`}>
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
+                  action.locked ? 'bg-muted' : 'bg-primary/8 group-hover:bg-primary/12'
+                }`}>
+                  {action.locked ? (
+                    <Lock className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <action.icon className="h-4 w-4 text-primary" />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium group-hover:text-primary transition-colors">{action.label}</p>
+                  <p className={`text-sm font-medium ${action.locked ? '' : 'group-hover:text-primary'} transition-colors`}>{action.label}</p>
                   <p className="text-[11px] text-muted-foreground">{action.desc}</p>
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary/50 transition-colors" />
+                {!action.locked && (
+                  <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary/50 transition-colors" />
+                )}
               </div>
             </Link>
           ))}
         </motion.div>
+
+        {/* Free user daily limits info */}
+        {isFree && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.12 }}
+            className="mb-6"
+          >
+            <div className="rounded-xl border border-border/50 bg-muted/20 p-4">
+              <div className="flex items-center gap-3">
+                <Zap className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-xs font-medium">Límites del plan Free</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    5 oportunidades/día · Plantillas limitadas · Sin análisis IA avanzado
+                  </p>
+                </div>
+                <Button variant="ghost" size="sm" className="h-7 text-xs text-primary" onClick={() => setUpgradeModalOpen(true)}>
+                  Ver Pro
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {/* Two-column layout */}
         <div className="grid lg:grid-cols-[1fr_300px] gap-6">
@@ -179,6 +320,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <UpgradeModal 
+        open={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+        onStartTrial={async () => {}}
+      />
     </div>
   );
 };

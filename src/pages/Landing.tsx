@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
   ArrowRight, Star, Instagram, CheckCircle, Compass, BarChart3,
   FileText, MessageSquare, Target, TrendingUp, Shield,
@@ -11,6 +11,7 @@ import {
 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { useRef } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -24,6 +25,7 @@ const fadeUp = {
 };
 
 const Landing = () => {
+  const { isAuthenticated, isGuestMode } = useAuthStore();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -31,6 +33,11 @@ const Landing = () => {
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
+  // Redirect authenticated users to dashboard
+  if (isAuthenticated && !isGuestMode) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
