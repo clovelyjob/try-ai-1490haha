@@ -1,11 +1,43 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
-import { Check, ArrowRight, ArrowLeft, Zap, Sparkles } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthStore } from '@/store/useAuthStore';
+import { toast } from 'sonner';
+
+const MOONJAB_PRO = {
+  price_id: "price_1TBPv4E84vzDx9ysTSlmjd2j",
+  product_id: "prod_U9jNmi5ibVDe1c",
+};
 
 const Pricing = () => {
+  const [loading, setLoading] = useState(false);
+  const { isAuthenticated } = useAuthStore();
+
+  const handleSubscribe = async () => {
+    if (!isAuthenticated) {
+      toast.info('Crea una cuenta primero para suscribirte');
+      window.location.href = '/registro';
+      return;
+    }
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-checkout');
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (err: any) {
+      toast.error('Error al iniciar el pago: ' + (err.message || 'Intenta de nuevo'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const plans = [
     {
       name: 'Modo invitado',
@@ -20,7 +52,7 @@ const Pricing = () => {
         'Funciones limitadas',
       ],
       cta: 'Probar gratis',
-      href: '/guest-start',
+      action: () => { window.location.href = '/guest-start'; },
       popular: false,
     },
     {
@@ -40,7 +72,7 @@ const Pricing = () => {
         'Soporte prioritario',
       ],
       cta: 'Suscribirse por $15/mes',
-      href: '/registro',
+      action: handleSubscribe,
       popular: true,
     },
   ];
@@ -61,7 +93,9 @@ const Pricing = () => {
           <OfficialLogo size="md" to="/" />
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/registro"><Button size="sm" className="h-8 text-sm">Suscribirse</Button></Link>
+            <Button size="sm" className="h-8 text-sm" onClick={handleSubscribe} disabled={loading}>
+              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Suscribirse'}
+            </Button>
           </div>
         </div>
       </nav>
@@ -123,14 +157,17 @@ const Pricing = () => {
                     ))}
                   </ul>
 
-                  <Link to={plan.href} className="mt-auto">
-                    <Button
-                      className="w-full h-9 text-sm"
-                      variant={plan.popular ? 'default' : 'outline'}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </Link>
+                  <Button
+                    className="w-full h-9 text-sm"
+                    variant={plan.popular ? 'default' : 'outline'}
+                    onClick={plan.action}
+                    disabled={plan.popular && loading}
+                  >
+                    {plan.popular && loading ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin mr-2" />
+                    ) : null}
+                    {plan.cta}
+                  </Button>
                 </div>
               </motion.div>
             ))}
@@ -156,11 +193,9 @@ const Pricing = () => {
         <div className="container mx-auto px-6 text-center max-w-lg">
           <h2 className="text-2xl font-bold mb-3 tracking-tight">Empieza hoy</h2>
           <p className="text-muted-foreground mb-5">Únete a miles de profesionales que ya dieron el primer paso.</p>
-          <Link to="/registro">
-            <Button className="h-10 px-6 text-sm gap-2">
-              Crear cuenta <ArrowRight className="h-3.5 w-3.5" />
-            </Button>
-          </Link>
+          <Button className="h-10 px-6 text-sm gap-2" onClick={handleSubscribe} disabled={loading}>
+            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <>Suscribirse <ArrowRight className="h-3.5 w-3.5" /></>}
+          </Button>
         </div>
       </section>
 
