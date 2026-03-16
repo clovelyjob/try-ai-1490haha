@@ -70,8 +70,8 @@ function mapEmploymentType(type: string): 'internship' | 'part-time' | 'full-tim
   return 'full-time';
 }
 
-function detectCategory(title: string, description: string): string {
-  const text = `${title} ${description}`.toLowerCase();
+function detectCategory(title: string | null | undefined, description: string | null | undefined): string {
+  const text = `${title || ''} ${description || ''}`.toLowerCase();
   if (text.match(/developer|engineer|software|backend|frontend|fullstack|devops|data|cloud|aws|python|javascript|react/)) return 'technology';
   if (text.match(/marketing|seo|content|social media|growth|brand/)) return 'marketing';
   if (text.match(/design|ux|ui|graphic|product design|figma/)) return 'design';
@@ -81,7 +81,8 @@ function detectCategory(title: string, description: string): string {
   return 'other';
 }
 
-function extractSkillsFromText(text: string): string[] {
+function extractSkillsFromText(text: string | null | undefined): string[] {
+  if (!text) return [];
   const skillPatterns = [
     'react', 'javascript', 'typescript', 'python', 'java', 'node.js', 'nodejs',
     'sql', 'aws', 'docker', 'kubernetes', 'git', 'html', 'css', 'figma',
