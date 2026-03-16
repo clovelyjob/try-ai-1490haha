@@ -10,7 +10,7 @@ import { useProgressStore } from '@/store/useProgressStore';
 import OpportunityCard from '@/components/opportunities/OpportunityCard';
 import FilterPanel from '@/components/opportunities/FilterPanel';
 import { SkeletonOpportunityCard } from '@/components/ui/skeleton-loader';
-import { Search, RefreshCw, Briefcase, SlidersHorizontal, AlertCircle, ExternalLink } from 'lucide-react';
+import { Search, RefreshCw, Briefcase, SlidersHorizontal, AlertCircle } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
