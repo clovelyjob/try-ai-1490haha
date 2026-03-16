@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://try-ai-1490haha.lovable.app/sitemap.xml
