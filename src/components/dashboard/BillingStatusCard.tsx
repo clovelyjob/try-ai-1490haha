@@ -4,25 +4,27 @@ import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 export function BillingStatusCard() {
   const { user, isGuestMode } = useAuthStore();
-  const { subscribed, subscriptionEnd, openPortal, openCheckout } = useSubscription();
+  const { subscribed, subscriptionEnd, openPortal } = useSubscription();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   if (isGuestMode) return null;
 
   const isPremium = user?.plan === 'premium' && subscribed;
 
   const handleAction = async () => {
+    if (!isPremium) {
+      navigate('/payment');
+      return;
+    }
     setLoading(true);
     try {
-      if (isPremium) {
-        await openPortal();
-      } else {
-        await openCheckout();
-      }
+      await openPortal();
     } catch {
       toast.error('Error al procesar. Intenta de nuevo.');
     } finally {

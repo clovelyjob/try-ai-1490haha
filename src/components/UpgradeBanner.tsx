@@ -67,7 +67,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
           
           <div className="flex items-center gap-2">
             <Button
-              onClick={onUpgrade}
+              onClick={() => navigate('/payment')}
               variant="premium"
               size="sm"
               className="shadow-mj-glow hover:shadow-mj-glow-lg"

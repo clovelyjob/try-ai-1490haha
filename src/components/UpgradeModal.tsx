@@ -112,7 +112,7 @@ export const UpgradeModal = ({ open, onClose, feature }: UpgradeModalProps) => {
                   <span>Exportación PDF ilimitada</span>
                 </li>
               </ul>
-              <Link to="/registro">
+              <Link to="/payment">
                 <Button className="w-full font-semibold">
                   Suscribirse por $15/mes
                 </Button>
