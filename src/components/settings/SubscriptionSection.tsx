@@ -159,9 +159,9 @@ export function SubscriptionSection() {
             </div>
           }
 
-          {/* Premium Info */}
+          {/* Premium Info & Manage */}
           {isPremium &&
-          <div className="pt-4 border-t space-y-2">
+          <div className="pt-4 border-t space-y-3">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Próxima facturación</span>
                 <span className="font-medium">
@@ -169,13 +169,19 @@ export function SubscriptionSection() {
                   {new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('es-ES')}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Método de pago</span>
-                <Button variant="link" size="sm" onClick={handleUpdatePaymentMethod}>
-                  <CreditCard className="h-4 w-4 mr-1" />
-                  Visa ****1234
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={handleManageSubscription}
+                disabled={isManaging}
+              >
+                {isManaging ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                )}
+                Gestionar suscripción
+              </Button>
             </div>
           }
         </CardContent>
