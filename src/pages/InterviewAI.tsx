@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const INTERVIEWER_AGENT_ID = 'agent_0401kc7ye4zyeecsx8v92kg4cv46';
+const INTERVIEWER_AGENT_ID = 'agent_3401kkqgpk2henytrnm4tay22xje';
 
 export default function InterviewAI() {
   const { t } = useTranslation();
