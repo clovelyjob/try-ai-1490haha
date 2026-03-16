@@ -13,6 +13,7 @@ import { OfficialLogo } from '@/components/OfficialLogo';
 import { useRef, useState, useEffect } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { useTranslation } from 'react-i18next';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
