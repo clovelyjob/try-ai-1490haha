@@ -56,11 +56,12 @@ const Login = () => {
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm"
       >
-        <Link to="/" className="inline-flex items-center gap-1.5 mb-8 text-xs text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="h-3 w-3" /> Volver
-        </Link>
-
-        <OfficialLogo size="md" className="mb-6" />
+        <div className="flex items-center justify-between mb-8">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-3 w-3" /> Volver
+          </Link>
+          <OfficialLogo size="md" />
+        </div>
         <h1 className="text-xl font-bold mb-1 tracking-tight">Iniciar sesión</h1>
         <p className="text-sm text-muted-foreground mb-6">Continúa tu camino profesional</p>
 
