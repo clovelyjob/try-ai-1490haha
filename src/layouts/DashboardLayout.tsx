@@ -118,7 +118,7 @@ export default function DashboardLayout() {
       <nav className="flex-1 overflow-y-auto p-2.5 space-y-0.5">{mainNav.map(item => <NavLink key={item.path} item={item} />)}</nav>
       <div className="p-2.5 border-t border-border/40 space-y-0.5">
         {bottomNav.map(item => <NavLink key={item.path} item={item} />)}
-        <div className="px-1 pt-1"><ThemeToggle /></div>
+        <div className="px-1 pt-1 flex items-center gap-1"><LanguageToggle /><ThemeToggle /></div>
         {!isPremium && !isTrial && <Button className="w-full text-xs h-8 mt-1" size="sm" onClick={() => { setUpgradeModalOpen(true); setDrawerOpen(false); }}><ArrowUpRight className="mr-1 h-3 w-3" /> Upgrade</Button>}
       </div>
     </div>
