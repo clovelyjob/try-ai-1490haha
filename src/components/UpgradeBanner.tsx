@@ -4,11 +4,14 @@ import { X, Sparkles } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useNavigate } from 'react-router-dom';
+
 interface UpgradeBannerProps {
-  onUpgrade: () => void;
+  onUpgrade?: () => void;
 }
 
 export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
+  const navigate = useNavigate();
   const { user } = useAuthStore();
   const [dismissed, setDismissed] = useState(false);
   
@@ -64,7 +67,7 @@ export const UpgradeBanner = ({ onUpgrade }: UpgradeBannerProps) => {
           
           <div className="flex items-center gap-2">
             <Button
-              onClick={onUpgrade}
+              onClick={() => navigate('/payment')}
               variant="premium"
               size="sm"
               className="shadow-mj-glow hover:shadow-mj-glow-lg"
