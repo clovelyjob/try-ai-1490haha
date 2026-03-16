@@ -7,11 +7,12 @@ import {
   FileText, MessageSquare, Target, TrendingUp, Shield,
   Users, ChevronRight, Zap, ArrowUpRight, Layers, Award,
   GraduationCap, Briefcase, Sparkles, LineChart, Rocket,
-  Eye, BookOpen, Check, Mic } from
+  Eye, BookOpen, Check, Mic, Menu, X } from
 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
