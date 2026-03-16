@@ -4,20 +4,21 @@ import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2 } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2, Crown } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-
-const MOONJAB_PRO = {
-  price_id: "price_1TBPv4E84vzDx9ysTSlmjd2j",
-  product_id: "prod_U9jNmi5ibVDe1c",
-};
+import { useSubscription, MOONJAB_PRO } from '@/hooks/useSubscription';
+import { Badge } from '@/components/ui/badge';
 
 const Pricing = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { subscribed, productId, openCheckout, openPortal } = useSubscription();
+
+  const isProActive = subscribed && productId === MOONJAB_PRO.product_id;
 
   const handleSubscribe = async () => {
+    if (isProActive) return;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       toast.info('Inicia sesión o crea una cuenta para suscribirte');
@@ -26,13 +27,20 @@ const Pricing = () => {
     }
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('create-checkout');
-      if (error) throw error;
-      if (data?.url) {
-        window.open(data.url, '_blank');
-      }
+      await openCheckout();
     } catch (err: any) {
       toast.error('Error al iniciar el pago: ' + (err.message || 'Intenta de nuevo'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleManage = async () => {
+    setLoading(true);
+    try {
+      await openPortal();
+    } catch {
+      toast.error('Error al abrir el portal');
     } finally {
       setLoading(false);
     }

@@ -7,6 +7,7 @@ import { DailyJob } from '@/components/dashboard/DailyJob';
 import { ProgressBar } from '@/components/dashboard/ProgressBar';
 import { NotificationsBell } from '@/components/dashboard/NotificationsBell';
 import { RecommendedResources } from '@/components/dashboard/RecommendedResources';
+import { BillingStatusCard } from '@/components/dashboard/BillingStatusCard';
 import { UpgradeBanner } from '@/components/UpgradeBanner';
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { Briefcase, FileText, ArrowRight, Sparkles, RotateCcw, Compass, Mic, ChevronRight, Crown, Lock, Eye, Zap } from 'lucide-react';
