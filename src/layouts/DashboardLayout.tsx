@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { getDashboardBasePath } from '@/lib/authRouting';
 import { Home, FileText, Briefcase, Settings, Mic, Shield, Menu, ArrowUpRight } from 'lucide-react';
+import { useSubscription, MOONJAB_PRO } from '@/hooks/useSubscription';
 
 export default function DashboardLayout() {
   const { t } = useTranslation();
