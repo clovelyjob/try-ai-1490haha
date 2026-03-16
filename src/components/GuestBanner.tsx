@@ -29,7 +29,7 @@ export function GuestBanner() {
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <AlertDescription className="flex items-center justify-between gap-4">
                 <span className="text-sm">
-                  <strong>Estás usando la versión demo.</strong> Tus datos no se guardarán permanentemente.
+                  <strong>Estás en modo de prueba.</strong> Explora la plataforma — tus datos son temporales.
                 </span>
                 <div className="flex items-center gap-2">
                   <Button
