@@ -25,6 +25,37 @@ const fadeUp = {
   })
 };
 
+const MobileNavMenu = () => {
+  const [open, setOpen] = useState(false);
+  
+  // Listen for toggle event from menu button
+  useState(() => {
+    const handler = () => setOpen(prev => !prev);
+    document.addEventListener('toggle-mobile-nav', handler);
+    return () => document.removeEventListener('toggle-mobile-nav', handler);
+  });
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetContent side="right" className="w-[280px] p-6 pt-12">
+        <nav className="flex flex-col gap-4">
+          <a href="#features" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Funciones</a>
+          <a href="#how" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Cómo funciona</a>
+          <a href="#pricing" onClick={() => setOpen(false)} className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2">Precios</a>
+          <div className="border-t border-border/40 pt-4 mt-2 space-y-3">
+            <Link to="/login" onClick={() => setOpen(false)}>
+              <Button variant="outline" className="w-full h-10 text-sm">Iniciar sesión</Button>
+            </Link>
+            <Link to="/registro" onClick={() => setOpen(false)}>
+              <Button className="w-full h-10 text-sm">Comenzar</Button>
+            </Link>
+          </div>
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
+};
+
 const Landing = () => {
   return <LandingContent />;
 };
