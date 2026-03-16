@@ -36,7 +36,6 @@ export const useAuthStore = create<AuthState>()(
       setUser: (user) => set({ 
         user, 
         isAuthenticated: !!user,
-        // Si es un usuario real (no guest), resetear modo invitado
         isGuestMode: user && !user.id.startsWith('guest_') ? false : get().isGuestMode,
         guestData: user && !user.id.startsWith('guest_') ? null : get().guestData,
       }),
@@ -82,7 +81,10 @@ export const useAuthStore = create<AuthState>()(
       
       signInWithGoogle: async () => {
         const { error } = await lovable.auth.signInWithOAuth('google', {
-          redirect_uri: `${window.location.origin}/dashboard`,
+          redirect_uri: `${window.location.origin}/auth`,
+          extraParams: {
+            prompt: 'select_account',
+          },
         });
         
         if (error) throw error;
@@ -91,9 +93,9 @@ export const useAuthStore = create<AuthState>()(
       startGuestMode: () => {
         const guestUser: User = {
           id: 'guest_' + Date.now(),
-          name: 'Usuario Invitado',
+          name: 'Usuario de Prueba',
           email: '',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest',
+          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=TrialUser',
           plan: 'trial',
           createdAt: new Date(),
           lastLogin: new Date(),
@@ -115,6 +117,7 @@ export const useAuthStore = create<AuthState>()(
         
         set({ 
           user: guestUser, 
+          session: null,
           isAuthenticated: true, 
           isGuestMode: true,
           guestData 
@@ -139,12 +142,10 @@ export const useAuthStore = create<AuthState>()(
       },
       
       startPremiumTrial: async () => {
-        // No trial — redirect to subscription flow
         console.log('No trial available. Use Stripe subscription.');
       },
       
       upgradeToPremium: async () => {
-        // Will be handled by Stripe checkout
         set((state) => ({
           user: state.user ? {
             ...state.user,
@@ -155,6 +156,11 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'moonjab-auth',
+      partialize: (state) => ({
+        isGuestMode: state.isGuestMode,
+        guestData: state.guestData,
+        user: state.isGuestMode ? state.user : null,
+      }),
     }
   )
 );
