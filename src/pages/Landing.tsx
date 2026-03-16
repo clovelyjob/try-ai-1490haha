@@ -10,7 +10,7 @@ import {
   Eye, BookOpen, Check, Mic, Menu, X } from
 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
