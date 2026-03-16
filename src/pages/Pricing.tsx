@@ -173,12 +173,14 @@ const Pricing = () => {
 
                   <Button
                     className="w-full h-9 text-sm"
-                    variant={plan.popular ? 'default' : 'outline'}
+                    variant={plan.popular && !isProActive ? 'default' : 'outline'}
                     onClick={plan.action}
                     disabled={plan.popular && loading}
                   >
                     {plan.popular && loading ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin mr-2" />
+                    ) : plan.popular && isProActive ? (
+                      <Crown className="h-3.5 w-3.5 mr-2" />
                     ) : null}
                     {plan.cta}
                   </Button>
