@@ -26,19 +26,23 @@ const fadeUp = {
 
 const Landing = () => {
   const { isAuthenticated, isGuestMode } = useAuthStore();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-    layoutEffect: false,
-  });
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
 
   // Redirect authenticated users to dashboard
   if (isAuthenticated && !isGuestMode) {
     return <Navigate to="/dashboard" replace />;
   }
+
+  return <LandingContent />;
+};
+
+const LandingContent = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start']
+  });
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
