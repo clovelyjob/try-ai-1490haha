@@ -3,10 +3,9 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Check, ArrowRight, ArrowLeft, Zap, Sparkles, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthStore } from '@/store/useAuthStore';
 import { toast } from 'sonner';
 
 const MOONJAB_PRO = {
@@ -16,12 +15,13 @@ const MOONJAB_PRO = {
 
 const Pricing = () => {
   const [loading, setLoading] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubscribe = async () => {
-    if (!isAuthenticated) {
-      toast.info('Crea una cuenta primero para suscribirte');
-      window.location.href = '/registro';
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast.info('Inicia sesión o crea una cuenta para suscribirte');
+      navigate('/auth');
       return;
     }
     setLoading(true);
