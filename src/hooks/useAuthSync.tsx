@@ -3,118 +3,161 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useDataPersistence } from './useDataPersistence';
-import type { User } from '@/types';
+import type { User, AccessRole } from '@/types';
+
+const accessRoleToPlan = (accessRole: AccessRole): User['plan'] => {
+  switch (accessRole) {
+    case 'premium_user':
+      return 'premium';
+    case 'trial_user':
+      return 'trial';
+    default:
+      return 'free';
+  }
+};
 
 export function useAuthSync() {
   const { setUser, setSession } = useAuthStore();
   const { setProfile } = useProfileStore();
-  
-  // Initialize data persistence
+
   useDataPersistence();
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        
-        if (session?.user) {
-          // Limpiar modo invitado si hay sesión real de Supabase
-          const state = useAuthStore.getState();
-          if (state.isGuestMode) {
-            useAuthStore.setState({ isGuestMode: false, guestData: null });
-          }
-          // Defer profile fetch to avoid deadlock
-          setTimeout(() => {
-            fetchUserProfile(session.user.id);
-          }, 0);
-        } else {
-          // Don't clear guest mode data when there's no Supabase session
-          const state = useAuthStore.getState();
-          if (!state.isGuestMode) {
-            setUser(null);
-            setProfile(null);
-          }
-        }
-      }
-    );
+    let isMounted = true;
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const syncAuthState = async (session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) => {
+      if (!isMounted) return;
+
       setSession(session);
-      
+
       if (session?.user) {
-        fetchUserProfile(session.user.id);
+        const state = useAuthStore.getState();
+        if (state.isGuestMode) {
+          useAuthStore.setState({ isGuestMode: false, guestData: null });
+        }
+
+        await fetchUserProfile(session.user.id);
+        return;
       }
+
+      const state = useAuthStore.getState();
+      if (!state.isGuestMode) {
+        setUser(null);
+        setProfile(null);
+      }
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      void syncAuthState(session);
     });
 
-    return () => subscription.unsubscribe();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      void syncAuthState(session);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [setUser, setSession, setProfile]);
 
   async function fetchUserProfile(userId: string) {
     try {
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+      const [{ data: profile, error: profileError }, { data: accessLevel, error: accessError }] = await Promise.all([
+        supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', userId)
+          .maybeSingle(),
+        supabase
+          .from('user_access_levels')
+          .select('access_level')
+          .eq('user_id', userId)
+          .maybeSingle(),
+      ]);
 
-      if (error) {
-        // Profile might not exist yet (trigger may be processing)
-        // Retry once after a short delay
-        if (error.code === 'PGRST116') {
-          console.log('Profile not found yet, retrying in 1s...');
-          await new Promise(r => setTimeout(r, 1000));
+      let accessRole = (accessLevel?.access_level || 'free_user') as AccessRole;
+
+      if (!accessLevel) {
+        const { data: insertedAccess, error: insertAccessError } = await supabase
+          .from('user_access_levels')
+          .insert({ user_id: userId, access_level: 'free_user' })
+          .select('access_level')
+          .single();
+
+        if (!insertAccessError && insertedAccess?.access_level) {
+          accessRole = insertedAccess.access_level as AccessRole;
+        }
+      }
+
+      if (accessError && accessError.code !== 'PGRST116') {
+        console.warn('Error fetching user access level:', accessError.message);
+      }
+
+      if (profileError) {
+        if (profileError.code === 'PGRST116') {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
           const { data: retryProfile, error: retryError } = await supabase
             .from('profiles')
             .select('*')
             .eq('id', userId)
-            .single();
-          if (retryError) {
-            console.warn('Profile still not found after retry:', retryError.message);
-            // Create a minimal user from session data
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-              const meta = session.user.user_metadata;
-              setUser({
-                id: session.user.id,
-                name: meta?.nombre || meta?.name || 'Usuario',
-                email: session.user.email || '',
-                avatar: meta?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
-                plan: 'free',
-                createdAt: new Date(session.user.created_at),
-                lastLogin: new Date(),
-                lastActiveDate: new Date(),
-                onboardingCompleted: false,
-                streak: 1,
-                applicationsSubmitted: 0,
-              });
-            }
+            .maybeSingle();
+
+          if (retryError || !retryProfile) {
+            console.warn('Profile not found after retry, building user from session');
+            await applySessionFallbackUser(accessRole);
             return;
           }
-          if (retryProfile) {
-            applyProfile(retryProfile);
-          }
+
+          applyProfile(retryProfile, accessRole);
           return;
         }
-        throw error;
+
+        throw profileError;
       }
 
       if (profile) {
-        applyProfile(profile);
+        applyProfile(profile, accessRole);
+        return;
       }
+
+      await applySessionFallbackUser(accessRole);
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
   }
 
-  function applyProfile(profile: any) {
+  async function applySessionFallbackUser(accessRole: AccessRole) {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return;
+
+    const meta = session.user.user_metadata;
+    setUser({
+      id: session.user.id,
+      name: meta?.nombre || meta?.name || 'Usuario',
+      email: session.user.email || '',
+      avatar: meta?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
+      plan: accessRoleToPlan(accessRole),
+      accessRole,
+      createdAt: new Date(session.user.created_at),
+      lastLogin: new Date(),
+      lastActiveDate: new Date(),
+      onboardingCompleted: false,
+      streak: 1,
+      applicationsSubmitted: 0,
+    });
+    setProfile(null);
+  }
+
+  function applyProfile(profile: any, accessRole: AccessRole) {
     const user: User = {
       id: profile.id,
       name: profile.nombre,
       email: profile.email,
       avatar: profile.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.nombre}`,
-      plan: 'free',
+      plan: accessRoleToPlan(accessRole),
+      accessRole,
       createdAt: new Date(profile.created_at),
       lastLogin: new Date(),
       lastActiveDate: new Date(),

@@ -6,32 +6,46 @@ import { useInterviewStore } from '@/store/useInterviewStore';
 import { useOpportunitiesStore } from '@/store/useOpportunitiesStore';
 import type { CVData, InterviewSession, SavedOpportunity } from '@/types';
 
-/**
- * Hook para sincronizar datos del usuario con Supabase
- * Carga datos de Supabase y sincroniza con los stores locales
- */
+function clearUserScopedStores() {
+  useCVStore.setState({ cvs: [], currentCV: null });
+  useInterviewStore.setState({ sessions: [], currentSession: null, questionBank: [], currentQuestionIndex: 0 });
+  useOpportunitiesStore.setState({
+    opportunities: [],
+    applications: [],
+    savedOpportunities: [],
+    cache: {},
+    hasMore: true,
+    currentPage: 1,
+  });
+}
+
 export function useDataPersistence() {
   const { session } = useAuthStore();
 
   useEffect(() => {
-    if (session?.user) {
-      loadUserData();
+    if (!session?.user) {
+      clearUserScopedStores();
+      return;
     }
+
+    clearUserScopedStores();
+    void loadUserData(session.user.id);
   }, [session?.user?.id]);
 
-  async function loadUserData() {
-    if (!session?.user) return;
-
+  async function loadUserData(userId: string) {
     try {
-      // Load CVs from Supabase
-      const { data: cvs, error: cvsError } = await supabase
-        .from('cvs')
-        .select('*')
-        .eq('user_id', session.user.id);
-      
-      if (!cvsError && cvs) {
-        // Transform Supabase data to CVData format and sync with store
-        const transformedCVs: CVData[] = cvs.map((cv) => ({
+      const [cvsResult, sessionsResult, opportunitiesResult] = await Promise.all([
+        supabase.from('cvs').select('*').eq('user_id', userId),
+        supabase.from('interview_sessions').select('*').eq('user_id', userId),
+        supabase.from('saved_opportunities').select('*').eq('user_id', userId),
+      ]);
+
+      const { data: cvs, error: cvsError } = cvsResult;
+      const { data: sessions, error: sessionsError } = sessionsResult;
+      const { data: opportunities, error: oppsError } = opportunitiesResult;
+
+      if (!cvsError) {
+        const transformedCVs: CVData[] = (cvs || []).map((cv) => ({
           id: cv.id,
           userId: cv.user_id,
           title: cv.nombre_cv,
@@ -55,20 +69,12 @@ export function useDataPersistence() {
           score: { overall: 0, clarity: 0, impact: 0, keywords: 0, format: 0 },
           metadata: { industryTags: [], targetKeywords: [] },
         }));
-        
-        // Update the CV store with loaded data
-        useCVStore.setState({ cvs: transformedCVs });
+
+        useCVStore.setState({ cvs: transformedCVs, currentCV: null });
       }
-      
-      // Load interview sessions from Supabase
-      const { data: sessions, error: sessionsError } = await supabase
-        .from('interview_sessions')
-        .select('*')
-        .eq('user_id', session.user.id);
-      
-      if (!sessionsError && sessions) {
-        // Transform and sync with store
-        const transformedSessions: InterviewSession[] = sessions.map((s) => ({
+
+      if (!sessionsError) {
+        const transformedSessions: InterviewSession[] = (sessions || []).map((s) => ({
           id: s.id,
           userId: s.user_id,
           role: s.rol,
@@ -86,29 +92,26 @@ export function useDataPersistence() {
           saved: true,
           privacy: 'private' as any,
         }));
-        
-        useInterviewStore.setState({ sessions: transformedSessions });
+
+        useInterviewStore.setState({ sessions: transformedSessions, currentSession: null });
       }
-      
-      // Load saved opportunities from Supabase
-      const { data: opportunities, error: oppsError } = await supabase
-        .from('saved_opportunities')
-        .select('*')
-        .eq('user_id', session.user.id);
-      
-      if (!oppsError && opportunities) {
-        // Transform and sync with store
-        const transformedOpps: SavedOpportunity[] = opportunities.map((o) => ({
+
+      if (!oppsError) {
+        const transformedOpps: SavedOpportunity[] = (opportunities || []).map((o) => ({
           userId: o.user_id,
           opportunityId: (o.opportunity_data as any)?.id || o.id,
           listName: o.status || 'Guardadas',
           savedAt: o.created_at,
         }));
-        
+
         useOpportunitiesStore.setState({ savedOpportunities: transformedOpps });
       }
 
-      console.log('Data loaded from Supabase:', { cvs: cvs?.length, sessions: sessions?.length, opportunities: opportunities?.length });
+      console.log('Data loaded from Supabase:', {
+        cvs: cvs?.length || 0,
+        sessions: sessions?.length || 0,
+        opportunities: opportunities?.length || 0,
+      });
     } catch (error) {
       console.error('Error loading user data:', error);
     }

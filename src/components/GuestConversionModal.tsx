@@ -65,9 +65,10 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
         email: formData.email,
         password: formData.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `${window.location.origin}/auth`,
           data: {
             name: formData.name,
+            nombre: formData.name,
           },
         },
       });
@@ -82,7 +83,6 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
       }
 
       if (authData.user && authData.session) {
-        // Actualizar estado de auth
         setSession(authData.session);
         setUser({
           id: authData.user.id,
@@ -90,6 +90,7 @@ export function GuestConversionModal({ open, onClose }: GuestConversionModalProp
           email: formData.email,
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.name}`,
           plan: 'free',
+          accessRole: 'free_user',
           createdAt: new Date(),
           lastLogin: new Date(),
           lastActiveDate: new Date(),

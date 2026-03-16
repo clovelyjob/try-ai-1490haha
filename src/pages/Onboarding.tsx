@@ -8,6 +8,7 @@ import { ResultsStep } from '@/components/onboarding/ResultsStep';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { AnswerValue, analyzeRIASECResults, RIASECResult } from '@/lib/riasecScoring';
+import { getDashboardBasePath } from '@/lib/authRouting';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -26,20 +27,17 @@ const Onboarding = () => {
     const result = analyzeRIASECResults(answers);
     setRiasecResult(result);
     
-    // Track RIASEC completion
     await trackEvent('role_detected', {
       hollandCode: result.hollandCode,
       topTypes: result.topTypes.slice(0, 3).map(t => t.type),
     });
     
-    // Go directly to results
     setCurrentStep(2);
   };
 
   const handleComplete = () => {
-    // Navigate immediately
     updateUser({ onboardingCompleted: true });
-    navigate('/dashboard');
+    navigate(getDashboardBasePath(user?.accessRole || 'free_user'));
 
     // Save to Supabase in background — only for real authenticated users (not guests)
     const isGuest = user?.id?.startsWith('guest_');
