@@ -30,7 +30,11 @@
     "settings": "Settings",
     "logout": "Log out",
     "login": "Log in",
-    "register": "Sign up"
+    "register": "Sign up",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "start": "Get started"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -89,6 +93,24 @@
     "subtitle": "Improve your interview skills with AI",
     "startPractice": "Start practice",
     "history": "Interview history",
+    "landing": {
+      "title": "Practice Interviews with AI",
+      "subtitle": "Improve your interview skills with instant, personalized feedback.",
+      "voiceBtn": "AI Voice Interview",
+      "textBtn": "Text Practice",
+      "statsInterviews": "Interviews",
+      "statsBestScore": "Best Score",
+      "statsAverage": "Average",
+      "statsStreak": "Streak",
+      "recentSessions": "Recent Sessions",
+      "score": "Score",
+      "benefitRealistic": "Realistic Practice",
+      "benefitRealisticDesc": "Questions tailored to your industry and experience level.",
+      "benefitFeedback": "Instant Feedback",
+      "benefitFeedbackDesc": "Detailed analysis of your answers with improvement suggestions.",
+      "benefitImprovement": "Continuous Improvement",
+      "benefitImprovementDesc": "Track your progress and identify areas of opportunity."
+    },
     "setup": {
       "title": "AI Interview Practice",
       "subtitle": "Simulate a real interview and get feedback to improve",
@@ -148,7 +170,7 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Manage your account and customize your Clovely experience",
+    "subtitle": "Manage your account and customize your experience",
     "profile": {
       "title": "Profile",
       "name": "Full name",
@@ -217,7 +239,7 @@
   "auth": {
     "login": {
       "title": "Log in",
-      "subtitle": "Welcome back to Clovely",
+      "subtitle": "Welcome back to MoonJab",
       "email": "Email",
       "password": "Password",
       "forgotPassword": "Forgot your password?",
@@ -227,7 +249,7 @@
     },
     "register": {
       "title": "Create account",
-      "subtitle": "Join Clovely and boost your career",
+      "subtitle": "Join MoonJab and boost your career",
       "name": "Full name",
       "email": "Email",
       "password": "Password",
@@ -245,31 +267,112 @@
     }
   },
   "landing": {
-    "hero": {
-      "title": "Your AI Career Coach",
-      "subtitle": "Optimize your CV, practice interviews and find perfect opportunities for you",
-      "cta": "Start for free",
-      "ctaSecondary": "View demo"
+    "badge": "AI-powered employability platform",
+    "heroTitle1": "Build the career you ",
+    "heroHighlight": "deserve",
+    "heroSubtitle": "Improve your CV, practice interviews with AI, and find opportunities that align with your profile. All in one place.",
+    "ctaStart": "Get started",
+    "ctaTry": "Try it first, decide later",
+    "checkGuest": "Free guest mode",
+    "checkCancel": "Cancel anytime",
+    "stats": {
+      "professionals": "Active professionals",
+      "getJobs": "Get hired",
+      "satisfaction": "Satisfaction",
+      "countries": "Countries"
     },
     "features": {
-      "title": "Everything you need for your career",
+      "label": "Features",
+      "title": "Everything you need to stand out professionally",
+      "subtitle": "Smart tools that adapt to your profile and guide you step by step.",
       "cv": {
-        "title": "AI CV Builder",
-        "description": "Create professional CVs optimized for ATS"
+        "title": "AI-powered smart CV",
+        "description": "Create an ATS-optimized resume that highlights your achievements and adapts to every industry. Our engine analyzes and improves each section automatically.",
+        "tags": ["Professional templates", "ATS optimization", "Export PDF"]
       },
-      "interviews": {
-        "title": "Interview Practice",
-        "description": "Simulate real interviews and get instant feedback"
+      "diagnostic": {
+        "title": "Career diagnostic",
+        "description": "Discover your professional profile with RIASEC analysis and receive personalized recommendations."
+      },
+      "interview": {
+        "title": "Interview simulator",
+        "description": "Practice with an AI interviewer that adapts questions to your industry and provides real-time feedback."
       },
       "opportunities": {
-        "title": "Personalized Opportunities",
-        "description": "Find jobs that match your profile"
+        "title": "Opportunities that fit you",
+        "description": "Our algorithm matches your profile with thousands of listings to show only those that truly match your skills and goals.",
+        "tags": ["Smart matching", "Advanced filters", "Custom alerts"]
       }
+    },
+    "how": {
+      "label": "How it works",
+      "title": "From preparation to offer, in three steps",
+      "step1Title": "Discover your profile",
+      "step1Desc": "Complete a smart diagnostic that identifies your strengths, interests, and the types of roles where you can excel.",
+      "step2Title": "Prepare with AI",
+      "step2Desc": "Build an optimized CV and practice interviews with personalized real-time feedback.",
+      "step3Title": "Connect with opportunities",
+      "step3Desc": "Receive job offers aligned with your profile and apply with a CV tailored to each position."
+    },
+    "deepDive": {
+      "cvLabel": "CV Builder",
+      "cvTitle": "Your best professional version, in minutes",
+      "cvDesc": "No more hours struggling with formatting. Our smart editor analyzes your experience and generates a CV that passes ATS filters and captures recruiters' attention.",
+      "cvPoints": ["AI-powered improvement suggestions", "Industry-specific adaptation", "Professional PDF export"],
+      "interviewLabel": "AI Interviews",
+      "interviewTitle": "Practice until you feel total confidence",
+      "interviewDesc": "Our simulator reproduces real interview scenarios adapted to your role and industry. Receive immediate feedback on your answers.",
+      "interviewPoints": ["Role-specific contextual questions", "Real-time answer analysis", "Session history and progress"],
+      "interviewerAI": "AI Interviewer"
+    },
+    "testimonials": {
+      "label": "Testimonials",
+      "title": "Real stories of transformation",
+      "t1Name": "Valentina S.",
+      "t1Role": "Engineering Student",
+      "t1Text": "I didn't know how to build my CV without experience. MoonJab guided me step by step and the RIASEC diagnostic helped me understand which roles suited me best.",
+      "t2Name": "Diego L.",
+      "t2Role": "Junior Developer",
+      "t2Text": "I practiced interviews with AI until I felt confident. In my first real interview, I responded with a confidence I had never had before.",
+      "t3Name": "Camila R.",
+      "t3Role": "Marketing Analyst",
+      "t3Text": "I used guest mode first to try it out. Within a week I subscribed because the opportunity matching showed me positions that truly aligned with my profile."
+    },
+    "pricing": {
+      "label": "Pricing",
+      "title": "One simple plan, no surprises",
+      "subtitle": "Access all tools at an affordable price. Try free in guest mode before you decide.",
+      "guestMode": "Guest mode",
+      "guestDesc": "Explore basic features",
+      "forever": "Forever",
+      "guestFeatures": ["1 CV template", "Generic opportunities", "Basic diagnostic", "Limited features"],
+      "tryFree": "Try free",
+      "recommended": "Recommended",
+      "proDesc": "Everything you need",
+      "billedMonthly": "Billed monthly",
+      "proFeatures": ["All CV templates", "Unlimited AI interviews", "Personalized opportunities", "Smart match score", "Complete RIASEC diagnostic", "Unlimited PDF export"],
+      "startNow": "Get started"
+    },
+    "cta": {
+      "title": "Your next career move starts here",
+      "subtitle": "Join thousands of professionals who already transformed their careers with MoonJab.",
+      "createAccount": "Create account",
+      "tryAndPass": "Try it and pass the filters"
+    },
+    "footer": {
+      "tagline": "AI-powered employability.",
+      "pricing": "Pricing",
+      "about": "About us",
+      "blog": "Blog",
+      "help": "Help",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "rights": "© 2025 MoonJab. All rights reserved."
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "Welcome to Clovely!",
+      "title": "Welcome to MoonJab!",
       "subtitle": "Let's get to know you better to personalize your experience"
     },
     "quiz": {

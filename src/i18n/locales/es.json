@@ -30,7 +30,11 @@
     "settings": "Configuración",
     "logout": "Cerrar sesión",
     "login": "Iniciar sesión",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "features": "Funciones",
+    "howItWorks": "Cómo funciona",
+    "pricing": "Precios",
+    "start": "Comenzar"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -89,6 +93,24 @@
     "subtitle": "Mejora tus habilidades de entrevista con IA",
     "startPractice": "Iniciar práctica",
     "history": "Historial de entrevistas",
+    "landing": {
+      "title": "Practica Entrevistas con IA",
+      "subtitle": "Mejora tus habilidades de entrevista con retroalimentación instantánea y personalizada.",
+      "voiceBtn": "Entrevista con Voz IA",
+      "textBtn": "Práctica con Texto",
+      "statsInterviews": "Entrevistas",
+      "statsBestScore": "Mejor Puntuación",
+      "statsAverage": "Promedio",
+      "statsStreak": "Racha",
+      "recentSessions": "Prácticas Recientes",
+      "score": "Puntuación",
+      "benefitRealistic": "Práctica Realista",
+      "benefitRealisticDesc": "Preguntas adaptadas a tu industria y nivel de experiencia.",
+      "benefitFeedback": "Retroalimentación Instantánea",
+      "benefitFeedbackDesc": "Análisis detallado de tus respuestas con sugerencias de mejora.",
+      "benefitImprovement": "Mejora Continua",
+      "benefitImprovementDesc": "Rastrea tu progreso e identifica áreas de oportunidad."
+    },
     "setup": {
       "title": "Práctica de Entrevista con IA",
       "subtitle": "Simula una entrevista real y recibe feedback para mejorar",
@@ -245,26 +267,107 @@
     }
   },
   "landing": {
-    "hero": {
-      "title": "Tu Coach de Carrera con IA",
-      "subtitle": "Optimiza tu CV, practica entrevistas y encuentra oportunidades perfectas para ti",
-      "cta": "Comenzar gratis",
-      "ctaSecondary": "Ver demo"
+    "badge": "Plataforma de empleabilidad con IA",
+    "heroTitle1": "Construye la carrera que ",
+    "heroHighlight": "mereces",
+    "heroSubtitle": "Mejora tu CV, practica entrevistas con IA y encuentra las oportunidades que se alinean con tu perfil. Todo en un solo lugar.",
+    "ctaStart": "Comenzar ahora",
+    "ctaTry": "Pruébalo primero y decide",
+    "checkGuest": "Modo invitado gratuito",
+    "checkCancel": "Cancela cuando quieras",
+    "stats": {
+      "professionals": "Profesionales activos",
+      "getJobs": "Consiguen empleo",
+      "satisfaction": "Satisfacción",
+      "countries": "Países"
     },
     "features": {
-      "title": "Todo lo que necesitas para tu carrera",
+      "label": "Funciones",
+      "title": "Todo lo que necesitas para destacar profesionalmente",
+      "subtitle": "Herramientas inteligentes que se adaptan a tu perfil y te guían paso a paso.",
       "cv": {
-        "title": "Constructor de CV con IA",
-        "description": "Crea CVs profesionales optimizados para ATS"
+        "title": "CV inteligente con IA",
+        "description": "Crea un currículum optimizado para ATS que resalte tus logros y se adapte a cada industria. Nuestro motor analiza y mejora cada sección automáticamente.",
+        "tags": ["Plantillas profesionales", "Optimización ATS", "Exportar PDF"]
       },
-      "interviews": {
-        "title": "Práctica de Entrevistas",
-        "description": "Simula entrevistas reales y recibe feedback instantáneo"
+      "diagnostic": {
+        "title": "Diagnóstico vocacional",
+        "description": "Descubre tu perfil profesional con análisis RIASEC y recibe recomendaciones personalizadas."
+      },
+      "interview": {
+        "title": "Simulador de entrevistas",
+        "description": "Practica con un entrevistador IA que adapta preguntas a tu industria y da feedback en tiempo real."
       },
       "opportunities": {
-        "title": "Oportunidades Personalizadas",
-        "description": "Encuentra trabajos que coincidan con tu perfil"
+        "title": "Oportunidades que encajan contigo",
+        "description": "Nuestro algoritmo cruza tu perfil con miles de ofertas para mostrarte solo las que realmente coinciden con tus habilidades y objetivos.",
+        "tags": ["Match inteligente", "Filtros avanzados", "Alertas personalizadas"]
       }
+    },
+    "how": {
+      "label": "Cómo funciona",
+      "title": "De la preparación a la oferta, en tres pasos",
+      "step1Title": "Descubre tu perfil",
+      "step1Desc": "Completa un diagnóstico inteligente que identifica tus fortalezas, intereses y el tipo de roles donde más puedes destacar.",
+      "step2Title": "Prepárate con IA",
+      "step2Desc": "Construye un CV optimizado y practica entrevistas con retroalimentación personalizada en tiempo real.",
+      "step3Title": "Conecta con oportunidades",
+      "step3Desc": "Recibe ofertas laborales alineadas a tu perfil y postula con un CV adaptado a cada posición."
+    },
+    "deepDive": {
+      "cvLabel": "CV Builder",
+      "cvTitle": "Tu mejor versión profesional, en minutos",
+      "cvDesc": "No más horas luchando con el formato. Nuestro editor inteligente analiza tu experiencia y genera un CV que pasa los filtros ATS y captura la atención de reclutadores.",
+      "cvPoints": ["Sugerencias de mejora con IA", "Adaptación por industria", "Exportación en PDF profesional"],
+      "interviewLabel": "Entrevistas IA",
+      "interviewTitle": "Practica hasta sentir confianza total",
+      "interviewDesc": "Nuestro simulador reproduce escenarios reales de entrevista adaptados a tu rol e industria. Recibe retroalimentación inmediata sobre tus respuestas.",
+      "interviewPoints": ["Preguntas contextuales por rol", "Análisis de respuestas en tiempo real", "Historial de sesiones y progreso"],
+      "interviewerAI": "Entrevistador IA"
+    },
+    "testimonials": {
+      "label": "Testimonios",
+      "title": "Historias reales de transformación",
+      "t1Name": "Valentina S.",
+      "t1Role": "Estudiante de Ingeniería",
+      "t1Text": "No sabía cómo armar mi CV sin experiencia. MoonJab me guió paso a paso y el diagnóstico RIASEC me ayudó a entender en qué roles encajaba mejor.",
+      "t2Name": "Diego L.",
+      "t2Role": "Desarrollador Junior",
+      "t2Text": "Practiqué entrevistas con la IA hasta sentirme seguro. En mi primera entrevista real respondí con una confianza que nunca había tenido.",
+      "t3Name": "Camila R.",
+      "t3Role": "Analista de Marketing",
+      "t3Text": "Usé el modo invitado primero para probar. En una semana me suscribí porque el match de oportunidades me mostró vacantes que realmente se alineaban con mi perfil."
+    },
+    "pricing": {
+      "label": "Precios",
+      "title": "Un plan simple, sin sorpresas",
+      "subtitle": "Accede a todas las herramientas por un precio accesible. Prueba gratis en modo invitado antes de decidir.",
+      "guestMode": "Modo invitado",
+      "guestDesc": "Explora las funciones básicas",
+      "forever": "Para siempre",
+      "guestFeatures": ["1 plantilla de CV", "Oportunidades genéricas", "Diagnóstico básico", "Funciones limitadas"],
+      "tryFree": "Probar gratis",
+      "recommended": "Recomendado",
+      "proDesc": "Todo lo que necesitas",
+      "billedMonthly": "Facturado mensualmente",
+      "proFeatures": ["Todas las plantillas de CV", "Entrevistas ilimitadas con IA", "Oportunidades personalizadas", "Match score inteligente", "Diagnóstico completo RIASEC", "Exportación PDF ilimitada"],
+      "startNow": "Comenzar ahora"
+    },
+    "cta": {
+      "title": "Tu próximo paso profesional empieza aquí",
+      "subtitle": "Únete a miles de profesionales que ya transformaron su carrera con MoonJab.",
+      "createAccount": "Crear cuenta",
+      "tryAndPass": "Pruébalo y pasa los filtros"
+    },
+    "footer": {
+      "tagline": "Empleabilidad impulsada por IA.",
+      "pricing": "Precios",
+      "about": "Nosotros",
+      "blog": "Blog",
+      "help": "Ayuda",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "rights": "© 2025 MoonJab. Todos los derechos reservados."
     }
   },
   "onboarding": {
