@@ -101,9 +101,15 @@ const Pricing = () => {
           <OfficialLogo size="md" to="/" />
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button size="sm" className="h-8 text-sm" onClick={handleSubscribe} disabled={loading}>
-              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Suscribirse'}
-            </Button>
+            {isProActive ? (
+              <Button size="sm" variant="outline" className="h-8 text-sm gap-1" onClick={handleManage} disabled={loading}>
+                <Crown className="h-3.5 w-3.5" /> Gestionar plan
+              </Button>
+            ) : (
+              <Button size="sm" className="h-8 text-sm" onClick={handleSubscribe} disabled={loading}>
+                {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Suscribirse'}
+              </Button>
+            )}
           </div>
         </div>
       </nav>
