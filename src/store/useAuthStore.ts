@@ -97,6 +97,7 @@ export const useAuthStore = create<AuthState>()(
           email: '',
           avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=TrialUser',
           plan: 'trial',
+          accessRole: 'trial_user',
           createdAt: new Date(),
           lastLogin: new Date(),
           lastActiveDate: new Date(),

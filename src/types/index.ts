@@ -1,9 +1,12 @@
+export type AccessRole = 'trial_user' | 'free_user' | 'premium_user';
+
 export interface User {
   id: string;
   name: string;
   email: string;
   avatar?: string;
   plan: 'trial' | 'free' | 'premium';
+  accessRole: AccessRole;
   trialActive?: boolean;
   trialEndsAt?: Date;
   createdAt: Date;

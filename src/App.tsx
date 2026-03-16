@@ -31,7 +31,6 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AdminRoute } from "./components/AdminRoute";
 
-// Lazy load heavy components for code splitting
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const CVList = lazy(() => import("./pages/CVList"));
@@ -54,6 +53,23 @@ function AuthSyncWrapper({ children }: { children: React.ReactNode }) {
   useNotificationTriggers();
   return <>{children}</>;
 }
+
+const dashboardChildren = (
+  <>
+    <Route index element={<Dashboard />} />
+    <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+    <Route path="cvs" element={<CVList />} />
+    <Route path="cvs/:id" element={<CVBuilder />} />
+    <Route path="interviews" element={<InterviewLanding />} />
+    <Route path="interviews/setup" element={<InterviewSetup />} />
+    <Route path="interviews/session" element={<InterviewSession />} />
+    <Route path="interviews/results" element={<InterviewResults />} />
+    <Route path="interviews/ai" element={<InterviewAI />} />
+    <Route path="opportunities" element={<Opportunities />} />
+    <Route path="opportunities/:id" element={<OpportunityDetail />} />
+    <Route path="settings" element={<Settings />} />
+  </>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -82,32 +98,16 @@ const App = () => (
                 <Route path="/help" element={<Help />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
-                <Route path="/onboarding" element={
-                  <ProtectedRoute>
-                    <Onboarding />
-                  </ProtectedRoute>
-                } />
-            
-                {/* Dashboard routes with shared sidebar layout */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <DashboardLayout />
-                  </ProtectedRoute>
-                }>
-                  <Route index element={<Dashboard />} />
-                  <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-                  <Route path="cvs" element={<CVList />} />
-                  <Route path="cvs/:id" element={<CVBuilder />} />
-                  <Route path="interviews" element={<InterviewLanding />} />
-                  <Route path="interviews/setup" element={<InterviewSetup />} />
-                  <Route path="interviews/session" element={<InterviewSession />} />
-                  <Route path="interviews/results" element={<InterviewResults />} />
-                  <Route path="interviews/ai" element={<InterviewAI />} />
-                  <Route path="opportunities" element={<Opportunities />} />
-                  <Route path="opportunities/:id" element={<OpportunityDetail />} />
-                  <Route path="settings" element={<Settings />} />
+                <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+
+                <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+                  {dashboardChildren}
                 </Route>
-            
+
+                <Route path="/usuariostest/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+                  {dashboardChildren}
+                </Route>
+
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

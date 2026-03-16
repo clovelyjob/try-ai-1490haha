@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
 import { supabase } from '@/integrations/supabase/client';
+import { mapDashboardPath } from '@/lib/authRouting';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -15,14 +16,13 @@ export const ProtectedRoute = ({ children, requireOnboarding = false }: Protecte
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      await supabase.auth.getSession();
       setChecking(false);
     };
-    
-    checkAuth();
+
+    void checkAuth();
   }, []);
 
-  // Mostrar loading mientras verifica la sesión
   if (checking) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -31,12 +31,20 @@ export const ProtectedRoute = ({ children, requireOnboarding = false }: Protecte
     );
   }
 
-  // Si no está autenticado y no es modo invitado, redirigir a login
   if (!isAuthenticated && !isGuestMode) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Si requiere onboarding completado y no lo tiene, redirigir a onboarding
+  const accessRole = user?.accessRole || (isGuestMode ? 'trial_user' : 'free_user');
+  const isTrialRoute = location.pathname.startsWith('/usuariostest/dashboard');
+  const shouldBeOnTrialRoute = accessRole === 'trial_user';
+
+  if (location.pathname.startsWith('/dashboard') || isTrialRoute) {
+    if (shouldBeOnTrialRoute !== isTrialRoute) {
+      return <Navigate to={mapDashboardPath(location.pathname, accessRole)} replace />;
+    }
+  }
+
   if (requireOnboarding && user && !user.onboardingCompleted && !isGuestMode) {
     return <Navigate to="/onboarding" replace />;
   }
