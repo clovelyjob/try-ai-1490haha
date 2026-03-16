@@ -20,7 +20,11 @@
     "none": "Ninguno",
     "optional": "Opcional",
     "required": "Requerido",
-    "or": "o"
+    "or": "o",
+    "articles": "artículos",
+    "monthly": "Mensual",
+    "includes": "Incluye",
+    "backToHome": "← Volver al inicio"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -49,11 +53,14 @@
   },
   "opportunities": {
     "title": "Oportunidades",
-    "subtitle": "Encuentra tu próximo trabajo ideal",
-    "search": "Buscar oportunidades...",
+    "subtitle": "Trabajos reales de LinkedIn, Indeed, Glassdoor y más",
+    "search": "Buscar por título, empresa...",
+    "searchLocation": "Ciudad, país...",
+    "searchBtn": "Buscar",
     "filters": "Filtros",
     "clearFilters": "Limpiar filtros",
     "noResults": "No se encontraron oportunidades",
+    "noResultsDesc": "Intenta con otros términos de búsqueda o ajusta los filtros",
     "location": "Ubicación",
     "salary": "Salario",
     "type": "Tipo",
@@ -64,7 +71,20 @@
     "contract": "Contrato",
     "internship": "Pasantía",
     "saved": "Guardadas",
-    "applied": "Aplicadas"
+    "applied": "Aplicadas",
+    "refresh": "Actualizar",
+    "refreshed": "Oportunidades actualizadas",
+    "refreshedDesc": "Se han cargado las últimas ofertas disponibles",
+    "searching": "Buscando...",
+    "resultsCount": "{{count}} oportunidad(es) encontrada(s)",
+    "loadMore": "Cargar más oportunidades",
+    "rateLimited": "Límite de búsquedas alcanzado. Mostrando datos de ejemplo.",
+    "loadError": "No se pudieron cargar trabajos reales. Mostrando datos de ejemplo.",
+    "savedToast": "Oferta guardada",
+    "savedToastDesc": "Puedes verla en tu lista de guardadas",
+    "removedToast": "Oferta eliminada",
+    "removedToastDesc": "Se ha eliminado de tus guardados",
+    "unlimitedFeature": "oportunidades ilimitadas"
   },
   "cv": {
     "title": "Constructor de CV",
@@ -109,7 +129,8 @@
       "benefitFeedback": "Retroalimentación Instantánea",
       "benefitFeedbackDesc": "Análisis detallado de tus respuestas con sugerencias de mejora.",
       "benefitImprovement": "Mejora Continua",
-      "benefitImprovementDesc": "Rastrea tu progreso e identifica áreas de oportunidad."
+      "benefitImprovementDesc": "Rastrea tu progreso e identifica áreas de oportunidad.",
+      "aiInterviews": "Entrevistas con IA"
     },
     "setup": {
       "title": "Práctica de Entrevista con IA",
@@ -155,17 +176,47 @@
       "analyzing": "Analizando...",
       "finish": "Finalizar entrevista",
       "emptyAnswer": "Respuesta vacía",
-      "emptyAnswerDesc": "Por favor escribe una respuesta antes de continuar"
+      "emptyAnswerDesc": "Por favor escribe una respuesta antes de continuar",
+      "exit": "Salir",
+      "exitConfirm": "¿Seguro que quieres salir? Se perderá tu progreso.",
+      "next": "Siguiente",
+      "finalize": "Finalizar",
+      "transcription": "Transcripción:",
+      "transcriptionComplete": "Transcripción completada",
+      "transcriptionCompleteDesc": "Tu respuesta ha sido transcrita. Revísala y envíala.",
+      "recordingSaved": "Grabación guardada",
+      "transcriptionError": "Error de transcripción",
+      "transcriptionErrorDesc": "Escribe tu respuesta basándote en lo que dijiste.",
+      "processing": "Procesando...",
+      "processingRecording": "Procesando grabación...",
+      "writeOrRecord": "Escribe tu respuesta aquí o grábate hablando...",
+      "writeOrEdit": "Puedes escribir directamente o grabar un video y luego editar el texto",
+      "starTip": "Tip: Usa el método STAR (Situación, Tarea, Acción, Resultado) para respuestas de comportamiento",
+      "sampleAnswer": "Ver ejemplo de respuesta",
+      "lastFeedback": "Última retroalimentación"
     },
     "results": {
       "title": "Resultados de la Entrevista",
+      "completed": "¡Entrevista Completada!",
+      "answeredQuestions": "Has respondido {{count}} preguntas",
+      "finalScore": "Puntuación Final",
+      "excellent": "Excelente",
+      "good": "Bueno",
+      "needsImprovement": "Necesitas mejorar",
+      "categoryBreakdown": "Desglose por Categoría",
+      "clarity": "Claridad",
+      "structure": "Estructura",
+      "evidence": "Evidencia",
+      "language": "Lenguaje",
+      "culture": "Cultura",
       "score": "Puntuación",
       "feedback": "Feedback",
       "strengths": "Fortalezas",
       "improvements": "Áreas de mejora",
       "recommendations": "Recomendaciones",
       "tryAgain": "Practicar de nuevo",
-      "backToInterviews": "Volver a entrevistas"
+      "backToInterviews": "Ver Historial",
+      "saveAndContinue": "Guardar y Continuar"
     }
   },
   "settings": {
@@ -239,7 +290,7 @@
   "auth": {
     "login": {
       "title": "Iniciar sesión",
-      "subtitle": "Bienvenido de nuevo a Clovely",
+      "subtitle": "Bienvenido de nuevo a MoonJab",
       "email": "Correo electrónico",
       "password": "Contraseña",
       "forgotPassword": "¿Olvidaste tu contraseña?",
@@ -249,7 +300,7 @@
     },
     "register": {
       "title": "Crear cuenta",
-      "subtitle": "Únete a Clovely y potencia tu carrera",
+      "subtitle": "Únete a MoonJab y potencia tu carrera",
       "name": "Nombre completo",
       "email": "Correo electrónico",
       "password": "Contraseña",
@@ -372,7 +423,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "¡Bienvenido a Clovely!",
+      "title": "¡Bienvenido a MoonJab!",
       "subtitle": "Vamos a conocerte mejor para personalizar tu experiencia"
     },
     "quiz": {
@@ -388,6 +439,149 @@
       "careers": "Carreras recomendadas",
       "continue": "Continuar al dashboard"
     }
+  },
+  "help": {
+    "title": "Centro de Ayuda",
+    "subtitle": "¿Cómo podemos ayudarte hoy?",
+    "searchPlaceholder": "Buscar en la ayuda...",
+    "browseByCategory": "Explora por categoría",
+    "faqTitle": "Preguntas Frecuentes",
+    "moreResources": "Más recursos",
+    "notFound": "¿No encontraste lo que buscabas?",
+    "notFoundDesc": "Nuestro equipo está aquí para ayudarte",
+    "categories": {
+      "careerDiagnosis": "Diagnóstico de Carrera",
+      "careerDiagnosisDesc": "Entiende cómo funciona el test RIASEC",
+      "cvCreation": "Creación de CV",
+      "cvCreationDesc": "Guías para optimizar tu currículum",
+      "interviewSim": "Simulador de Entrevistas",
+      "interviewSimDesc": "Aprovecha al máximo las prácticas",
+      "accountBilling": "Cuenta y Facturación",
+      "accountBillingDesc": "Planes, pagos y configuración"
+    },
+    "faqs": {
+      "q1": "¿Cómo funciona el diagnóstico de carrera?",
+      "a1": "Nuestro diagnóstico utiliza el modelo RIASEC (Holland Codes), un framework científico reconocido mundialmente y utilizado por el Departamento de Trabajo de EE.UU. Responderás 42 preguntas sobre tus intereses y preferencias, y recibirás un perfil personalizado con tu código Holland junto con recomendaciones de carreras que mejor se adaptan a tu personalidad profesional.",
+      "q2": "¿Puedo cancelar mi suscripción en cualquier momento?",
+      "a2": "Sí, puedes cancelar tu suscripción cuando quieras desde la sección de Configuración > Suscripción. No hay penalizaciones ni preguntas. Tu acceso continuará hasta el final del período de facturación actual. Si cancelas dentro de los primeros 7 días, recibirás un reembolso completo.",
+      "q3": "¿Cómo exporto mi CV a PDF?",
+      "a3": "Una vez que hayas creado tu CV en el editor, simplemente haz clic en el botón \"Exportar\" en la esquina superior derecha. Tu CV se descargará automáticamente en formato PDF, optimizado para sistemas ATS y listo para enviar a empleadores.",
+      "q4": "¿Las oportunidades de trabajo son reales?",
+      "a4": "Sí, todas las oportunidades provienen de fuentes verificadas como LinkedIn, Indeed, Glassdoor y otras plataformas de empleo reconocidas. Cada oportunidad incluye un enlace directo para aplicar en la fuente original.",
+      "q5": "¿Cómo funciona el simulador de entrevistas?",
+      "a5": "Nuestro simulador genera 10 preguntas realistas basadas en el puesto, nivel de experiencia y descripción del trabajo que proporciones. Puedes responder por texto o video. Nuestra IA analiza tus respuestas y te da feedback detallado sobre contenido, estructura, y áreas de mejora específicas.",
+      "q6": "¿Qué métodos de pago aceptan?",
+      "a6": "Aceptamos todas las tarjetas principales (Visa, Mastercard, American Express), PayPal, y en algunos países transferencia bancaria. Todos los pagos son procesados de forma segura a través de Stripe.",
+      "q7": "¿Hay descuento para estudiantes?",
+      "a7": "Sí, ofrecemos 50% de descuento para estudiantes con email .edu verificado. Contáctanos en moonjab.com@gmail.com con tu correo institucional para obtener tu código de descuento.",
+      "q8": "¿Mis datos están seguros?",
+      "a8": "Absolutamente. Utilizamos encriptación de nivel bancario (256-bit SSL), almacenamiento seguro en la nube, y nunca vendemos ni compartimos tu información personal. Cumplimos con GDPR y las mejores prácticas de privacidad de datos."
+    },
+    "resources": {
+      "guides": "Guías paso a paso",
+      "guidesDesc": "Tutoriales detallados para cada función",
+      "videos": "Video tutoriales",
+      "videosDesc": "Aprende visualmente en minutos",
+      "community": "Comunidad",
+      "communityDesc": "Conecta con otros profesionales"
+    },
+    "contact": {
+      "liveChat": "Chat en vivo",
+      "liveChatDesc": "Habla con nuestro asistente de voz con IA. Disponible 24/7.",
+      "startChat": "Iniciar chat",
+      "email": "Envíanos un email",
+      "emailDesc": "Escríbenos y te responderemos en menos de 24 horas hábiles."
+    }
+  },
+  "about": {
+    "badge": "Nuestra historia",
+    "heroTitle": "Construimos el puente entre",
+    "heroWho": "quién eres",
+    "heroAnd": "y",
+    "heroWhoYouCanBe": "quién puedes ser",
+    "heroDesc": "MoonJab nació de una frustración universal: encontrar el trabajo ideal no debería ser un proceso tan confuso. Decidimos cambiarlo.",
+    "missionTitle": "Nuestra misión",
+    "missionText": "\"Democratizar el acceso a herramientas de desarrollo profesional de clase mundial, para que cada persona pueda descubrir y alcanzar su máximo potencial.\"",
+    "stats": {
+      "professionals": "Profesionales transformados",
+      "cvs": "CVs creados",
+      "satisfaction": "Tasa de satisfacción",
+      "countries": "Países alcanzados"
+    },
+    "valuesTitle": "Lo que nos define",
+    "valuesSubtitle": "Cuatro principios que guían cada decisión",
+    "values": {
+      "clarity": "Claridad",
+      "clarityDesc": "Creemos que cada persona merece entender exactamente cuál es su camino ideal. Sin confusión, sin ruido.",
+      "empathy": "Empatía",
+      "empathyDesc": "Construimos para personas reales con miedos y aspiraciones reales. Cada feature nace de escuchar.",
+      "action": "Acción",
+      "actionDesc": "No basta con soñar. Te damos las herramientas para pasar de la idea al resultado, rápido.",
+      "community": "Comunidad",
+      "communityDesc": "El éxito se multiplica cuando se comparte. Creamos conexiones que transforman carreras."
+    },
+    "ctaTitle": "¿Quieres ser parte de esta historia?",
+    "ctaDesc": "Empieza hoy y transforma tu carrera con MoonJab.",
+    "ctaBtn": "Comienza gratis"
+  },
+  "pricing": {
+    "title": "Planes simples, sin sorpresas",
+    "subtitle": "Elige el plan que se adapte a tus metas. Cambia o cancela cuando quieras.",
+    "managePlan": "Gestionar plan",
+    "subscribe": "Suscribirse",
+    "portalError": "Error al abrir el portal",
+    "guestMode": "Modo invitado",
+    "guestDesc": "Explora las funciones básicas",
+    "guestFeatures": ["1 plantilla de CV", "Oportunidades genéricas", "Diagnóstico básico", "Funciones limitadas"],
+    "tryFree": "Probar gratis",
+    "proName": "Pro",
+    "proDesc": "Todo lo que necesitas para crecer",
+    "proFeatures": ["Todas las plantillas de CV", "Entrevistas ilimitadas con IA", "Oportunidades personalizadas", "Match score inteligente", "Coach IA personalizado 24/7", "Diagnóstico completo RIASEC", "Exportación PDF ilimitada", "Soporte prioritario"],
+    "proSubscribe": "Suscribirse por $15/mes",
+    "currentPlan": "Plan actual",
+    "yourCurrentPlan": "Tu plan actual",
+    "recommended": "Recomendado",
+    "perMonth": "/mes",
+    "faqTitle": "Preguntas frecuentes",
+    "faqs": {
+      "q1": "¿Puedo cancelar en cualquier momento?",
+      "a1": "Sí. Puedes cancelar tu suscripción cuando quieras desde tu configuración. No hay penalizaciones ni compromisos de permanencia.",
+      "q2": "¿Qué métodos de pago aceptan?",
+      "a2": "Procesamos los pagos de forma segura a través de Stripe. Aceptamos Visa, Mastercard y las principales tarjetas de crédito y débito.",
+      "q3": "¿Qué puedo hacer en modo invitado?",
+      "a3": "Puedes explorar la plataforma con funciones limitadas: 1 plantilla de CV, oportunidades genéricas y un diagnóstico básico. Es ideal para conocer MoonJab antes de suscribirte.",
+      "q4": "¿Qué se desbloquea con el plan Pro?",
+      "a4": "Acceso a todas las plantillas de CV, entrevistas ilimitadas con IA, oportunidades personalizadas con match score, diagnóstico completo RIASEC, coach IA 24/7 y exportación PDF ilimitada.",
+      "q5": "¿Se renueva automáticamente?",
+      "a5": "Sí, la suscripción se renueva cada mes. Puedes cancelar antes de la siguiente fecha de cobro para evitar cargos futuros.",
+      "q6": "¿Mis datos están seguros?",
+      "a6": "Absolutamente. Tus datos personales y CVs están protegidos con encriptación. Nunca compartimos tu información con terceros."
+    },
+    "ctaTitle": "Empieza hoy",
+    "ctaDesc": "Únete a miles de profesionales que ya dieron el primer paso.",
+    "backToHome": "Volver al inicio"
+  },
+  "payment": {
+    "title": "Completa tu suscripción",
+    "subtitle": "Revisa los detalles de tu plan antes de continuar",
+    "successTitle": "¡Bienvenido a Pro!",
+    "successDesc": "Tu suscripción está activa. Redirigiendo al dashboard...",
+    "successToast": "¡Pago completado! Tu plan Pro está activo.",
+    "cancelledToast": "El pago no se completó. Puedes intentarlo de nuevo.",
+    "cancelledTitle": "Pago no completado",
+    "cancelledDesc": "Tu suscripción no fue procesada. Puedes intentarlo de nuevo cuando quieras.",
+    "alreadyPro": "Ya tienes el plan Pro activo",
+    "loginFirst": "Inicia sesión para continuar con el pago",
+    "paymentError": "Error al iniciar el pago",
+    "planPro": "Plan Pro",
+    "paymentSummary": "Resumen del pago",
+    "proMonthly": "Plan Pro (mensual)",
+    "totalToday": "Total hoy",
+    "continueToPayment": "Continuar al pago",
+    "securePayment": "Pago seguro con Stripe",
+    "cancelAnytime": "Cancela cuando quieras",
+    "backToPlans": "Volver a planes",
+    "proFeatures": ["Todas las plantillas de CV", "Entrevistas ilimitadas con IA", "Oportunidades personalizadas con match score", "Coach IA personalizado 24/7", "Diagnóstico completo RIASEC", "Exportación PDF ilimitada", "Soporte prioritario"]
   },
   "errors": {
     "generic": "Ha ocurrido un error",
