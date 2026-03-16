@@ -145,8 +145,8 @@ const Pricing = () => {
                 }`}>
                   {plan.popular && (
                     <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-medium mb-4 w-fit">
-                      <Sparkles className="h-2.5 w-2.5" />
-                      Recomendado
+                      {isProActive ? <Crown className="h-2.5 w-2.5" /> : <Sparkles className="h-2.5 w-2.5" />}
+                      {isProActive ? 'Tu plan actual' : 'Recomendado'}
                     </div>
                   )}
 
