@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
   ArrowRight, Star, Instagram, CheckCircle, Compass, BarChart3,
   FileText, MessageSquare, Target, TrendingUp, Shield,
@@ -11,6 +11,7 @@ import {
 'lucide-react';
 import { OfficialLogo } from '@/components/OfficialLogo';
 import { useRef } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
