@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const AGENT_ID = 'agent_7401kbztejrbf3bv8jandebyk2r8';
+const AGENT_ID = 'agent_2301kkqfynhpeb690ee92xnbcezk';
 
 export function ElevenLabsWidget() {
   return <elevenlabs-convai agent-id={AGENT_ID} />;
