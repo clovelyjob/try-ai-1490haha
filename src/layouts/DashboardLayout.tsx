@@ -29,7 +29,20 @@ export default function DashboardLayout() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Auto-check subscription status and sync with user store
-  const { subscribed, productId } = useSubscription();
+  const { subscribed, productId, checkSubscription } = useSubscription();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('subscription') !== 'success') return;
+
+    void checkSubscription();
+    toast.success('Suscripción verificada');
+
+    params.delete('subscription');
+    const nextSearch = params.toString();
+    window.history.replaceState({}, '', `${location.pathname}${nextSearch ? `?${nextSearch}` : ''}`);
+  }, [location.pathname, location.search, checkSubscription]);
+
   useEffect(() => {
     if (!user || user.id.startsWith('guest_')) return;
     const isPro = subscribed && productId === MOONJAB_PRO.product_id;
@@ -38,7 +51,7 @@ export default function DashboardLayout() {
     } else if (!isPro && user.plan === 'premium') {
       updateUser({ plan: 'free', accessRole: 'free_user' });
     }
-  }, [subscribed, productId, user?.id, user?.plan]);
+  }, [subscribed, productId, user?.id, user?.plan, updateUser]);
 
   const dashboardBasePath = getDashboardBasePath(user?.accessRole || 'free_user');
   const isPremium = user?.plan === 'premium';

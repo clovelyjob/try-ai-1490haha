@@ -14,37 +14,57 @@ interface SubscriptionState {
   loading: boolean;
 }
 
+const initialState: SubscriptionState = {
+  subscribed: false,
+  productId: null,
+  subscriptionEnd: null,
+  loading: false,
+};
+
 export function useSubscription() {
   const { isAuthenticated } = useAuthStore();
-  const [state, setState] = useState<SubscriptionState>({
-    subscribed: false,
-    productId: null,
-    subscriptionEnd: null,
-    loading: false,
-  });
+  const [state, setState] = useState<SubscriptionState>(initialState);
 
   const checkSubscription = useCallback(async () => {
-    if (!isAuthenticated) return;
-    setState(s => ({ ...s, loading: true }));
+    if (!isAuthenticated) {
+      setState(initialState);
+      return null;
+    }
+
+    setState((current) => ({ ...current, loading: true }));
+
     try {
       const { data, error } = await supabase.functions.invoke('check-subscription');
       if (error) throw error;
-      setState({
+
+      const nextState = {
         subscribed: data?.subscribed ?? false,
         productId: data?.product_id ?? null,
         subscriptionEnd: data?.subscription_end ?? null,
         loading: false,
-      });
+      };
+
+      setState(nextState);
+      return data;
     } catch {
-      setState(s => ({ ...s, loading: false }));
+      setState((current) => ({ ...current, loading: false }));
+      return null;
     }
   }, [isAuthenticated]);
 
   useEffect(() => {
-    checkSubscription();
-    const interval = setInterval(checkSubscription, 60000);
+    if (!isAuthenticated) {
+      setState(initialState);
+      return;
+    }
+
+    void checkSubscription();
+    const interval = setInterval(() => {
+      void checkSubscription();
+    }, 60000);
+
     return () => clearInterval(interval);
-  }, [checkSubscription]);
+  }, [checkSubscription, isAuthenticated]);
 
   const openCheckout = async () => {
     const { data, error } = await supabase.functions.invoke('create-checkout');

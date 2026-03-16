@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useDataPersistence } from './useDataPersistence';
+import { MOONJAB_PRO } from './useSubscription';
 import type { User, AccessRole } from '@/types';
 
 const accessRoleToPlan = (accessRole: AccessRole): User['plan'] => {
@@ -14,6 +15,10 @@ const accessRoleToPlan = (accessRole: AccessRole): User['plan'] => {
     default:
       return 'free';
   }
+};
+
+const isActiveMoonjabPro = (data: { subscribed?: boolean; product_id?: string | null } | null | undefined) => {
+  return Boolean(data?.subscribed && data?.product_id === MOONJAB_PRO.product_id);
 };
 
 export function useAuthSync() {
@@ -63,7 +68,11 @@ export function useAuthSync() {
 
   async function fetchUserProfile(userId: string) {
     try {
-      const [{ data: profile, error: profileError }, { data: accessLevel, error: accessError }] = await Promise.all([
+      const [
+        { data: profile, error: profileError },
+        { data: accessLevel, error: accessError },
+        { data: subscriptionData, error: subscriptionError },
+      ] = await Promise.all([
         supabase
           .from('profiles')
           .select('*')
@@ -74,11 +83,19 @@ export function useAuthSync() {
           .select('access_level')
           .eq('user_id', userId)
           .maybeSingle(),
+        supabase.functions.invoke('check-subscription'),
       ]);
 
       let accessRole = (accessLevel?.access_level || 'free_user') as AccessRole;
+      const isPremiumSubscription = !subscriptionError && isActiveMoonjabPro(subscriptionData);
 
-      if (!accessLevel) {
+      if (isPremiumSubscription) {
+        accessRole = 'premium_user';
+      } else if (!subscriptionError && accessRole === 'premium_user') {
+        accessRole = 'free_user';
+      }
+
+      if (!accessLevel && !isPremiumSubscription) {
         const { data: insertedAccess, error: insertAccessError } = await supabase
           .from('user_access_levels')
           .insert({ user_id: userId, access_level: 'free_user' })
@@ -92,6 +109,10 @@ export function useAuthSync() {
 
       if (accessError && accessError.code !== 'PGRST116') {
         console.warn('Error fetching user access level:', accessError.message);
+      }
+
+      if (subscriptionError) {
+        console.warn('Error checking subscription status:', subscriptionError.message);
       }
 
       if (profileError) {
