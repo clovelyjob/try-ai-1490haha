@@ -3,7 +3,7 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-  plan: 'free' | 'premium';
+  plan: 'trial' | 'free' | 'premium';
   trialActive?: boolean;
   trialEndsAt?: Date;
   createdAt: Date;
