@@ -15,12 +15,13 @@ const MOONJAB_PRO = {
 
 const Pricing = () => {
   const [loading, setLoading] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubscribe = async () => {
-    if (!isAuthenticated) {
-      toast.info('Crea una cuenta primero para suscribirte');
-      window.location.href = '/registro';
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast.info('Inicia sesión o crea una cuenta para suscribirte');
+      navigate('/auth');
       return;
     }
     setLoading(true);
