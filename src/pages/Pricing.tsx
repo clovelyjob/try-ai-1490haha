@@ -79,8 +79,8 @@ const Pricing = () => {
         'Exportación PDF ilimitada',
         'Soporte prioritario',
       ],
-      cta: 'Suscribirse por $15/mes',
-      action: handleSubscribe,
+      cta: isProActive ? 'Plan actual' : 'Suscribirse por $15/mes',
+      action: isProActive ? handleManage : handleSubscribe,
       popular: true,
     },
   ];
