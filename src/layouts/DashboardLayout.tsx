@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
 import { UpgradeModal } from '@/components/UpgradeModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -117,7 +118,7 @@ export default function DashboardLayout() {
       <nav className="flex-1 overflow-y-auto p-2.5 space-y-0.5">{mainNav.map(item => <NavLink key={item.path} item={item} />)}</nav>
       <div className="p-2.5 border-t border-border/40 space-y-0.5">
         {bottomNav.map(item => <NavLink key={item.path} item={item} />)}
-        <div className="px-1 pt-1"><ThemeToggle /></div>
+        <div className="px-1 pt-1 flex items-center gap-1"><LanguageToggle /><ThemeToggle /></div>
         {!isPremium && !isTrial && <Button className="w-full text-xs h-8 mt-1" size="sm" onClick={() => { setUpgradeModalOpen(true); setDrawerOpen(false); }}><ArrowUpRight className="mr-1 h-3 w-3" /> Upgrade</Button>}
       </div>
     </div>
@@ -141,7 +142,7 @@ export default function DashboardLayout() {
           const Icon = item.icon;
           return <Tooltip key={item.path}><TooltipTrigger asChild><Link to={item.path} className={cn('flex items-center justify-center p-2 rounded-lg transition-all', active ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50')}><Icon className="h-[18px] w-[18px]" /></Link></TooltipTrigger><TooltipContent side="right" className="text-xs">{item.label}</TooltipContent></Tooltip>;
         })}
-        <div className="flex justify-center pt-0.5"><ThemeToggle /></div>
+        <div className="flex justify-center gap-1 pt-0.5"><LanguageToggle /><ThemeToggle /></div>
       </div>
     </aside>
   );
