@@ -524,6 +524,30 @@ export type Database = {
           },
         ]
       }
+      user_access_levels: {
+        Row: {
+          access_level: Database["public"]["Enums"]["access_tier"]
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_level?: Database["public"]["Enums"]["access_tier"]
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_level?: Database["public"]["Enums"]["access_tier"]
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -584,6 +608,7 @@ export type Database = {
       is_admin: { Args: { user_id_param: string }; Returns: boolean }
     }
     Enums: {
+      access_tier: "trial_user" | "free_user" | "premium_user"
       app_role: "admin" | "user" | "university_admin"
       experience_level:
         | "sin_experiencia"
@@ -718,6 +743,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      access_tier: ["trial_user", "free_user", "premium_user"],
       app_role: ["admin", "user", "university_admin"],
       experience_level: [
         "sin_experiencia",
