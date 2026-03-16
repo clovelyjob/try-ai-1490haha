@@ -94,6 +94,7 @@ const Dashboard = () => {
           </div>
           <div className="space-y-6">
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.2 }}><ProgressBar cvCompleted={cvCompletionScore} interviewsPracticed={interviewsPracticed} opportunitiesSaved={opportunitiesSaved} /></motion.div>
+            {!isGuestMode && <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.22 }}><BillingStatusCard /></motion.div>}
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.25 }}><RecommendedResources role={profile?.rolActual} /></motion.div>
           </div>
         </div>
