@@ -26,12 +26,6 @@ const fadeUp = {
 
 const Landing = () => {
   const { isAuthenticated, isGuestMode } = useAuthStore();
-  
-  // Redirect authenticated users to dashboard
-  if (isAuthenticated && !isGuestMode) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -39,6 +33,11 @@ const Landing = () => {
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
+  // Redirect authenticated users to dashboard
+  if (isAuthenticated && !isGuestMode) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
