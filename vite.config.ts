@@ -29,13 +29,13 @@ export default defineConfig(({ mode }) => ({
         scope: "./",
         icons: [
           {
-            src: "/moonjab-logo.png",
+            src: "./moonjab-logo.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable"
           },
           {
-            src: "/moonjab-logo.png",
+            src: "./moonjab-logo.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"
@@ -48,22 +48,22 @@ export default defineConfig(({ mode }) => ({
             name: "Practicar Entrevista",
             short_name: "Entrevistas",
             description: "Inicia una sesión de práctica de entrevista",
-            url: "/dashboard/interviews",
-            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
+            url: "./dashboard/interviews",
+            icons: [{ src: "./moonjab-logo.png", sizes: "192x192" }]
           },
           {
             name: "Crear CV",
             short_name: "CV",
             description: "Crea o edita tu CV profesional",
-            url: "/dashboard/cv",
-            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
+            url: "./dashboard/cv",
+            icons: [{ src: "./moonjab-logo.png", sizes: "192x192" }]
           },
           {
             name: "Oportunidades",
             short_name: "Jobs",
             description: "Explora oportunidades de trabajo",
-            url: "/dashboard/opportunities",
-            icons: [{ src: "/moonjab-logo.png", sizes: "192x192" }]
+            url: "./dashboard/opportunities",
+            icons: [{ src: "./moonjab-logo.png", sizes: "192x192" }]
           }
         ]
       },
