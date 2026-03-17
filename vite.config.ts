@@ -25,8 +25,8 @@ export default defineConfig(({ mode }) => ({
         background_color: "#ffffff",
         display: "standalone",
         orientation: "portrait",
-        start_url: "/",
-        scope: "/",
+        start_url: "./",
+        scope: "./",
         icons: [
           {
             src: "/moonjab-logo.png",
